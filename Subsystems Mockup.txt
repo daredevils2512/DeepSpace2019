@@ -1,0 +1,33 @@
+Subsystems
+
+Drivetrain
+	- 2 Encoders (128/256)
+	- 6 Motors (TalonSRXs)
+	- Shifter (Festo)
+	- 1? Camera(s) (Microsoft Lifecam/Microsoft Cinema)
+	- Illumination/Light Sensor (LEDs)
+	- 2 IR Sensors (I2C)
+Cargo
+	- Intake
+		- 2 Motors (TalonSRXs)
+		- Cylinder (1 Festo) (Up-Down)
+		- Photo-eye
+	- Lift
+		- 2? Motor(s) (TalonSRXs)
+		- 2? Encoder(s) (128/Mag)
+		- 2 Limit Switch(es)
+Cargo Hatches
+	- Intake
+		- 1 Motor (TalonSRXs)
+		- 2 Pancakes (1 Festo)
+		- Cylinder (1 Festo) (Up-Down)
+		- Photo-eye
+	- Lift
+		- 2? Motor(s) (TalonSRXs)
+		- 1? Encoder(s) (128/Mag)
+		- 2? Limit Switch(es)
+
+
+
+	Vision???
+		is this a subsytem? or does each subsytem have the abillity to provide vision information?
