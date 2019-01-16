@@ -54,12 +54,20 @@ public class OI {
   Button xButton = new JoystickButton(driver, 3);
   Button yButton = new JoystickButton(driver, 4);
 
+  public Double desensitize(Double val) {
+    Double result = val;
+    if (Math.abs(result) < 0.15) {
+			result = 0.0;
+		}
+		return result;
+	}
+
   public double getMove() {
-    return driver.getRawAxis(1);
+    return desensitize(driver.getRawAxis(1));
   }
 
   public double getTurn() {
-    return driver.getRawAxis(4);
+    return desensitize(-driver.getRawAxis(4));
   }
 
 
