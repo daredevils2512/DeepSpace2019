@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
+
+
+
 public class OI {
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
@@ -44,10 +47,30 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  Joystick driver = new Joystick(RobotMap.Joystick);
+  public Joystick driver = new Joystick(0);
 
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
-  Button xButoon = new JoystickButton(driver, 3);
+  Button xButton = new JoystickButton(driver, 3);
   Button yButton = new JoystickButton(driver, 4);
+
+  public double getMove() {
+    return driver.getRawAxis(1);
+  }
+
+  public double getTurn() {
+    return driver.getRawAxis(4);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 }

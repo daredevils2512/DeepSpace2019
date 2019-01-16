@@ -26,24 +26,24 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX leftRearTalon;
   private WPI_TalonSRX rightRearTalon;
   private DifferentialDrive drivetrain;
-  private SpeedControllerGroup leftSpeedControllerGroup;
-  private SpeedControllerGroup rightSpeedControllerGroup;
+  private SpeedControllerGroup leftTalonGroup;
+  private SpeedControllerGroup rightTalonGroup;
+
 
   public Drivetrain() {
 
-    leftTalon = new WPI_TalonSRX(RobotMap.leftTalon);    
-    rightTalon = new WPI_TalonSRX(RobotMap.rightTalon);
-    leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalon);
-    rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalon);
+    leftTalon = new WPI_TalonSRX(RobotMap.leftTalonPort);    
+    rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
+    leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
+    rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
 
-    leftSpeedControllerGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
-    rightSpeedControllerGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);    
+    leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
+    rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
         
         
-    drivetrain = new DifferentialDrive(leftSpeedControllerGroup, rightSpeedControllerGroup);
+        
+    drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     addChild("Differential Drive 1",drivetrain);
-
-
 
   }
 
@@ -52,8 +52,12 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-
-    
-
   }
+
+  public void arcadeDrive(double move, double turn) {
+    drivetrain.arcadeDrive(move, turn);
+  }
+
+
+
 }
