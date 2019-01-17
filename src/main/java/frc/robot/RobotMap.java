@@ -28,4 +28,14 @@ public class RobotMap {
   public static int leftRearTalonPort = 2;
   public static int rightTalonPort = 3;
   public static int rightRearTalonPort = 4;
+
+  public static double DESENSITIZE = 0.15;
+  /**
+   *
+   */
+
+  // private static final double D_ESENSITIZE = DESENSITIZE;
+
+  public static int bigLight = 0;
+
 }

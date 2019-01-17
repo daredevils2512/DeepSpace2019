@@ -33,7 +33,7 @@ public class OI {
 
   //// TRIGGERING COMMANDS WITH BUTTONS
   // Once you have a button, it's trivial to bind it to a button in one of
-  // three ways:
+  // three ways
 
   // Start the command when the button is pressed and let it run the command
   // until it is finished as determined by it's isFinished method.
@@ -54,12 +54,15 @@ public class OI {
   Button xButton = new JoystickButton(driver, 3);
   Button yButton = new JoystickButton(driver, 4);
 
+  
+
   public Double desensitize(Double val) {
-    Double result = val;
-    if (Math.abs(result) < 0.15) {
-			result = 0.0;
-		}
-		return result;
+
+    if(Math.abs(val) < Constants.DESENSITIZE){
+      return 0;
+    }else{
+      return val;
+    }
 	}
 
   public double getMove() {
