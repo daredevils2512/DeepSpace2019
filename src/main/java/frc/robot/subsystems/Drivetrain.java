@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -28,6 +31,8 @@ public class Drivetrain extends Subsystem {
   private DifferentialDrive drivetrain;
   private SpeedControllerGroup leftTalonGroup;
   private SpeedControllerGroup rightTalonGroup;
+  private Encoder leftEncoder;
+  private Encoder rightEncoder;
 
 
   public Drivetrain() {
@@ -36,6 +41,8 @@ public class Drivetrain extends Subsystem {
     rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
     leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
+
+
 
     leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
     rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
