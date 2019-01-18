@@ -27,7 +27,7 @@ public class Drive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_Drivetrain.arcadeDrive(Robot.m_oi.getMove(), Robot.m_oi.getTurn());
+    Robot.m_Drivetrain.arcadeDrive(Robot.m_oi.getMove() * 0.75, Robot.m_oi.getTurn() * 0.75);
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -48,6 +48,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
+    SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
+    SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
+    SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
   }
 
   /**
@@ -106,6 +110,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    m_Drivetrain.resetEncoders();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

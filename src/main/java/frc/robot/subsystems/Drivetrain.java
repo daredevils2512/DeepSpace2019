@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -28,6 +31,8 @@ public class Drivetrain extends Subsystem {
   private DifferentialDrive drivetrain;
   private SpeedControllerGroup leftTalonGroup;
   private SpeedControllerGroup rightTalonGroup;
+  private Encoder leftEncoder;
+  private Encoder rightEncoder;
 
 
   public Drivetrain() {
@@ -36,14 +41,17 @@ public class Drivetrain extends Subsystem {
     rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
     leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
+        
+    leftEncoder = new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
+    rightEncoder = new Encoder(2, 3, true, CounterBase.EncodingType.k4X);
 
     leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
     rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
-        
-        
-        
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
-    addChild("Differential Drive 1",drivetrain);
+    // addChild("Differential Drive 1",drivetrain);
+
+    leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
+    rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
 
   }
 
@@ -59,6 +67,29 @@ public class Drivetrain extends Subsystem {
     drivetrain.arcadeDrive(move, turn);
   }
 
+  public void driveRobotTank(double leftSpeed, double rightSpeed) {
+    drivetrain.tankDrive(leftSpeed, rightSpeed);
+  }
 
+  public double getLeftEncoderDistance() {
+    return leftEncoder.getDistance();
+  }
+
+  public double getRightEncoderDistance() {
+    return rightEncoder.getDistance();
+  }
+
+  public int getLeftEncoderValue() {
+    return leftEncoder.get();
+  }
+  
+  public int getRightEncoderValue() {
+    return rightEncoder.get();
+  }
+
+  public void resetEncoders() {
+    leftEncoder.reset();
+    rightEncoder.reset();
+  }
 
 }

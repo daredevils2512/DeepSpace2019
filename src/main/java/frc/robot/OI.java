@@ -49,6 +49,7 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
 
   public Joystick driver = new Joystick(0);
+  public Joystick coDriver = new Joystick(1);
 
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
