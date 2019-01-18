@@ -28,4 +28,6 @@ public class RobotMap {
   public static int leftRearTalonPort = 2;
   public static int rightTalonPort = 3;
   public static int rightRearTalonPort = 4;
+
+  public static int spotlightRelayPort = 0;
 }
