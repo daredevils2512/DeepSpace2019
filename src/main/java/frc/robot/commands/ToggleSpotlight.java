@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package main.java.frc.robot.commands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -16,7 +16,7 @@ import frc.robot.Robot;
 public class ToggleSpotlight extends Command {
   public ToggleSpotlight() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Drivetrain);
+    requires(Robot.m_Spotlight);
   }
 
   // Called just before this Command runs the first time
