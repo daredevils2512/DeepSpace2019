@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ToggleSpotlight;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -48,18 +49,21 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
 
   public Joystick driver = new Joystick(0);
+  public Joystick coDriver = new Joystick(1);
 
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
   Button xButton = new JoystickButton(driver, 3);
   Button yButton = new JoystickButton(driver, 4);
 
-  
+  public OI() {
+    yButton.whenPressed(new ToggleSpotlight());
+  }
 
   public Double desensitize(Double val) {
 
     if(Math.abs(val) < Constants.DESENSITIZE){
-      return 0;
+      return 0.0;
     }else{
       return val;
     }
@@ -70,7 +74,11 @@ public class OI {
   }
 
   public double getTurn() {
-    return desensitize(-driver.getRawAxis(4));
+    return desensitize(driver.getRawAxis(4));
+  }
+
+  public double getRight() {
+    return desensitize(driver.getRawAxis(5));
   }
 
 

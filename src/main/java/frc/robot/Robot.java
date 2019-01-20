@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Drive;
-import frc.robot.subsystems.Drivetrain;
-
-
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +23,7 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class Robot extends TimedRobot {
   public static Drivetrain m_Drivetrain = new Drivetrain();
+  public static Spotlight m_Spotlight = new Spotlight();
   public static OI m_oi;
   public 
   
@@ -40,9 +38,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    m_chooser.setDefaultOption("Default Auto", new Drive());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
   }
 
   /**
@@ -55,6 +50,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
+    SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
+    SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
+    SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
   }
 
   /**
@@ -113,6 +112,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    m_Drivetrain.resetEncoders();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

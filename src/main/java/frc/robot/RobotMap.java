@@ -29,13 +29,7 @@ public class RobotMap {
   public static int rightTalonPort = 3;
   public static int rightRearTalonPort = 4;
 
-  public static double DESENSITIZE = 0.15;
-  /**
-   *
-   */
+  public static double encoderDistancePerPulse = 0.0236065636;
 
-  // private static final double D_ESENSITIZE = DESENSITIZE;
-
-  public static int bigLight = 0;
-
+  public static int spotlightRelayPort = 0;
 }
