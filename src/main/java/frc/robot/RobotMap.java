@@ -32,4 +32,8 @@ public class RobotMap {
   public static double encoderDistancePerPulse = 0.0236065636;
 
   public static int spotlightRelayPort = 0;
+
+  public static int driverPort = 0;
+  public static int extremePort = 1;
+  public static int buttonBoxPort = 2;
 }

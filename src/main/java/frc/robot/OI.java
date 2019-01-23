@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ToggleSpotlight;
@@ -48,20 +49,85 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  public Joystick driver = new Joystick(0);
-  public Joystick coDriver = new Joystick(1);
+  public Joystick driver = new Joystick(RobotMap.driverPort);
+  public Joystick buttonBox = new Joystick(RobotMap.buttonBoxPort);
+  public Joystick extreme = new Joystick(RobotMap.extremePort);
 
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
   Button xButton = new JoystickButton(driver, 3);
   Button yButton = new JoystickButton(driver, 4);
+  Button leftBumper = new JoystickButton(driver, 5);
+  Button rightBumper = new JoystickButton(driver, 6);
+  Button select = new JoystickButton(driver, 7);
+  Button start = new JoystickButton(driver, 8);
+  Button leftStick = new JoystickButton(driver, 9);
+  Button rightStick = new JoystickButton(driver, 10);
 
+  Button triggerBoi = new JoystickButton(extreme, 1);
+  Button sideButton = new JoystickButton(extreme, 2);
+  Button bottomLeft = new JoystickButton(extreme, 3);
+  Button bottomRight = new JoystickButton(extreme, 4);
+  Button topLeft = new JoystickButton(extreme, 5);
+  Button topRight = new JoystickButton(extreme, 6);
+  Button frontLeft = new JoystickButton(extreme, 7);
+  Button frontRight = new JoystickButton(extreme, 8);
+  Button midLeft = new JoystickButton(extreme, 9);
+  Button midRight = new JoystickButton(extreme, 10);
+  Button backLeft = new JoystickButton(extreme, 11);
+  Button backRight = new JoystickButton(extreme, 12);
+
+  Button topWhite = new JoystickButton(buttonBox, 2);
+  Button bigWhite = new JoystickButton(buttonBox, 3);
+  Button midRed = new JoystickButton(buttonBox, 4);
+  Button bottomWhite = new JoystickButton(buttonBox, 5);
+  Button topRed = new JoystickButton(buttonBox, 6);
+  Button greenBoi = new JoystickButton(buttonBox, 7);
+  Button midWhite = new JoystickButton(buttonBox, 8);
+  Button bigRed = new JoystickButton(buttonBox, 14);
+  Button yellowBoi = new JoystickButton(buttonBox, 15);
+  Button bottomRed = new JoystickButton(buttonBox, 16);
+
+  int x;
   public OI() {
+    // aButton.whileHeld(new ToggleSpotlight());
+    // bButton.whileHeld(new ToggleSpotlight());
+    // xButton.whenPressed(new ToggleSpotlight());
     yButton.whenPressed(new ToggleSpotlight());
+    // leftBumper.whenPressed(new ToggleSpotlight());
+    // rightBumper.whenPressed(new ToggleSpotlight());
+    // select.whenPressed(new ToggleSpotlight());
+    // start.whenPressed(new ToggleSpotlight());
+    // leftStick.whenPressed(new ToggleSpotlight());
+    // rightStick.whenPressed(new ToggleSpotlight());
+
+    // triggerBoi.whenPressed(new ToggleSpotlight());
+    // sideButton.whenPressed(new ToggleSpotlight());
+    // topLeft.whenPressed(new ToggleSpotlight());
+    // topRight.whenPressed(new ToggleSpotlight());
+    // bottomLeft.whenPressed(new ToggleSpotlight());
+    // bottomRight.whenPressed(new ToggleSpotlight());
+    // frontLeft.whenPressed(new ToggleSpotlight());
+    // frontRight.whenPressed(new ToggleSpotlight());
+    // midLeft.whenPressed(new ToggleSpotlight());
+    // midRight.whenPressed(new ToggleSpotlight());
+    // backLeft.whenPressed(new ToggleSpotlight());
+    // backRight.whenPressed(new ToggleSpotlight());
+    
+    // topWhite.whenPressed(new ToggleSpotlight());
+    // bigWhite.whenPressed(new ToggleSpotlight());
+    // midRed.whenPressed(new ToggleSpotlight());
+    // bottomWhite.whenPressed(new ToggleSpotlight());
+    // topRed.whenPressed(new ToggleSpotlight());
+    // greenBoi.whenPressed(new ToggleSpotlight());
+    // midWhite.whenPressed(new ToggleSpotlight());
+    // bigRed.whenPressed(new ToggleSpotlight());
+    // yellowBoi.whenPressed(new ToggleSpotlight());
+    // bottomRed.whenPressed(new ToggleSpotlight());
   }
 
-  public Double desensitize(Double val) {
-    Double result = val;
+  public double desensitize(double val) {
+    double result = val;
     if (Math.abs(result) < 0.15) {
 			result = 0.0;
 		}
@@ -73,7 +139,7 @@ public class OI {
   }
 
   public double getTurn() {
-    return desensitize(driver.getRawAxis(4));
+    return desensitize(-driver.getRawAxis(4));
   }
 
   public double getRight() {

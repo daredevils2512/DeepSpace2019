@@ -28,12 +28,15 @@ public class Spotlight extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
-
+  
+  
   public void toggleSpotlight() {
     if (this.spotlight.get() == Relay.Value.kOff) {
       this.spotlight.set(Relay.Value.kOn);
     } else {
       this.spotlight.set(Relay.Value.kOff);
     }
+
   }
+  
 }

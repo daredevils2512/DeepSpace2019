@@ -8,13 +8,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
 import com.ctre.phoenix.motorcontrol.can.*;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+// import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+// import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -33,6 +34,8 @@ public class Drivetrain extends Subsystem {
   private SpeedControllerGroup rightTalonGroup;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
+  
+  private RumbleType rumblely;
 
 
   public Drivetrain() {
@@ -52,6 +55,11 @@ public class Drivetrain extends Subsystem {
 
     leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
     rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
+    
+    this.rumblely = RumbleType.kLeftRumble;
+    this.rumblely = RumbleType.kRightRumble;
+
+    
 
   }
 
@@ -91,5 +99,6 @@ public class Drivetrain extends Subsystem {
     leftEncoder.reset();
     rightEncoder.reset();
   }
+
 
 }
