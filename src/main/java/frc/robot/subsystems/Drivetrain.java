@@ -34,6 +34,7 @@ public class Drivetrain extends Subsystem {
   private SpeedControllerGroup rightTalonGroup;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
+  private DoubleSolenoid shifter;
   
   private RumbleType rumblely;
 
@@ -59,9 +60,10 @@ public class Drivetrain extends Subsystem {
     this.rumblely = RumbleType.kLeftRumble;
     this.rumblely = RumbleType.kRightRumble;
 
-    
+    shifter = new DoubleSolenoid(4, 5);
 
   }
+  
 
 
   @Override
@@ -98,6 +100,14 @@ public class Drivetrain extends Subsystem {
   public void resetEncoders() {
     leftEncoder.reset();
     rightEncoder.reset();
+  }
+
+  public DoubleSolenoid.Value getShifterPos() {
+    return shifter.get();
+  }
+
+  public void shift(DoubleSolenoid.Value shiftPos) {
+    shifter.set(shiftPos);
   }
 
 

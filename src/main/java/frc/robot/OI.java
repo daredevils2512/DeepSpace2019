@@ -7,11 +7,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ToggleSpotlight;
+// import frc.robot.commands.ToggleSpotlight;
+import frc.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -88,42 +91,48 @@ public class OI {
   Button yellowBoi = new JoystickButton(buttonBox, 15);
   Button bottomRed = new JoystickButton(buttonBox, 16);
 
-  int x;
-  public OI() {
-    // aButton.whileHeld(new ToggleSpotlight());
-    // bButton.whileHeld(new ToggleSpotlight());
-    // xButton.whenPressed(new ToggleSpotlight());
-    yButton.whenPressed(new ToggleSpotlight());
-    // leftBumper.whenPressed(new ToggleSpotlight());
-    // rightBumper.whenPressed(new ToggleSpotlight());
-    // select.whenPressed(new ToggleSpotlight());
-    // start.whenPressed(new ToggleSpotlight());
-    // leftStick.whenPressed(new ToggleSpotlight());
-    // rightStick.whenPressed(new ToggleSpotlight());
+  DoubleSolenoid.Value solenoidForward = DoubleSolenoid.Value.kForward;
+  DoubleSolenoid.Value solenoidReverse = DoubleSolenoid.Value.kReverse;
 
-    // triggerBoi.whenPressed(new ToggleSpotlight());
-    // sideButton.whenPressed(new ToggleSpotlight());
-    // topLeft.whenPressed(new ToggleSpotlight());
-    // topRight.whenPressed(new ToggleSpotlight());
-    // bottomLeft.whenPressed(new ToggleSpotlight());
-    // bottomRight.whenPressed(new ToggleSpotlight());
-    // frontLeft.whenPressed(new ToggleSpotlight());
-    // frontRight.whenPressed(new ToggleSpotlight());
-    // midLeft.whenPressed(new ToggleSpotlight());
-    // midRight.whenPressed(new ToggleSpotlight());
-    // backLeft.whenPressed(new ToggleSpotlight());
-    // backRight.whenPressed(new ToggleSpotlight());
+  public OI() {
+    // yButton.whenPressed(new ToggleSpotlight());
+    xButton.whenPressed(new DrivetrainShift(solenoidForward));
+    xButton.whenReleased(new DrivetrainShift(solenoidReverse));
+    /*
+    aButton.whileHeld(new ToggleSpotlight());
+    bButton.whileHeld(new ToggleSpotlight());
+    xButton.whenPressed(new ToggleSpotlight());
+    leftBumper.whenPressed(new ToggleSpotlight());
+    rightBumper.whenPressed(new ToggleSpotlight());
+    select.whenPressed(new ToggleSpotlight());
+    start.whenPressed(new ToggleSpotlight());
+    leftStick.whenPressed(new ToggleSpotlight());
+    rightStick.whenPressed(new ToggleSpotlight());
+
+    triggerBoi.whenPressed(new ToggleSpotlight());
+    sideButton.whenPressed(new ToggleSpotlight());
+    topLeft.whenPressed(new ToggleSpotlight());
+    topRight.whenPressed(new ToggleSpotlight());
+    bottomLeft.whenPressed(new ToggleSpotlight());
+    bottomRight.whenPressed(new ToggleSpotlight());
+    frontLeft.whenPressed(new ToggleSpotlight());
+    frontRight.whenPressed(new ToggleSpotlight());
+    midLeft.whenPressed(new ToggleSpotlight());
+    midRight.whenPressed(new ToggleSpotlight());
+    backLeft.whenPressed(new ToggleSpotlight());
+    backRight.whenPressed(new ToggleSpotlight());
     
-    // topWhite.whenPressed(new ToggleSpotlight());
-    // bigWhite.whenPressed(new ToggleSpotlight());
-    // midRed.whenPressed(new ToggleSpotlight());
-    // bottomWhite.whenPressed(new ToggleSpotlight());
-    // topRed.whenPressed(new ToggleSpotlight());
-    // greenBoi.whenPressed(new ToggleSpotlight());
-    // midWhite.whenPressed(new ToggleSpotlight());
-    // bigRed.whenPressed(new ToggleSpotlight());
-    // yellowBoi.whenPressed(new ToggleSpotlight());
-    // bottomRed.whenPressed(new ToggleSpotlight());
+    topWhite.whenPressed(new ToggleSpotlight());
+    bigWhite.whenPressed(new ToggleSpotlight());
+    midRed.whenPressed(new ToggleSpotlight());
+    bottomWhite.whenPressed(new ToggleSpotlight());
+    topRed.whenPressed(new ToggleSpotlight());
+    greenBoi.whenPressed(new ToggleSpotlight());
+    midWhite.whenPressed(new ToggleSpotlight());
+    bigRed.whenPressed(new ToggleSpotlight());
+    yellowBoi.whenPressed(new ToggleSpotlight());
+    bottomRed.whenPressed(new ToggleSpotlight());
+    */
   }
 
   public double desensitize(double val) {

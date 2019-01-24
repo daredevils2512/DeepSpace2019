@@ -23,7 +23,7 @@ import frc.robot.subsystems.*;
  */
 public class Robot extends TimedRobot {
   public static Drivetrain m_Drivetrain = new Drivetrain();
-  public static Spotlight m_Spotlight = new Spotlight();
+  // public static Spotlight m_Spotlight = new Spotlight();
   public static OI m_oi;
 
   Command m_autonomousCommand;
