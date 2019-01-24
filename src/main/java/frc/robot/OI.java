@@ -89,15 +89,12 @@ public class OI {
   Button midWhite = new JoystickButton(buttonBox, 8);
   Button bigRed = new JoystickButton(buttonBox, 14);
   Button yellowBoi = new JoystickButton(buttonBox, 15);
-  Button bottomRed = new JoystickButton(buttonBox, 16);
-
-  DoubleSolenoid.Value solenoidForward = DoubleSolenoid.Value.kForward;
-  DoubleSolenoid.Value solenoidReverse = DoubleSolenoid.Value.kReverse;
+  Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
     // yButton.whenPressed(new ToggleSpotlight());
-    xButton.whenPressed(new DrivetrainShift(solenoidForward));
-    xButton.whenReleased(new DrivetrainShift(solenoidReverse));
+    xButton.whenPressed(new DrivetrainShift(DrivetrainShift.Gear.High));
+    xButton.whenReleased(new DrivetrainShift(DrivetrainShift.Gear.Low));
     /*
     aButton.whileHeld(new ToggleSpotlight());
     bButton.whileHeld(new ToggleSpotlight());
