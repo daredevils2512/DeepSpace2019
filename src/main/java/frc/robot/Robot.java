@@ -25,6 +25,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain m_Drivetrain = new Drivetrain();
   // public static Spotlight m_Spotlight = new Spotlight();
   public static OI m_oi;
+  public static Compressorsorus m_Compressorsorus = new Compressorsorus();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -52,6 +53,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+    // System.out.println("yeetyeetyeetyeetyeetyeetyeetyeetyeetyeetyeetyeetyeetyeetyeet");
   }
 
   /**
