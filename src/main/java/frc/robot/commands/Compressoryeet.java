@@ -5,8 +5,6 @@ import frc.robot.Robot;
 
 public class Compressoryeet extends Command {
 
-    public Boolean enabled = Robot.m_Compressorsorus.sorus.enabled();
-
     public Compressoryeet() {
 
         requires(Robot.m_Compressorsorus);
@@ -14,16 +12,13 @@ public class Compressoryeet extends Command {
     }
 
     @Override
-    protected void initialize() {
+    protected void initialize() { 
+
     }
 
     @Override
     protected void execute() {
-        if (enabled == false) {
-            Robot.m_Compressorsorus.sorus.setClosedLoopControl(true);
-        } else {
-            Robot.m_Compressorsorus.sorus.setClosedLoopControl(false);
-        }
+        Robot.m_Compressorsorus.toggleCompressor();
     }
 
     @Override
@@ -33,6 +28,7 @@ public class Compressoryeet extends Command {
 
     @Override
     protected void end() {
+        
     }
 
     @Override
