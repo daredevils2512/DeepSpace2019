@@ -28,7 +28,7 @@ public class Drivetrain extends Subsystem {
   private WPI_TalonSRX rightTalon;
   private WPI_TalonSRX leftRearTalon;
   private WPI_TalonSRX rightRearTalon;
-  private DifferentialDrive drivetrain;
+  private static DifferentialDrive drivetrain;
   private SpeedControllerGroup leftTalonGroup;
   private SpeedControllerGroup rightTalonGroup;
   private Encoder leftEncoder;
@@ -63,7 +63,7 @@ public class Drivetrain extends Subsystem {
     setDefaultCommand(new Drive());
   }
 
-  public void arcadeDrive(double move, double turn) {
+  public static void arcadeDrive(double move, double turn) {
     drivetrain.arcadeDrive(move, turn);
   }
 

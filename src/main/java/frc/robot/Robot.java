@@ -32,13 +32,16 @@ public class Robot extends TimedRobot {
   // public static GripWhiteLine m_grippipeline = new GripWhiteLine();
   public static Drivetrain m_Drivetrain = new Drivetrain();
   public static Spotlight m_Spotlight = new Spotlight();
+  public static LineFind m_LineFind = new LineFind();
   public static OI m_oi;
   // public static Vision m_vision = new Vision();
   public final int IMG_width = 320;
   public final int IMG_height = 240;
   public static Mat source = new Mat();
   // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-  public double centerX = 999.00;
+  public static double centerX = 999.00;
+  public static double width = 999.00;
+  public static double height = 999.00;
   public final String NTserver = "frcvision.local";
 
   NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
@@ -69,6 +72,8 @@ public class Robot extends TimedRobot {
 
   NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
   NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
+  NetworkTableEntry widthEntry = convexHullsFinal.getEntry("width");
+  NetworkTableEntry heightEntry = convexHullsFinal.getEntry("height"); 
 
   public double centerXGetter() {
     
@@ -90,7 +95,29 @@ public class Robot extends TimedRobot {
       return 999.00; 
     }
     
-  }  
+  } 
+  
+
+  public double widthGetter() {
+    
+    System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected() == true) {
+      NetworkTableValue widthValue = this.widthEntry.getValue();
+      // System.out.println("connected to " + convexHullsFinal.getConnections());
+      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
+      // System.out.println("widthValue info: " + convexHullsFinal.getEntryInfo("width", 1));
+      if (widthValue.getType() == NetworkTableType.kDouble) {
+        System.out.println("detcted white line width at " + widthValue.getDouble());
+        width = widthValue.getDouble();
+        return widthValue.getDouble();
+      } else {
+        System.out.println("entry not a double; entry is a " + widthValue.getType());
+        return 999.00;
+      } 
+    } else {
+      return 999.00; 
+    }
+  }
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
