@@ -41,7 +41,7 @@ public class Compressorsorus extends Subsystem {
 
   public void toggleCompressor() {
     this.enabled = sorus.enabled();
-    if (this.enabled == false) {
+    if (!sorus.enabled()) {
       compressorOn();
     } else {
       compressorOff();
