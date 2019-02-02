@@ -72,8 +72,8 @@ public class Robot extends TimedRobot {
 
   NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
   NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
-  NetworkTableEntry widthEntry = convexHullsFinal.getEntry("width");
-  NetworkTableEntry heightEntry = convexHullsFinal.getEntry("height"); 
+  NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
+  NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
 
   public double centerXGetter() {
     
@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
         centerX = centerXValue.getDouble();
         return centerXValue.getDouble();
       } else {
-        System.out.println("entry not a double; entry is a " + centerXValue.getType());
+        System.out.println("centerXentry not a double; entry is a " + centerXValue.getType());
         return 999.00;
       } 
     } else {
@@ -107,11 +107,32 @@ public class Robot extends TimedRobot {
       // System.out.println("connection is valid: " + convexHullsFinal.isValid());
       // System.out.println("widthValue info: " + convexHullsFinal.getEntryInfo("width", 1));
       if (widthValue.getType() == NetworkTableType.kDouble) {
-        System.out.println("detcted white line width at " + widthValue.getDouble());
+        System.out.println("detcted white line width of " + widthValue.getDouble());
         width = widthValue.getDouble();
         return widthValue.getDouble();
       } else {
-        System.out.println("entry not a double; entry is a " + widthValue.getType());
+        System.out.println("width entry not a double; entry is a " + widthValue.getType());
+        return 999.00;
+      } 
+    } else {
+      return 999.00; 
+    }
+  }
+
+  public double heightGetter() {
+    
+    System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected() == true) {
+      NetworkTableValue heightValue = this.heightEntry.getValue();
+      // System.out.println("connected to " + convexHullsFinal.getConnections());
+      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
+      // System.out.println("heightValue info: " + convexHullsFinal.getEntryInfo("width", 1));
+      if (heightValue.getType() == NetworkTableType.kDouble) {
+        System.out.println("detcted white line height of " + heightValue.getDouble());
+        width = heightValue.getDouble();
+        return heightValue.getDouble();
+      } else {
+        System.out.println("height entry not a double; entry is a " + heightValue.getType());
         return 999.00;
       } 
     } else {
@@ -133,6 +154,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
     SmartDashboard.putNumber("centerX", centerXGetter());
+    SmartDashboard.putNumber("width", widthGetter());
+    SmartDashboard.putNumber("height", heightGetter());
   }
 
   /**

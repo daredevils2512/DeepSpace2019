@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ToggleSpotlight;
+import frc.robot.commands.LineAlign;
 import frc.robot.commands.LineFindTest;
 // import frc.robot.commands.VisionControl;
 
@@ -61,6 +62,7 @@ public class OI {
   public OI() {
     yButton.whenPressed(new ToggleSpotlight());
     aButton.whileHeld(new LineFindTest());
+    xButton.whileHeld(new LineAlign());
   }
 
   public Double desensitize(Double val) {

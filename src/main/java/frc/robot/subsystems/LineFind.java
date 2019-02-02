@@ -26,6 +26,9 @@ public class LineFind extends Subsystem {
       } 
     }
 
+    public void center(double m, double w) {
+      
+    }
     @Override
     public void initDefaultCommand() {
       // Set the default command for a subsystem here.
