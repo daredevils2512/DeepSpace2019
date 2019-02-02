@@ -29,11 +29,15 @@ public class RobotMap {
   public static int rightTalonPort = 3;
   public static int rightRearTalonPort = 4;
 
-  public static double encoderDistancePerPulse = 0.0236065636;
+  public static double wheelDiameter = 6; // inches
+  public static double wheelCircumfrence = wheelDiameter * 3.14; // 18.84
+  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
+  // public static double encoderDistancePerPulse = 0.0236065636;
 
   public static int spotlightRelayPort = 0;
 
   public static int driverPort = 0;
   public static int extremePort = 1;
   public static int buttonBoxPort = 2;
+  
 }

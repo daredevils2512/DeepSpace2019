@@ -36,7 +36,7 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
   
-  private RumbleType rumblely;
+  // private RumbleType rumblely;
 
 
   public Drivetrain() {
@@ -54,11 +54,11 @@ public class Drivetrain extends Subsystem {
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
-    rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
+    leftEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    rightEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
     
-    this.rumblely = RumbleType.kLeftRumble;
-    this.rumblely = RumbleType.kRightRumble;
+    // this.rumblely = RumbleType.kLeftRumble;
+    // this.rumblely = RumbleType.kRightRumble;
 
     shifter = new DoubleSolenoid(4, 5);
 
