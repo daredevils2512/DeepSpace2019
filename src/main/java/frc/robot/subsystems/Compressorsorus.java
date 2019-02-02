@@ -46,7 +46,5 @@ public class Compressorsorus extends Subsystem {
     } else {
       compressorOff();
     }
-
   }
-
 }
