@@ -24,10 +24,10 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  public static int leftTalonPort = 1;
-  public static int leftRearTalonPort = 2;
-  public static int rightTalonPort = 3;
-  public static int rightRearTalonPort = 4;
+  public static int leftTalonPort = 0;
+  public static int leftRearTalonPort = 1;
+  public static int rightTalonPort = 2;
+  public static int rightRearTalonPort = 3;
 
   public static double encoderDistancePerPulse = 0.0236065636;
 
