@@ -7,7 +7,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -16,9 +20,26 @@ public class CargoIntake extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
+  private WPI_TalonSRX infinityMotor;
+  private WPI_TalonSRX inMotor;
+
+  private DoubleSolenoid upDown;
+
+  public CargoIntake() {
+    this.infinityMotor = new WPI_TalonSRX(RobotMap.cargoInfinityPort);
+    this.inMotor = new WPI_TalonSRX(RobotMap.cargoInfinityPort);
+
+    this.upDown = new DoubleSolenoid(RobotMap.cargoUpDownAPort, RobotMap.cargoUpDownBPort);
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public void runIntake(double infinitySpeed, double inSpeed) {
+    this.infinityMotor.set(infinitySpeed);
+    this.inMotor.set(inSpeed);
   }
 }
