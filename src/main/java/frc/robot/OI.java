@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 
   public Joystick driver = new Joystick(0);
-  public Joystick buttonBox = new Joystick(2);
-  public Joystick extreme = new Joystick(1);
+  public Joystick buttonBox = new Joystick(1);
+  public Joystick extreme = new Joystick(2);
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
@@ -55,6 +55,14 @@ public class OI {
   }
   
   public double liftControl() {
-    return -desensitize(extreme.getRawAxis(1));
+   return desensitize(extreme.getRawAxis(1));
+  }
+
+  public double getMove() {
+    return desensitize(driver.getRawAxis(1));
+  }
+
+  public double getTurn() {
+    return desensitize(-driver.getRawAxis(4));
   }
 }

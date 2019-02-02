@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.MannualLift;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Drivetrain;
+// import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Lift;
 
 /**
@@ -24,9 +24,10 @@ import frc.robot.subsystems.Lift;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  // public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
   public static Lift m_lift;
+  public static Drivetrain m_Drivetrain;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -53,6 +54,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("lift control", m_oi.liftControl());
   }
 
   /**

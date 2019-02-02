@@ -28,11 +28,13 @@ public class MannualLift extends Command {
   @Override
   protected void execute() {
     
+    Robot.m_lift.setSpeed(Robot.m_oi.liftControl());
+
     if (Robot.m_oi.liftControl() == 0 && Robot.m_lift.getLiftHeight() >= 0.0) { // stuff so it dont fall
 
       Robot.m_lift.setSpeed(0.08);
 
-    } else if ((Robot.m_lift.getLiftHeight() >= 7.2) && (Robot.m_oi.liftControl() < 0)) { // sets limit at top
+    } else if ((Robot.m_lift.getLiftHeight() >= 7.2) && (Robot.m_oi.liftControl() < 0)) { // so it can only drive down when at the top
 
       Robot.m_lift.setSpeed(Robot.m_oi.liftControl());
 
@@ -40,7 +42,7 @@ public class MannualLift extends Command {
 
       Robot.m_lift.setSpeed(0.0);
 
-    }  else if (Robot.m_lift.getLimitSwitch()) { // slows it down when desending
+    }  else if (Robot.m_lift.getLimitSwitch()) { 
 
       if (Robot.m_oi.liftControl() > 0) {
         Robot.m_lift.setSpeed(Robot.m_oi.liftControl());
@@ -48,7 +50,7 @@ public class MannualLift extends Command {
         Robot.m_lift.setSpeed(0.0);
       }
 
-    } else if (Robot.m_oi.liftControl() < -0.8) {
+    } else if (Robot.m_oi.liftControl() < -0.8) { // slows it down
 
       Robot.m_lift.setSpeed(Robot.m_oi.liftControl() * 0.8);
 

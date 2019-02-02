@@ -62,6 +62,8 @@ public class Lift extends Subsystem {
   }
 
   public void setSpeed(double speed) {
+    // System.out.printf("Set speed: {0}", speed);
+    System.out.print(speed);
     lift1.set(speed);
     lift2.set(speed);
   }
