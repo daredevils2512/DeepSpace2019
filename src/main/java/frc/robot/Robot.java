@@ -22,9 +22,9 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static Drivetrain m_Drivetrain = new Drivetrain();
+  public static Drivetrain m_Drivetrain;
   // public static Spotlight m_Spotlight = new Spotlight();
-  public static Compressorsorus m_Compressorsorus = new Compressorsorus();
+  public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
 
   Command m_autonomousCommand;
@@ -37,6 +37,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
+    m_Drivetrain = new Drivetrain();
+    m_Compressorsorus = new Compressorsorus();
   }
 
   /**

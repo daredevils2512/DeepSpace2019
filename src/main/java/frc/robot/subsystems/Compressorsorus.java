@@ -23,7 +23,6 @@ public class Compressorsorus extends Subsystem {
 
     this.sorus = new Compressor();
     
-
   }
 
   @Override

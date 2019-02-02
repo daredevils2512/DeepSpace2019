@@ -3,9 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class Compressoryeet extends Command {
+public class Compressor extends Command {
 
-    public Compressoryeet() {
+    public Compressor() {
 
         requires(Robot.m_Compressorsorus);
 

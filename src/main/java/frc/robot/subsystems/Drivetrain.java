@@ -35,8 +35,6 @@ public class Drivetrain extends Subsystem {
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
-  
-  private RumbleType rumblely;
 
 
   public Drivetrain() {
@@ -56,11 +54,8 @@ public class Drivetrain extends Subsystem {
 
     leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
     rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
-    
-    this.rumblely = RumbleType.kLeftRumble;
-    this.rumblely = RumbleType.kRightRumble;
 
-    shifter = new DoubleSolenoid(4, 5);
+    shifter = new DoubleSolenoid(RobotMap.forwardChannelPort, RobotMap.reverseChannelPort);
 
   }
   
