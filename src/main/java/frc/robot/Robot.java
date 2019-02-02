@@ -13,6 +13,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
+// import sun.nio.ch.Net;
+
+import org.opencv.core.*;
+import java.util.ArrayList;
+import frc.robot.GripWhiteLine;
+import edu.wpi.first.networktables.*;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,11 +29,21 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
+  // public static GripWhiteLine m_grippipeline = new GripWhiteLine();
   public static Drivetrain m_Drivetrain = new Drivetrain();
   public static Spotlight m_Spotlight = new Spotlight();
   public static OI m_oi;
-  public 
+  // public static Vision m_vision = new Vision();
+  public final int IMG_width = 320;
+  public final int IMG_height = 240;
+  public static Mat source = new Mat();
+  // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
+  public double centerX = 999.00;
+  public final String NTserver = "frcvision.local";
+
+  NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
   
+  // NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -38,8 +55,42 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
+
+    // Robot.m_vision.init(320 , 240);
+    // Robot.m_vision.view(Robot.source);
+
+    // start clientside table
+    convexHullsFinal.startClient();
+    convexHullsFinal.setServer(NTserver);
+    
+    // convexHullsFinal.startServer();
+    
   }
 
+  NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
+  NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
+
+  public double centerXGetter() {
+    
+    System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected() == true) {
+      NetworkTableValue centerXValue = this.centerXEntry.getValue();
+      // System.out.println("connected to " + convexHullsFinal.getConnections());
+      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
+      // System.out.println("centerXValue info: " + convexHullsFinal.getEntryInfo("centerX", 1));
+      if (centerXValue.getType() == NetworkTableType.kDouble) {
+        System.out.println("detcted white line centerX at " + centerXValue.getDouble());
+        centerX = centerXValue.getDouble();
+        return centerXValue.getDouble();
+      } else {
+        System.out.println("entry not a double; entry is a " + centerXValue.getType());
+        return 999.00;
+      } 
+    } else {
+      return 999.00; 
+    }
+    
+  }  
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -54,6 +105,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+    SmartDashboard.putNumber("centerX", centerXGetter());
   }
 
   /**
@@ -116,6 +168,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    
   }
 
   /**

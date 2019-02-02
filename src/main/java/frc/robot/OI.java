@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ToggleSpotlight;
+// import frc.robot.commands.VisionControl;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -58,15 +59,15 @@ public class OI {
 
   public OI() {
     yButton.whenPressed(new ToggleSpotlight());
+    // aButton.whenPressed(new VisionControl());
   }
 
   public Double desensitize(Double val) {
-
-    if(Math.abs(val) < Constants.DESENSITIZE){
-      return 0.0;
-    }else{
-      return val;
+    double result = val;
+    if (Math.abs(result) < 0.15) {
+      result = 0.0;
     }
+    return result;
 	}
 
   public double getMove() {
@@ -80,16 +81,5 @@ public class OI {
   public double getRight() {
     return desensitize(driver.getRawAxis(5));
   }
-
-
-
-
-
-
-
-
-
-
-
 
 }

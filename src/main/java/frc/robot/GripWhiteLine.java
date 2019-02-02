@@ -1,18 +1,22 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+package frc.robot;
+
+// import java.io.File;
+// import java.io.FileWriter;
+// import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.HashMap;
+// import java.util.Map;
+// import java.util.stream.Collectors;
+// import java.util.HashMap;
+
+import edu.wpi.first.vision.VisionPipeline;
 
 import org.opencv.core.*;
-import org.opencv.core.Core.*;
-import org.opencv.features2d.FeatureDetector;
-import org.opencv.imgcodecs.Imgcodecs;
+// import org.opencv.core.Core.*;
+// import org.opencv.features2d.FeatureDetector;
+// import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.*;
-import org.opencv.objdetect.*;
+// import org.opencv.objdetect.*;
 
 /**
 * GripPipeline class.
@@ -21,7 +25,7 @@ import org.opencv.objdetect.*;
 *
 * @author GRIP
 */
-public class GripPipeline {
+public class GripWhiteLine implements VisionPipeline {
 
 	//Outputs
 	private Mat cvResizeOutput = new Mat();
@@ -37,7 +41,7 @@ public class GripPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	public void process(Mat source0) {
+	@Override	public void process(Mat source0) {
 		// Step CV_resize0:
 		Mat cvResizeSrc = source0;
 		Size cvResizeDsize = new Size(0, 0);
@@ -50,7 +54,7 @@ public class GripPipeline {
 		Mat hslThresholdInput = cvResizeOutput;
 		double[] hslThresholdHue = {80.93525179856115, 180.0};
 		double[] hslThresholdSaturation = {0.0, 255.0};
-		double[] hslThresholdLuminance = {156.31294964028777, 255.0};
+		double[] hslThresholdLuminance = {176.95143884892087, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Find_Contours0:
@@ -60,7 +64,7 @@ public class GripPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 300.0;
+		double filterContoursMinArea = 100.0;
 		double filterContoursMinPerimeter = 100.0;
 		double filterContoursMinWidth = 0.0;
 		double filterContoursMaxWidth = 1000.0;
