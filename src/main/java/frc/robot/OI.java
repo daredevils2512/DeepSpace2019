@@ -52,9 +52,9 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  public Joystick driver = new Joystick(RobotMap.driverPort);
-  public Joystick buttonBox = new Joystick(RobotMap.buttonBoxPort);
-  public Joystick extreme = new Joystick(RobotMap.extremePort);
+  public Joystick driver = new Joystick(0);
+  public Joystick buttonBox = new Joystick(1);
+  public Joystick extreme = new Joystick(2);
 
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
@@ -92,7 +92,8 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-
+    rightBumper.whenPressed(new HatchFlip(RobotMap.hatchUp));
+    leftBumper.whenPressed(new HatchFlip(RobotMap.hatchDown));
   }
 
   public double desensitize(double val) {
@@ -113,5 +114,9 @@ public class OI {
 
   public double getRight() {
     return desensitize(driver.getRawAxis(5));
+  }
+
+  public double getRightTrigger() {
+    return desensitize(driver.getRawAxis(2));
   }
 }
