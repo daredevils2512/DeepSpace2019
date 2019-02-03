@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -29,4 +31,7 @@ public class RobotMap {
 
   public static int cargoUpDownAPort = 2;
   public static int cargoUpDownBPort = 3;
+
+  public static Value cargoUpPos = Value.kForward;
+  public static Value cargoDownPos = Value.kReverse;
 }

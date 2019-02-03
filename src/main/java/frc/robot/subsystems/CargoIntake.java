@@ -42,4 +42,8 @@ public class CargoIntake extends Subsystem {
     this.infinityMotor.set(infinitySpeed);
     this.inMotor.set(inSpeed);
   }
+
+  public void foldIntake(DoubleSolenoid.Value dir) {
+    this.upDown.set(dir);
+  }
 }
