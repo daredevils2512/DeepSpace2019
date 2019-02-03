@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
-import frc.robot.commands.Drive;
 import com.ctre.phoenix.motorcontrol.can.*;
-// import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-// import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -70,7 +67,6 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new Drive());
   }
 
   public void arcadeDrive(double move, double turn) {

@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("lift control", m_oi.liftControl());
+    SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
   }
 
   /**
