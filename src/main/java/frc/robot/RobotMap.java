@@ -33,10 +33,6 @@ public class RobotMap {
 
   public static int spotlightRelayPort = 0;
 
-  public static int driverPort = 0;
-  public static int extremePort = 1;
-  public static int buttonBoxPort = 2;
-
   public static int forwardChannelPort = 4;
   public static int reverseChannelPort = 5;
 

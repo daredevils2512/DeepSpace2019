@@ -17,7 +17,7 @@ public class Compressorsorus extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public Compressor sorus;
-  private Boolean enabled; 
+  // private Boolean enabled; 
 
   public Compressorsorus() {
 
@@ -40,7 +40,7 @@ public class Compressorsorus extends Subsystem {
   }
 
   public void toggleCompressor() {
-    this.enabled = sorus.enabled();
+    // enabled = sorus.enabled();
     if (!sorus.enabled()) {
       compressorOn();
     } else {
