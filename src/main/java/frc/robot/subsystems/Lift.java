@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.*;
@@ -22,17 +24,16 @@ public class Lift extends Subsystem {
   // here. Call these from Commands.
   private WPI_TalonSRX lift1;
   private WPI_TalonSRX lift2;
-  public Encoder liftEncoder;
   public static DigitalInput limitSwitch;
 
   static double pulseToFeet = 1 / 3944;  
 
   public Lift() {
 
-    lift1 = new WPI_TalonSRX(5);
-    lift2 = new WPI_TalonSRX(8);
+    lift1 = new WPI_TalonSRX(8);
+    lift2 = new WPI_TalonSRX(5);
 
-    liftEncoder = new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
+    lift1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
     limitSwitch = new DigitalInput(4);
 
@@ -43,14 +44,6 @@ public class Lift extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new MannualLift());
-  }
-
-  public double liftEncoderDistance() {
-    return liftEncoder.getDistance();
-  }
-
-  public int liftEncoderValue() {
-    return liftEncoder.get();
   }
 
   public double getLiftHeight() {
