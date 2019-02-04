@@ -101,8 +101,8 @@ public class Drivetrain extends Subsystem {
     return shifter.get();
   }
 
-  public void shift(DoubleSolenoid.Value shiftPos) {
-    shifter.set(shiftPos);
+  public void shift(DoubleSolenoid.Value m_driveShift) {
+    shifter.set(m_driveShift);
   }
 
 
