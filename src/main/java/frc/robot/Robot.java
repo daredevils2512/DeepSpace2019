@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    m_lift = new Lift();
     m_oi = new OI();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     SmartDashboard.putNumber("lift control", m_oi.liftControl());
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
+
   }
 
   /**

@@ -9,6 +9,8 @@ package frc.robot.subsystems;
  
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.*;
@@ -32,6 +34,7 @@ public class Lift extends Subsystem {
 
     liftEncoder = new Encoder(RobotMap.liftEncoderChannelA, RobotMap.liftEncoderChannelB, false, CounterBase.EncodingType.k4X);
 
+
     limitSwitchBottom = new DigitalInput(RobotMap.limitSwitchBottomPort);
     limitSwitchTop = new DigitalInput(RobotMap.limitSwitchTopPort);
 
@@ -42,14 +45,6 @@ public class Lift extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new MannualLift());
-  }
-
-  public double liftEncoderDistance() {
-    return liftEncoder.getDistance();
-  }
-
-  public int liftEncoderValue() {
-    return liftEncoder.get();
   }
 
   public double getLiftHeight() {
