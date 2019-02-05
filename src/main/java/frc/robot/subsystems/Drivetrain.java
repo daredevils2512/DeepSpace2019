@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.RobotMap;
 import frc.robot.commands.Drive;
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.sensors.PigeonIMU;
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.*;
@@ -35,6 +36,8 @@ public class Drivetrain extends Subsystem {
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
+  private PigeonIMU gyro;
+  private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
   
   private RumbleType rumblely;
 
@@ -63,10 +66,9 @@ public class Drivetrain extends Subsystem {
 
     shifter = new DoubleSolenoid(4, 5);
 
+    gyro = new PigeonIMU(0);
   }
   
-
-
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -125,5 +127,21 @@ public class Drivetrain extends Subsystem {
 
   public double rightRearSpeed() {
     return this.rightRearTalon.get();
+  }
+
+  public void updateYPRData() {
+    this.gyro.getYawPitchRoll(this.yprData);
+  }
+
+  public double getYaw() {
+    return this.yprData[0];
+  }
+
+  public double getPitch() {
+    return this.yprData[1];
+  }
+
+  public double getRoll() {
+    return this.yprData[2];
   }
 }
