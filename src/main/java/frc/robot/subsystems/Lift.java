@@ -6,8 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
-
-import edu.wpi.first.wpilibj.Encoder;
+ 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.*;
@@ -20,21 +19,21 @@ import frc.robot.commands.*;
 public class Lift extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private WPI_TalonSRX lift1;
-  private WPI_TalonSRX lift2;
+  private WPI_TalonSRX liftTalon1;
+  private WPI_TalonSRX liftTalon2;
   public Encoder liftEncoder;
-  public static DigitalInput limitSwitch;
-
-  static double pulseToFeet = 1 / 3944;  
+  public static DigitalInput limitSwitchBottom;
+  public static DigitalInput limitSwitchTop; 
 
   public Lift() {
 
-    lift1 = new WPI_TalonSRX(5);
-    lift2 = new WPI_TalonSRX(8);
+    liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
+    liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
 
-    liftEncoder = new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
+    liftEncoder = new Encoder(RobotMap.liftEncoderChannelA, RobotMap.liftEncoderChannelB, false, CounterBase.EncodingType.k4X);
 
-    limitSwitch = new DigitalInput(4);
+    limitSwitchBottom = new DigitalInput(RobotMap.limitSwitchBottomPort);
+    limitSwitchTop = new DigitalInput(RobotMap.limitSwitchTopPort);
 
   }
 
@@ -54,17 +53,21 @@ public class Lift extends Subsystem {
   }
 
   public double getLiftHeight() {
-    return lift1.getSelectedSensorVelocity(0) * pulseToFeet;
+    return liftTalon1.getSelectedSensorVelocity(0) * RobotMap.liftEncoderPulseToFeet;
   }
 
-  public boolean getLimitSwitch() {
-    return limitSwitch.get();
+  public boolean getLimitSwitchBottom() {
+    return limitSwitchBottom.get();
+  }
+
+  public boolean getLimitSwitchTop() {
+    return limitSwitchTop.get();
   }
 
   public void setSpeed(double speed) {
     // System.out.printf("Set speed: {0}", speed);
     System.out.print(speed);
-    lift1.set(speed);
-    lift2.set(speed);
+    liftTalon1.set(speed);
+    liftTalon2.set(speed);
   }
 }

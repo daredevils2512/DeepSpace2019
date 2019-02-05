@@ -88,7 +88,7 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    bottomRed.whenPressed(new RunToPosition());
+    //LiftCommand manualLift = new ManualLiftCommand(this.liftControl);
   }
 
   public double desensitize(double val) {
@@ -99,7 +99,7 @@ public class OI {
 		return result;
   }
   
-  public double liftControl() {
+  public Double liftControl() {
    return desensitize(extreme.getRawAxis(1));
   }
 

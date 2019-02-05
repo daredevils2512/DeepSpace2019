@@ -2,10 +2,13 @@ package frc.robot.commands;
 
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.constants.*;
 
 public class RunToPosition extends Command {
-    public RunToPosition() {
+    private Constants.LiftPosition position;
+    public RunToPosition(Constants.LiftPosition value) {
         requires(Robot.m_lift);
+        this.position = value;
     }
 
     @Override
@@ -14,6 +17,11 @@ public class RunToPosition extends Command {
 
     @Override
     protected void execute() {
+        if( ==  && !(Robot.m_lift.getLiftHeight() > 1)) {
+            Robot.m_lift.setSpeed(0.5);
+        } else if ( ==  && !(Robot.m_lift.getLiftHeight() > 2)) {
+            Robot.m_lift.setSpeed(0.5);
+        }// } else if (Robot.m_oi.position == 3 && )
     }
 
     @Override

@@ -24,6 +24,15 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  public static double encoderDistancePerPulse = 0.0236065636;
+  public static double driveEncoderDistancePerPulse = 0.0236065636;
+
+  public static double liftEncoderPulseToFeet = 1 / 3944; 
     
+  public static int liftTalon1Id = 5;
+  public static int liftTalon2Id = 8;
+  public static int liftEncoderChannelA = 0;
+  public static int liftEncoderChannelB = 1;
+  public static int limitSwitchBottomPort = 4;
+  public static int limitSwitchTopPort = -1;
+  // a negative implies we dont know the port yet
 }
