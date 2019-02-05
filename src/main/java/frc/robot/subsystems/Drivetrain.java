@@ -35,6 +35,9 @@ public class Drivetrain extends Subsystem {
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
+
+  private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
+  private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
   
   // private RumbleType rumblely;
 
@@ -47,8 +50,8 @@ public class Drivetrain extends Subsystem {
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
     
         
-    leftEncoder = new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
-    rightEncoder = new Encoder(2, 3, true, CounterBase.EncodingType.k4X);
+    leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
+    rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
     leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
     rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
@@ -61,7 +64,7 @@ public class Drivetrain extends Subsystem {
     // this.rumblely = RumbleType.kLeftRumble;
     // this.rumblely = RumbleType.kRightRumble;
 
-    shifter = new DoubleSolenoid(4, 5);
+    shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
   }
   
@@ -107,8 +110,16 @@ public class Drivetrain extends Subsystem {
     return shifter.get();
   }
 
-  public void shift(DoubleSolenoid.Value shiftPos) {
+  private void shift(DoubleSolenoid.Value shiftPos) {
     shifter.set(shiftPos);
+  }
+
+  public void shiftUp() {
+    this.shift(high);
+  }
+
+  public void shiftDown() {
+    this.shift(low);
   }
 
   public double leftFrontSpeed() {

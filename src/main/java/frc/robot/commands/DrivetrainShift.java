@@ -14,38 +14,17 @@ import frc.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class DrivetrainShift extends Command {
-  private DoubleSolenoid.Value m_driveShift;
+public abstract class DrivetrainShift extends Command {
 
-  private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
-  private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
-
-  public enum Gear {
-    High,
-    Low
-  }
-
-  public DrivetrainShift(Gear driveShift) {
+  public DrivetrainShift() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_Drivetrain);
-    
-    if (driveShift == Gear.High) {
-      m_driveShift = high;
-    } else {
-      m_driveShift = low;
-    }
 
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Robot.m_Drivetrain.shift(m_driveShift);
   }
 
   // Make this return true when this Command no longer needs to run execute()
