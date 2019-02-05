@@ -95,8 +95,7 @@ public class OI {
     // yButton.whenPressed(new ToggleSpotlight());
     xButton.whenPressed(new DrivetrainShift(DrivetrainShift.Gear.High));
     xButton.whenReleased(new DrivetrainShift(DrivetrainShift.Gear.Low));
-    bigRed.whenPressed(new Compressor());
-    
+    bigRed.whenPressed(new Compressor());    
   }
 
   public double desensitize(double val) {
@@ -107,15 +106,15 @@ public class OI {
 		return result;
 	}
 
-  public double getMove() {
+  public Double getMove() {
     return desensitize(driver.getRawAxis(1));
   }
 
-  public double getTurn() {
+  public Double getTurn() {
     return desensitize(-driver.getRawAxis(4));
   }
 
-  public double getRight() {
+  public Double getRight() {
     return desensitize(driver.getRawAxis(5));
   }
 
