@@ -24,16 +24,30 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
+  //LEFT DRIVETRAIN STUFF
   public static int leftTalonPort = 0;
   public static int leftRearTalonPort = 1;
+  public static int leftEncoderChannelA = 0;
+  public static int leftEncoderChannelB = 1;
+
+  //RIGHT DRIVETRAIN STUFF
   public static int rightTalonPort = 2;
   public static int rightRearTalonPort = 3;
+  public static int rightEncoderChannelA = 2;
+  public static int rightEncoderChannelB = 3;
+  
+  public static int shifterForwardChannel = 4;
+  public static int shifterReverseChannel = 5;
 
-  public static double encoderDistancePerPulse = 0.0236065636;
+  public static double wheelDiameter = 6; // inches
+  public static double wheelCircumfrence = wheelDiameter * 3.14; // 18.84
+  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
+  // public static double encoderDistancePerPulse = 0.0236065636;
 
   public static int spotlightRelayPort = 0;
 
   public static int driverPort = 0;
   public static int extremePort = 1;
   public static int buttonBoxPort = 2;
+  
 }

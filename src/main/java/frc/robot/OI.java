@@ -93,8 +93,8 @@ public class OI {
 
   public OI() {
     // yButton.whenPressed(new ToggleSpotlight());
-    xButton.whenPressed(new DrivetrainShift(DrivetrainShift.Gear.High));
-    xButton.whenReleased(new DrivetrainShift(DrivetrainShift.Gear.Low));
+    xButton.whenPressed(new ShiftUp());
+    xButton.whenReleased(new ShiftDown());
     /*
     aButton.whileHeld(new ToggleSpotlight());
     bButton.whileHeld(new ToggleSpotlight());

@@ -36,10 +36,16 @@ public class Drivetrain extends Subsystem {
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
+<<<<<<< HEAD
   private PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
+=======
+
+  private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
+  private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
+>>>>>>> 9c59f1b52b7669913752284dac6da3cc2a3becb2
   
-  private RumbleType rumblely;
+  // private RumbleType rumblely;
 
 
   public Drivetrain() {
@@ -50,21 +56,21 @@ public class Drivetrain extends Subsystem {
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
     
         
-    leftEncoder = new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
-    rightEncoder = new Encoder(2, 3, true, CounterBase.EncodingType.k4X);
+    leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
+    rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
     leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
     rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
-    rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
+    leftEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    rightEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
     
-    this.rumblely = RumbleType.kLeftRumble;
-    this.rumblely = RumbleType.kRightRumble;
+    // this.rumblely = RumbleType.kLeftRumble;
+    // this.rumblely = RumbleType.kRightRumble;
 
-    shifter = new DoubleSolenoid(4, 5);
+    shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
     gyro = new PigeonIMU(0);
   }
@@ -109,8 +115,16 @@ public class Drivetrain extends Subsystem {
     return shifter.get();
   }
 
-  public void shift(DoubleSolenoid.Value shiftPos) {
+  private void shift(DoubleSolenoid.Value shiftPos) {
     shifter.set(shiftPos);
+  }
+
+  public void shiftUp() {
+    this.shift(high);
+  }
+
+  public void shiftDown() {
+    this.shift(low);
   }
 
   public double leftFrontSpeed() {
