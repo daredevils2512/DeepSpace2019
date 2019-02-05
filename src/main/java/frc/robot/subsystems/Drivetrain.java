@@ -36,14 +36,11 @@ public class Drivetrain extends Subsystem {
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
-<<<<<<< HEAD
   private PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
-=======
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
   private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
->>>>>>> 9c59f1b52b7669913752284dac6da3cc2a3becb2
   
   // private RumbleType rumblely;
 
