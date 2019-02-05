@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -7,16 +7,34 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ExampleCommand extends Command {
-  public ExampleCommand() {
+public class DrivetrainShift extends Command {
+  private DoubleSolenoid.Value m_driveShift;
+
+  private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
+  private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
+
+  public enum Gear {
+    High,
+    Low
+  }
+
+  public DrivetrainShift(Gear driveShift) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_subsystem);
+    requires(Robot.m_Drivetrain);
+    
+    if (driveShift == Gear.High) {
+      m_driveShift = high;
+    } else {
+      m_driveShift = low;
+    }
+
   }
 
   // Called just before this Command runs the first time
@@ -27,12 +45,13 @@ public class ExampleCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.m_Drivetrain.shift(m_driveShift);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
