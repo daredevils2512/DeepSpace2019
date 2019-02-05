@@ -52,6 +52,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+    SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
+    SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
+    SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
+    SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
+    SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
   }
 
   /**

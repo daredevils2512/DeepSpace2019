@@ -15,7 +15,7 @@ import frc.robot.Robot;
  */
 public class Drive extends Command {
 
-  double slowify = 0.75;
+  double slowify = 1.0;
 
   public Drive() {
     // Use requires() here to declare subsystem dependencies
@@ -31,7 +31,7 @@ public class Drive extends Command {
   @Override
   protected void execute() {
 
-    Robot.m_Drivetrain.arcadeDrive(Robot.m_oi.getMove() * slowify, Robot.m_oi.getTurn() * slowify);
+    Robot.m_Drivetrain.arcadeDrive(Robot.m_oi.getMove(), Robot.m_oi.getTurn());
     //Robot.m_Drivetrain.driveRobotTank(Robot.m_oi.getMove(), Robot.m_oi.getRight());
 
   }

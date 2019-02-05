@@ -45,6 +45,7 @@ public class Drivetrain extends Subsystem {
     rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
     leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
+    
         
     leftEncoder = new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(2, 3, true, CounterBase.EncodingType.k4X);
@@ -110,5 +111,19 @@ public class Drivetrain extends Subsystem {
     shifter.set(shiftPos);
   }
 
+  public double leftFrontSpeed() {
+    return this.leftTalon.get();
+  }
 
+  public double leftRearSpeed() {
+    return this.leftRearTalon.get();
+  }
+
+  public double rightFrontSpeed() {
+    return this.rightTalon.get();
+  }
+
+  public double rightRearSpeed() {
+    return this.rightRearTalon.get();
+  }
 }

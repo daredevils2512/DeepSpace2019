@@ -24,10 +24,10 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
-  public static int leftTalonPort = 1;
-  public static int leftRearTalonPort = 2;
-  public static int rightTalonPort = 3;
-  public static int rightRearTalonPort = 4;
+  public static int leftTalonPort = 0;
+  public static int leftRearTalonPort = 1;
+  public static int rightTalonPort = 2;
+  public static int rightRearTalonPort = 3;
 
   public static double wheelDiameter = 6; // inches
   public static double wheelCircumfrence = wheelDiameter * 3.14; // 18.84
