@@ -11,7 +11,12 @@ public class LineAlign extends Command {
 
     @Override
     protected void execute() {
-        Robot.m_LineFind.center(10, 10);
+        Robot.m_LineFind.Align(2);
+    }
+
+    @Override
+    protected void end() {
+        Robot.m_LineFind.resetVars();
     }
 
     @Override

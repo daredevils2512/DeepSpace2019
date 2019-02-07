@@ -2,7 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.*;
 import frc.robot.Robot;
-import frc.robot.subsystems.LineFind;
+// import frc.robot.subsystems.LineFind;
 
 public class LineFindTest extends Command {
 
@@ -15,6 +15,11 @@ public class LineFindTest extends Command {
         System.out.println("LineFindTestActivater");
         Robot.m_LineFind.pointToLine(10.0);
         
+    }
+
+    @Override
+    protected void end() {
+        Robot.m_LineFind.resetVars();
     }
 
     @Override

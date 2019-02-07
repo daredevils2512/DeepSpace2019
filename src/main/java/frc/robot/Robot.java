@@ -10,16 +10,19 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
+import com.kauailabs.navx.frc.AHRS;
 // import sun.nio.ch.Net;
 
 import org.opencv.core.*;
-import java.util.ArrayList;
-import frc.robot.GripWhiteLine;
+// import java.util.ArrayList;
+// import frc.robot.GripWhiteLine;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,6 +37,7 @@ public class Robot extends TimedRobot {
   public static Spotlight m_Spotlight = new Spotlight();
   public static LineFind m_LineFind = new LineFind();
   public static OI m_oi;
+  public static NavX m_navX;
   // public static Vision m_vision = new Vision();
   public final int IMG_width = 320;
   public final int IMG_height = 240;
@@ -42,6 +46,13 @@ public class Robot extends TimedRobot {
   public static double centerX = 999.00;
   public static double width = 999.00;
   public static double height = 999.00;
+  public static double bottom = 999.00;
+  public static double top = 999.00;
+  public static double widthPos = 999.00;
+  public static boolean centered = false;
+  public static boolean aligned = false;
+  public static double diff = 0.0;
+  public static char dir = 'n';
   public final String NTserver = "frcvision.local";
 
   NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
@@ -58,6 +69,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
+    m_navX = new NavX();
 
     // Robot.m_vision.init(320 , 240);
     // Robot.m_vision.view(Robot.source);
@@ -68,17 +80,21 @@ public class Robot extends TimedRobot {
     
     // convexHullsFinal.startServer();
     
+    NavX.navX.reset();
   }
 
   NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
   NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
   NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
   NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
+  NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
+  NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
+  NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
 
   public double centerXGetter() {
     
-    System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected() == true) {
+    // System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected()) {
       NetworkTableValue centerXValue = this.centerXEntry.getValue();
       // System.out.println("connected to " + convexHullsFinal.getConnections());
       // System.out.println("connection is valid: " + convexHullsFinal.isValid());
@@ -100,8 +116,8 @@ public class Robot extends TimedRobot {
 
   public double widthGetter() {
     
-    System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected() == true) {
+    // System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected()) {
       NetworkTableValue widthValue = this.widthEntry.getValue();
       // System.out.println("connected to " + convexHullsFinal.getConnections());
       // System.out.println("connection is valid: " + convexHullsFinal.isValid());
@@ -121,18 +137,81 @@ public class Robot extends TimedRobot {
 
   public double heightGetter() {
     
-    System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected() == true) {
+    // System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected()) {
       NetworkTableValue heightValue = this.heightEntry.getValue();
       // System.out.println("connected to " + convexHullsFinal.getConnections());
       // System.out.println("connection is valid: " + convexHullsFinal.isValid());
-      // System.out.println("heightValue info: " + convexHullsFinal.getEntryInfo("width", 1));
+      // System.out.println("heightValue info: " + convexHullsFinal.getEntryInfo("height", 1));
       if (heightValue.getType() == NetworkTableType.kDouble) {
         System.out.println("detcted white line height of " + heightValue.getDouble());
-        width = heightValue.getDouble();
+        height = heightValue.getDouble();
         return heightValue.getDouble();
       } else {
         System.out.println("height entry not a double; entry is a " + heightValue.getType());
+        return 999.00;
+      } 
+    } else {
+      return 999.00; 
+    }
+  }
+
+  public double bottomGetter() {
+    
+    // System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected()) {
+      NetworkTableValue bottomValue = this.bottomEntry.getValue();
+      // System.out.println("connected to " + convexHullsFinal.getConnections());
+      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
+      // System.out.println("bottomValue info: " + convexHullsFinal.getEntryInfo("bottom", 1));
+      if (bottomValue.getType() == NetworkTableType.kDouble) {
+        System.out.println("detcted white line bottom at " + bottomValue.getDouble());
+        bottom = bottomValue.getDouble();
+        return bottomValue.getDouble();
+      } else {
+        System.out.println("bottom entry not a double; entry is a " + bottomValue.getType());
+        return 999.00;
+      } 
+    } else {
+      return 999.00; 
+    }
+  }
+
+  public double topGetter() {
+    
+    // System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected()) {
+      NetworkTableValue topValue = this.topEntry.getValue();
+      // System.out.println("connected to " + convexHullsFinal.getConnections());
+      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
+      // System.out.println("topValue info: " + convexHullsFinal.getEntryInfo("top", 1));
+      if (topValue.getType() == NetworkTableType.kDouble) {
+        System.out.println("detcted white line top at " + topValue.getDouble());
+        top = topValue.getDouble();
+        return topValue.getDouble();
+      } else {
+        System.out.println("top entry not a double; entry is a " + topValue.getType());
+        return 999.00;
+      } 
+    } else {
+      return 999.00; 
+    }
+  }
+
+  public double widthPosGetter() {
+    
+    // System.out.println(convexHullsFinal.isConnected());
+    if (convexHullsFinal.isConnected()) {
+      NetworkTableValue widthPosValue = this.widthPosEntry.getValue();
+      // System.out.println("connected to " + convexHullsFinal.getConnections());
+      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
+      // System.out.println("widthPosValue info: " + convexHullsFinal.getEntryInfo("widthPos", 1));
+      if (widthPosValue.getType() == NetworkTableType.kDouble) {
+        System.out.println("detcted white line widthPos at " + widthPosValue.getDouble());
+        widthPos = widthPosValue.getDouble();
+        return widthPosValue.getDouble();
+      } else {
+        System.out.println("widthPos entry not a double; entry is a " + widthPosValue.getType());
         return 999.00;
       } 
     } else {
@@ -156,6 +235,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("centerX", centerXGetter());
     SmartDashboard.putNumber("width", widthGetter());
     SmartDashboard.putNumber("height", heightGetter());
+    SmartDashboard.putNumber("bottom", bottomGetter());
+    SmartDashboard.putNumber("top", topGetter());
+    SmartDashboard.putNumber("widthPos", widthPosGetter());
+    SmartDashboard.putNumber("yaw", m_navX.getYaw());
   }
 
   /**
