@@ -52,9 +52,9 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  public Joystick driver = new Joystick(RobotMap.driverPort);
-  public Joystick buttonBox = new Joystick(RobotMap.buttonBoxPort);
-  public Joystick extreme = new Joystick(RobotMap.extremePort);
+  public Joystick driver = new Joystick(0);
+  public Joystick buttonBox = new Joystick(2);
+  public Joystick extreme = new Joystick(1);
 
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
@@ -92,44 +92,9 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    // yButton.whenPressed(new ToggleSpotlight());
     xButton.whenPressed(new ShiftUp());
     xButton.whenReleased(new ShiftDown());
-    /*
-    aButton.whileHeld(new ToggleSpotlight());
-    bButton.whileHeld(new ToggleSpotlight());
-    xButton.whenPressed(new ToggleSpotlight());
-    leftBumper.whenPressed(new ToggleSpotlight());
-    rightBumper.whenPressed(new ToggleSpotlight());
-    select.whenPressed(new ToggleSpotlight());
-    start.whenPressed(new ToggleSpotlight());
-    leftStick.whenPressed(new ToggleSpotlight());
-    rightStick.whenPressed(new ToggleSpotlight());
-
-    triggerBoi.whenPressed(new ToggleSpotlight());
-    sideButton.whenPressed(new ToggleSpotlight());
-    topLeft.whenPressed(new ToggleSpotlight());
-    topRight.whenPressed(new ToggleSpotlight());
-    bottomLeft.whenPressed(new ToggleSpotlight());
-    bottomRight.whenPressed(new ToggleSpotlight());
-    frontLeft.whenPressed(new ToggleSpotlight());
-    frontRight.whenPressed(new ToggleSpotlight());
-    midLeft.whenPressed(new ToggleSpotlight());
-    midRight.whenPressed(new ToggleSpotlight());
-    backLeft.whenPressed(new ToggleSpotlight());
-    backRight.whenPressed(new ToggleSpotlight());
-    
-    topWhite.whenPressed(new ToggleSpotlight());
-    bigWhite.whenPressed(new ToggleSpotlight());
-    midRed.whenPressed(new ToggleSpotlight());
-    bottomWhite.whenPressed(new ToggleSpotlight());
-    topRed.whenPressed(new ToggleSpotlight());
-    greenBoi.whenPressed(new ToggleSpotlight());
-    midWhite.whenPressed(new ToggleSpotlight());
-    bigRed.whenPressed(new ToggleSpotlight());
-    yellowBoi.whenPressed(new ToggleSpotlight());
-    bottomRed.whenPressed(new ToggleSpotlight());
-    */
+    bigRed.whenPressed(new Compressor());    
   }
 
   public double desensitize(double val) {
@@ -140,27 +105,15 @@ public class OI {
 		return result;
 	}
 
-  public double getMove() {
+  public Double getMove() {
     return desensitize(driver.getRawAxis(1));
   }
 
-  public double getTurn() {
+  public Double getTurn() {
     return desensitize(-driver.getRawAxis(4));
   }
 
-  public double getRight() {
+  public Double getRight() {
     return desensitize(driver.getRawAxis(5));
   }
-
-
-
-
-
-
-
-
-
-
-
-
 }
