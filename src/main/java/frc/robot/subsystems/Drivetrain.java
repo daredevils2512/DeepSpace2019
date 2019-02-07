@@ -145,14 +145,17 @@ public class Drivetrain extends Subsystem {
   }
 
   public double getYaw() {
+    this.updateYPRData();
     return this.yprData[0];
   }
 
   public double getPitch() {
+    this.updateYPRData();
     return this.yprData[1];
   }
 
   public double getRoll() {
+    this.updateYPRData();
     return this.yprData[2];
   }
 }
