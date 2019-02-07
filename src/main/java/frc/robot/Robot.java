@@ -63,12 +63,13 @@ public class Robot extends TimedRobot {
 
   NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
   NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
-  NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
-  NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
-  NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
-  NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
-  NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
-  NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
+
+  //NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
+  //NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
+  //NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
+  //NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
+  //NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
+  //NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
 
   // NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
 
@@ -129,7 +130,9 @@ public class Robot extends TimedRobot {
   
 
   public Double getWidth() {
-    
+    width = Utils.getNetworkTableDouble(this.convexHullsFinal, "width");
+    return width;
+    /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue widthValue = this.widthEntry.getValue();
@@ -147,10 +150,14 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
+    */
   }
 
-  public double heightGetter() {
-    
+  public Double getHeight() {
+    height = Utils.getNetworkTableDouble(convexHullsFinal, "height");
+    return height;
+
+    /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue heightValue = this.heightEntry.getValue();
@@ -168,9 +175,13 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
+    */
   }
 
-  public double bottomGetter() {
+  public Double getBottom() {
+    bottom = Utils.getNetworkTableDouble(convexHullsFinal, "bottom");
+    return bottom;
+    /*
     
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -189,11 +200,13 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-
+    */
   }
 
-  public double topGetter() {
-    
+  public Double getTop() {
+    top = Utils.getNetworkTableDouble(convexHullsFinal, "top");
+    return top;
+    /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue topValue = this.topEntry.getValue();
@@ -211,10 +224,13 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
+    */
   }
 
-  public double widthPosGetter() {
-    
+  public Double getWidthPos() {
+    widthPos = Utils.getNetworkTableDouble(convexHullsFinal, "widthPos");
+    return widthPos;
+    /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue widthPosValue = this.widthPosEntry.getValue();
@@ -232,7 +248,10 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
+    */
   }
+
+
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -249,12 +268,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
 
-    SmartDashboard.putNumber("centerX", centerXGetter());
-    SmartDashboard.putNumber("width", widthGetter());
-    SmartDashboard.putNumber("height", heightGetter());
-    SmartDashboard.putNumber("bottom", bottomGetter());
-    SmartDashboard.putNumber("top", topGetter());
-    SmartDashboard.putNumber("widthPos", widthPosGetter());
+    SmartDashboard.putNumber("centerX", getCenterX());
+    SmartDashboard.putNumber("width", getWidth());
+    SmartDashboard.putNumber("height", getHeight());
+    SmartDashboard.putNumber("bottom", getBottom());
+    SmartDashboard.putNumber("top", getTop());
+    SmartDashboard.putNumber("widthPos", getWidthPos());
     SmartDashboard.putNumber("yaw", m_navX.getYaw());
     SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
     SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());

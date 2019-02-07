@@ -7,7 +7,7 @@ public class VisionControl extends Command {
 
     public VisionControl() {
 
-        requires(Robot.m_vision);
+       // requires(Robot.m_vision);
         
     }
 
