@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
+import frc.robot.vision.Utils;
+
 import com.kauailabs.navx.frc.AHRS;
 // import sun.nio.ch.Net;
 
@@ -39,25 +41,35 @@ public class Robot extends TimedRobot {
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
   public static NavX m_navX;
+
   // public static Vision m_vision = new Vision();
+  //THESE SHOULD BE PULLED FROM TEH IMAGE ITSELF.
   public final int IMG_width = 320;
   public final int IMG_height = 240;
   public static Mat source = new Mat();
+
   // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-  public static double centerX = 999.00;
-  public static double width = 999.00;
-  public static double height = 999.00;
-  public static double bottom = 999.00;
-  public static double top = 999.00;
-  public static double widthPos = 999.00;
+  public static Double centerX = null;
+  public static Double width = null;
+  public static Double height = null;
+  public static Double bottom = null;
+  public static Double top = null;
+  public static Double widthPos = null;
   public static boolean centered = false;
   public static boolean aligned = false;
-  public static double diff = 0.0;
+  public static Double diff = 0.0;
   public static char dir = 'n';
   public final String NTserver = "frcvision.local";
 
   NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
-  
+  NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
+  NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
+  NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
+  NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
+  NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
+  NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
+  NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
+
   // NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
 
   Command m_autonomousCommand;
@@ -73,7 +85,7 @@ public class Robot extends TimedRobot {
     m_navX = new NavX();
     m_Drivetrain = new Drivetrain();
     m_LineFind = new LineFind();
-
+    m_Compressorsorus = new Compressorsorus();
     // Robot.m_vision.init(320 , 240);
     // Robot.m_vision.view(Robot.source);
 
@@ -86,16 +98,17 @@ public class Robot extends TimedRobot {
     NavX.navX.reset();
   }
 
-  NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
-  NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
-  NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
-  NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
-  NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
-  NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
-  NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
+  /***
+   * 
+   * DO MUCH BETTER. NO WRITE SO MUCH CODE.
+   * 
+   * @return
+   */
 
-  public double centerXGetter() {
-    
+  public Double getCenterX() {
+    centerX = Utils.getNetworkTableDouble(this.convexHullsFinal, "centerX");
+
+    /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue centerXValue = this.centerXEntry.getValue();
@@ -105,19 +118,17 @@ public class Robot extends TimedRobot {
       if (centerXValue.getType() == NetworkTableType.kDouble) {
         System.out.println("detcted white line centerX at " + centerXValue.getDouble());
         centerX = centerXValue.getDouble();
-        return centerXValue.getDouble();
       } else {
         System.out.println("centerXentry not a double; entry is a " + centerXValue.getType());
-        return 999.00;
       } 
-    } else {
-      return 999.00; 
-    }
-    
+    } 
+    */
+
+    return centerX;
   } 
   
 
-  public double widthGetter() {
+  public Double getWidth() {
     
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -178,8 +189,7 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    m_Drivetrain = new Drivetrain();
-    m_Compressorsorus = new Compressorsorus();
+
   }
 
   public double topGetter() {
@@ -238,7 +248,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
-<<<<<<< HEAD
+
     SmartDashboard.putNumber("centerX", centerXGetter());
     SmartDashboard.putNumber("width", widthGetter());
     SmartDashboard.putNumber("height", heightGetter());
@@ -246,14 +256,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("top", topGetter());
     SmartDashboard.putNumber("widthPos", widthPosGetter());
     SmartDashboard.putNumber("yaw", m_navX.getYaw());
-=======
-
     SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
     SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
->>>>>>> master
   }
 
   /**

@@ -113,8 +113,4 @@ public class OI {
   public Double getRight() {
     return desensitize(driver.getRawAxis(5));
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 }

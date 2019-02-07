@@ -7,10 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -23,6 +19,6 @@ public class ShiftUp extends DrivetrainShift {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_Drivetrain.shiftUp();
+    this.mDriveTrain.shiftUp();
   }
 }
