@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------*/
+ /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -7,27 +7,24 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ToggleSpotlight extends Command {
-  public ToggleSpotlight() {
+public abstract class DrivetrainShift extends Command {
+
+  public DrivetrainShift() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Spotlight);
+    requires(Robot.m_Drivetrain);
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Robot.m_Spotlight.toggleSpotlight();
   }
 
   // Make this return true when this Command no longer needs to run execute()

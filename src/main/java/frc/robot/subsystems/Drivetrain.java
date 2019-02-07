@@ -8,11 +8,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.Drive;
+import frc.robot.commands.ArcadeDrive;
 import com.ctre.phoenix.motorcontrol.can.*;
+import com.ctre.phoenix.sensors.PigeonIMU;
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.*;
@@ -33,7 +36,15 @@ public class Drivetrain extends Subsystem {
   private SpeedControllerGroup rightTalonGroup;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
+  private DoubleSolenoid shifter;
 
+  private PigeonIMU gyro;
+  private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
+
+  private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
+  private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
+  
+  // private RumbleType rumblely;
 
   public Drivetrain() {
 
@@ -41,26 +52,32 @@ public class Drivetrain extends Subsystem {
     rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
     leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
+    
         
-    leftEncoder = new Encoder(0, 1, false, CounterBase.EncodingType.k4X);
-    rightEncoder = new Encoder(2, 3, true, CounterBase.EncodingType.k4X);
+    leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
+    rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
     leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
     rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
-    rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
+    leftEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    rightEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    
+    // this.rumblely = RumbleType.kLeftRumble;
+    // this.rumblely = RumbleType.kRightRumble;
 
+    shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
+
+    gyro = new PigeonIMU(0);
   }
-
-
+  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new Drive());
+    setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
   }
 
   public static void arcadeDrive(double move, double turn) {
@@ -92,4 +109,54 @@ public class Drivetrain extends Subsystem {
     rightEncoder.reset();
   }
 
+  public DoubleSolenoid.Value getShifterPos() {
+    return shifter.get();
+  }
+
+  private void shift(DoubleSolenoid.Value shiftPos) {
+    shifter.set(shiftPos);
+  }
+
+  public void shiftUp() {
+    this.shift(high);
+  }
+
+  public void shiftDown() {
+    this.shift(low);
+  }
+
+  public double leftFrontSpeed() {
+    return this.leftTalon.get();
+  }
+
+  public double leftRearSpeed() {
+    return this.leftRearTalon.get();
+  }
+
+  public double rightFrontSpeed() {
+    return this.rightTalon.get();
+  }
+
+  public double rightRearSpeed() {
+    return this.rightRearTalon.get();
+  }
+
+  public void updateYPRData() {
+    this.gyro.getYawPitchRoll(this.yprData);
+  }
+
+  public double getYaw() {
+    this.updateYPRData();
+    return this.yprData[0];
+  }
+
+  public double getPitch() {
+    this.updateYPRData();
+    return this.yprData[1];
+  }
+
+  public double getRoll() {
+    this.updateYPRData();
+    return this.yprData[2];
+  }
 }

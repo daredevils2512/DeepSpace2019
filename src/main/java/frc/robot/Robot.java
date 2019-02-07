@@ -33,9 +33,10 @@ import edu.wpi.first.wpilibj.AnalogGyro;
  */
 public class Robot extends TimedRobot {
   // public static GripWhiteLine m_grippipeline = new GripWhiteLine();
-  public static Drivetrain m_Drivetrain = new Drivetrain();
-  public static Spotlight m_Spotlight = new Spotlight();
-  public static LineFind m_LineFind = new LineFind();
+  public static LineFind m_LineFind;
+  public static Drivetrain m_Drivetrain;
+  // public static Spotlight m_Spotlight = new Spotlight();
+  public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
   public static NavX m_navX;
   // public static Vision m_vision = new Vision();
@@ -70,6 +71,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_oi = new OI();
     m_navX = new NavX();
+    m_Drivetrain = new Drivetrain();
+    m_LineFind = new LineFind();
 
     // Robot.m_vision.init(320 , 240);
     // Robot.m_vision.view(Robot.source);
@@ -175,6 +178,8 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
+    m_Drivetrain = new Drivetrain();
+    m_Compressorsorus = new Compressorsorus();
   }
 
   public double topGetter() {
@@ -228,10 +233,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    m_Drivetrain.updateYPRData();
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+<<<<<<< HEAD
     SmartDashboard.putNumber("centerX", centerXGetter());
     SmartDashboard.putNumber("width", widthGetter());
     SmartDashboard.putNumber("height", heightGetter());
@@ -239,6 +246,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("top", topGetter());
     SmartDashboard.putNumber("widthPos", widthPosGetter());
     SmartDashboard.putNumber("yaw", m_navX.getYaw());
+=======
+
+    SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
+    SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
+    SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
+    SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
+    SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+>>>>>>> master
   }
 
   /**
