@@ -29,9 +29,16 @@ public class ManualLift extends LiftCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(this.liftControlDirection.get() >= 0 && !Robot.m_lift.getLimitSwitchBottom()) {
-
+    double speed = 0.0;
+    if(this.liftControlDirection.get() < 0 && Robot.m_lift.getLimitSwitchTop()) {
+      speed = this.liftControlDirection.get();
+    } else if (this.liftControlDirection.get() > 0 && Robot.m_lift.getLimitSwitchBottom()) {
+      speed = this.liftControlDirection.get();
+    } else if (!Robot.m_lift.getLimitSwitchBottom() && !Robot.m_lift.getLimitSwitchTop()) {
+      speed = this.liftControlDirection.get();
+    } else {
+      speed = 0.0;
     }
-
+    Robot.m_lift.setSpeed(speed);
   }
 }

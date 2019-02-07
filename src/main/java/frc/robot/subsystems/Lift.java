@@ -44,7 +44,6 @@ public class Lift extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new MannualLift());
   }
 
   public double getLiftHeight() {
@@ -59,8 +58,11 @@ public class Lift extends Subsystem {
     return limitSwitchTop.get();
   }
 
+  public void resetLiftEncoder() {
+    // liftEncoder.reset();
+  }
+
   public void setSpeed(double speed) {
-    // System.out.printf("Set speed: {0}", speed);
     System.out.print(speed);
     liftTalon1.set(speed);
     liftTalon2.set(speed);

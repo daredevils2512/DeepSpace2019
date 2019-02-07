@@ -100,7 +100,7 @@ public class OI {
   }
   
   public Double liftControl() {
-   return desensitize(extreme.getRawAxis(1));
+   return -desensitize(extreme.getRawAxis(1));
   }
 
   public double getMove() {
