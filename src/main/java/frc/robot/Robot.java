@@ -55,8 +55,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("lift control", m_oi.liftControl());
+    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
+    // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
   }
 
@@ -112,6 +113,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_lift.resetEncoder();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

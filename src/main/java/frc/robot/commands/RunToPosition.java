@@ -17,11 +17,7 @@ public class RunToPosition extends Command {
 
     @Override
     protected void execute() {
-        if( ==  && !(Robot.m_lift.getLiftHeight() > 1)) {
-            Robot.m_lift.setSpeed(0.5);
-        } else if ( ==  && !(Robot.m_lift.getLiftHeight() > 2)) {
-            Robot.m_lift.setSpeed(0.5);
-        }// } else if (Robot.m_oi.position == 3 && )
+
     }
 
     @Override

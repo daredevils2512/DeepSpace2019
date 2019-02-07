@@ -8,12 +8,14 @@
 package frc.robot.subsystems;
  
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.*;
-import frc.robot.commands.*;
+import frc.robot.commands.ManualLift;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -23,7 +25,6 @@ public class Lift extends Subsystem {
   // here. Call these from Commands.
   private WPI_TalonSRX liftTalon1;
   private WPI_TalonSRX liftTalon2;
-  public Encoder liftEncoder;
   public static DigitalInput limitSwitchBottom;
   public static DigitalInput limitSwitchTop; 
 
@@ -32,8 +33,8 @@ public class Lift extends Subsystem {
     liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
     liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
 
-    liftEncoder = new Encoder(RobotMap.liftEncoderChannelA, RobotMap.liftEncoderChannelB, false, CounterBase.EncodingType.k4X);
-
+    liftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    liftTalon2.set(ControlMode.Follower, liftTalon1.getDeviceID());
 
     limitSwitchBottom = new DigitalInput(RobotMap.limitSwitchBottomPort);
     limitSwitchTop = new DigitalInput(RobotMap.limitSwitchTopPort);
@@ -44,12 +45,16 @@ public class Lift extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new MannualLift());
+    setDefaultCommand(new ManualLift(Robot.m_oi::liftControl));
   }
 
   public double getLiftHeight() {
-    return liftTalon1.getSelectedSensorVelocity(0) * RobotMap.liftEncoderPulseToFeet;
+    return (liftTalon1.getSelectedSensorPosition() * RobotMap.liftEncoderPulseToFeet);
   }
+
+  public void resetEncoder() {
+    liftTalon1.setSelectedSensorPosition(0);
+  }  
 
   public boolean getLimitSwitchBottom() {
     return limitSwitchBottom.get();
@@ -61,8 +66,7 @@ public class Lift extends Subsystem {
 
   public void setSpeed(double speed) {
     // System.out.printf("Set speed: {0}", speed);
-    System.out.print(speed);
     liftTalon1.set(speed);
-    liftTalon2.set(speed);
+    // liftTalon2.set(speed);
   }
 }
