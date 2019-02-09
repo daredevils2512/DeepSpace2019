@@ -48,13 +48,16 @@ public class Robot extends TimedRobot {
   public final int IMG_height = 240;
   public static Mat source = new Mat();
 
+  //Don't USE 999.00
+  //SET THESE TO NULL!!!
   // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-  public static Double centerX = 999.00;
-  public static Double width = 999.00;
-  public static Double height = 999.00;
-  public static Double bottom = 999.00;
-  public static Double top = 999.00;
-  public static Double widthPos = 999.00;
+  public static Double centerX = null;
+  public static Double width = null;
+  public static Double height = null;
+  public static Double bottom = null;
+  public static Double top = null;
+  public static Double widthPos = null;
+
   public static boolean centered = false;
   public static boolean aligned = false;
   public static Double diff = 0.0;
@@ -107,9 +110,9 @@ public class Robot extends TimedRobot {
    */
 
   public Double getCenterX() {
-    // centerX = Utils.getNetworkTableDouble(this.convexHullsFinal, "centerX");
-    // return centerX;
-    // /*
+    centerX = Utils.getNetworkTableDouble(this.convexHullsFinal, "centerX");
+    return centerX;
+     /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue centerXValue = this.centerXEntry.getValue();
@@ -124,17 +127,17 @@ public class Robot extends TimedRobot {
         centerX = 999.00;
       } 
     } 
-    // */
+     
     return centerX;
-
+*/
   } 
   
 
   public Double getWidth() {
-    // width = Utils.getNetworkTableDouble(this.convexHullsFinal, "width").doubleValue();
-    // return width;
-    // /*
-    // System.out.println(convexHullsFinal.isConnected());
+     width = Utils.getNetworkTableDouble(this.convexHullsFinal, "width").doubleValue();
+     return width;
+     /*
+     System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue widthValue = this.widthEntry.getValue();
       // System.out.println("connected to " + convexHullsFinal.getConnections());
@@ -151,15 +154,15 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    // */
+    */
   }
 
   public Double getHeight() {
-    // height = Utils.getNetworkTableDouble(convexHullsFinal, "height");
-    // return height;
+     height = Utils.getNetworkTableDouble(convexHullsFinal, "height");
+     return height;
 
-    // /*
-    // System.out.println(convexHullsFinal.isConnected());
+     /*
+     System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue heightValue = this.heightEntry.getValue();
       // System.out.println("connected to " + convexHullsFinal.getConnections());
@@ -176,13 +179,13 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    // */
+    */
   }
 
   public Double getBottom() {
-    // bottom = Utils.getNetworkTableDouble(convexHullsFinal, "bottom");
-    // return bottom;
-    // /*
+     bottom = Utils.getNetworkTableDouble(convexHullsFinal, "bottom");
+     return bottom;
+     /*
     
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -201,7 +204,7 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    // */
+    */
   }
 
   public Double getTop() {
@@ -229,10 +232,10 @@ public class Robot extends TimedRobot {
   }
 
   public Double getWidthPos() {
-    // widthPos = Utils.getNetworkTableDouble(convexHullsFinal, "widthPos");
-    // return widthPos;
-    // /*
-    // System.out.println(convexHullsFinal.isConnected());
+     widthPos = Utils.getNetworkTableDouble(convexHullsFinal, "widthPos");
+     return widthPos;
+     /*
+     System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue widthPosValue = this.widthPosEntry.getValue();
       // System.out.println("connected to " + convexHullsFinal.getConnections());
@@ -249,7 +252,7 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    // */
+    */
   }
 
 
