@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.commands.*;
+import frc.robot.Robot;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -92,6 +94,7 @@ public class OI {
   public OI() {
     aButton.whileHeld(new LineFindTest());
     xButton.whileHeld(new LineAlign());
+    rightBumper.whenPressed(new ResetTables(Robot.convexHullsFinal, Robot.NTserver));
   }
 
   public Double desensitize(Double val) {

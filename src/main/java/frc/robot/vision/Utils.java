@@ -20,7 +20,7 @@ public class Utils {
             try{
                 result = networkTableValue.getDouble();
             }catch(ClassCastException cce){
-                // System.out.println("Cannot get "+entryName+" as a double it is a "+networkTableValue.getType());
+                System.out.println("Cannot get "+entryName+" as a double it is a "+networkTableValue.getType());
             }
             System.out.println("Retrieved: "+result+" for entry: "+entryName);
         } 
@@ -31,9 +31,16 @@ public class Utils {
         NetworkTableValue result = null;
         NetworkTableEntry entry = null;
         if(networkTableInstance.isConnected() && networkTableInstance.isValid() && ((entry = networkTableInstance.getEntry(entryName)) != null)){
+            System.out.println("value got");
             result = entry.getValue();
         }
         return result;
+    }
+
+    public static void resetTables(NetworkTableInstance inst, String server) {
+        System.out.println("networkTable " + inst + " reset to " + server);
+        inst.startClient(server);
+        System.out.println("networkTable connected: " + inst.isConnected());
     }
 
 }

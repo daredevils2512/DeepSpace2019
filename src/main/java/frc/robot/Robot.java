@@ -62,9 +62,9 @@ public class Robot extends TimedRobot {
   public static boolean aligned = false;
   public static Double diff = 0.0;
   public static char dir = 'n';
-  public final String NTserver = "frcvision.local";
+  public static final String NTserver = "frcvision.local";
 
-  NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
+  public static NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
   NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
 
   NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
@@ -94,9 +94,8 @@ public class Robot extends TimedRobot {
     // Robot.m_vision.view(Robot.source);
 
     // start clientside table
-    convexHullsFinal.startClient();
-    convexHullsFinal.setServer(NTserver);
-    
+    Utils.resetTables(convexHullsFinal, NTserver);
+
     // convexHullsFinal.startServer();
     
     NavX.navX.reset();
@@ -109,8 +108,8 @@ public class Robot extends TimedRobot {
    * 
    */
 
-  public Double getCenterX() {
-    centerX = Utils.getNetworkTableDouble(this.convexHullsFinal, "centerX");
+  public static Double getCenterX() {
+    centerX = Utils.getNetworkTableDouble(convexHullsFinal, "centerX").doubleValue();
     return centerX;
      /*
     // System.out.println(convexHullsFinal.isConnected());
@@ -133,9 +132,9 @@ public class Robot extends TimedRobot {
   } 
   
 
-  public Double getWidth() {
-     width = Utils.getNetworkTableDouble(this.convexHullsFinal, "width").doubleValue();
-       return width;
+  public static Double getWidth() {
+    width = Utils.getNetworkTableDouble(convexHullsFinal, "width").doubleValue();
+    return width;
 
      /*
      System.out.println(convexHullsFinal.isConnected());
@@ -158,7 +157,7 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public Double getHeight() {
+  public static Double getHeight() {
      height = Utils.getNetworkTableDouble(convexHullsFinal, "height");
      return height;
 
@@ -183,7 +182,7 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public Double getBottom() {
+  public static Double getBottom() {
      bottom = Utils.getNetworkTableDouble(convexHullsFinal, "bottom");
      return bottom;
      /*
@@ -208,7 +207,7 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public Double getTop() {
+  public static Double getTop() {
     top = Utils.getNetworkTableDouble(convexHullsFinal, "top");
     return top;
     /*
@@ -232,7 +231,7 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public Double getWidthPos() {
+  public static Double getWidthPos() {
      widthPos = Utils.getNetworkTableDouble(convexHullsFinal, "widthPos");
      return widthPos;
      /*
@@ -265,9 +264,20 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before
    * LiveWindow and SmartDashboard integrated updating.
    */
+  public void updateNTData() {
+    centerX = getCenterX();
+    width = getWidth();
+    bottom = getBottom();
+    height =  getHeight();
+    top = getTop();
+    widthPos = getWidthPos();
+  }
+
   @Override
   public void robotPeriodic() {
+    System.out.println("connections " + convexHullsFinal.getConnections());
     try{
+    updateNTData();
     m_Drivetrain.updateYPRData();
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
