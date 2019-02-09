@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
   
 
   public static Double getWidth() {
-    return Utils.getNetworkTableDouble(convexHullsFinal, "width");/*.doubleValue();*/
+    return Utils.getNetworkTableDouble(convexHullsFinal, "width");
      /*
      System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -268,7 +268,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    System.out.println("connections " + convexHullsFinal.getConnections());
+    for (ConnectionInfo conninfo : convexHullsFinal.getConnections()){
+      System.out.println("Remoteid: "+conninfo.remote_id+", Remote IP: "+conninfo.remote_ip+", Port: "+conninfo.remote_port+", LastUpddate: "+conninfo.last_update);
+    }
     try{
     updateNTData();
     m_Drivetrain.updateYPRData();
