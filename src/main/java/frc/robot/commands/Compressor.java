@@ -7,7 +7,7 @@ public class Compressor extends Command {
 
     public Compressor() {
 
-        requires(Robot.m_Compressorsorus);
+        // requires(Robot.m_Compressorsorus);
 
     }
 

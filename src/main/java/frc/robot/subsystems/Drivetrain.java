@@ -145,6 +145,7 @@ public class Drivetrain extends Subsystem {
   //   this.gyro.getYawPitchRoll(this.yprData);
   // }
 
+<<<<<<< HEAD
   public double getYaw() {
     // this.updateYPRData();
     return this.yprData[0];
@@ -159,4 +160,20 @@ public class Drivetrain extends Subsystem {
     // this.updateYPRData();
     return this.yprData[2];
   }
+=======
+  // public double getYaw() {
+  //   this.updateYPRData();
+  //   return this.yprData[0];
+  // }
+
+  // public double getPitch() {
+  //   this.updateYPRData();
+  //   return this.yprData[1];
+  // }
+
+  // public double getRoll() {
+  //   this.updateYPRData();
+  //   return this.yprData[2];
+  // }
+>>>>>>> 79c55e6c70efa4ea934179e950e97959fc08c3d0
 }
