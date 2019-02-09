@@ -36,9 +36,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
+    m_oi = new OI();
   }
 
   /**
