@@ -19,10 +19,7 @@ public class Utils {
         if ((networkTableValue = getNetworkTableValue(networkTableInstance, entryName)) != null) {
             result = networkTableValue.getDouble();
             System.out.println("Retrieved: "+result+" for entry: "+entryName);
-        } else {
-            result = 999.00;
-        }
-
+        } 
         return result;
     }
 

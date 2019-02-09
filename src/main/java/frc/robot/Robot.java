@@ -267,6 +267,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    try{
     m_Drivetrain.updateYPRData();
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
@@ -285,6 +286,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+    }catch(Exception e){
+      e.printStackTrace();
+    }
   }
 
   /**
