@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
   public static final String NTserver = "frcvision.local";
 
   public static NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
-  NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
+  public static NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
 
   // NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
   // NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
    */
 
   public static Double getCenterX() {
-    return Utils.getNetworkTableDouble(convexHullsFinal, "centerX");
+    return Utils.getNetworkTableDouble(convexHullsTable, "centerX");
      /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -132,7 +132,7 @@ public class Robot extends TimedRobot {
   
 
   public static Double getWidth() {
-    return Utils.getNetworkTableDouble(convexHullsFinal, "width");
+    return Utils.getNetworkTableDouble(convexHullsTable, "width");
      /*
      System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
   }
 
   public static Double getHeight() {
-     return Utils.getNetworkTableDouble(convexHullsFinal, "height");
+     return Utils.getNetworkTableDouble(convexHullsTable, "height");
 
      /*
      System.out.println(convexHullsFinal.isConnected());
@@ -179,7 +179,7 @@ public class Robot extends TimedRobot {
   }
 
   public static Double getBottom() {
-     return Utils.getNetworkTableDouble(convexHullsFinal, "bottom");
+     return Utils.getNetworkTableDouble(convexHullsTable, "bottom");
      /*
     
     // System.out.println(convexHullsFinal.isConnected());
@@ -203,7 +203,7 @@ public class Robot extends TimedRobot {
   }
 
   public static Double getTop() {
-    return Utils.getNetworkTableDouble(convexHullsFinal, "top");
+    return Utils.getNetworkTableDouble(convexHullsTable, "top");
     /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -226,7 +226,7 @@ public class Robot extends TimedRobot {
   }
 
   public static Double getWidthPos() {
-     return Utils.getNetworkTableDouble(convexHullsFinal, "widthPos");
+     return Utils.getNetworkTableDouble(convexHullsTable, "widthPos");
      /*
      System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
