@@ -80,7 +80,11 @@ public class Drivetrain extends Subsystem {
     setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
   }
 
-  public static void arcadeDrive(double move, double turn) {
+  public void arcadeDrive(double move, double turn) {
+    drivetrain.arcadeDrive(move, turn);
+  }
+
+  public static void staticArcadeDrive(double move, double turn) {
     drivetrain.arcadeDrive(move, turn);
   }
 

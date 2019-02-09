@@ -135,7 +135,8 @@ public class Robot extends TimedRobot {
 
   public Double getWidth() {
      width = Utils.getNetworkTableDouble(this.convexHullsFinal, "width").doubleValue();
-     return width;
+       return width;
+
      /*
      System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -271,13 +272,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
-
-    SmartDashboard.putNumber("centerX", getCenterX());
-    SmartDashboard.putNumber("width", getWidth());
-    SmartDashboard.putNumber("height", getHeight());
-    SmartDashboard.putNumber("bottom", getBottom());
-    SmartDashboard.putNumber("top", getTop());
-    SmartDashboard.putNumber("widthPos", getWidthPos());
+    SmartDashboard.putNumber("centerX", getCenterX() == null ? 999.00 : getCenterX());
+    SmartDashboard.putNumber("width", getWidth() == null ? 999.00 : getWidth());
+    SmartDashboard.putNumber("height", getHeight() == null ? 999.00 : getHeight());
+    SmartDashboard.putNumber("Bottom", getBottom() == null ? 999.00 : getBottom());
+    SmartDashboard.putNumber("top", getTop() == null ? 999.00 : getTop());
+    SmartDashboard.putNumber("widthPos", getWidthPos() == null ? 999.00 : getWidthPos());
     SmartDashboard.putNumber("navX yaw", m_navX.getYaw());
     SmartDashboard.putNumber("pidgine yaw", m_Drivetrain.getYaw());
     SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());

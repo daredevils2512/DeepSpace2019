@@ -23,6 +23,8 @@ public abstract class Drive extends Command {
   public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_Drivetrain);
+    this.getLeft = getLeft;
+    this.getRight = getRight;
   }
 
   // Called just before this Command runs the first time

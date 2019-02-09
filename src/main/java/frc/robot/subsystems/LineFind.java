@@ -15,22 +15,22 @@ public class LineFind extends Subsystem {
 
     public void pointToLine(double m) {
       System.out.println("lineFind activated");
-      if (Robot.centerX + (Robot.widthPos / 2) >= m && Robot.centerX != 999.00) {
+      if (Robot.centerX + (Robot.widthPos / 2) >= m && Robot.centerX != null) {
           System.out.println("motor ran left");
-          Drivetrain.arcadeDrive(0.0, -0.5);
+          Drivetrain.staticArcadeDrive(0.0, -0.5);
       }
-      if (Robot.centerX + (Robot.widthPos / 2) <= -m && Robot.centerX != 999.00) {
+      if (Robot.centerX + (Robot.widthPos / 2) <= -m && Robot.centerX != null) {
           System.out.println("motor ran right");
-          Drivetrain.arcadeDrive(0.0, 0.5);
+          Drivetrain.staticArcadeDrive(0.0, 0.5);
       }
-      if (Robot.centerX <= m && Robot.centerX >= -m && Robot.centerX != 999.00 && Robot.centered == false) {
-          if (Robot.bottom >= m && Robot.bottom != 999.00) {
+      if (Robot.centerX <= m && Robot.centerX >= -m && Robot.centerX != null && Robot.centered == false) {
+          if (Robot.bottom >= m && Robot.bottom != null) {
             System.out.println("motor ran backward");
-            Drivetrain.arcadeDrive(0.5, 0);
-          } else if (Robot.bottom >= -m && Robot.centerX != 999.00) {
+            Drivetrain.staticArcadeDrive(0.5, 0);
+          } else if (Robot.bottom >= -m && Robot.centerX != null) {
             System.out.println("motor ran foreward");
-            Drivetrain.arcadeDrive(-0.5, 0);
-          } else if (Robot.bottom <= m && Robot.bottom >= -m && Robot.bottom != 999.00) {
+            Drivetrain.staticArcadeDrive(-0.5, 0);
+          } else if (Robot.bottom <= m && Robot.bottom >= -m && Robot.bottom != null) {
             //here there be the rest of the auto bit
             System.out.println("centered on bottom of line");
             Robot.centered = true;
@@ -47,35 +47,35 @@ public class LineFind extends Subsystem {
       //if dir = l the line is to the front and pointing to the left
       //if dir = n the line is not found or already aligned
       System.out.println("Align ran");
-      System.out.println( "" + (Robot.widthPos >= 7 + m) + " " + (Robot.widthPos != 999.00) + " " + (Robot.aligned == false) + " " + (Robot.dir == 'n'));
-      if ((Robot.widthPos >= 7 + m && Robot.widthPos != 999.00) && Robot.aligned == false && Robot.dir == 'n') {
+      System.out.println( "" + (Robot.widthPos >= 7 + m) + " " + (Robot.widthPos != null) + " " + (Robot.aligned == false) + " " + (Robot.dir == 'n'));
+      if ((Robot.widthPos >= 7 + m && Robot.widthPos != null) && Robot.aligned == false && Robot.dir == 'n') {
         Robot.diff = Robot.widthPos;
         System.out.println("direction test");
-        Drivetrain.arcadeDrive(0.0, 0.5);
-        if (Robot.widthPos >= Robot.diff && Robot.widthPos != 999.00) {
+        Drivetrain.staticArcadeDrive(0.0, 0.5);
+        if (Robot.widthPos >= Robot.diff && Robot.widthPos != null) {
           System.out.println("line is to the left");
           Robot.dir = 'l';
-          Drivetrain.arcadeDrive(0.0, 0.0);
+          Drivetrain.staticArcadeDrive(0.0, -0.5);
         } else if (Robot.widthPos <= Robot.diff) {
           System.out.println("line is to the right");
           Robot.dir = 'r';
-          Drivetrain.arcadeDrive(0.0, 0.0);
+          Drivetrain.staticArcadeDrive(0.0, 0.5);
         } else if (Robot.widthPos <= 7 + m) {
           System.out.println("Robot aligned");
           Robot.centered = true;
           Robot.dir = 'n';
-          Drivetrain.arcadeDrive(0.0, 0.0);
-        } else if (Robot.widthPos == 999.00) {
+          Drivetrain.staticArcadeDrive(0.0, 0.0);
+        } else if (Robot.widthPos == null) {
           System.out.println("no line width found");
         }
       }
 
       if (Robot.dir == 'r' && Robot.centered == false) {
         System.out.println("turning to the right");
-        Drivetrain.arcadeDrive(0.0, 0.5);
+        Drivetrain.staticArcadeDrive(0.0, 0.5);
       } else if (Robot.dir == 'l' && Robot.centered == false) {
         System.out.println("turning to the left");
-        Drivetrain.arcadeDrive(0.0, -0.5);
+        Drivetrain.staticArcadeDrive(0.0, -0.5);
       } else if (Robot.centered == true) {
         System.out.println("aligned on line");
         //the rest of the process will be put here

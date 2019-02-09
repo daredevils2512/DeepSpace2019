@@ -15,10 +15,10 @@ import frc.robot.subsystems.Drivetrain;
 /**
  * An example command.  You can replace me with your own command.
  */
-public abstract class DrivetrainShift extends Command {
+public abstract class DrivetrainShift2 extends Command {
 
   protected Drivetrain mDriveTrain;
-  public DrivetrainShift() {
+  public DrivetrainShift2() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_Drivetrain);
     this.mDriveTrain = Robot.m_Drivetrain;
