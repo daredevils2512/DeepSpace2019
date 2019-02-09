@@ -7,7 +7,13 @@ import frc.robot.Robot;
 public class LineFindTest extends Command {
 
     public LineFindTest() {
+        // requires(Robot.m_LineFind);
         requires(Robot.m_LineFind);
+    }
+
+  // Called just before this Command runs the first time
+    @Override
+    protected void initialize() {
     }
 
     @Override

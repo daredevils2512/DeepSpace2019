@@ -49,12 +49,12 @@ public class Robot extends TimedRobot {
   public static Mat source = new Mat();
 
   // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-  public static Double centerX = null;
-  public static Double width = null;
-  public static Double height = null;
-  public static Double bottom = null;
-  public static Double top = null;
-  public static Double widthPos = null;
+  public static Double centerX = 999.00;
+  public static Double width = 999.00;
+  public static Double height = 999.00;
+  public static Double bottom = 999.00;
+  public static Double top = 999.00;
+  public static Double widthPos = 999.00;
   public static boolean centered = false;
   public static boolean aligned = false;
   public static Double diff = 0.0;
@@ -64,12 +64,12 @@ public class Robot extends TimedRobot {
   NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
   NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
 
-  //NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
-  //NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
-  //NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
-  //NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
-  //NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
-  //NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
+  NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
+  NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
+  NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
+  NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
+  NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
+  NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
 
   // NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
 
@@ -82,11 +82,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
+    m_LineFind = new LineFind();
     m_navX = new NavX();
     m_Drivetrain = new Drivetrain();
-    m_LineFind = new LineFind();
     m_Compressorsorus = new Compressorsorus();
+    m_oi = new OI();
     // Robot.m_vision.init(320 , 240);
     // Robot.m_vision.view(Robot.source);
 
@@ -103,13 +103,13 @@ public class Robot extends TimedRobot {
    * 
    * DO MUCH BETTER. NO WRITE SO MUCH CODE.
    * 
-   * @return
+   * 
    */
 
   public Double getCenterX() {
-    centerX = Utils.getNetworkTableDouble(this.convexHullsFinal, "centerX");
-
-    /*
+    // centerX = Utils.getNetworkTableDouble(this.convexHullsFinal, "centerX");
+    // return centerX;
+    // /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue centerXValue = this.centerXEntry.getValue();
@@ -121,18 +121,19 @@ public class Robot extends TimedRobot {
         centerX = centerXValue.getDouble();
       } else {
         System.out.println("centerXentry not a double; entry is a " + centerXValue.getType());
+        centerX = 999.00;
       } 
     } 
-    */
-
+    // */
     return centerX;
+
   } 
   
 
   public Double getWidth() {
-    width = Utils.getNetworkTableDouble(this.convexHullsFinal, "width");
-    return width;
-    /*
+    // width = Utils.getNetworkTableDouble(this.convexHullsFinal, "width").doubleValue();
+    // return width;
+    // /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue widthValue = this.widthEntry.getValue();
@@ -150,14 +151,14 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    */
+    // */
   }
 
   public Double getHeight() {
-    height = Utils.getNetworkTableDouble(convexHullsFinal, "height");
-    return height;
+    // height = Utils.getNetworkTableDouble(convexHullsFinal, "height");
+    // return height;
 
-    /*
+    // /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue heightValue = this.heightEntry.getValue();
@@ -175,13 +176,13 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    */
+    // */
   }
 
   public Double getBottom() {
-    bottom = Utils.getNetworkTableDouble(convexHullsFinal, "bottom");
-    return bottom;
-    /*
+    // bottom = Utils.getNetworkTableDouble(convexHullsFinal, "bottom");
+    // return bottom;
+    // /*
     
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -200,13 +201,13 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    */
+    // */
   }
 
   public Double getTop() {
-    top = Utils.getNetworkTableDouble(convexHullsFinal, "top");
-    return top;
-    /*
+    // top = Utils.getNetworkTableDouble(convexHullsFinal, "top");
+    // return top;
+    // /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue topValue = this.topEntry.getValue();
@@ -224,13 +225,13 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    */
+    // */
   }
 
   public Double getWidthPos() {
-    widthPos = Utils.getNetworkTableDouble(convexHullsFinal, "widthPos");
-    return widthPos;
-    /*
+    // widthPos = Utils.getNetworkTableDouble(convexHullsFinal, "widthPos");
+    // return widthPos;
+    // /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue widthPosValue = this.widthPosEntry.getValue();
@@ -248,7 +249,7 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    */
+    // */
   }
 
 

@@ -47,7 +47,7 @@ public class LineFind extends Subsystem {
       //if dir = l the line is to the front and pointing to the left
       //if dir = n the line is not found or already aligned
       System.out.println("Align ran");
-      System.out.println( "" + (Robot.widthPos >= 7 + m) + (Robot.widthPos != 999.00) + (Robot.aligned == false) + (Robot.dir == 'n'));
+      System.out.println( "" + (Robot.widthPos >= 7 + m) + " " + (Robot.widthPos != 999.00) + " " + (Robot.aligned == false) + " " + (Robot.dir == 'n'));
       if ((Robot.widthPos >= 7 + m && Robot.widthPos != 999.00) && Robot.aligned == false && Robot.dir == 'n') {
         Robot.diff = Robot.widthPos;
         System.out.println("direction test");

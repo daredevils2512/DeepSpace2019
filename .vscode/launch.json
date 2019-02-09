@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CodeLens (Launch) - Main",
+      "request": "launch",
+      "mainClass": "frc.robot.Main",
+      "projectName": "DeepSpace2019"
+    },
+    {
+      "type": "java",
       "name": "CodeLens (Launch) - Vision",
       "request": "launch",
       "mainClass": "frc.robot.Vision.Vision",
