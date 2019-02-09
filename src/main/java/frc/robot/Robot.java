@@ -273,12 +273,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
-    SmartDashboard.putNumber("centerX", getCenterX() == null ? 999.00 : getCenterX());
-    SmartDashboard.putNumber("width", getWidth() == null ? 999.00 : getWidth());
-    SmartDashboard.putNumber("height", getHeight() == null ? 999.00 : getHeight());
-    SmartDashboard.putNumber("Bottom", getBottom() == null ? 999.00 : getBottom());
-    SmartDashboard.putNumber("top", getTop() == null ? 999.00 : getTop());
-    SmartDashboard.putNumber("widthPos", getWidthPos() == null ? 999.00 : getWidthPos());
+    SmartDashboard.putNumber("centerX", Robot.centerX  == null ? 999.00 : Robot.centerX);
+    SmartDashboard.putNumber("width", Robot.width == null ? 999.00 : Robot.width);
+    SmartDashboard.putNumber("height", Robot.height == null ? 999.00 : Robot.height);
+    SmartDashboard.putNumber("Bottom", Robot.bottom == null ? 999.00 : Robot.bottom);
+    SmartDashboard.putNumber("top", Robot.top == null ? 999.00 : Robot.top);
+    SmartDashboard.putNumber("widthPos", Robot.widthPos == null ? 999.00 : Robot.widthPos);
     SmartDashboard.putNumber("navX yaw", m_navX.getYaw());
     SmartDashboard.putNumber("pidgine yaw", m_Drivetrain.getYaw());
     SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
