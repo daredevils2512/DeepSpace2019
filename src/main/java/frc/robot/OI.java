@@ -52,7 +52,7 @@ public class OI {
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
 
-  public Joystick driver = new Joystick(3);
+  public Joystick driver = new Joystick(0);
   public Joystick buttonBox = new Joystick(2);
   public Joystick extreme = new Joystick(1);
 
