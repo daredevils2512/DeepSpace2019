@@ -132,7 +132,11 @@ public class Robot extends TimedRobot {
   
 
   public static Double getWidth() {
+<<<<<<< HEAD
+    return Utils.getNetworkTableDouble(convexHullsFinal, "width");/*.doubleValue();*/
+=======
     return Utils.getNetworkTableDouble(convexHullsFinal, "width");
+>>>>>>> d14bb6b014d0a2860739230e732079f473aab050
      /*
      System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
