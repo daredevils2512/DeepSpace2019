@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
   public static char dir = 'n';
   public static final String NTserver = "frcvision.local";
 
-  public static NetworkTableInstance convexHullsFinal = NetworkTableInstance.create();
+  public static NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
   NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
 
   // NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
