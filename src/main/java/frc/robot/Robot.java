@@ -275,7 +275,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("bottom", getBottom());
     SmartDashboard.putNumber("top", getTop());
     SmartDashboard.putNumber("widthPos", getWidthPos());
-    SmartDashboard.putNumber("yaw", m_navX.getYaw());
+    SmartDashboard.putNumber("navX yaw", m_navX.getYaw());
+    SmartDashboard.putNumber("pidgine yaw", m_Drivetrain.getYaw());
     SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
     SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
