@@ -14,6 +14,8 @@ import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.*;
+// import com.sun.tools.javac.comp.Todo;
+
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.ManualLift;
 
@@ -73,4 +75,74 @@ public class Lift extends Subsystem {
     liftTalon1.set(speed);
     // liftTalon2.set(speed);
   }
+
+  // these heights are not acurate, change them when we find out
+  public void runToBottom() {
+    
+    if (this.getLiftHeight() > 0) {
+      setSpeed(-1);
+    } else {
+      setSpeed(0);
+    }
+
+  }
+
+  public void runToMid() {
+
+    if (this.getLiftHeight() < 1) {
+      setSpeed(1);
+    } else if (this.getLiftHeight() > 1) {
+      setSpeed(-1);
+    } else {
+      setSpeed(0);
+    }
+
+  }
+
+  public void runToTop() {
+
+    if (this.getLiftHeight() < 2) {
+      setSpeed(1);
+    } else {
+      setSpeed(0);
+    }
+
+  }
+
+  public void runToHatchBottom() {
+
+    if (this.getLiftHeight() < 0.5) {
+      setSpeed(1);
+    } else if (this.getLiftHeight() > 0.5) {
+      setSpeed(-1);
+    } else {
+      setSpeed(0);
+    }
+
+  }
+
+  public void runToHatchMid() {
+
+    if (this.getLiftHeight() < 1.5) {
+      setSpeed(1);
+    } else if (this.getLiftHeight() > 1.5) {
+      setSpeed(-1);
+    } else {
+      setSpeed(0);
+    }
+
+  }
+
+  public void runToHatchTop() {
+
+    if (this.getLiftHeight() < 2.5) {
+      setSpeed(1);
+    } else if (this.getLiftHeight() > 2.5) {
+      setSpeed(-1);
+    } else {
+      setSpeed(0);
+    }
+
+  }
+  
 }

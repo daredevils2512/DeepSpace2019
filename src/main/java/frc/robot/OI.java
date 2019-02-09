@@ -7,13 +7,11 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.*;
+import frc.robot.constants.Constants.LiftPosition;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -62,7 +60,12 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    //LiftCommand manualLift = new ManualLiftCommand(this.liftControl);
+    bottomRed.whenPressed(new RunToPosition(LiftPosition.BOTTOM));
+    bottomWhite.whenPressed(new RunToPosition(LiftPosition.HATCHBOTTOM));
+    midRed.whenPressed(new RunToPosition(LiftPosition.MIDDLE));
+    midWhite.whenPressed(new RunToPosition(LiftPosition.HATCHMIDDLE));
+    topRed.whenPressed(new RunToPosition(LiftPosition.TOP));
+    topWhite.whenPressed(new RunToPosition(LiftPosition.HATCHTOP));
   }
 
   public double desensitize(double val) {

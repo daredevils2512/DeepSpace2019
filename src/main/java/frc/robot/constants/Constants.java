@@ -3,7 +3,10 @@ package frc.robot.constants;
 public class Constants {
     public enum LiftPosition {
         BOTTOM,
+        HATCHBOTTOM,
         MIDDLE,
-        TOP
+        HATCHMIDDLE,
+        TOP,
+        HATCHTOP
     }
 }
