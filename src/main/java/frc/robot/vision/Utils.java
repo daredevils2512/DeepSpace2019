@@ -20,7 +20,7 @@ public class Utils {
             try{
                 result = networkTableValue.getDouble();
             }catch(ClassCastException cce){
-                System.out.println("Cannot get "+entryName+" as a double it is a "+networkTableValue.getType());
+                // System.out.println("Cannot get "+entryName+" as a double it is a "+networkTableValue.getType());
             }
             System.out.println("Retrieved: "+result+" for entry: "+entryName);
         } 

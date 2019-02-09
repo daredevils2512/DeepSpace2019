@@ -209,9 +209,9 @@ public class Robot extends TimedRobot {
   }
 
   public Double getTop() {
-    // top = Utils.getNetworkTableDouble(convexHullsFinal, "top");
-    // return top;
-    // /*
+    top = Utils.getNetworkTableDouble(convexHullsFinal, "top");
+    return top;
+    /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
       NetworkTableValue topValue = this.topEntry.getValue();
@@ -229,7 +229,7 @@ public class Robot extends TimedRobot {
     } else {
       return 999.00; 
     }
-    // */
+    */
   }
 
   public Double getWidthPos() {
