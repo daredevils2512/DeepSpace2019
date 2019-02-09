@@ -1,5 +1,6 @@
 package frc.robot.vision;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableValue;
@@ -12,11 +13,11 @@ public class Utils {
      * PUT YOUR SYSTEM OUT IN HERE SO YOU DON"T NEED TO COPY IT
      */
 
-    public static Double getNetworkTableDouble(NetworkTableInstance networkTableInstance, String entryName){
+    public static Double getNetworkTableDouble(NetworkTable networkTable, String entryName){
         Double result = null;
         NetworkTableValue networkTableValue;
         
-        if ((networkTableValue = getNetworkTableValue(networkTableInstance, entryName)) != null) {
+        if ((networkTableValue = getNetworkTableValue(networkTable, entryName)) != null) {
             try{
                 result = networkTableValue.getDouble();
                 System.out.println("Retrieved: "+result+" for entry: "+entryName);
@@ -29,10 +30,10 @@ public class Utils {
         return result;
     }
 
-    private static NetworkTableValue getNetworkTableValue(NetworkTableInstance networkTableInstance, String entryName){
+    private static NetworkTableValue getNetworkTableValue(NetworkTable networkTable, String entryName){
         NetworkTableValue result = null;
         NetworkTableEntry entry = null;
-        if(networkTableInstance.isConnected() && networkTableInstance.isValid() && ((entry = networkTableInstance.getEntry(entryName)) != null)){
+        if((entry = networkTable.getEntry(entryName)) != null){
             result = entry.getValue();
         }
         return result;
