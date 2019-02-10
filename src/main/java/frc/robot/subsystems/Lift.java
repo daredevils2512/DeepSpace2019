@@ -51,7 +51,7 @@ public class Lift extends Subsystem {
   }
 
   public double getLiftHeight() {
-    return (liftTalon1.getSelectedSensorPosition() * RobotMap.liftEncoderPulseToFeet);
+    return (liftTalon1.getSelectedSensorPosition() * RobotMap.liftEncoderPulseToFeet); //
   }
 
   public void resetEncoder() {

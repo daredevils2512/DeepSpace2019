@@ -28,7 +28,6 @@ public class Robot extends TimedRobot {
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
   public static Lift m_lift;
-  public static Constants m_constants;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -43,7 +42,6 @@ public class Robot extends TimedRobot {
     m_Compressorsorus = new Compressorsorus();
     m_lift = new Lift();
     m_oi = new OI();
-    m_constants = new Constants();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
