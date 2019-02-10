@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
   public static final String NTserver = "frcvision.local";
 
   public static NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
-  public static NetworkTable convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
+  public static NetworkTable convexHullsTable = null;
 
   // NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
   // NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
@@ -95,8 +95,8 @@ public class Robot extends TimedRobot {
 
     // start clientside table
     Utils.resetTables(convexHullsFinal, NTserver);
-
-    // convexHullsFinal.startServer();
+    convexHullsTable= convexHullsFinal.getTable("White Line Tracking");
+    Utils.dumpNetworkTable(convexHullsTable);
     
     NavX.navX.reset();
   }
