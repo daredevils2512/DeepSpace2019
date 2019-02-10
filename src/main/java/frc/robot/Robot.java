@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.*;
+import frc.robot.constants.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,10 +23,12 @@ import frc.robot.subsystems.Lift;
  * project.
  */
 public class Robot extends TimedRobot {
-  // public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static Drivetrain m_Drivetrain;
+  // public static Spotlight m_Spotlight = new Spotlight();
+  public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
   public static Lift m_lift;
-  public static Drivetrain m_Drivetrain;
+  public static Constants m_constants;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -37,8 +39,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    m_Drivetrain = new Drivetrain();
+    m_Compressorsorus = new Compressorsorus();
     m_lift = new Lift();
     m_oi = new OI();
+    m_constants = new Constants();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -58,6 +63,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
+    // m_Drivetrain.updateYPRData();
+    SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
+    SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
+    SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
+    SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+
+    SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
+    SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
+    SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
+    SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
+    SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
   }
 
   /**
@@ -117,6 +133,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    m_Drivetrain.resetEncoders();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

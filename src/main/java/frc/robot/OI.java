@@ -7,16 +7,23 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.constants.Constants;
+// import frc.robot.commands.ToggleSpotlight;
 import frc.robot.commands.*;
-import frc.robot.constants.Constants.LiftPosition;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
+
+
+
 public class OI {
   //Joysticks
   public Joystick driver = new Joystick(0);
@@ -60,12 +67,15 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    bottomRed.whenPressed(new RunToPosition(LiftPosition.BOTTOM));
-    bottomWhite.whenPressed(new RunToPosition(LiftPosition.HATCHBOTTOM));
-    midRed.whenPressed(new RunToPosition(LiftPosition.MIDDLE));
-    midWhite.whenPressed(new RunToPosition(LiftPosition.HATCHMIDDLE));
-    topRed.whenPressed(new RunToPosition(LiftPosition.TOP));
-    topWhite.whenPressed(new RunToPosition(LiftPosition.HATCHTOP));
+    bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.BOTTOM));
+    bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
+    midRed.whenPressed(new RunToPosition(Constants.LiftPosition.MIDDLE));
+    midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
+    topRed.whenPressed(new RunToPosition(Constants.LiftPosition.TOP));
+    topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
+    xButton.whenPressed(new ShiftUp());
+    xButton.whenReleased(new ShiftDown());
+    bigRed.whenPressed(new Compressor());    
   }
 
   public double desensitize(double val) {
@@ -79,12 +89,16 @@ public class OI {
   public Double liftControl() {
    return -desensitize(extreme.getRawAxis(1));
   }
-
-  public double getMove() {
+  
+  public Double getMove() {
     return desensitize(driver.getRawAxis(1));
   }
 
-  public double getTurn() {
+  public Double getTurn() {
     return desensitize(-driver.getRawAxis(4));
+  }
+
+  public Double getRight() {
+    return desensitize(driver.getRawAxis(5));
   }
 }
