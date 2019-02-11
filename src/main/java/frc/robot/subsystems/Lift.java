@@ -51,7 +51,7 @@ public class Lift extends Subsystem {
   }
 
   public double getLiftHeight() {
-    return (liftTalon1.getSelectedSensorPosition() * RobotMap.liftEncoderPulseToFeet); //
+    return (liftTalon1.getSelectedSensorPosition() * RobotMap.liftEncoderPulseToFeet); // this might seem like a random number but it is needed
   }
 
   public void resetEncoder() {

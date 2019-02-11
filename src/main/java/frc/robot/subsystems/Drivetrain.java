@@ -62,8 +62,8 @@ public class Drivetrain extends Subsystem {
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
-    rightEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    leftEncoder.setDistancePerPulse(RobotMap.driveEncoderDistancePerTick);
+    rightEncoder.setDistancePerPulse(RobotMap.driveEncoderDistancePerTick);
     
     // this.rumblely = RumbleType.kLeftRumble;
     // this.rumblely = RumbleType.kRightRumble;

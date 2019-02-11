@@ -49,8 +49,12 @@ public class RobotMap {
   public static int shifterReverseChannel = 5;
 
   public static double wheelDiameter = 6; // inches
-  public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
-  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
+  public static double pulsePerRotation = 128;
+  public static double gearRatio = 1/3; //wheel-encoder
+  public static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
+  public static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
+  // public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
+  // public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
   // public static double encoderDistancePerPulse = 0.0236065636;
 
   public static int spotlightRelayPort = 0;
