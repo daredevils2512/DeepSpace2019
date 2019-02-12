@@ -20,22 +20,22 @@ public class RunToPosition extends Command {
     protected void execute() {
         // the values will need to be changed
         if (this.position == LiftPosition.CARGOBOTTOM) {
-            Robot.m_lift.runToBottom();
+            Robot.m_lift.runTo(0);
 
         } else if (this.position == LiftPosition.CARGOMIDDLE) {
-            Robot.m_lift.runToMid();
+            Robot.m_lift.runTo(1);
 
         } else if (this.position == LiftPosition.CARGOTOP) {
-            Robot.m_lift.runToTop();
+            Robot.m_lift.runTo(2);
 
         } else if (this.position == LiftPosition.HATCHBOTTOM) {
-            Robot.m_lift.runToHatchBottom();
+            Robot.m_lift.runTo(0.5);
 
         } else if (this.position == LiftPosition.HATCHMIDDLE) {
-            Robot.m_lift.runToHatchMid();
+            Robot.m_lift.runTo(1.5);
 
         } else if (this.position == LiftPosition.HATCHTOP) {
-            Robot.m_lift.runToHatchTop();
+            Robot.m_lift.runTo(2.5);
 
         }
     }
