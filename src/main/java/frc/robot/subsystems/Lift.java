@@ -29,6 +29,7 @@ public class Lift extends Subsystem {
   private WPI_TalonSRX liftTalon2;
   public static DigitalInput limitSwitchBottom;
   public static DigitalInput limitSwitchTop; 
+  public static double liftEncoderPulseToFeet = 1 / 4096; 
 
   public Lift() {
 
@@ -51,7 +52,7 @@ public class Lift extends Subsystem {
   }
 
   public double getLiftHeight() {
-    return (liftTalon1.getSelectedSensorPosition() * RobotMap.liftEncoderPulseToFeet); // this might seem like a random number but it is needed
+    return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToFeet); // this might seem like a random number but it is needed (I will find out math)
   }
 
   public void resetEncoder() {

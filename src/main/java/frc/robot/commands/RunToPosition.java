@@ -19,13 +19,13 @@ public class RunToPosition extends Command {
     @Override
     protected void execute() {
         // the values will need to be changed
-        if (this.position == LiftPosition.BOTTOM) {
+        if (this.position == LiftPosition.CARGOBOTTOM) {
             Robot.m_lift.runToBottom();
 
-        } else if (this.position == LiftPosition.MIDDLE) {
+        } else if (this.position == LiftPosition.CARGOMIDDLE) {
             Robot.m_lift.runToMid();
 
-        } else if (this.position == LiftPosition.TOP) {
+        } else if (this.position == LiftPosition.CARGOTOP) {
             Robot.m_lift.runToTop();
 
         } else if (this.position == LiftPosition.HATCHBOTTOM) {

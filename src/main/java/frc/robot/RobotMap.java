@@ -25,8 +25,6 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   public static double driveEncoderDistancePerPulse = 0.0236065636;
-
-  public static double liftEncoderPulseToFeet = 1 / 4096; 
     
   public static int liftTalon1Id = 5;
   public static int liftTalon2Id = 8;
@@ -47,6 +45,12 @@ public class RobotMap {
   
   public static int shifterForwardChannel = 4;
   public static int shifterReverseChannel = 5;
+
+  public static int ballXtake1ID = -1;
+  public static int ballXtake2ID = -1;
+
+  public static int flowerSolenoidForwardChannel = -1;
+  public static int flowerSolenoidReverseChannel = -1;
 
   public static double wheelDiameter = 6; // inches
   public static double pulsePerRotation = 128;

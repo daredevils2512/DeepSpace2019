@@ -67,15 +67,17 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.BOTTOM));
+    bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
     bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
-    midRed.whenPressed(new RunToPosition(Constants.LiftPosition.MIDDLE));
+    midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
     midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
-    topRed.whenPressed(new RunToPosition(Constants.LiftPosition.TOP));
+    topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
     topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     xButton.whenPressed(new ShiftUp());
     xButton.whenReleased(new ShiftDown());
-    bigRed.whenPressed(new Compressor());    
+    bigRed.whenPressed(new Compressor()); 
+    topLeft.whenPressed(new RunBallXtake());  
+    topRight.whenPressed(new FlowerControl());
   }
 
   public double desensitize(double val) {
