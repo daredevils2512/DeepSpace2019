@@ -15,7 +15,7 @@ public abstract class DevilVision {
     static {
         //init the network instances
         NetworkTableInstance.getDefault().startClientTeam(Robot.teamNumber);
-    
+        
         //register them here
         instanceMap.put(DevilVisionTargetType.LINE, new DevilVisionLine());
     }
@@ -44,8 +44,6 @@ public abstract class DevilVision {
 
     protected abstract DevilVisionTargetType getDevilVisionTargetType();
 
-    protected abstract Target processImage();
-
     /**
      * Constructor
      */
@@ -54,8 +52,9 @@ public abstract class DevilVision {
     }
 
     public final Target getTarget(){
-        return processImage();
-    }
+        Double distance = Utils.getNetworkTableDouble(this.table, "distance");
+        Double heading = Utils.getNetworkTableDouble(this.table, "heading");
+        return new DevilVisionTarget(getDevilVisionTargetType(), distance, heading);
 
 
 }

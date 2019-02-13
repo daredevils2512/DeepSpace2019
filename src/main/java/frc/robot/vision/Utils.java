@@ -39,12 +39,6 @@ public class Utils {
         return result;
     }
 
-    public static void resetTables(NetworkTableInstance inst, String server) {
-        System.out.println("networkTable " + inst + " reset to " + server);
-        inst.startClient(server);
-        System.out.println("networkTable connected: " + inst.isConnected());
-    }
-
     public static void dumpNetworkTable(NetworkTable table){
         for(String key : table.getKeys()){
             System.out.println("Table contains key: "+key);
