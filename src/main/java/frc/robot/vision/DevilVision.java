@@ -20,8 +20,12 @@ public abstract class DevilVision {
         instanceMap.put(DevilVisionTargetType.LINE, new DevilVisionLine());
     }
 
-    public static DevilVision getDevilVision(DevilVisionTargetType type){
+    private static DevilVision getDevilVision(DevilVisionTargetType type){
         return instanceMap.get(type);
+    }
+
+    public static DevilVision getDevilLineVision(){
+        return getDevilVision(DevilVisionTargetType.LINE);
     }
 
     /**
