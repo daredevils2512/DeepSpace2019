@@ -39,9 +39,8 @@ public class Utils {
         return result;
     }
 
-    public static void resetTables(NetworkTableInstance inst, String server) {
-        System.out.println("networkTable " + inst + " reset to " + server);
-        inst.startClient(server);
+    public static void resetTables(NetworkTableInstance inst, int team) {
+        inst.startClientTeam(team);
         System.out.println("networkTable connected: " + inst.isConnected());
     }
 
