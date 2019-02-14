@@ -2,14 +2,14 @@ package frc.robot.vision;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+// import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableValue;
 
 public class Utils {
 
 
     /* You don't needt o cast tthis to a kDouble. it will throw an exceptino if it's wrong */
-    /** TODO:
+    /** TODOz: s;alfkjg
      * PUT YOUR SYSTEM OUT IN HERE SO YOU DON"T NEED TO COPY IT
      */
 
@@ -37,11 +37,6 @@ public class Utils {
             result = entry.getValue();
         }
         return result;
-    }
-
-    public static void resetTables(NetworkTableInstance inst, int team) {
-        inst.startClientTeam(team);
-        System.out.println("networkTable connected: " + inst.isConnected());
     }
 
     public static void dumpNetworkTable(NetworkTable table){

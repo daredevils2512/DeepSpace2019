@@ -34,6 +34,9 @@ import edu.wpi.first.wpilibj.AnalogGyro;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  public static int teamNumber = 2512;
+
   // public static GripWhiteLine m_grippipeline = new GripWhiteLine();
   public static LineFind m_LineFind;
   public static Drivetrain m_Drivetrain;
@@ -94,7 +97,7 @@ public class Robot extends TimedRobot {
     // Robot.m_vision.view(Robot.source);
 
     // start clientside table
-    Utils.resetTables(convexHullsFinal, 2512);
+    // Utils.resetTables(convexHullsFinal, 2512);
     convexHullsTable= convexHullsFinal.getTable("White Line Tracking");
     Utils.dumpNetworkTable(convexHullsTable);
     

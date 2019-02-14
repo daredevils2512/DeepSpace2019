@@ -66,7 +66,7 @@ public class LineFind extends Subsystem {
     }
 
     public void resetTable(NetworkTableInstance inst, String server) {
-      Utils.resetTables(inst, 2512);
+      // Utils.resetTables(inst, 2512);
     }
 
     @Override
