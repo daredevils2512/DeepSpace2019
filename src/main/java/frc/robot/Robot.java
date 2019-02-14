@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_oi = new OI();
+    m_Compressorsorus.compressorOff();
   }
 
   /**
