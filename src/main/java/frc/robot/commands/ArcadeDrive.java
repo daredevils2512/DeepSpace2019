@@ -22,6 +22,10 @@ public class ArcadeDrive extends Drive {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_Drivetrain.arcadeDrive(getLeft.get() * slowify, getRight.get() * slowify);
+    if (Robot.m_sensors.hatchUltrasonicInches() >= 5 && getLeft.get() > 0) { // im not done with this yet
+      Robot.m_Drivetrain.arcadeDrive(getLeft.get() * slowify, getRight.get() * slowify);
+    } else {
+      Robot.m_Drivetrain.arcadeDrive(0, 0);
+    }
   }
 }

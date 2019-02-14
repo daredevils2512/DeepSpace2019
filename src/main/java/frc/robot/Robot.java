@@ -26,6 +26,7 @@ public class Robot extends TimedRobot {
   // public static Spotlight m_Spotlight = new Spotlight();
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
+  public static Sensors m_sensors;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
+    m_sensors = new Sensors();
   }
 
   /**
@@ -62,6 +64,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+
+    SmartDashboard.putNumber("ball ultrasonic dist", m_sensors.ballUltrasonicInches());
+    SmartDashboard.putNumber("hatch ultrasonic dist", m_sensors.hatchUltrasonicInches());
   }
 
   /**
