@@ -25,14 +25,14 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   //LEFT DRIVETRAIN STUFF
-  public static int leftTalonPort = 0;
-  public static int leftRearTalonPort = 1;
+  public static int leftTalonPort = 1;
+  public static int leftRearTalonPort = 2;
   public static int leftEncoderChannelA = 0;
   public static int leftEncoderChannelB = 1;
 
   //RIGHT DRIVETRAIN STUFF
-  public static int rightTalonPort = 2;
-  public static int rightRearTalonPort = 3;
+  public static int rightTalonPort = 3;
+  public static int rightRearTalonPort = 4;
   public static int rightEncoderChannelA = 2;
   public static int rightEncoderChannelB = 3;
   

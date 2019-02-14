@@ -37,7 +37,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_sensors = new Sensors();
@@ -53,7 +52,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    m_Drivetrain.updateYPRData();
+    // m_Drivetrain.updateYPRData();
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());

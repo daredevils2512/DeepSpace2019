@@ -38,7 +38,7 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-  private PigeonIMU gyro;
+  // private PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
@@ -70,7 +70,7 @@ public class Drivetrain extends Subsystem {
 
     shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
-    gyro = new PigeonIMU(0);
+    // gyro = new PigeonIMU(0);
   }
   
   @Override
@@ -141,22 +141,22 @@ public class Drivetrain extends Subsystem {
     return this.rightRearTalon.get();
   }
 
-  public void updateYPRData() {
-    this.gyro.getYawPitchRoll(this.yprData);
-  }
+  // public void updateYPRData() {
+  //   this.gyro.getYawPitchRoll(this.yprData);
+  // }
 
   public double getYaw() {
-    this.updateYPRData();
+    // this.updateYPRData();
     return this.yprData[0];
   }
 
   public double getPitch() {
-    this.updateYPRData();
+    // this.updateYPRData();
     return this.yprData[1];
   }
 
   public double getRoll() {
-    this.updateYPRData();
+    // this.updateYPRData();
     return this.yprData[2];
   }
 }

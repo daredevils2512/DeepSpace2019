@@ -18,7 +18,7 @@ public abstract class DrivetrainShift extends Command {
 
   public DrivetrainShift() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Drivetrain);
+    // requires(Robot.m_Drivetrain);
 
   }
 
