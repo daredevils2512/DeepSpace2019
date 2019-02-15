@@ -43,9 +43,9 @@ public class Robot extends TimedRobot {
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_lift = new Lift();
-    m_oi = new OI();
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
+    m_oi = new OI();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
