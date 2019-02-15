@@ -21,6 +21,16 @@ public class RunToPosition extends Command {
         // the values will need to be changed
         /* heights on rocket:
 
+        front :
+        2 3
+        4 7
+        6 11
+
+        sides :
+        1 7
+        3 11
+        6 3
+
         */
         if (this.position == LiftPosition.CARGOBOTTOM) {
             Robot.m_lift.runTo(0);
