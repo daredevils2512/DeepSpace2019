@@ -19,6 +19,9 @@ public class RunToPosition extends Command {
     @Override
     protected void execute() {
         // the values will need to be changed
+        /* heights on rocket:
+
+        */
         if (this.position == LiftPosition.CARGOBOTTOM) {
             Robot.m_lift.runTo(0);
 
