@@ -37,7 +37,7 @@ public class Lift extends Subsystem {
     liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
     liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
 
-    liftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    // liftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     liftTalon2.set(ControlMode.Follower, liftTalon1.getDeviceID());
 
     limitSwitchBottom = new DigitalInput(RobotMap.limitSwitchBottomPort);

@@ -56,7 +56,20 @@ public class Drivetrain extends Subsystem {
     rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
     leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
-    
+
+    /*
+    * These configs because second drive motor in each gearbox is now a 775
+    * due to weight. 775s will burn out if too high of a current is applied
+    * for to long so hopefully this will prevent that.
+    * COMPLETELY UNTESTED
+    */
+    leftRearTalon.configPeakCurrentLimit(70);
+    leftRearTalon.configContinuousCurrentLimit(50);
+    leftRearTalon.configPeakCurrentDuration(300);
+
+    rightRearTalon.configPeakCurrentLimit(70);
+    rightRearTalon.configContinuousCurrentLimit(50);
+    rightRearTalon.configPeakCurrentDuration(300);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
