@@ -94,7 +94,6 @@ public class OI {
   public OI() {
     aButton.whileHeld(new LineFindTest());
     xButton.whileHeld(new LineAlign());
-    rightBumper.whenPressed(new ResetTables(Robot.convexHullsFinal, Robot.NTserver));
   }
 
   public Double desensitize(Double val) {

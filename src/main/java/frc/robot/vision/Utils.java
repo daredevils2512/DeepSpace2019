@@ -9,7 +9,7 @@ public class Utils {
 
 
     /* You don't needt o cast tthis to a kDouble. it will throw an exceptino if it's wrong */
-    /** TODOz: s;alfkjg
+    /** TODO:
      * PUT YOUR SYSTEM OUT IN HERE SO YOU DON"T NEED TO COPY IT
      */
 
@@ -20,7 +20,7 @@ public class Utils {
         if ((networkTableValue = getNetworkTableValue(networkTable, entryName)) != null) {
             try{
                 result = networkTableValue.getDouble();
-                System.out.println("Retrieved: "+result+" for entry: "+entryName);
+                // System.out.println("Retrieved: "+result+" for entry: "+entryName);
 
             }catch(ClassCastException cce){
                 System.out.println("Cannot get "+entryName+" as a double as it is a "+networkTableValue.getType());

@@ -19,7 +19,7 @@ public class LineFindTest extends Command {
     @Override
     protected void execute() {
         System.out.println("LineFindTestActivater");
-        Robot.m_LineFind.pointToLine(10.0);
+        // Robot.m_LineFind.pointToLine(10.0);
         
     }
 

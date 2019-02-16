@@ -10,11 +10,12 @@ import frc.robot.Robot;
 public class LineFind extends Subsystem {
     
     public LineFind() {
+      
     }
 
 
 
-
+    /*
     public void pointToLine(double m) {
       System.out.println("lineFind activated");
       if (Robot.centerX == null || Robot.widthPos == null) {
@@ -45,7 +46,7 @@ public class LineFind extends Subsystem {
         }
       }
     }
-
+    */
     public void alignByGyro(float desiredYaw, double tolerance) {
       if (Robot.m_Drivetrain.getYaw() >= desiredYaw + tolerance) {
         Robot.m_Drivetrain.arcadeDrive(0.0, 0.5);

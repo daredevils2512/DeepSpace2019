@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
   public static Double bottom = null;
   public static Double top = null;
   public static Double widthPos = null;
+  public static Double centerY = null;
 
   public static boolean centered = false;
   public static boolean aligned = false;
@@ -98,7 +99,8 @@ public class Robot extends TimedRobot {
 
     // start clientside table
     // Utils.resetTables(convexHullsFinal, 2512);
-    convexHullsTable= convexHullsFinal.getTable("White Line Tracking");
+    convexHullsFinal.startServer();
+    convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
     Utils.dumpNetworkTable(convexHullsTable);
     
     NavX.navX.reset();
@@ -251,6 +253,10 @@ public class Robot extends TimedRobot {
     */
   }
 
+  public static Double getCenterY() {
+    return Utils.getNetworkTableDouble(convexHullsTable, "centerY");
+  }
+
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -267,6 +273,7 @@ public class Robot extends TimedRobot {
     height =  getHeight();
     top = getTop();
     widthPos = getWidthPos();
+    centerY = getCenterY();
   }
 
   @Override
