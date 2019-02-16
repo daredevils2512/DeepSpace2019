@@ -91,10 +91,10 @@ public class OI {
   Button yellowBoi = new JoystickButton(buttonBox, 15);
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
+  ExampleCommand reset = new ExampleCommand();
+
   public OI() {
-    xButton.whenPressed(new ShiftUp());
-    xButton.whenReleased(new ShiftDown());
-    bigRed.whenPressed(new Compressor());    
+    this.bButton.whenPressed(reset);
   }
 
   public double desensitize(double val) {

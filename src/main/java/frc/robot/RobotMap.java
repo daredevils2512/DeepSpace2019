@@ -42,7 +42,7 @@ public class RobotMap {
   public static double wheelDiameter = 6; // inches
   public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
   public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
-  // public static double encoderDistancePerPulse = 0.0236065636;
+  public static double encoderDistancePerPulse = 0.0236065636;
 
   public static int spotlightRelayPort = 0;
 

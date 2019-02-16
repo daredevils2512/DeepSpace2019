@@ -7,12 +7,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
+
+import frc.robot.ColorSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -28,6 +31,8 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static Sensors m_sensors;
 
+  public static ColorSensor m_cs1, m_cs2;
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -37,9 +42,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_Drivetrain = new Drivetrain();
-    m_Compressorsorus = new Compressorsorus();
-    m_sensors = new Sensors();
+    m_oi = new OI();
+
+    m_cs1 = new ColorSensor(I2C.Port.kOnboard);
+    m_cs2 = new ColorSensor(I2C.Port.kMXP);
+
+    // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    // SmartDashboard.putData("Auto mode", m_chooser);
   }
 
   /**
@@ -52,20 +62,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // m_Drivetrain.updateYPRData();
-    SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
-    SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
-    SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
-    SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+    m_cs1.read();
+    m_cs2.read();
 
-    SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
-    SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
-    SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
-    SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
-    // SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+    SmartDashboard.putNumberArray("Robo Proximity", m_cs1.proxData);
+    SmartDashboard.putNumberArray("MXP Proximity", m_cs2.proxData);
 
-    SmartDashboard.putNumber("ball ultrasonic dist", m_sensors.ballUltrasonicInches());
-    SmartDashboard.putNumber("hatch ultrasonic dist", m_sensors.hatchUltrasonicInches());
+    SmartDashboard.putNumber("Robo Average", m_cs1.average);
+    SmartDashboard.putNumber("MXP Average", m_cs2.average);
+
+    SmartDashboard.putNumber("Robo Prox", m_cs1.prox);
+    SmartDashboard.putNumber("MXP Prox", m_cs2.prox);
+
+    SmartDashboard.putNumber("Robo Dist", m_cs1.currentDist);
+    SmartDashboard.putNumber("MXP Dist", m_cs2.currentDist);
   }
 
   /**
