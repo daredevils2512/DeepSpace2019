@@ -45,6 +45,7 @@ public class ColorSensor {
 
     public short red = 0, green = 0, blue = 0, prox = 0;
     public int average = 0, total = 0, count = 1;
+    public double currentDist = 0.0;
     public double[] proxData = {(double) this.prox, (double) this.average};
 
     public ColorSensor(I2C.Port port) {
@@ -74,6 +75,7 @@ public class ColorSensor {
         prox = buffy.getShort(6); 
         if(prox < 0) { prox += 0b10000000000000000; }
         this.saveAndCalAvg((int) prox);
+        this.calcProxDist(this.average);
     }
     
     public int status() {
@@ -91,8 +93,14 @@ public class ColorSensor {
     }
 
     public void clearSavedProxs() {
-        this.total = this.prox;
+        this.total = 0;
         this.count = 1;
     }
 
+    public void calcProxDist(double currentProx) {
+        double a = 79.5585860196;
+        double b = 0.993621962527;
+        double c = 1.0;
+        this.currentDist = (a * (Math.pow(b, currentProx))) + c;
+    }
 }

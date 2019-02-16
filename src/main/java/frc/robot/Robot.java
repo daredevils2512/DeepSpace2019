@@ -45,9 +45,9 @@ public class Robot extends TimedRobot {
     m_cs1 = new ColorSensor(I2C.Port.kOnboard);
     m_cs2 = new ColorSensor(I2C.Port.kMXP);
 
-    m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+    // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    // SmartDashboard.putData("Auto mode", m_chooser);
   }
 
   /**
@@ -66,8 +66,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumberArray("Robo Proximity", m_cs1.proxData);
     SmartDashboard.putNumberArray("MXP Proximity", m_cs2.proxData);
 
-    // SmartDashboard.putNumber("Robo Average", m_cs1.average);
-    // SmartDashboard.putNumber("MXP Average", m_cs2.average);
+    SmartDashboard.putNumber("Robo Average", m_cs1.average);
+    SmartDashboard.putNumber("MXP Average", m_cs2.average);
+
+    SmartDashboard.putNumber("Robo Prox", m_cs1.prox);
+    SmartDashboard.putNumber("MXP Prox", m_cs2.prox);
+
+    SmartDashboard.putNumber("Robo Dist", m_cs1.currentDist);
+    SmartDashboard.putNumber("MXP Dist", m_cs2.currentDist);
   }
 
   /**
