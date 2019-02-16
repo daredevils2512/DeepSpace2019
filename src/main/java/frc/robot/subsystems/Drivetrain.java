@@ -50,6 +50,10 @@ public class Drivetrain extends Subsystem {
   private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
   private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
 
+  private static int drive775PeakCurrentLimit = 70;
+  private static int drive775PeakCurrentDuration = 300;
+  private static int drive775ContinuousCurrentLimit = 50;
+
   public Drivetrain() {
 
     leftTalon = new WPI_TalonSRX(RobotMap.leftTalonPort);    
@@ -63,13 +67,13 @@ public class Drivetrain extends Subsystem {
     * for to long so hopefully this will prevent that.
     * COMPLETELY UNTESTED
     */
-    leftRearTalon.configPeakCurrentLimit(70);
-    leftRearTalon.configContinuousCurrentLimit(50);
-    leftRearTalon.configPeakCurrentDuration(300);
+    leftRearTalon.configPeakCurrentLimit(drive775PeakCurrentLimit);
+    leftRearTalon.configContinuousCurrentLimit(drive775ContinuousCurrentLimit);
+    leftRearTalon.configPeakCurrentDuration(drive775PeakCurrentDuration);
 
-    rightRearTalon.configPeakCurrentLimit(70);
-    rightRearTalon.configContinuousCurrentLimit(50);
-    rightRearTalon.configPeakCurrentDuration(300);
+    rightRearTalon.configPeakCurrentLimit(drive775PeakCurrentLimit);
+    rightRearTalon.configContinuousCurrentLimit(drive775ContinuousCurrentLimit);
+    rightRearTalon.configPeakCurrentDuration(drive775PeakCurrentDuration);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
