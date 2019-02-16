@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
 
-  public ColorSensor2 m_cs;
+  public static ColorSensor m_cs1, m_cs2;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -42,7 +42,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_oi = new OI();
 
-    m_cs = new ColorSensor2(I2C.Port.kOnboard);
+    m_cs1 = new ColorSensor(I2C.Port.kOnboard);
+    m_cs2 = new ColorSensor(I2C.Port.kMXP);
 
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -59,12 +60,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // m_cs .read();
+    m_cs1.read();
+    m_cs2.read();
 
-    SmartDashboard.putNumber("Red", m_cs.red());
-    SmartDashboard.putNumber("Green", m_cs.green());
-    SmartDashboard.putNumber("Blue", m_cs.blue());
-    SmartDashboard.putNumber("Proximity", m_cs.proximity());
+    SmartDashboard.putNumberArray("Robo Proximity", m_cs1.proxData);
+    SmartDashboard.putNumberArray("MXP Proximity", m_cs2.proxData);
+
+    // SmartDashboard.putNumber("Robo Average", m_cs1.average);
+    // SmartDashboard.putNumber("MXP Average", m_cs2.average);
   }
 
   /**

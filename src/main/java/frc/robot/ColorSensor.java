@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.I2C;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 import java.nio.ByteBuffer;
 
 /**
@@ -43,6 +44,8 @@ public class ColorSensor {
     private ByteBuffer buffy = ByteBuffer.allocate(8);
 
     public short red = 0, green = 0, blue = 0, prox = 0;
+    public int average = 0, total = 0, count = 1;
+    public double[] proxData = {(double) this.prox, (double) this.average};
 
     public ColorSensor(I2C.Port port) {
         buffy.order(ByteOrder.LITTLE_ENDIAN);
@@ -70,12 +73,26 @@ public class ColorSensor {
         
         prox = buffy.getShort(6); 
         if(prox < 0) { prox += 0b10000000000000000; }
-        
+        this.saveAndCalAvg((int) prox);
     }
     
     public int status() {
         buffy.clear();
         sensor.read(CMD | 0x13, 1, buffy);
         return buffy.get(0);
-    }    
+    }
+
+    public void saveAndCalAvg(int newProx) {
+        this.total += newProx;
+        this.average = (this.total / this.count);
+        this.proxData[0] = newProx;
+        this.proxData[1] = this.average;
+        this.count += 1;
+    }
+
+    public void clearSavedProxs() {
+        this.total = this.prox;
+        this.count = 1;
+    }
+
 }
