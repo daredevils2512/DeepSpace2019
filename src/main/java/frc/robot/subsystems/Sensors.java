@@ -10,8 +10,9 @@ public class Sensors extends Subsystem {
     private AnalogInput ballUltrasonic;
     private AnalogInput hatchUltrasonic;
 
-    private double suppliedVoltage = 5.0;
-    private double voltagePerCm = this.suppliedVoltage / 1024;
+    private static final double suppliedVoltage = 5.0;
+    private static final double voltagePerCm = suppliedVoltage / 1024;
+    private static final double voltagePerIn = voltagePerCm * 2.54;
 
     public Sensors() {
 
@@ -26,10 +27,10 @@ public class Sensors extends Subsystem {
     }
 
     public double ballUltrasonicInches() {
-        return this.ballUltrasonic.getAverageVoltage() / this.voltagePerCm;
+        return this.ballUltrasonic.getAverageVoltage() / voltagePerIn;
     }
 
     public double hatchUltrasonicInches() {
-        return this.hatchUltrasonic.getAverageVoltage() / this.voltagePerCm;
+        return this.hatchUltrasonic.getAverageVoltage() / voltagePerIn;
     }
 }
