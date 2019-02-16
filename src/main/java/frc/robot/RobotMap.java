@@ -45,4 +45,7 @@ public class RobotMap {
   // public static double encoderDistancePerPulse = 0.0236065636;
 
   public static int spotlightRelayPort = 0;
+
+  public static int climberTalon1ID = -1;
+  public static int climberTalon2ID = -1;
 }
