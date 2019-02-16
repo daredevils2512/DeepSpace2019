@@ -46,6 +46,6 @@ public class RobotMap {
 
   public static int spotlightRelayPort = 0;
 
-  public static int ballUltrasonicPort = -1;
-  public static int hatchUltrasonicPort = -1;
+  public static int ballUltrasonicPort = 0;
+  public static int hatchUltrasonicPort = 1;
 }

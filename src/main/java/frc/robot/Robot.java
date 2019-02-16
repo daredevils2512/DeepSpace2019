@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
-    SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+    // SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
 
     SmartDashboard.putNumber("ball ultrasonic dist", m_sensors.ballUltrasonicInches());
     SmartDashboard.putNumber("hatch ultrasonic dist", m_sensors.hatchUltrasonicInches());
