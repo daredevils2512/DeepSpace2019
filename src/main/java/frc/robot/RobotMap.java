@@ -51,6 +51,8 @@ public class RobotMap {
 
   public static int flowerSolenoidForwardChannel = 0;
   public static int flowerSolenoidReverseChannel = 1;
+  public static int flowerSlideForwardChannel = -1;
+  public static int flowerSlideReverseChannel = -1;
 
   public static int spotlightRelayPort = 0;
 }
