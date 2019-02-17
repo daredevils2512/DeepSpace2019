@@ -10,8 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 import frc.robot.TriggerButton;
-// import frc.robot.commands.ToggleSpotlight;
+import frc.robot.constants.Constants;
+import frc.robot.commands.ToggleSpotlight;
 import frc.robot.commands.*;
 
 /**
@@ -22,10 +24,12 @@ import frc.robot.commands.*;
 
 
 public class OI {
+  //Joysticks
   public Joystick driver = new Joystick(0);
   public Joystick buttonBox = new Joystick(2);
   public Joystick extreme = new Joystick(1);
 
+  //All buttons
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
   Button xButton = new JoystickButton(driver, 3);
@@ -64,8 +68,22 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
+
     rightTrigger.whenPressed(new ShiftUp());
     rightTrigger.whenReleased(new ShiftDown());  
+
+    bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
+    bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
+    midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
+    midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
+    topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
+    topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
+    xButton.whenPressed(new ShiftUp());
+    xButton.whenReleased(new ShiftDown());
+    bigRed.whenPressed(new Compressor()); 
+    topLeft.whenPressed(new RunBallXtake());  
+    topRight.whenPressed(new FlowerControl());
+
   }
 
   public double desensitize(double val) {
@@ -74,8 +92,12 @@ public class OI {
 			result = 0.0;
 		}
 		return result;
-	}
-
+  }
+  
+  public Double liftControl() {
+   return -desensitize(extreme.getRawAxis(1));
+  }
+  
   public Double getMove() {
     return desensitize(driver.getRawAxis(1));
   }

@@ -1,24 +1,23 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.subsystems.Flower;
 import frc.robot.Robot;
 
-public class Compressor extends Command {
+public class FlowerSlideControl extends Command {
 
-    public Compressor() {
-
-        // requires(Robot.m_Compressorsorus);
-
+    public FlowerSlideControl() {
+        requires(Robot.m_flower);
     }
 
     @Override
-    protected void initialize() { 
-
+    protected void initialize() {
     }
 
     @Override
     protected void execute() {
-        Robot.m_Compressorsorus.toggleCompressor();
+        Robot.m_flower.toggleFlowerSlide();
     }
 
     @Override
@@ -28,10 +27,10 @@ public class Compressor extends Command {
 
     @Override
     protected void end() {
-        
     }
 
     @Override
     protected void interrupted() {
     }
+
 }

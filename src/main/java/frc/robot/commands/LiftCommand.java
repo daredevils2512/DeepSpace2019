@@ -15,21 +15,14 @@ import frc.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public abstract class Drive extends Command {
+public abstract class LiftCommand extends Command {
 
-  protected double slowify = 1.0;
-  protected Supplier<Double> getLeft, getRight;
+    protected Supplier<Double> liftControlDirection = null;
 
-  public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
+  public LiftCommand(Supplier<Double> liftControlDirection) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Drivetrain);
-    this.getLeft = getLeft;
-    this.getRight = getRight;
-  }
-
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
+    requires(Robot.m_lift);
+    this.liftControlDirection = liftControlDirection;
   }
 
   // Make this return true when this Command no longer needs to run execute()
