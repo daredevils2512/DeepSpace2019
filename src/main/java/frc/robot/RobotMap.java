@@ -24,6 +24,13 @@ public class RobotMap {
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
 
+  public static double driveEncoderDistancePerPulse = 0.0236065636;
+    
+  public static int liftTalon1Id = 5;
+  public static int liftTalon2Id = 6;
+  public static int limitSwitchBottomPort = 4;
+  public static int limitSwitchTopPort = 5;
+  // a negative implies we dont know the port yet
   //LEFT DRIVETRAIN STUFF
   public static int leftTalonPort = 1;
   public static int leftRearTalonPort = 2;
@@ -39,10 +46,13 @@ public class RobotMap {
   public static int shifterForwardChannel = 4;
   public static int shifterReverseChannel = 5;
 
-  public static double wheelDiameter = 6; // inches
-  public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
-  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
-  // public static double encoderDistancePerPulse = 0.0236065636;
+  public static int ballXtake1ID = 7;
+  public static int ballXtake2ID = 8;
+
+  public static int flowerSolenoidForwardChannel = 0;
+  public static int flowerSolenoidReverseChannel = 1;
+  public static int flowerSlideForwardChannel = -1;
+  public static int flowerSlideReverseChannel = -1;
 
   public static int spotlightRelayPort = 0;
 }

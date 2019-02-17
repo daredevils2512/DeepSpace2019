@@ -44,7 +44,15 @@ public class Drivetrain extends Subsystem {
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
   private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
   
-  // private RumbleType rumblely;
+  private static double wheelDiameter = 6; // inches
+  private static double pulsePerRotation = 128;
+  private static double gearRatio = 1/3; //wheel-encoder
+  private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
+  private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
+
+  private static int drive775PeakCurrentLimit = 70;
+  private static int drive775PeakCurrentDuration = 300;
+  private static int drive775ContinuousCurrentLimit = 50;
 
   public Drivetrain() {
 
@@ -52,7 +60,20 @@ public class Drivetrain extends Subsystem {
     rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
     leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
     rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
-    
+
+    /*
+    * These configs because second drive motor in each gearbox is now a 775
+    * due to weight. 775s will burn out if too high of a current is applied
+    * for to long so hopefully this will prevent that.
+    * COMPLETELY UNTESTED
+    */
+    leftRearTalon.configPeakCurrentLimit(drive775PeakCurrentLimit);
+    leftRearTalon.configContinuousCurrentLimit(drive775ContinuousCurrentLimit);
+    leftRearTalon.configPeakCurrentDuration(drive775PeakCurrentDuration);
+
+    rightRearTalon.configPeakCurrentLimit(drive775PeakCurrentLimit);
+    rightRearTalon.configContinuousCurrentLimit(drive775ContinuousCurrentLimit);
+    rightRearTalon.configPeakCurrentDuration(drive775PeakCurrentDuration);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
@@ -62,8 +83,8 @@ public class Drivetrain extends Subsystem {
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
-    rightEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    leftEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
+    rightEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
     
     // this.rumblely = RumbleType.kLeftRumble;
     // this.rumblely = RumbleType.kRightRumble;
@@ -159,4 +180,5 @@ public class Drivetrain extends Subsystem {
     // this.updateYPRData();
     return this.yprData[2];
   }
+
 }

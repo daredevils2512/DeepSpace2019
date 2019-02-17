@@ -6,25 +6,19 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
 import java.util.function.Supplier;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public abstract class Drive extends Command {
+public class ManualLift extends LiftCommand {
 
-  protected double slowify = 1.0;
-  protected Supplier<Double> getLeft, getRight;
-
-  public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
+  public ManualLift(Supplier<Double> liftControlDirection) {
+    super(liftControlDirection);
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Drivetrain);
-    this.getLeft = getLeft;
-    this.getRight = getRight;
+    requires(Robot.m_lift);
   }
 
   // Called just before this Command runs the first time
@@ -32,20 +26,18 @@ public abstract class Drive extends Command {
   protected void initialize() {
   }
 
-  // Make this return true when this Command no longer needs to run execute()
+  // Called repeatedly when this Command is scheduled to run
   @Override
-  protected boolean isFinished() {
-    return true;
-  }
+  protected void execute() {
+    double speed = 0.0;
+    if( (this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchTop()) 
+    || (this.liftControlDirection.get() < 0 && !Robot.m_lift.getLimitSwitchBottom())) {
+      speed = this.liftControlDirection.get();
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
+    } else {
+      speed = 0.0;
+      
+    }
+    Robot.m_lift.setSpeed(speed);
   }
 }

@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
+import frc.robot.constants.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +27,9 @@ public class Robot extends TimedRobot {
   // public static Spotlight m_Spotlight = new Spotlight();
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
+  public static Lift m_lift;
+  public static BallXtake m_ballXtake;
+  public static Flower m_flower;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -38,8 +42,15 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
+    m_lift = new Lift();
+    m_ballXtake = new BallXtake();
+    m_flower = new Flower();
     m_oi = new OI();
+    // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_chooser);
     m_Compressorsorus.compressorOff();
+
   }
 
   /**
@@ -52,6 +63,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
+    SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
+    // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
     // m_Drivetrain.updateYPRData();
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
@@ -117,6 +132,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_lift.resetEncoder();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -133,12 +149,5 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-  }
-
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
   }
 }
