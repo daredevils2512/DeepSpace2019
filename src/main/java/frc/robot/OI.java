@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-
 import frc.robot.constants.Constants;
+import frc.robot.TriggerButton;
 import frc.robot.commands.*;
 
 /**
@@ -41,6 +41,8 @@ public class OI {
   Button start = new JoystickButton(driver, 8);
   Button leftStick = new JoystickButton(driver, 9);
   Button rightStick = new JoystickButton(driver, 10);
+  TriggerButton leftTrigger = new TriggerButton(driver, 2);
+  TriggerButton rightTrigger = new TriggerButton(driver, 3);
 
   Button triggerBoi = new JoystickButton(extreme, 1);
   Button sideButton = new JoystickButton(extreme, 2);
@@ -67,6 +69,10 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
+
+    rightTrigger.whenPressed(new ShiftUp());
+    rightTrigger.whenReleased(new ShiftDown());  
+
     bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
     bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
     midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
@@ -78,6 +84,7 @@ public class OI {
     bigRed.whenPressed(new Compressor()); 
     topLeft.whenPressed(new RunBallXtake());  
     topRight.whenPressed(new FlowerControl());
+
   }
 
   public double desensitize(double val) {
