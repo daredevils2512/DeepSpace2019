@@ -13,8 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.*;
 
 import frc.robot.ColorSensor;
 
@@ -26,8 +25,11 @@ import frc.robot.ColorSensor;
  * project.
  */
 public class Robot extends TimedRobot {
-  public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static Drivetrain m_Drivetrain;
+  // public static Spotlight m_Spotlight = new Spotlight();
+  public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
+  public static Sensors m_sensors;
 
   public static ColorSensor ballCs, hatchCs;
 
@@ -40,14 +42,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_oi = new OI();
 
     ballCs = new ColorSensor(I2C.Port.kOnboard, RobotMap.ballSensorsOffsetFromFrame);
     hatchCs = new ColorSensor(I2C.Port.kMXP, RobotMap.hatchSensorsOffsetFromFrame);
-
-    // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    // SmartDashboard.putData("Auto mode", m_chooser);
+    
+    m_Drivetrain = new Drivetrain();
+    m_Compressorsorus = new Compressorsorus();
+    m_sensors = new Sensors();
+    m_oi = new OI();
   }
 
   /**
@@ -65,15 +67,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumberArray("Robo Proximity", ballCs.proxData);
     SmartDashboard.putNumberArray("MXP Proximity", hatchCs.proxData);
-
-    SmartDashboard.putNumber("Robo Average", ballCs.average);
-    SmartDashboard.putNumber("MXP Average", hatchCs.average);
-
-    SmartDashboard.putNumber("Robo Prox", ballCs.prox);
-    SmartDashboard.putNumber("MXP Prox", hatchCs.prox);
-
-    SmartDashboard.putNumber("Robo Dist", ballCs.currentDist);
-    SmartDashboard.putNumber("MXP Dist", hatchCs.currentDist);
   }
 
   /**
@@ -132,6 +125,7 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    m_Drivetrain.resetEncoders();
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

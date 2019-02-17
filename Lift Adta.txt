@@ -1,0 +1,3 @@
+VEX Planetary Gearboc 5:1
+CTRE 12BIT MagEncoder
+18Tooth 25 Chain (VEX)

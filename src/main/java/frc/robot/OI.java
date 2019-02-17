@@ -53,8 +53,8 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
 
   public Joystick driver = new Joystick(0);
-  public Joystick buttonBox = new Joystick(1);
-  public Joystick extreme = new Joystick(2);
+  public Joystick buttonBox = new Joystick(2);
+  public Joystick extreme = new Joystick(1);
 
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
@@ -91,10 +91,8 @@ public class OI {
   Button yellowBoi = new JoystickButton(buttonBox, 15);
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
-  ExampleCommand reset = new ExampleCommand();
-
   public OI() {
-    this.bButton.whenPressed(reset);
+
   }
 
   public double desensitize(double val) {
@@ -105,15 +103,15 @@ public class OI {
 		return result;
 	}
 
-  public double getMove() {
+  public Double getMove() {
     return desensitize(driver.getRawAxis(1));
   }
 
-  public double getTurn() {
+  public Double getTurn() {
     return desensitize(-driver.getRawAxis(4));
   }
 
-  public double getRight() {
+  public Double getRight() {
     return desensitize(driver.getRawAxis(5));
   }
 }

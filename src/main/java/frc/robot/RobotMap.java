@@ -14,6 +14,33 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
+
+  // DISTANCE SENSOR OFFSETS
   public final static double hatchSensorsOffsetFromFrame = 6.1852; // in inches
   public final static double ballSensorsOffsetFromFrame = 10.11;    // in inches
+
+  //LEFT DRIVETRAIN STUFF
+  public static int leftTalonPort = 1;
+  public static int leftRearTalonPort = 2;
+  public static int leftEncoderChannelA = 0;
+  public static int leftEncoderChannelB = 1;
+
+  //RIGHT DRIVETRAIN STUFF
+  public static int rightTalonPort = 3;
+  public static int rightRearTalonPort = 4;
+  public static int rightEncoderChannelA = 2;
+  public static int rightEncoderChannelB = 3;
+  
+  public static int shifterForwardChannel = 4;
+  public static int shifterReverseChannel = 5;
+
+  public static double wheelDiameter = 6; // inches
+  public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
+  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
+  // public static double encoderDistancePerPulse = 0.0236065636;
+
+  public static int spotlightRelayPort = 0;
+
+  public static int ballUltrasonicPort = 0;
+  public static int hatchUltrasonicPort = 1;
 }

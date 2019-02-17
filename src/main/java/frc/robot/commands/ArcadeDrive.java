@@ -5,20 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.commands;
+import java.util.function.Supplier;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 
 /**
- * An example subsystem.  You can replace me with your own Subsystem.
+ * An example command.  You can replace me with your own command.
  */
-public class ExampleSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+public class ArcadeDrive extends Drive {
 
+  public ArcadeDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
+   super(getLeft, getRight);
+  }
+
+  // Called repeatedly when this Command is scheduled to run
   @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+  protected void execute() {
+      Robot.m_Drivetrain.arcadeDrive(getLeft.get() * slowify, getRight.get() * slowify); // im not done with this yet
   }
 }
