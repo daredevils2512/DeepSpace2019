@@ -37,7 +37,7 @@ public class CargoRunIntake extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return (this.m_inSpeed < 0) ? Robot.m_ballXtake.getBallOccupancy() : true;
   }
 
   // Called once after isFinished returns true

@@ -54,8 +54,10 @@ public class RobotMap {
   public static int cargoUpDownBPort = 3;
   public static Value cargoUpPos = Value.kForward;
   public static Value cargoDownPos = Value.kReverse;
+
   public static int ballXtake1ID = 7;
   public static int ballXtake2ID = 8;
+  public static int ballOccupancy = 6;
 
   // HATCH STUFF
   public static int flowerSolenoidForwardChannel = 0;

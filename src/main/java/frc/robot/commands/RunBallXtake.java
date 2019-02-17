@@ -5,8 +5,11 @@ import frc.robot.Robot;
 
 public class RunBallXtake extends Command {
 
-    public RunBallXtake() {
+    private double m_speed;
+
+    public RunBallXtake(double speed) {
         requires(Robot.m_ballXtake);
+        this.m_speed = speed;
     }
 
     @Override
@@ -15,12 +18,14 @@ public class RunBallXtake extends Command {
 
     @Override
     protected void execute() {
-        Robot.m_ballXtake.setBallXtakeSpeed(1);
+        Robot.m_ballXtake.setBallXtakeSpeed(this.m_speed);
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        // If intaking, stop when limit switch is tripped
+        // else, just return true
+        return (this.m_speed < 0) ? Robot.m_ballXtake.getBallOccupancy() : true;
     }
 
     @Override
