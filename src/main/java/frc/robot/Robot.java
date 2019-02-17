@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
   // public static Spotlight m_Spotlight = new Spotlight();
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
-  public static Sensors m_sensors;
 
   public static ColorSensor ballCs, hatchCs;
   public static UltrasonicSensor ballUltra, hatchUltra;
@@ -48,11 +47,10 @@ public class Robot extends TimedRobot {
     hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
 
     ballUltra = new UltrasonicSensor(RobotMap.ballUltrasonicPort, RobotMap.ballSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
-    hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage)
+    hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
     
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
-    m_sensors = new Sensors();
     m_oi = new OI();
   }
 
@@ -71,6 +69,12 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumberArray("Robo Proximity", ballCs.proxData);
     SmartDashboard.putNumberArray("MXP Proximity", hatchCs.proxData);
+
+    SmartDashboard.putNumber("Hatch Voltage", hatchUltra.getAvgVoltage());
+    SmartDashboard.putNumber("Ball Voltage", ballUltra.getAvgVoltage());
+
+    SmartDashboard.putNumber("Hatch Ultra", hatchUltra.getDistInInch());
+    SmartDashboard.putNumber("Ball Ultra", ballUltra.getDistInInch());
   }
 
   /**

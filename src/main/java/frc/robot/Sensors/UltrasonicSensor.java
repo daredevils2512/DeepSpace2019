@@ -14,10 +14,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 public class UltrasonicSensor {
 
     private int m_port;
-    private double m_distInInchOffset, m_distInCmOffset, m_suppliedVoltage;
-
-    private final double voltagePerCm = this.m_suppliedVoltage / 1024;
-    private final double voltagePerIn = voltagePerCm * 2.54;
+    private double m_distInInchOffset, m_distInCmOffset, m_suppliedVoltage, voltagePerCm, voltagePerIn;
 
     private AnalogInput input;
 
@@ -27,7 +24,12 @@ public class UltrasonicSensor {
         this.m_distInCmOffset = this.m_distInInchOffset * 2.54;
         this.m_suppliedVoltage = suppliedVoltage;
 
+        this.voltagePerCm = this.m_suppliedVoltage / 1024;
+        this.voltagePerIn = this.voltagePerCm * 2.54;
+        
         this.input = new AnalogInput(this.m_port);
+
+        System.out.print("V/In: " + this.voltagePerIn + ", V/Cm: " + this.voltagePerCm + "\n");
     }
 
     public double getAvgVoltage() {
