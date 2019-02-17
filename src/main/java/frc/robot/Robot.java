@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.*;
 
-import frc.robot.ColorSensor;
+import frc.robot.subsystems.*;
+import frc.robot.Sensors.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
   public static Sensors m_sensors;
 
   public static ColorSensor ballCs, hatchCs;
+  public static UltrasonicSensor ballUltra, hatchUltra;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -43,8 +44,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
-    ballCs = new ColorSensor(I2C.Port.kOnboard, RobotMap.ballSensorsOffsetFromFrame);
-    hatchCs = new ColorSensor(I2C.Port.kMXP, RobotMap.hatchSensorsOffsetFromFrame);
+    ballCs = new ColorSensor(RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
+    hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+
+    ballUltra = new UltrasonicSensor(RobotMap.ballUltrasonicPort, RobotMap.ballSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
+    hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage)
     
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();

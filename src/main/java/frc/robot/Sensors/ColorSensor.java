@@ -5,11 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+package frc.robot.Sensors;
 
 import edu.wpi.first.wpilibj.I2C;
 import java.nio.ByteOrder;
-import java.util.ArrayList;
 import java.nio.ByteBuffer;
 
 /**
