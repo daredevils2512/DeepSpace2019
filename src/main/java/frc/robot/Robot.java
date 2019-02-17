@@ -29,7 +29,7 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
   public static OI m_oi;
 
-  public static ColorSensor m_cs1, m_cs2;
+  public static ColorSensor ballCs, hatchCs;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -42,8 +42,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_oi = new OI();
 
-    m_cs1 = new ColorSensor(I2C.Port.kOnboard);
-    m_cs2 = new ColorSensor(I2C.Port.kMXP);
+    ballCs = new ColorSensor(I2C.Port.kOnboard, RobotMap.ballSensorsOffsetFromFrame);
+    hatchCs = new ColorSensor(I2C.Port.kMXP, RobotMap.hatchSensorsOffsetFromFrame);
 
     // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -60,20 +60,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    m_cs1.read();
-    m_cs2.read();
+    ballCs.read();
+    hatchCs.read();
 
-    SmartDashboard.putNumberArray("Robo Proximity", m_cs1.proxData);
-    SmartDashboard.putNumberArray("MXP Proximity", m_cs2.proxData);
+    SmartDashboard.putNumberArray("Robo Proximity", ballCs.proxData);
+    SmartDashboard.putNumberArray("MXP Proximity", hatchCs.proxData);
 
-    SmartDashboard.putNumber("Robo Average", m_cs1.average);
-    SmartDashboard.putNumber("MXP Average", m_cs2.average);
+    SmartDashboard.putNumber("Robo Average", ballCs.average);
+    SmartDashboard.putNumber("MXP Average", hatchCs.average);
 
-    SmartDashboard.putNumber("Robo Prox", m_cs1.prox);
-    SmartDashboard.putNumber("MXP Prox", m_cs2.prox);
+    SmartDashboard.putNumber("Robo Prox", ballCs.prox);
+    SmartDashboard.putNumber("MXP Prox", hatchCs.prox);
 
-    SmartDashboard.putNumber("Robo Dist", m_cs1.currentDist);
-    SmartDashboard.putNumber("MXP Dist", m_cs2.currentDist);
+    SmartDashboard.putNumber("Robo Dist", ballCs.currentDist);
+    SmartDashboard.putNumber("MXP Dist", hatchCs.currentDist);
   }
 
   /**
