@@ -78,9 +78,9 @@ public class Lift extends Subsystem {
 
   public void runTo(double runTo) {
 
-    if (this.getLiftHeight() < runTo) {
+    if (this.getLiftHeight() < runTo && !(getLimitSwitchTop())) {
       setSpeed(1);
-    } else if (this.getLiftHeight() > runTo) {
+    } else if (this.getLiftHeight() > runTo && !(getLimitSwitchBottom())) {
       setSpeed(-1);
     } else {
       setSpeed(0);
