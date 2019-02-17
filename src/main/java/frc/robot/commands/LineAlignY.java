@@ -4,9 +4,14 @@ import edu.wpi.first.wpilibj.command.*;
 import frc.robot.Robot;
 // import frc.robot.subsystems.LineFind;
 
-public class LineFindTest extends Command {
+public class LineAlignY extends Command {
 
-    public LineFindTest() {
+    double m_tolerance;
+    Double m_centerY;
+
+    public LineAlignY(double tolerance, Double centerY) {
+        m_tolerance = tolerance;
+        m_centerY = centerY;
         // requires(Robot.m_LineFind);
         requires(Robot.m_LineFind);
     }
@@ -19,7 +24,7 @@ public class LineFindTest extends Command {
     @Override
     protected void execute() {
         System.out.println("LineFindTestActivater");
-        // Robot.m_LineFind.pointToLine(10.0);
+        Robot.m_LineFind.pointToLineY(5.0, m_centerY);
         
     }
 

@@ -38,7 +38,7 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-  private PigeonIMU gyro;
+  public static PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
@@ -62,8 +62,8 @@ public class Drivetrain extends Subsystem {
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
-    rightEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
+    rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
     
     // this.rumblely = RumbleType.kLeftRumble;
     // this.rumblely = RumbleType.kRightRumble;
@@ -147,6 +147,10 @@ public class Drivetrain extends Subsystem {
 
   public void updateYPRData() {
     this.gyro.getYawPitchRoll(this.yprData);
+  }
+
+  public double getNonCummulativeYaw() {
+    return getYaw() % 360;
   }
 
   public double getYaw() {

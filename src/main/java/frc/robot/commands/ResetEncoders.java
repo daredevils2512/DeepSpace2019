@@ -3,20 +3,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class LineAlign extends Command {
+public class ResetEncoders extends Command {
 
-    public LineAlign() {
-        requires(Robot.m_LineFind);
+    public ResetEncoders() {
+        requires(Robot.m_Drivetrain);
     }
 
     @Override
     protected void execute() {
-        
-    }
-
-    @Override
-    protected void end() {
-        Robot.m_LineFind.resetVars();
+        Robot.m_Drivetrain.resetEncoders();
     }
 
     @Override

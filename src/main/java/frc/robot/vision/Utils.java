@@ -4,9 +4,12 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 // import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableValue;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.cscore.UsbCamera;
 
 public class Utils {
 
+    static boolean dvOnline;
 
     /* You don't needt o cast tthis to a kDouble. it will throw an exceptino if it's wrong */
     /** TODO:
@@ -43,6 +46,14 @@ public class Utils {
         for(String key : table.getKeys()){
             System.out.println("Table contains key: "+key);
         }
+    }
+
+    public static boolean startDriverVision(int port, int imageWidth, int imageHeight) {
+        UsbCamera driverCam = CameraServer.getInstance().startAutomaticCapture(port);
+        driverCam.setResolution(imageWidth, imageHeight);
+        dvOnline = driverCam.isConnected();
+        System.out.println("driver vision status: " + dvOnline);
+        return dvOnline;
     }
 
 }

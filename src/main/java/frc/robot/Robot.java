@@ -54,15 +54,24 @@ public class Robot extends TimedRobot {
   //Don't USE 999.00
   //SET THESE TO NULL!!!
   // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-  public static Double centerX = null;
-  public static Double width = null;
-  public static Double height = null;
-  public static Double bottom = null;
-  public static Double top = null;
-  public static Double widthPos = null;
-  public static Double centerY = null;
+  public static Double centerXBall = null;
+  public static Double widthBall = null;
+  public static Double heightBall = null;
+  public static Double bottomBall = null;
+  public static Double topBall = null;
+  public static Double widthPosBall = null;
+  public static Double centerYBall = null;
+  public static Double areaBall = null;
 
-  public static boolean centered = false;
+  public static Double centerXHatch = null;
+  public static Double widthHatch = null;
+  public static Double heightHatch = null;
+  public static Double bottomHatch = null;
+  public static Double topHatch = null;
+  public static Double widthPosHatch = null;
+  public static Double centerYHatch = null;
+  public static Double areaHatch = null;
+
   public static boolean aligned = false;
   public static Double diff = 0.0;
   public static char dir = 'n';
@@ -70,6 +79,8 @@ public class Robot extends TimedRobot {
 
   public static NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
   public static NetworkTable convexHullsTable = null;
+  public static NetworkTable ballTable = null;
+  public static NetworkTable hatchTable = null;
 
   // static NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
   // NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
@@ -101,9 +112,14 @@ public class Robot extends TimedRobot {
     // Utils.resetTables(convexHullsFinal, 2512);
     convexHullsFinal.startServer();
     convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
+    ballTable = convexHullsTable.getSubTable("Ball Table");
+    hatchTable = convexHullsTable.getSubTable("Hatch Table");
     Utils.dumpNetworkTable(convexHullsTable);
     
     NavX.navX.reset();
+    Utils.startDriverVision(0, 320, 240);
+
+    
   }
 
   /***
@@ -113,8 +129,8 @@ public class Robot extends TimedRobot {
    * 
    */
 
-  public static Double getCenterX() {
-    return Utils.getNetworkTableDouble(convexHullsTable, "centerX");
+  public static Double getCenterXBall() {
+    return Utils.getNetworkTableDouble(ballTable, "centerXBall");
      /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -136,8 +152,8 @@ public class Robot extends TimedRobot {
   } 
   
 
-  public static Double getWidth() {
-    return Utils.getNetworkTableDouble(convexHullsTable, "width");
+  public static Double getWidthBall() {
+    return Utils.getNetworkTableDouble(ballTable, "widthBall");
      /*
      System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -159,8 +175,8 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public static Double getHeight() {
-     return Utils.getNetworkTableDouble(convexHullsTable, "height");
+  public static Double getHeightBall() {
+     return Utils.getNetworkTableDouble(ballTable, "heightBall");
 
      /*
      System.out.println(convexHullsFinal.isConnected());
@@ -183,8 +199,8 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public static Double getBottom() {
-     return Utils.getNetworkTableDouble(convexHullsTable, "bottom");
+  public static Double getBottomBall() {
+     return Utils.getNetworkTableDouble(ballTable, "bottomBall");
      /*
     
     // System.out.println(convexHullsFinal.isConnected());
@@ -207,8 +223,8 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public static Double getTop() {
-    return Utils.getNetworkTableDouble(convexHullsTable, "top");
+  public static Double getTopBall() {
+    return Utils.getNetworkTableDouble(ballTable, "topBall");
     /*
     // System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -230,8 +246,8 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public static Double getWidthPos() {
-     return Utils.getNetworkTableDouble(convexHullsTable, "widthPos");
+  public static Double getWidthPosBall() {
+     return Utils.getNetworkTableDouble(ballTable, "widthPosBall");
      /*
      System.out.println(convexHullsFinal.isConnected());
     if (convexHullsFinal.isConnected()) {
@@ -253,8 +269,44 @@ public class Robot extends TimedRobot {
     */
   }
 
-  public static Double getCenterY() {
-    return Utils.getNetworkTableDouble(convexHullsTable, "centerY");
+  public static Double getCenterYBall() {
+    return Utils.getNetworkTableDouble(ballTable, "centerYBall");
+  }
+
+  public static Double getAreaBall() {
+    return Utils.getNetworkTableDouble(ballTable, "areaBall");
+  }
+
+  public static Double getCenterXHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "centerXHatch");
+  }
+
+  public static Double getWidthHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "widthHatch");
+  }
+
+  public static Double getHeightHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "heightHatch");
+  }
+
+  public static Double getBottomHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "bottomHatch");
+  }
+
+  public static Double getTopHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "topHatch");
+  }
+
+  public static Double getWidthPosHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "widthHatch");
+  }
+ 
+  public static Double getCenterYHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "centerYHatch");
+  }
+
+  public static Double getAreaHatch() {
+    return Utils.getNetworkTableDouble(hatchTable, "areaHatch");
   }
 
 
@@ -267,13 +319,22 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   public void updateNTData() {
-    centerX = getCenterX();
-    width = getWidth();
-    bottom = getBottom();
-    height =  getHeight();
-    top = getTop();
-    widthPos = getWidthPos();
-    centerY = getCenterY();
+    centerXBall = getCenterXBall();
+    widthBall = getWidthBall();
+    bottomBall = getBottomBall();
+    heightBall =  getHeightBall();
+    topBall = getTopBall();
+    widthPosBall = getWidthPosBall();
+    centerYBall = getCenterYBall();
+    areaBall = getAreaBall();
+    centerXHatch = getCenterXHatch();
+    widthHatch = getWidthHatch();
+    bottomHatch = getBottomHatch();
+    heightHatch =  getHeightHatch();
+    topHatch = getTopHatch();
+    widthPosHatch = getWidthPosHatch();
+    centerYHatch = getCenterYHatch();
+    areaHatch = getAreaHatch();
   }
 
   @Override
@@ -288,14 +349,24 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
-    SmartDashboard.putNumber("centerX", Robot.centerX  == null ? 999.00 : Robot.centerX);
-    SmartDashboard.putNumber("width", Robot.width == null ? 999.00 : Robot.width);
-    SmartDashboard.putNumber("height", Robot.height == null ? 999.00 : Robot.height);
-    SmartDashboard.putNumber("Bottom", Robot.bottom == null ? 999.00 : Robot.bottom);
-    SmartDashboard.putNumber("top", Robot.top == null ? 999.00 : Robot.top);
-    SmartDashboard.putNumber("widthPos", Robot.widthPos == null ? 999.00 : Robot.widthPos);
+    SmartDashboard.putNumber("centerX", Robot.centerXBall  == null ? 999.00 : Robot.centerXBall);
+    SmartDashboard.putNumber("width", Robot.widthBall == null ? 999.00 : Robot.widthBall);
+    SmartDashboard.putNumber("height", Robot.heightBall == null ? 999.00 : Robot.heightBall);
+    SmartDashboard.putNumber("Bottom", Robot.bottomBall == null ? 999.00 : Robot.bottomBall);
+    SmartDashboard.putNumber("top", Robot.topBall == null ? 999.00 : Robot.topBall);
+    SmartDashboard.putNumber("centerY", Robot.centerYBall == null ? 999.00 : Robot.centerYBall);
+    SmartDashboard.putNumber("area", Robot.areaBall == null ? 999.00 : Robot.areaBall);
+    SmartDashboard.putNumber("widthPos", Robot.widthPosBall == null ? 999.00 : Robot.widthPosBall);
+    SmartDashboard.putNumber("centerX", Robot.centerXHatch  == null ? 999.00 : Robot.centerXHatch);
+    SmartDashboard.putNumber("width", Robot.widthHatch == null ? 999.00 : Robot.widthHatch);
+    SmartDashboard.putNumber("height", Robot.heightHatch == null ? 999.00 : Robot.heightHatch);
+    SmartDashboard.putNumber("Bottom", Robot.bottomHatch == null ? 999.00 : Robot.bottomHatch);
+    SmartDashboard.putNumber("top", Robot.topHatch == null ? 999.00 : Robot.topHatch);
+    SmartDashboard.putNumber("centerY", Robot.centerYHatch == null ? 999.00 : Robot.centerYHatch);
+    SmartDashboard.putNumber("area", Robot.areaHatch == null ? 999.00 : Robot.areaHatch);
+    SmartDashboard.putNumber("widthPos", Robot.widthPosHatch == null ? 999.00 : Robot.widthPosHatch);
     SmartDashboard.putNumber("navX yaw", m_navX.getYaw());
-    SmartDashboard.putNumber("pidgine yaw", m_Drivetrain.getYaw());
+    SmartDashboard.putNumber("pidgine compass", m_Drivetrain.getNonCummulativeYaw());
     SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
     SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());

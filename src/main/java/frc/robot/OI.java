@@ -92,8 +92,12 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    aButton.whileHeld(new LineFindTest());
-    xButton.whileHeld(new LineAlign());
+    yButton.whileHeld(new LineAlignY(5, Robot.centerYBall));
+    bButton.whileHeld(new LineAlignY(5, Robot.centerYHatch));
+    xButton.whileHeld(new LineAlignX(5, Robot.centerXBall));
+    aButton.whileHeld(new LineAlignX(5, Robot.centerXHatch));
+    rightBumper.whileHeld(new VisionControl());
+    select.whenPressed(new ResetEncoders());
   }
 
   public Double desensitize(Double val) {

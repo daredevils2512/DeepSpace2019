@@ -8,11 +8,14 @@ import frc.robot.Robot;
 
 
 public class LineFind extends Subsystem {
+
+    static double s;
     
     public LineFind() {
       
     }
 
+    static boolean centered = false;
 
 
     /*
@@ -47,11 +50,70 @@ public class LineFind extends Subsystem {
       }
     }
     */
+
+    public void pointToLine(Double tolerance, Double centerX) {
+      if (centered == false && centerX != null) {
+        if (centerX >= 0 + tolerance) {
+          if (centerX >= 20) {
+            s = 0.75;
+          } else {
+            s = 0.6;
+          }
+          Drivetrain.staticArcadeDrive(0.0, -s);
+        }
+        if (centerX <= 0 - tolerance) {
+          if (centerX <= -20) {
+            s = 0.75;
+          } else {
+            s = 0.6;
+          }
+          Drivetrain.staticArcadeDrive(0.0, s);
+        }
+        if (centerX <= 0 + tolerance && centerX > 0 - tolerance) {
+          Drivetrain.staticArcadeDrive(0.0, 0.0);
+          centered = true;
+        }
+      } else if (centered == true) {
+        System.out.println("already centered");
+      } else {
+        System.out.println("centerX is null");
+      }
+    }
+
+    public void pointToLineY(Double tolerance, Double centerY) {
+      if (centered == false && centerY != null) {
+        if (centerY >= 0 + tolerance) {
+          if (centerY >= 20) {
+            s = 0.75;
+          } else {
+            s = 0.6;
+          }
+          Drivetrain.staticArcadeDrive(s, 0.0);
+        }
+        if (centerY <= 0 - tolerance) {
+          if (centerY <= -20) {
+            s = 0.75;
+          } else {
+            s = 0.6;
+          }
+          Drivetrain.staticArcadeDrive(-s, 0.0);
+        }
+        if (centerY <= 0 + tolerance && centerY > 0 - tolerance) {
+          Drivetrain.staticArcadeDrive(0.0, 0.0);
+          centered = true;
+        }
+      } else if (centered == true) {
+        System.out.println("already centered");
+      } else {
+        System.out.println("centerX is null");
+      }
+    }
+
     public void alignByGyro(float desiredYaw, double tolerance) {
-      if (Robot.m_Drivetrain.getYaw() >= desiredYaw + tolerance) {
-        Robot.m_Drivetrain.arcadeDrive(0.0, 0.5);
+      if (Robot.m_Drivetrain.getNonCummulativeYaw() >= desiredYaw + tolerance) {
+        Robot.m_Drivetrain.arcadeDrive(0.0, -0.75);
       } else if (Robot.m_Drivetrain.getYaw() <= desiredYaw - tolerance) {
-        Robot.m_Drivetrain.arcadeDrive(0.0, -0.5);
+        Robot.m_Drivetrain.arcadeDrive(0.0, 0.75);
       } else {
         System.out.println("Robot is aligned");
       }
@@ -60,7 +122,7 @@ public class LineFind extends Subsystem {
     
 
     public void resetVars() {
-      Robot.centered = false;
+      centered = false;
       Robot.aligned = false;
       Robot.diff = 0.0;
       Robot.dir = 'n';

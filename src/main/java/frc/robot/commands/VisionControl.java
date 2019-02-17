@@ -6,7 +6,7 @@ import frc.robot.Robot;
 public class VisionControl extends Command {
 
     public VisionControl() {
-
+      requires(Robot.m_LineFind);
        // requires(Robot.m_vision);
         
     }
@@ -19,7 +19,7 @@ public class VisionControl extends Command {
 
     @Override
     protected void execute() {
-        
+        Robot.m_LineFind.alignByGyro(116, 5.0);
         
     }
   
