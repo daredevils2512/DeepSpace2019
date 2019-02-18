@@ -70,17 +70,15 @@ public class OI {
     rightTrigger.whenPressed(new ShiftUp());
     rightTrigger.whenReleased(new ShiftDown());  
 
-    bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
-    bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
-    midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
-    midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
-    topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
-    topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
-    xButton.whenPressed(new ShiftUp());
-    xButton.whenReleased(new ShiftDown());
+    // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
+    // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
+    // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
+    // midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
+    // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
+    // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor()); 
-    topLeft.whenPressed(new RunBallXtake(-1.0));
-    topRight.whenPressed(new FlowerControl());
+    // topLeft.whenPressed(new RunBallXtake(-1.0));
+    // topRight.whenPressed(new FlowerControl());
 
   }
 
