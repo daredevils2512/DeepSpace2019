@@ -10,14 +10,17 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.*;
+
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.constants.Constants;
+
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -37,7 +40,7 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-  // private PigeonIMU gyro;
+  private PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
@@ -90,7 +93,7 @@ public class Drivetrain extends Subsystem {
 
     shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
-    // gyro = new PigeonIMU(0);
+    gyro = new PigeonIMU(0);
   }
   
   @Override
@@ -161,23 +164,25 @@ public class Drivetrain extends Subsystem {
     return this.rightRearTalon.get();
   }
 
-  // public void updateYPRData() {
-  //   this.gyro.getYawPitchRoll(this.yprData);
-  // }
-
-  public double getYaw() {
-    // this.updateYPRData();
-    return this.yprData[0];
+  public void updateYPRData() {
+    this.gyro.getYawPitchRoll(this.yprData);
   }
 
-  public double getPitch() {
-    // this.updateYPRData();
-    return this.yprData[1];
-  }
-
-  public double getRoll() {
-    // this.updateYPRData();
-    return this.yprData[2];
+  public double getSelectedYPR(Constants.YPRSelect selectedYPR) {
+    this.updateYPRData();
+    double selectedYPRData = 0.0;
+    switch (selectedYPR) {
+      case YAW:
+        selectedYPRData = this.yprData[0];
+        break;
+      case PITCH:
+        selectedYPRData = this.yprData[1];
+        break;
+      case ROLL:
+        selectedYPRData = this.yprData[0];
+        break;
+    }
+    return selectedYPRData;
   }
 
 }

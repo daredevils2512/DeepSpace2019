@@ -62,8 +62,8 @@ public class RobotMap {
   // HATCH STUFF
   public static int flowerSolenoidForwardChannel = 0;
   public static int flowerSolenoidReverseChannel = 1;
-  public static int flowerSlideForwardChannel = -1;
-  public static int flowerSlideReverseChannel = -1;
+  public static int flowerSlideForwardChannel = 2;
+  public static int flowerSlideReverseChannel = 3;
 
   public static int spotlightRelayPort = 0;
 }
