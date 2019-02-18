@@ -32,14 +32,14 @@ public class RobotMap {
   public static int limitSwitchTopPort = 5;
   // a negative implies we dont know the port yet
   //LEFT DRIVETRAIN STUFF
-  public static int leftTalonPort = 1;
-  public static int leftRearTalonPort = 2;
+  public static int leftSparkID = 1;
+  public static int leftRearSparkID = 2;
   public static int leftEncoderChannelA = 0;
   public static int leftEncoderChannelB = 1;
 
   //RIGHT DRIVETRAIN STUFF
-  public static int rightTalonPort = 3;
-  public static int rightRearTalonPort = 4;
+  public static int rightSparkID = 3;
+  public static int rightRearSparkID = 4;
   public static int rightEncoderChannelA = 2;
   public static int rightEncoderChannelB = 3;
   
