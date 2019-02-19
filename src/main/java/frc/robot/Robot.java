@@ -51,7 +51,6 @@ public class Robot extends TimedRobot {
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    m_Compressorsorus.compressorOff();
 
   }
 
@@ -140,6 +139,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_lift.resetEncoder();
+    m_Compressorsorus.compressorOn();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

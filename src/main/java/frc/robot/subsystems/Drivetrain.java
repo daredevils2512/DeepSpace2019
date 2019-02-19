@@ -19,6 +19,10 @@ import frc.robot.constants.Constants;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
@@ -29,13 +33,13 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private WPI_TalonSRX leftTalon;
-  private WPI_TalonSRX rightTalon;
-  private WPI_TalonSRX leftRearTalon;
-  private WPI_TalonSRX rightRearTalon;
+  private CANSparkMax leftSpark;
+  private CANSparkMax rightSpark;
+  private CANSparkMax leftRearSpark;
+  private CANSparkMax rightRearSpark;
   private DifferentialDrive drivetrain;
-  private SpeedControllerGroup leftTalonGroup;
-  private SpeedControllerGroup rightTalonGroup;
+  private SpeedControllerGroup leftSparkGroup;
+  private SpeedControllerGroup rightSparkGroup;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
@@ -52,37 +56,19 @@ public class Drivetrain extends Subsystem {
   private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
   private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
 
-  private static int drive775PeakCurrentLimit = 70;
-  private static int drive775PeakCurrentDuration = 300;
-  private static int drive775ContinuousCurrentLimit = 50;
-
   public Drivetrain() {
 
-    leftTalon = new WPI_TalonSRX(RobotMap.leftTalonPort);    
-    rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
-    leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
-    rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
-
-    /*
-    * These configs because second drive motor in each gearbox is now a 775
-    * due to weight. 775s will burn out if too high of a current is applied
-    * for to long so hopefully this will prevent that.
-    * COMPLETELY UNTESTED
-    */
-    leftRearTalon.configPeakCurrentLimit(drive775PeakCurrentLimit);
-    leftRearTalon.configContinuousCurrentLimit(drive775ContinuousCurrentLimit);
-    leftRearTalon.configPeakCurrentDuration(drive775PeakCurrentDuration);
-
-    rightRearTalon.configPeakCurrentLimit(drive775PeakCurrentLimit);
-    rightRearTalon.configContinuousCurrentLimit(drive775ContinuousCurrentLimit);
-    rightRearTalon.configPeakCurrentDuration(drive775PeakCurrentDuration);
+    leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
+    rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
+    leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
+    rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
-    leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
-    rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
-    drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+    leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
+    rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
+    drivetrain = new DifferentialDrive(leftSparkGroup, rightSparkGroup);
     // addChild("Differential Drive 1",drivetrain);
 
     leftEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
@@ -149,19 +135,19 @@ public class Drivetrain extends Subsystem {
   }
 
   public double leftFrontSpeed() {
-    return this.leftTalon.get();
+    return this.leftSpark.get();
   }
 
   public double leftRearSpeed() {
-    return this.leftRearTalon.get();
+    return this.leftRearSpark.get();
   }
 
   public double rightFrontSpeed() {
-    return this.rightTalon.get();
+    return this.rightSpark.get();
   }
 
   public double rightRearSpeed() {
-    return this.rightRearTalon.get();
+    return this.rightRearSpark.get();
   }
 
   public void updateYPRData() {
