@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
-import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -40,7 +39,7 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-  // private PigeonIMU gyro;
+  private PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
@@ -58,13 +57,6 @@ public class Drivetrain extends Subsystem {
     rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
     leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
     rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
-
-    /*
-    * These configs because second drive motor in each gearbox is now a 775
-    * due to weight. 775s will burn out if too high of a current is applied
-    * for to long so hopefully this will prevent that.
-    * COMPLETELY UNTESTED
-    */
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
@@ -82,7 +74,7 @@ public class Drivetrain extends Subsystem {
 
     shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
-    // gyro = new PigeonIMU(0);
+    gyro = new PigeonIMU(0);
   }
   
   @Override
@@ -153,22 +145,22 @@ public class Drivetrain extends Subsystem {
     return this.rightRearSpark.get();
   }
 
-  // public void updateYPRData() {
-  //   this.gyro.getYawPitchRoll(this.yprData);
-  // }
+  public void updateYPRData() {
+    this.gyro.getYawPitchRoll(this.yprData);
+  }
 
   public double getYaw() {
-    // this.updateYPRData();
+    this.updateYPRData();
     return this.yprData[0];
   }
 
   public double getPitch() {
-    // this.updateYPRData();
+    this.updateYPRData();
     return this.yprData[1];
   }
 
   public double getRoll() {
-    // this.updateYPRData();
+    this.updateYPRData();
     return this.yprData[2];
   }
 

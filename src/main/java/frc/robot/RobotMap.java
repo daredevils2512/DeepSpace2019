@@ -43,16 +43,16 @@ public class RobotMap {
   public static int rightEncoderChannelA = 2;
   public static int rightEncoderChannelB = 3;
   
-  public static int shifterForwardChannel = 4;
-  public static int shifterReverseChannel = 5;
+  public static int shifterForwardChannel = 0;
+  public static int shifterReverseChannel = 1;
 
   public static int ballXtake1ID = 7;
   public static int ballXtake2ID = 8;
 
-  public static int flowerSolenoidForwardChannel = 0;
-  public static int flowerSolenoidReverseChannel = 1;
-  public static int flowerSlideForwardChannel = -1;
-  public static int flowerSlideReverseChannel = -1;
+  public static int flowerSolenoidForwardChannel = 2;
+  public static int flowerSolenoidReverseChannel = 3;
+  public static int flowerSlideForwardChannel = 4;
+  public static int flowerSlideReverseChannel = 5;
 
   public static int spotlightRelayPort = 0;
 }
