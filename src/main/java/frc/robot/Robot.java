@@ -12,8 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.subsystems.*;
-import frc.robot.constants.*;
+import frc.robot.constants.Constants;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -44,13 +45,13 @@ public class Robot extends TimedRobot {
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_lift = new Lift();
+    m_cargoIntake = new CargoIntake();
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
     m_oi = new OI();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    m_Compressorsorus.compressorOff();
 
   }
 
@@ -68,7 +69,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
-    // m_Drivetrain.updateYPRData();
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
@@ -79,6 +79,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+    
+    SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
+    SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
+    SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
+
+    SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
   }
 
   /**
@@ -134,6 +140,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_lift.resetEncoder();
+    m_Compressorsorus.compressorOn();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
