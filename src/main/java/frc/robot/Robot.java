@@ -45,6 +45,7 @@ public class Robot extends TimedRobot {
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_lift = new Lift();
+    m_cargoIntake = new CargoIntake();
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
     m_oi = new OI();
@@ -79,9 +80,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
     
-    SmartDashboard.putNumber("Yaw", m_Drivetrain.getSelectedYPR(Constants.YPRSelect.YAW));
-    SmartDashboard.putNumber("Pitch", m_Drivetrain.getSelectedYPR(Constants.YPRSelect.PITCH));
-    SmartDashboard.putNumber("Roll", m_Drivetrain.getSelectedYPR(Constants.YPRSelect.ROLL));
+    SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
+    SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
+    SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
     SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
   }

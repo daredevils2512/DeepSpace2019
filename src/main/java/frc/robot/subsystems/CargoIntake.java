@@ -27,7 +27,7 @@ public class CargoIntake extends Subsystem {
 
   public CargoIntake() {
     this.infinityMotor = new WPI_TalonSRX(RobotMap.cargoInfinityPort);
-    this.inMotor = new WPI_TalonSRX(RobotMap.cargoInfinityPort);
+    this.inMotor = new WPI_TalonSRX(RobotMap.cargoInMotorPort);
 
     this.upDown = new DoubleSolenoid(RobotMap.cargoUpDownAPort, RobotMap.cargoUpDownBPort);
   }
@@ -39,6 +39,7 @@ public class CargoIntake extends Subsystem {
   }
 
   public void runIntake(double infinitySpeed, double inSpeed) {
+    // positive speed is out
     this.infinityMotor.set(infinitySpeed);
     this.inMotor.set(inSpeed);
   }

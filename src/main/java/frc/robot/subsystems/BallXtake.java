@@ -19,7 +19,7 @@ public class BallXtake extends Subsystem {
         ballXtake2 = new WPI_TalonSRX(RobotMap.ballXtake2ID);
         ballOccupancy = new DigitalInput(RobotMap.ballOccupancy);
 
-        ballXtake1.setInverted(true);
+        ballXtake2.setInverted(true);
     }
 
     @Override
@@ -28,6 +28,7 @@ public class BallXtake extends Subsystem {
     }
 
     public void setBallXtakeSpeed(double XtakeSpeed) {
+        // Positive speed is out
         ballXtake1.set(XtakeSpeed);
         ballXtake2.set(XtakeSpeed);
     }

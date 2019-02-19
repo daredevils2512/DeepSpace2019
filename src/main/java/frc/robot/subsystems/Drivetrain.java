@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.*;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.constants.Constants;
+import frc.robot.constants.Constants.YPRSelect;
 
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
@@ -154,7 +154,7 @@ public class Drivetrain extends Subsystem {
     this.gyro.getYawPitchRoll(this.yprData);
   }
 
-  public double getSelectedYPR(Constants.YPRSelect selectedYPR) {
+  private double getSelectedYPR(YPRSelect selectedYPR) {
     this.updateYPRData();
     double selectedYPRData = 0.0;
     switch (selectedYPR) {
@@ -171,4 +171,15 @@ public class Drivetrain extends Subsystem {
     return selectedYPRData;
   }
 
+  public double getYaw() {
+    return this.getSelectedYPR(YPRSelect.YAW);
+  }
+
+  public double getPitch() {
+    return this.getSelectedYPR(YPRSelect.PITCH);
+  }
+
+  public double getRoll() {
+    return this.getSelectedYPR(YPRSelect.ROLL);
+  }
 }

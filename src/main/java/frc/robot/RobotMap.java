@@ -48,7 +48,7 @@ public class RobotMap {
   public static int shifterReverseChannel = 1;
 
   // CARGO STUFF
-  public static int cargoInfinityPort = 9;
+  public static int cargoInfinityPort = 11;
   public static int cargoInMotorPort = 10;
   public static int cargoUpDownAPort = 2;
   public static int cargoUpDownBPort = 3;

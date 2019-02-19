@@ -23,10 +23,13 @@ import frc.robot.commands.*;
 
 
 public class OI {
+  private int driverPort = 0;
+  private int coDriverPort = 1;
+  private int buttonBoxPort = 2;
   //Joysticks
-  public Joystick driver = new Joystick(0);
-  public Joystick buttonBox = new Joystick(2);
-  public Joystick extreme = new Joystick(1);
+  public Joystick driver = new Joystick(this.driverPort);
+  public Joystick buttonBox = new Joystick(this.coDriverPort);
+  public Joystick extreme = new Joystick(this.buttonBoxPort);
 
   //All buttons
   Button aButton = new JoystickButton(driver, 1);
@@ -74,8 +77,8 @@ public class OI {
     yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
 
-    xButton.whileHeld(new CargoRunIntake(1.0, 1.0));
-    bButton.whileHeld(new CargoRunIntake(-1.0, -1.0));
+    xButton.whileHeld(new CargoRunIntake(0.5, 0.5));
+    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5));
     // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
     // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
     // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
@@ -83,6 +86,7 @@ public class OI {
     // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
     // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor()); 
+    bigWhite.whenPressed(new CMG_IntakeBall());
     topLeft.whileHeld(new RunBallXtake(-1.0));
     topRight.whileHeld(new RunBallXtake(1.0));
     // topRight.whenPressed(new FlowerControl());
