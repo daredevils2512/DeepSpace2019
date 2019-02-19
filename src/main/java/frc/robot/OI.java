@@ -70,6 +70,11 @@ public class OI {
     rightTrigger.whenPressed(new ShiftUp());
     rightTrigger.whenReleased(new ShiftDown());  
 
+    yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
+    aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+
+    xButton.whileHeld(new CargoRunIntake(1.0, 1.0));
+    bButton.whileHeld(new CargoRunIntake(-1.0, -1.0));
     // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
     // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
     // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
