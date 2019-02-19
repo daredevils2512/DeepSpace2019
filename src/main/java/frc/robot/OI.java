@@ -77,7 +77,8 @@ public class OI {
     // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
     // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor()); 
-    // topLeft.whenPressed(new RunBallXtake(-1.0));
+    topLeft.whileHeld(new RunBallXtake(-1.0));
+    topRight.whileHeld(new RunBallXtake(1.0));
     // topRight.whenPressed(new FlowerControl());
 
   }
@@ -91,7 +92,7 @@ public class OI {
   }
   
   public Double liftControl() {
-   return -desensitize(extreme.getRawAxis(1));
+   return desensitize(extreme.getRawAxis(1));
   }
   
   public Double getMove() {

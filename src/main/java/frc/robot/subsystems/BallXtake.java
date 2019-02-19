@@ -18,6 +18,8 @@ public class BallXtake extends Subsystem {
         ballXtake1 = new WPI_TalonSRX(RobotMap.ballXtake1ID);
         ballXtake2 = new WPI_TalonSRX(RobotMap.ballXtake2ID);
         ballOccupancy = new DigitalInput(RobotMap.ballOccupancy);
+
+        ballXtake1.setInverted(true);
     }
 
     @Override

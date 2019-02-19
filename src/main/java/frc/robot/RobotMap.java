@@ -29,8 +29,8 @@ public class RobotMap {
     
   public static int liftTalon1Id = 5;
   public static int liftTalon2Id = 6;
-  public static int limitSwitchBottomPort = 0;
-  public static int limitSwitchTopPort = 1;
+  public static int limitSwitchBottomPort = 8;
+  public static int limitSwitchTopPort = 13;
   // a negative implies we dont know the port yet
   //LEFT DRIVETRAIN STUFF
   public static int leftTalonPort = 1;
@@ -44,8 +44,8 @@ public class RobotMap {
   public static int rightEncoderChannelA = 2;
   public static int rightEncoderChannelB = 3;
   
-  public static int shifterForwardChannel = 4;
-  public static int shifterReverseChannel = 5;
+  public static int shifterForwardChannel = 0;
+  public static int shifterReverseChannel = 1;
 
   // CARGO STUFF
   public static int cargoInfinityPort = 9;
@@ -57,13 +57,13 @@ public class RobotMap {
 
   public static int ballXtake1ID = 7;
   public static int ballXtake2ID = 8;
-  public static int ballOccupancy = 6;
+  public static int ballOccupancy = 9;
 
   // HATCH STUFF
   public static int flowerSolenoidForwardChannel = 4;
   public static int flowerSolenoidReverseChannel = 5;
-  public static int flowerSlideForwardChannel = 2;
-  public static int flowerSlideReverseChannel = 3;
+  public static int flowerSlideForwardChannel = 6;
+  public static int flowerSlideReverseChannel = 7;
 
   public static int spotlightRelayPort = 0;
 }

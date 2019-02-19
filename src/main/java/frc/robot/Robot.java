@@ -83,6 +83,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Yaw", m_Drivetrain.getSelectedYPR(Constants.YPRSelect.YAW));
     SmartDashboard.putNumber("Pitch", m_Drivetrain.getSelectedYPR(Constants.YPRSelect.PITCH));
     SmartDashboard.putNumber("Roll", m_Drivetrain.getSelectedYPR(Constants.YPRSelect.ROLL));
+
+    SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
   }
 
   /**
