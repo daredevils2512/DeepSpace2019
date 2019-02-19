@@ -23,6 +23,7 @@ import frc.robot.constants.*;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static CargoIntake m_cargoIntake;
   public static Drivetrain m_Drivetrain;
   // public static Spotlight m_Spotlight = new Spotlight();
   public static Compressorsorus m_Compressorsorus;

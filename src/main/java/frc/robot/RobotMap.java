@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -23,7 +25,6 @@ public class RobotMap {
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
-
   public static double driveEncoderDistancePerPulse = 0.0236065636;
     
   public static int liftTalon1Id = 5;
@@ -46,13 +47,22 @@ public class RobotMap {
   public static int shifterForwardChannel = 0;
   public static int shifterReverseChannel = 1;
 
+  // CARGO STUFF
+  public static int cargoInfinityPort = 9;
+  public static int cargoInMotorPort = 10;
+  public static int cargoUpDownAPort = 2;
+  public static int cargoUpDownBPort = 3;
+  public static Value cargoUpPos = Value.kForward;
+  public static Value cargoDownPos = Value.kReverse;
+
   public static int ballXtake1ID = 7;
   public static int ballXtake2ID = 8;
+  public static int ballOccupancy = 6;
 
-  public static int flowerSolenoidForwardChannel = 2;
-  public static int flowerSolenoidReverseChannel = 3;
-  public static int flowerSlideForwardChannel = 4;
-  public static int flowerSlideReverseChannel = 5;
+  public static int flowerSolenoidForwardChannel = 4;
+  public static int flowerSolenoidReverseChannel = 5;
+  public static int flowerSlideForwardChannel = 6;
+  public static int flowerSlideReverseChannel = 7;
 
   public static int spotlightRelayPort = 0;
 }
