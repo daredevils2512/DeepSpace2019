@@ -33,6 +33,6 @@ public class CMG_IntakeBall extends CommandGroup {
     // arm.
     addParallel(new CargoRunIntake(-0.5, -0.5));
     addSequential(new RunBallXtake(-1.0));
-    // addSequential(new CargoFoldIntake(RobotMap.cargoUpPos));
+    addSequential(new CargoFoldIntake(RobotMap.cargoUpPos));
   }
 }
