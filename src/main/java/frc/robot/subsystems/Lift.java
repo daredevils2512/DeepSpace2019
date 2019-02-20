@@ -54,6 +54,10 @@ public class Lift extends Subsystem {
     setDefaultCommand(new ManualLift(Robot.m_oi::liftControl));
   }
 
+  public double getLiftPosition() {
+    return liftTalon1.getSelectedSensorPosition();
+  }
+
   public double getLiftHeight() {
     return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToInches); // this might seem like a random number but it is needed (I will find out math)
   }

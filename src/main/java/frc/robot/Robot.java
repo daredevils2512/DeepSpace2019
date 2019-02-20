@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
+    SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
@@ -85,6 +86,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
     SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
+    SmartDashboard.putBoolean("Extake Swqitch", m_ballXtake.getBallOccupancy());
   }
 
   /**

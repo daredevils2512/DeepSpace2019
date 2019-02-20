@@ -28,8 +28,8 @@ public class OI {
   private int buttonBoxPort = 2;
   //Joysticks
   public Joystick driver = new Joystick(this.driverPort);
-  public Joystick buttonBox = new Joystick(this.coDriverPort);
-  public Joystick extreme = new Joystick(this.buttonBoxPort);
+  public Joystick extreme = new Joystick(this.coDriverPort);
+  public Joystick buttonBox = new Joystick(this.buttonBoxPort);
 
   //All buttons
   Button aButton = new JoystickButton(driver, 1);

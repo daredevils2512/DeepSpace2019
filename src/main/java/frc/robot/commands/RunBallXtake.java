@@ -24,9 +24,8 @@ public class RunBallXtake extends Command {
     @Override
     protected boolean isFinished() {
         // If intaking, stop when limit switch is tripped
-        // else, just return true
-        return (this.m_speed > 0) ? Robot.m_ballXtake.getBallOccupancy() : false;
-        // return false;
+        // else, just keep spinning
+        return (this.m_speed < 0) ? Robot.m_ballXtake.getBallOccupancy() : false;
     }
 
     @Override
