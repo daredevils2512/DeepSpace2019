@@ -71,14 +71,14 @@ public class OI {
 
   public OI() {
 
-    rightTrigger.whenPressed(new ShiftUp());
-    rightTrigger.whenReleased(new ShiftDown());  
+    rightTrigger.whileHeld(new ShiftDown());
+    rightTrigger.whenReleased(new ShiftUp());  
 
     yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
 
-    xButton.whileHeld(new CargoRunIntake(0.5, 0.5));
-    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5));
+    xButton.whileHeld(new CargoRunIntake(0.5, 0.5, false));
+    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5, false));
     // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
     // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
     // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
@@ -87,9 +87,21 @@ public class OI {
     // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor()); 
     bigWhite.whenPressed(new CMG_IntakeBall());
-    topLeft.whileHeld(new RunBallXtake(-1.0));
-    topRight.whileHeld(new RunBallXtake(1.0));
+    topLeft.whileHeld(new RunBallXtake(-1.0, false));
+    topRight.whileHeld(new RunBallXtake(1.0, false));
+
+    topWhite.whileHeld(new RunBallXtake(1.0, true));
+    topRed.whileHeld(new RunBallXtake(-1.0, true));
+    midWhite.whileHeld(new CargoRunIntake(0.5, 0.5, true));
+    midRed.whileHeld(new CargoRunIntake(-0.5, -0.5, true));
+
+    greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
+    yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+    
     // topRight.whenPressed(new FlowerControl());
+
+    triggerBoi.whileHeld(new RunBallXtake(1.0, false));
+    triggerBoi.whileHeld(new CargoRunIntake(0.5, 0.5, false));
 
   }
 

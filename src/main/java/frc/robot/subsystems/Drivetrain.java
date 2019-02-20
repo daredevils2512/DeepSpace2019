@@ -21,6 +21,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -62,6 +63,11 @@ public class Drivetrain extends Subsystem {
     rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
     leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
     rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
+
+    leftSpark.setIdleMode(IdleMode.kCoast);
+    rightSpark.setIdleMode(IdleMode.kCoast);
+    leftRearSpark.setIdleMode(IdleMode.kCoast);
+    rightRearSpark.setIdleMode(IdleMode.kCoast);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);

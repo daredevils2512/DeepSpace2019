@@ -15,12 +15,15 @@ public class CargoRunIntake extends Command {
     private double m_infinitySpeed;
     private double m_inSpeed;
 
-  public CargoRunIntake(double infinitySpeed, double inSpeed) {
+    private boolean m_ovveride;
+
+  public CargoRunIntake(double infinitySpeed, double inSpeed, boolean ovveride) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_cargoIntake);
     this.m_infinitySpeed = infinitySpeed;
     this.m_inSpeed = inSpeed;
+    this.m_ovveride = ovveride;
   }
 
   // Called just before this Command runs the first time
@@ -37,7 +40,8 @@ public class CargoRunIntake extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (this.m_inSpeed < 0) ? Robot.m_ballXtake.getBallOccupancy() : false;
+    return (!this.m_ovveride && this.m_inSpeed < 0) ? Robot.m_ballXtake.getBallOccupancy() : false;
+    // return false;
   }
 
   // Called once after isFinished returns true
