@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.*;
 import frc.robot.Sensors.*;
+import frc.robot.constants.Constants;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,10 +26,14 @@ import frc.robot.Sensors.*;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static CargoIntake m_cargoIntake;
   public static Drivetrain m_Drivetrain;
   // public static Spotlight m_Spotlight = new Spotlight();
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
+  public static Lift m_lift;
+  public static BallXtake m_ballXtake;
+  public static Flower m_flower;
 
   public static ColorSensor ballCs, hatchCs;
   public static UltrasonicSensor ballUltra, hatchUltra;
@@ -51,7 +56,15 @@ public class Robot extends TimedRobot {
     
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
+    m_lift = new Lift();
+    m_cargoIntake = new CargoIntake();
+    m_ballXtake = new BallXtake();
+    m_flower = new Flower();
     m_oi = new OI();
+    // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_chooser);
+
   }
 
   /**
@@ -64,6 +77,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+<<<<<<< HEAD
     ballCs.read();
     hatchCs.read();
 
@@ -75,6 +89,30 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Hatch Ultra", hatchUltra.getDistInInch());
     SmartDashboard.putNumber("Ball Ultra", ballUltra.getDistInInch());
+=======
+    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
+    SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
+    SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
+    // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
+    SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
+    SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
+    SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
+    SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+
+    SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
+    SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
+    SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
+    SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
+    SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+    
+    SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
+    SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
+    SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
+
+    SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
+    SmartDashboard.putBoolean("Extake Swqitch", m_ballXtake.getBallOccupancy());
+>>>>>>> master
   }
 
   /**
@@ -129,6 +167,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_lift.resetEncoder();
+    m_Compressorsorus.compressorOn();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -145,12 +185,5 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-  }
-
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
   }
 }

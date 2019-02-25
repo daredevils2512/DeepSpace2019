@@ -8,17 +8,23 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.*;
+
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.constants.Constants.YPRSelect;
+
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -27,50 +33,53 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private WPI_TalonSRX leftTalon;
-  private WPI_TalonSRX rightTalon;
-  private WPI_TalonSRX leftRearTalon;
-  private WPI_TalonSRX rightRearTalon;
+  private CANSparkMax leftSpark;
+  private CANSparkMax rightSpark;
+  private CANSparkMax leftRearSpark;
+  private CANSparkMax rightRearSpark;
   private DifferentialDrive drivetrain;
-  private SpeedControllerGroup leftTalonGroup;
-  private SpeedControllerGroup rightTalonGroup;
+  private SpeedControllerGroup leftSparkGroup;
+  private SpeedControllerGroup rightSparkGroup;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-  // private PigeonIMU gyro;
+  private PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
   private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
   
-  // private RumbleType rumblely;
+  private static double wheelDiameter = 6; // inches
+  private static double pulsePerRotation = 128;
+  private static double gearRatio = 1/3; //wheel-encoder
+  private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
+  private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
 
   public Drivetrain() {
 
-    leftTalon = new WPI_TalonSRX(RobotMap.leftTalonPort);    
-    rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
-    leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
-    rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
-    
+    leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
+    rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
+    leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
+    rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
-    leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
-    rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
-    drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+    leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
+    rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
+    drivetrain = new DifferentialDrive(leftSparkGroup, rightSparkGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
-    rightEncoder.setDistancePerPulse(RobotMap.ticksPerInch);
+    leftEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
+    rightEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
     
     // this.rumblely = RumbleType.kLeftRumble;
     // this.rumblely = RumbleType.kRightRumble;
 
     shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
-    // gyro = new PigeonIMU(0);
+    gyro = new PigeonIMU(0);
   }
   
   @Override
@@ -126,37 +135,51 @@ public class Drivetrain extends Subsystem {
   }
 
   public double leftFrontSpeed() {
-    return this.leftTalon.get();
+    return this.leftSpark.get();
   }
 
   public double leftRearSpeed() {
-    return this.leftRearTalon.get();
+    return this.leftRearSpark.get();
   }
 
   public double rightFrontSpeed() {
-    return this.rightTalon.get();
+    return this.rightSpark.get();
   }
 
   public double rightRearSpeed() {
-    return this.rightRearTalon.get();
+    return this.rightRearSpark.get();
   }
 
-  // public void updateYPRData() {
-  //   this.gyro.getYawPitchRoll(this.yprData);
-  // }
+  public void updateYPRData() {
+    this.gyro.getYawPitchRoll(this.yprData);
+  }
+
+  private double getSelectedYPR(YPRSelect selectedYPR) {
+    this.updateYPRData();
+    double selectedYPRData = 0.0;
+    switch (selectedYPR) {
+      case YAW:
+        selectedYPRData = this.yprData[0];
+        break;
+      case PITCH:
+        selectedYPRData = this.yprData[1];
+        break;
+      case ROLL:
+        selectedYPRData = this.yprData[0];
+        break;
+    }
+    return selectedYPRData;
+  }
 
   public double getYaw() {
-    // this.updateYPRData();
-    return this.yprData[0];
+    return this.getSelectedYPR(YPRSelect.YAW);
   }
 
   public double getPitch() {
-    // this.updateYPRData();
-    return this.yprData[1];
+    return this.getSelectedYPR(YPRSelect.PITCH);
   }
 
   public double getRoll() {
-    // this.updateYPRData();
-    return this.yprData[2];
+    return this.getSelectedYPR(YPRSelect.ROLL);
   }
 }
