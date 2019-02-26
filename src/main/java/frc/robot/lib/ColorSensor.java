@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Sensors;
+package frc.robot.lib;
 
 import edu.wpi.first.wpilibj.I2C;
 import java.nio.ByteOrder;
@@ -44,14 +44,13 @@ public class ColorSensor {
 
     private ByteBuffer buffy = ByteBuffer.allocate(8);
 
-    public short red = 0, green = 0, blue = 0, prox = 0;
-    public int average = 0, total = 0, count = 0;
-    public double currentDist = 0.0, distanceOffset = 0.0;
-    public int[] savedProxes = new int[RESET_TIME];
-    public double[] proxData = {(double) this.prox, (double) this.average};
+    private short red = 0, green = 0, blue = 0, prox = 0;
+    private int average = 0, total = 0, count = 0;
+    private double currentDist = 0.0;
+    private int[] savedProxes = new int[RESET_TIME];
+    private double[] proxData = {(double) this.prox, (double) this.average};
 
-    public ColorSensor(I2C.Port port, double distOffset) {
-        this.distanceOffset = distOffset;
+    public ColorSensor(I2C.Port port) {
         buffy.order(ByteOrder.LITTLE_ENDIAN);
         sensor = new I2C(port, 0x39); //0x39 is the address of the Vex ColorSensor V2
         
@@ -110,6 +109,10 @@ public class ColorSensor {
         double a = 37.1995672561;
         double b = 0.99496125492;
         double c = 3.44863564482;
-        this.currentDist = ((a * (Math.pow(b, currentProx))) + c) - this.distanceOffset;
+        this.currentDist = ((a * (Math.pow(b, currentProx))) + c);
+    }
+
+    public double getDistance(){
+        return this.currentDist;
     }
 }

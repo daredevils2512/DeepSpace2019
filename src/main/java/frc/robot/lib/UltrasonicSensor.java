@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Sensors;
+package frc.robot.lib;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 /**
@@ -14,14 +14,12 @@ import edu.wpi.first.wpilibj.AnalogInput;
 public class UltrasonicSensor {
 
     private int m_port;
-    private double m_distInInchOffset, m_distInCmOffset, m_suppliedVoltage, voltagePerCm, voltagePerIn;
+    private double m_suppliedVoltage, voltagePerCm, voltagePerIn;
 
     private AnalogInput input;
 
-    public UltrasonicSensor(int port, double distInInchOffset, double suppliedVoltage) {
+    public UltrasonicSensor(int port, double suppliedVoltage) {
         this.m_port = port;
-        this.m_distInInchOffset = distInInchOffset;
-        this.m_distInCmOffset = this.m_distInInchOffset * 2.54;
         this.m_suppliedVoltage = suppliedVoltage;
 
         this.voltagePerCm = this.m_suppliedVoltage / 1024;
@@ -37,10 +35,10 @@ public class UltrasonicSensor {
     }
 
     public double getDistInCm() {
-        return (this.getAvgVoltage() / this.voltagePerCm) - this.m_distInCmOffset;
+        return (this.getAvgVoltage() / this.voltagePerCm);
     }
 
     public double getDistInInch() {
-        return (this.getAvgVoltage() / this.voltagePerIn) - this.m_distInCmOffset;
+        return (this.getAvgVoltage() / this.voltagePerIn);
     }
 }
