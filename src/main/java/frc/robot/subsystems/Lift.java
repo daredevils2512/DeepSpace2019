@@ -30,14 +30,16 @@ public class Lift extends Subsystem {
   public static DigitalInput limitSwitchBottom;
   public static DigitalInput limitSwitchTop; 
 
-  public static double liftEncoderPulseToFeet = 1 / 4096; 
+  private static final int magEncPulsesPerRev = 4096;
+  private static final double inchesPerRev = 5.5;
+  public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev; 
 
-  public Lift() {
+  public Lift() {  
 
     liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
     liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
 
-    // liftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    liftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     liftTalon2.set(ControlMode.Follower, liftTalon1.getDeviceID());
 
     limitSwitchBottom = new DigitalInput(RobotMap.limitSwitchBottomPort);
@@ -52,8 +54,12 @@ public class Lift extends Subsystem {
     setDefaultCommand(new ManualLift(Robot.m_oi::liftControl));
   }
 
+  public double getLiftPosition() {
+    return liftTalon1.getSelectedSensorPosition();
+  }
+
   public double getLiftHeight() {
-    return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToFeet); // this might seem like a random number but it is needed (I will find out math)
+    return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToInches); // this might seem like a random number but it is needed (I will find out math)
   }
 
   public void resetEncoder() {

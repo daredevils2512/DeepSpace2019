@@ -7,14 +7,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 import frc.robot.constants.Constants;
-// import frc.robot.commands.ToggleSpotlight;
+import frc.robot.TriggerButton;
 import frc.robot.commands.*;
 
 /**
@@ -25,10 +23,13 @@ import frc.robot.commands.*;
 
 
 public class OI {
+  private int driverPort = 0;
+  private int coDriverPort = 1;
+  private int buttonBoxPort = 2;
   //Joysticks
-  public Joystick driver = new Joystick(0);
-  public Joystick buttonBox = new Joystick(2);
-  public Joystick extreme = new Joystick(1);
+  public Joystick driver = new Joystick(this.driverPort);
+  public Joystick extreme = new Joystick(this.coDriverPort);
+  public Joystick buttonBox = new Joystick(this.buttonBoxPort);
 
   //All buttons
   Button aButton = new JoystickButton(driver, 1);
@@ -41,6 +42,8 @@ public class OI {
   Button start = new JoystickButton(driver, 8);
   Button leftStick = new JoystickButton(driver, 9);
   Button rightStick = new JoystickButton(driver, 10);
+  TriggerButton leftTrigger = new TriggerButton(driver, 2);
+  TriggerButton rightTrigger = new TriggerButton(driver, 3);
 
   Button triggerBoi = new JoystickButton(extreme, 1);
   Button sideButton = new JoystickButton(extreme, 2);
@@ -67,17 +70,27 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
-    bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
-    midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
-    midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
-    topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
-    topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
-    xButton.whenPressed(new ShiftUp());
-    xButton.whenReleased(new ShiftDown());
+
+    rightTrigger.whenPressed(new ShiftUp());
+    rightTrigger.whenReleased(new ShiftDown());  
+
+    yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
+    aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+
+    xButton.whileHeld(new CargoRunIntake(0.5, 0.5));
+    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5));
+    // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
+    // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
+    // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
+    // midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
+    // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
+    // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor()); 
-    topLeft.whenPressed(new RunBallXtake());  
-    topRight.whenPressed(new FlowerControl());
+    bigWhite.whenPressed(new CMG_IntakeBall());
+    topLeft.whileHeld(new RunBallXtake(-1.0));
+    topRight.whileHeld(new RunBallXtake(1.0));
+    // topRight.whenPressed(new FlowerControl());
+
   }
 
   public double desensitize(double val) {
@@ -89,7 +102,7 @@ public class OI {
   }
   
   public Double liftControl() {
-   return -desensitize(extreme.getRawAxis(1));
+   return desensitize(extreme.getRawAxis(1));
   }
   
   public Double getMove() {
