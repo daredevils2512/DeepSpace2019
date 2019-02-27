@@ -11,6 +11,7 @@ public class Flower extends Subsystem {
     private DoubleSolenoid flowerSlide;
 
     private DoubleSolenoid.Value position = Value.kForward;
+    private DoubleSolenoid.Value slidePosition = Value.kForward;
 
     public Flower() {
 
@@ -36,12 +37,28 @@ public class Flower extends Subsystem {
     }
 
     public void toggleFlowerSlide() {
-        if (position == Value.kForward) {
-            position = Value.kReverse;
+        if (slidePosition == Value.kForward) {
+            slidePosition = Value.kReverse;
         } else {
-            position = Value.kForward;
+            slidePosition = Value.kForward;
         }
-        flowerSlide.set(position);
+        flowerSlide.set(slidePosition);
+    }
+
+    public Boolean flowerStatus() {
+        if (position == Value.kForward) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Boolean flowerSlideStatus() {
+        if (slidePosition == Value.kForward) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

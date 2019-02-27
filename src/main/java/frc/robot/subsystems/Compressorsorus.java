@@ -47,4 +47,13 @@ public class Compressorsorus extends Subsystem {
       compressorOff();
     }
   }
+
+  public Boolean compressorStatus() {
+    if (sorus.enabled()) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
 }
