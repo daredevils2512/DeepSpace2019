@@ -45,7 +45,7 @@ public class ColorSensor {
     private ByteBuffer buffy = ByteBuffer.allocate(8);
 
     private short red = 0, green = 0, blue = 0, prox = 0;
-    private int average = 0, total = 0, count = 0;
+    private int average = 0, count = 0;
     private double currentDist = 0.0;
     private int[] savedProxes = new int[RESET_TIME];
     private double[] proxData = {(double) this.prox, (double) this.average};

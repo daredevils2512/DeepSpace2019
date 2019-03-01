@@ -14,7 +14,8 @@ public class DistanceSensor {
 
     //offset
     private double offset = 0.0;
-    
+
+    private double maxColorDist = 30 / 2.54; // 25cm to in    
     
     public DistanceSensor(int ultraSonicSensorAnalogInputPort, I2C.Port colorSensorI2cPort, double offset){
         this.colorSensor = new ColorSensor(colorSensorI2cPort);
@@ -28,15 +29,21 @@ public class DistanceSensor {
 
     public double getDistance(){
         double distance = 0.0;
-
-
         //pick the correct distance sensor to return the value from and return it.
         //also perform the calcs on it
+        double ultraDist = this.ultraSonicSensor.getDistInCm();
+        double colorDist = this.colorSensor.getDistance();
 
+        distance = (colorDist >= this.maxColorDist) ? ultraDist : colorDist;
 
         return distance - offset;
     }
 
+    public double getColorDist() {
+        return this.colorSensor.getDistance();
+    }
 
-
+    public double getUltraDist() {
+        return this.ultraSonicSensor.getDistInCm();
+    }
 }
