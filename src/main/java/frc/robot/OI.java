@@ -85,7 +85,8 @@ public class OI {
     // midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
     // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
     // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
-    bigRed.whenPressed(new Compressor()); 
+    bigRed.whenPressed(new Compressor());
+    
     bigWhite.whenPressed(new CMG_IntakeBall());
     topLeft.whileHeld(new RunBallXtake(-1.0, false));
     topRight.whileHeld(new RunBallXtake(1.0, false));
@@ -99,9 +100,6 @@ public class OI {
     yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
     
     // topRight.whenPressed(new FlowerControl());
-
-    triggerBoi.whileHeld(new RunBallXtake(1.0, false));
-    triggerBoi.whileHeld(new CargoRunIntake(0.5, 0.5, false));
 
   }
 

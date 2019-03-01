@@ -8,13 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.RobotMap;
 
-public class CMG_IntakeBall extends CommandGroup {
+import frc.robot.commands.RunBallXtake;
+import frc.robot.commands.CargoRunIntake;
+
+public class CMG_ExtakeBallBottom extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public CMG_IntakeBall() {
+  public CMG_ExtakeBallBottom() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -31,9 +33,7 @@ public class CMG_IntakeBall extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    addSequential(new CargoFoldIntake(RobotMap.cargoDownPos));
-    addParallel(new CargoRunIntake(-0.5, -0.5, false));
-    addSequential(new RunBallXtake(-1.0, false));
-    addSequential(new CargoFoldIntake(RobotMap.cargoUpPos));
+    addSequential(new RunBallXtake(0.5, false));
+    addParallel(new CargoRunIntake(0.0, 1.0, false));
   }
 }
