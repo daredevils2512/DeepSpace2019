@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 /**
@@ -16,10 +17,24 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  * floating around.
  */
 public class RobotMap {
-  // For example to map the left and right motors, you could define the
-  // following variables to use with your drivetrain subsystem.
-  // public static int leftMotor = 1;
-  // public static int rightMotor = 2;
+
+  // DISTANCE SENSOR STUFF
+    // OFFSETS
+  public final static double hatchSensorsOffsetFromFrame = 6.1852; // in inches
+  public final static double ballSensorsOffsetFromFrame = 10.11;    // in inches
+    // PORTS
+  public static int ballUltrasonicPort = 0;
+  public static int hatchUltrasonicPort = 1;
+  public static I2C.Port ballColorPort = I2C.Port.kOnboard;
+  public static I2C.Port hatchColorPort = I2C.Port.kMXP;
+    // MISC
+  public static double suppliedUltraVoltage = 5.0;
+
+    // WHEEL GEOMETRY
+  public static double wheelDiameter = 6; // inches
+  public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
+  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
+  // public static double encoderDistancePerPulse = 0.0236065636;
 
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
