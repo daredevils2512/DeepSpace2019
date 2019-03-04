@@ -52,9 +52,9 @@ public class Drivetrain extends Subsystem {
   
   private static double wheelDiameter = 6; // inches
   private static double pulsePerRotation = 128;
-  private static double gearRatio = 1/3; //wheel-encoder
-  private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
-  private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
+  private static double gearRatio = 7.5/1; //wheel-encoder
+  private static double driveEncoderPulsesPerRotation = gearRatio * pulsePerRotation; // 42.6666666666
+  private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsesPerRotation; // 0.4416315049
 
   public Drivetrain() {
 
