@@ -5,11 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+package frc.robot.lib;
 
 import edu.wpi.first.wpilibj.I2C;
 import java.nio.ByteOrder;
-import java.util.ArrayList;
 import java.nio.ByteBuffer;
 
 /**
@@ -37,16 +36,19 @@ public class ColorSensor {
     protected final static int AIEN  = 0b00010000;
     protected final static int PIEN  = 0b00100000;
 
+    private final static int RESET_TIME = 150;
+
     private final double integrationTime = 10;
 
     private I2C sensor;
 
     private ByteBuffer buffy = ByteBuffer.allocate(8);
 
-    public short red = 0, green = 0, blue = 0, prox = 0;
-    public int average = 0, total = 0, count = 1;
-    public double currentDist = 0.0;
-    public double[] proxData = {(double) this.prox, (double) this.average};
+    private short red = 0, green = 0, blue = 0, prox = 0;
+    private int average = 0, count = 0;
+    private double currentDist = 0.0;
+    private int[] savedProxes = new int[RESET_TIME];
+    private double[] proxData = {(double) this.prox, (double) this.average};
 
     public ColorSensor(I2C.Port port) {
         buffy.order(ByteOrder.LITTLE_ENDIAN);
@@ -85,22 +87,32 @@ public class ColorSensor {
     }
 
     public void saveAndCalAvg(int newProx) {
-        this.total += newProx;
-        this.average = (this.total / this.count);
+        this.savedProxes[this.count] = newProx;
+        int total = 0;
+        for (int i = 0; i < this.savedProxes.length; i++) {
+            total += this.savedProxes[i];
+        }
+        this.average = total / this.savedProxes.length;
+
         this.proxData[0] = newProx;
         this.proxData[1] = this.average;
+
         this.count += 1;
+        this.count %= this.savedProxes.length;
     }
 
-    public void clearSavedProxs() {
-        this.total = 0;
-        this.count = 1;
-    }
-
+    /*
+    * Link to the page used for calculations
+    * https://www.desmos.com/calculator/hh3dvtfccz
+    */
     public void calcProxDist(double currentProx) {
-        double a = 79.5585860196;
-        double b = 0.993621962527;
-        double c = 1.0;
-        this.currentDist = (a * (Math.pow(b, currentProx))) + c;
+        double a = 37.1995672561;
+        double b = 0.99496125492;
+        double c = 3.44863564482;
+        this.currentDist = ((a * (Math.pow(b, currentProx))) + c);
+    }
+
+    public double getDistance(){
+        return this.currentDist;
     }
 }
