@@ -86,7 +86,14 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
+    //  setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
+  }
+
+  public void setSpeed(double leftSpeed, double rightSpeed) {
+    this.leftSpark.set(leftSpeed);
+    this.leftRearSpark.set(leftSpeed);
+    this.rightSpark.set(rightSpeed);
+    this.rightRearSpark.set(rightSpeed);
   }
 
   public void arcadeDrive(double move, double turn) {
