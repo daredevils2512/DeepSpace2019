@@ -8,23 +8,17 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.*;
-
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.constants.Constants.YPRSelect;
-
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
-
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -33,46 +27,43 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private CANSparkMax leftSpark;
-  private CANSparkMax rightSpark;
-  private CANSparkMax leftRearSpark;
-  private CANSparkMax rightRearSpark;
-  private DifferentialDrive drivetrain;
-  private SpeedControllerGroup leftSparkGroup;
-  private SpeedControllerGroup rightSparkGroup;
+  private WPI_TalonSRX leftTalon;
+  private WPI_TalonSRX rightTalon;
+  private WPI_TalonSRX leftRearTalon;
+  private WPI_TalonSRX rightRearTalon;
+  private static DifferentialDrive drivetrain;
+  private SpeedControllerGroup leftTalonGroup;
+  private SpeedControllerGroup rightTalonGroup;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-  private PigeonIMU gyro;
+  public static PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
   private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
   
-  private static double wheelDiameter = 6; // inches
-  private static double pulsePerRotation = 128;
-  private static double gearRatio = 1/3; //wheel-encoder
-  private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
-  private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
+  // private RumbleType rumblely;
 
   public Drivetrain() {
 
-    leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
-    rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
-    leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
-    rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
+    leftTalon = new WPI_TalonSRX(RobotMap.leftTalonPort);    
+    rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
+    leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
+    rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
+    
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
-    leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
-    rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
-    drivetrain = new DifferentialDrive(leftSparkGroup, rightSparkGroup);
+    leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
+    rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
+    drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
-    rightEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
+    leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
+    rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
     
     // this.rumblely = RumbleType.kLeftRumble;
     // this.rumblely = RumbleType.kRightRumble;
@@ -86,17 +77,14 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    //  setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
-  }
-
-  public void setSpeed(double leftSpeed, double rightSpeed) {
-    this.leftSpark.set(leftSpeed);
-    this.leftRearSpark.set(leftSpeed);
-    this.rightSpark.set(rightSpeed);
-    this.rightRearSpark.set(rightSpeed);
+    setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
   }
 
   public void arcadeDrive(double move, double turn) {
+    drivetrain.arcadeDrive(move, turn);
+  }
+
+  public static void staticArcadeDrive(double move, double turn) {
     drivetrain.arcadeDrive(move, turn);
   }
 
@@ -142,51 +130,41 @@ public class Drivetrain extends Subsystem {
   }
 
   public double leftFrontSpeed() {
-    return this.leftSpark.get();
+    return this.leftTalon.get();
   }
 
   public double leftRearSpeed() {
-    return this.leftRearSpark.get();
+    return this.leftRearTalon.get();
   }
 
   public double rightFrontSpeed() {
-    return this.rightSpark.get();
+    return this.rightTalon.get();
   }
 
   public double rightRearSpeed() {
-    return this.rightRearSpark.get();
+    return this.rightRearTalon.get();
   }
 
   public void updateYPRData() {
     this.gyro.getYawPitchRoll(this.yprData);
   }
 
-  private double getSelectedYPR(YPRSelect selectedYPR) {
-    this.updateYPRData();
-    double selectedYPRData = 0.0;
-    switch (selectedYPR) {
-      case YAW:
-        selectedYPRData = this.yprData[0];
-        break;
-      case PITCH:
-        selectedYPRData = this.yprData[1];
-        break;
-      case ROLL:
-        selectedYPRData = this.yprData[0];
-        break;
-    }
-    return selectedYPRData;
+  public double getNonCummulativeYaw() {
+    return getYaw() % 360;
   }
 
   public double getYaw() {
-    return this.getSelectedYPR(YPRSelect.YAW);
+    this.updateYPRData();
+    return this.yprData[0];
   }
 
   public double getPitch() {
-    return this.getSelectedYPR(YPRSelect.PITCH);
+    this.updateYPRData();
+    return this.yprData[1];
   }
 
   public double getRoll() {
-    return this.getSelectedYPR(YPRSelect.ROLL);
+    this.updateYPRData();
+    return this.yprData[2];
   }
 }

@@ -15,13 +15,19 @@ public class DriveToWall extends Command {
     @Override
     public void execute() {
         if (m_distance > Robot.m_hatchDistanceSensor.getDistance()) {
-            Robot.m_Drivetrain.setSpeed(1, 1);
+            Robot.m_Drivetrain.arcadeDrive(0.5, 0.5);
         } else {
-            Robot.m_Drivetrain.setSpeed(0, 0);
+            Robot.m_Drivetrain.arcadeDrive(0, 0);
         }
     }
 
+    @Override
     public boolean isFinished() {
         return true;
+    }
+
+    @Override
+    public void interrupted() {
+        Robot.m_Drivetrain.arcadeDrive(0, 0);
     }
 }
