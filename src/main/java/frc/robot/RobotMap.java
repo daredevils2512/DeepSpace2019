@@ -30,12 +30,6 @@ public class RobotMap {
     // MISC
   public static double suppliedUltraVoltage = 5.0;
 
-    // WHEEL GEOMETRY
-  public static double wheelDiameter = 6; // inches
-  public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
-  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
-  // public static double encoderDistancePerPulse = 0.0236065636;
-
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
@@ -62,6 +56,10 @@ public class RobotMap {
   public static int shifterForwardChannel = 0;
   public static int shifterReverseChannel = 1;
 
+  public static double wheelDiameter = 6; // inches
+  public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
+  public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
+  public static double encoderDistancePerPulse = 0.0236065636;
   // CARGO STUFF
   public static int cargoInfinityPort = 11;
   public static int cargoInMotorPort = 10;

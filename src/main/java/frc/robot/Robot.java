@@ -81,30 +81,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    /*
-    ballCs.read();
-    hatchCs.read();
-
-    SmartDashboard.putNumberArray("Robo Proximity", ballCs.proxData);
-    SmartDashboard.putNumberArray("MXP Proximity", hatchCs.proxData);
-
-    SmartDashboard.putNumber("Hatch Voltage", hatchUltra.getAvgVoltage());
-    SmartDashboard.putNumber("Ball Voltage", ballUltra.getAvgVoltage());
-
-    SmartDashboard.putNumber("Hatch Ultra", hatchUltra.getDistInInch());
-    SmartDashboard.putNumber("Ball Ultra", ballUltra.getDistInInch());
-    */
 
     m_hatchDistanceSensor.update();
     m_ballDistanceSensor.update();
 
     SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
     SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
-
-    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
-    SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
-    SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
-    // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
@@ -121,8 +103,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
     SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
-    SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
-    SmartDashboard.putBoolean("Extake Swqitch", m_ballXtake.getBallOccupancy());
     }
 
   /**
@@ -178,7 +158,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_lift.resetEncoder();
-    m_Compressorsorus.compressorOn();
+    m_Compressorsorus.compressorOff();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
