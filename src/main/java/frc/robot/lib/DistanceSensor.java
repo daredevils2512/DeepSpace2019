@@ -39,11 +39,11 @@ public class DistanceSensor {
         return distance - offset;
     }
 
-    public double getColorDist() {
+    private double getColorDist() {
         return this.colorSensor.getDistance();
     }
 
-    public double getUltraDist() {
+    private double getUltraDist() {
         return this.ultraSonicSensor.getDistInCm();
     }
 }
