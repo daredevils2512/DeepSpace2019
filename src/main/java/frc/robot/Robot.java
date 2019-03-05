@@ -87,8 +87,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
     SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
-    SmartDashboard.putNumber("Ball color dist", m_ballDistanceSensor.getColorDist());
-    SmartDashboard.putNumber("Ball ultra dist", m_ballDistanceSensor.getUltraDist());
 
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
