@@ -100,7 +100,8 @@ public class OI {
 
     greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
-    
+
+    start.whenPressed(new DriveToWall(10)); // I dont know what people want the dist to be
     // topRight.whenPressed(new FlowerControl());
 
   }
