@@ -95,11 +95,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public void arcadeDrive(double move, double turn) {
-    drivetrain.arcadeDrive(move, turn);
+    drivetrain.arcadeDrive(move * inverted, turn * inverted);
   }
 
   public void driveRobotTank(double leftSpeed, double rightSpeed) {
-    drivetrain.tankDrive(leftSpeed, rightSpeed);
+    drivetrain.tankDrive(leftSpeed * inverted, rightSpeed * inverted);
   }
 
   public double getLeftEncoderDistance() {
