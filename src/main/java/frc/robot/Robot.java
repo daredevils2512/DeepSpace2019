@@ -24,8 +24,7 @@ import com.kauailabs.navx.frc.AHRS;
 import org.opencv.core.*;
 // import java.util.ArrayList;
 // import frc.robot.GripWhiteLine;
-import edu.wpi.first.networktables.*;
-import edu.wpi.first.networktables.NetworkTableInstance;
+
 import edu.wpi.first.wpilibj.AnalogGyro;
 import frc.robot.vision.*;
 
@@ -72,20 +71,6 @@ public class Robot extends TimedRobot {
   public static char dir = 'n';
   public static final String NTserver = "frcvision.local";
 
-  public static NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
-  public static NetworkTable convexHullsTable = null;
-  public static NetworkTable ballTable = null;
-  public static NetworkTable hatchTable = null;
-
-  static NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
-  // NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
-  // NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
-  // NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");
-  // NetworkTableEntry topEntry = convexHullsTable.getEntry("top");
-  // NetworkTableEntry widthPosEntry = convexHullsTable.getEntry("widthPos");
-
-  // NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
-
   public static Lift m_lift;
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
@@ -114,11 +99,11 @@ public class Robot extends TimedRobot {
 
     // start clientside table
     // Utils.resetTables(convexHullsFinal, 2512);
-    convexHullsFinal.startServer();
-    convexHullsTable = convexHullsFinal.getTable("White Line Tracking");
-    ballTable = convexHullsTable.getSubTable("Ball Table");
-    hatchTable = convexHullsTable.getSubTable("Hatch Table");
-    Utils.dumpNetworkTable(convexHullsTable);
+    Utils.convexHullsFinal.startServer();
+    Utils.convexHullsTable = Utils.convexHullsFinal.getTable("White Line Tracking");
+    Utils.ballTable = Utils.convexHullsTable.getSubTable("Ball Table");
+    Utils.hatchTable = Utils.convexHullsTable.getSubTable("Hatch Table");
+    Utils.dumpNetworkTable(Utils.convexHullsTable);
     
     NavX.navX.reset();
     Robot.m_Drivetrain.resetYaw();
@@ -139,208 +124,12 @@ public class Robot extends TimedRobot {
 
   }
 
-    
-  
-
-  /***
-   * 
-   * DO MUCH BETTER. NO WRITE SO MUCH CODE.
-   * 
-   * 
-   */
-
-  public static Double getCameraSize() {
-    return Utils.getNetworkTableDouble(convexHullsTable, "Camera Size");
-  }
-
-  public static Double getCenterXBall() {
-    return Utils.getNetworkTableDouble(ballTable, "centerXBall");
-     /*
-    // System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected()) {
-      NetworkTableValue centerXValue = Robot.centerXEntry.getValue();
-      // System.out.println("connected to " + convexHullsFinal.getConnections());
-      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
-      // System.out.println("centerXValue info: " + convexHullsFinal.getEntryInfo("centerX", 1));
-      if (centerXValue.getType() == NetworkTableType.kDouble) {
-        System.out.println("detcted white line centerX at " + centerXValue.getDouble());
-        centerX = centerXValue.getDouble();
-      } else {
-        System.out.println("centerXentry not a double; entry is a " + centerXValue.getType());
-        centerX = 999.00;
-      } 
-    } 
-     
-    return centerX;
-*/
-  } 
-  
-
-  public static Double getWidthBall() {
-    return Utils.getNetworkTableDouble(ballTable, "widthBall");
-     /*
-     System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected()) {
-      NetworkTableValue widthValue = this.widthEntry.getValue();
-      // System.out.println("connected to " + convexHullsFinal.getConnections());
-      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
-      // System.out.println("widthValue info: " + convexHullsFinal.getEntryInfo("width", 1));
-      if (widthValue.getType() == NetworkTableType.kDouble) {
-        System.out.println("detcted white line width of " + widthValue.getDouble());
-        width = widthValue.getDouble();
-        return widthValue.getDouble();
-      } else {
-        System.out.println("width entry not a double; entry is a " + widthValue.getType());
-        return 999.00;
-      } 
-    } else {
-      return 999.00; 
-    }
-    */
-  }
-
-  public static Double getHeightBall() {
-     return Utils.getNetworkTableDouble(ballTable, "heightBall");
-
-     /*
-     System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected()) {
-      NetworkTableValue heightValue = this.heightEntry.getValue();
-      // System.out.println("connected to " + convexHullsFinal.getConnections());
-      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
-      // System.out.println("heightValue info: " + convexHullsFinal.getEntryInfo("height", 1));
-      if (heightValue.getType() == NetworkTableType.kDouble) {
-        System.out.println("detcted white line height of " + heightValue.getDouble());
-        height = heightValue.getDouble();
-        return heightValue.getDouble();
-      } else {
-        System.out.println("height entry not a double; entry is a " + heightValue.getType());
-        return 999.00;
-      } 
-    } else {
-      return 999.00; 
-    }
-    */
-  }
-
-  public static Double getBottomBall() {
-     return Utils.getNetworkTableDouble(ballTable, "bottomBall");
-     /*
-    
-    // System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected()) {
-      NetworkTableValue bottomValue = this.bottomEntry.getValue();
-      // System.out.println("connected to " + convexHullsFinal.getConnections());
-      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
-      // System.out.println("bottomValue info: " + convexHullsFinal.getEntryInfo("bottom", 1));
-      if (bottomValue.getType() == NetworkTableType.kDouble) {
-        System.out.println("detcted white line bottom at " + bottomValue.getDouble());
-        bottom = bottomValue.getDouble();
-        return bottomValue.getDouble();
-      } else {
-        System.out.println("bottom entry not a double; entry is a " + bottomValue.getType());
-        return 999.00;
-      } 
-    } else {
-      return 999.00; 
-    }
-    */
-
-  }
     /*ballCs = new ColorSensor(RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
     hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
 
     ballUltra = new UltrasonicSensor(RobotMap.ballUltrasonicPort, RobotMap.ballSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
     hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
     */
-
-
-
-  public static Double getTopBall() {
-    return Utils.getNetworkTableDouble(ballTable, "topBall");
-    /*
-    // System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected()) {
-      NetworkTableValue topValue = this.topEntry.getValue();
-      // System.out.println("connected to " + convexHullsFinal.getConnections());
-      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
-      // System.out.println("topValue info: " + convexHullsFinal.getEntryInfo("top", 1));
-      if (topValue.getType() == NetworkTableType.kDouble) {
-        System.out.println("detcted white line top at " + topValue.getDouble());
-        top = topValue.getDouble();
-        return topValue.getDouble();
-      } else {
-        System.out.println("top entry not a double; entry is a " + topValue.getType());
-        return 999.00;
-      } 
-    } else {
-      return 999.00; 
-    }
-    */
-  }
-
-  public static Double getWidthPosBall() {
-     return Utils.getNetworkTableDouble(ballTable, "widthPosBall");
-     /*
-     System.out.println(convexHullsFinal.isConnected());
-    if (convexHullsFinal.isConnected()) {
-      NetworkTableValue widthPosValue = this.widthPosEntry.getValue();
-      // System.out.println("connected to " + convexHullsFinal.getConnections());
-      // System.out.println("connection is valid: " + convexHullsFinal.isValid());
-      // System.out.println("widthPosValue info: " + convexHullsFinal.getEntryInfo("widthPos", 1));
-      if (widthPosValue.getType() == NetworkTableType.kDouble) {
-        System.out.println("detcted white line widthPos at " + widthPosValue.getDouble());
-        widthPos = widthPosValue.getDouble();
-        return widthPosValue.getDouble();
-      } else {
-        System.out.println("widthPos entry not a double; entry is a " + widthPosValue.getType());
-        return 999.00;
-      } 
-    } else {
-      return 999.00; 
-    }
-    */
-  }
-
-  public static Double getCenterYBall() {
-    return Utils.getNetworkTableDouble(ballTable, "centerYBall");
-  }
-
-  public static Double getAreaBall() {
-    return Utils.getNetworkTableDouble(ballTable, "areaBall");
-  }
-
-  public static Double getCenterXHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "centerXHatch");
-  }
-
-  public static Double getWidthHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "widthHatch");
-  }
-
-  public static Double getHeightHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "heightHatch");
-  }
-
-  public static Double getBottomHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "bottomHatch");
-  }
-
-  public static Double getTopHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "topHatch");
-  }
-
-  public static Double getWidthPosHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "widthHatch");
-  }
- 
-  public static Double getCenterYHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "centerYHatch");
-  }
-
-  public static Double getAreaHatch() {
-    return Utils.getNetworkTableDouble(hatchTable, "areaHatch");
-  }
 
 
   /**
@@ -352,37 +141,15 @@ public class Robot extends TimedRobot {
    * LiveWindow and SmartDashboard integrated updating.
    */
   
-  public void updateNTData() {
-    Robot.cameraSize = getCameraSize();
-    LineFind.centerXBall = getCenterXBall();
-    LineFind.widthBall = getWidthBall();
-    LineFind.bottomBall = getBottomBall();
-    LineFind.heightBall =  getHeightBall();
-    LineFind.topBall = getTopBall();
-    LineFind.widthPosBall = getWidthPosBall();
-    LineFind.centerYBall = getCenterYBall();
-    LineFind.areaBall = getAreaBall();
-    if (cameraSize >= 2.0) {
-      LineFind.centerXHatch = getCenterXHatch();
-      LineFind.widthHatch = getWidthHatch();
-      LineFind.bottomHatch = getBottomHatch();
-      LineFind.heightHatch =  getHeightHatch();
-      LineFind.topHatch = getTopHatch();
-      LineFind.widthPosHatch = getWidthPosHatch();
-      LineFind.centerYHatch = getCenterYHatch();
-      LineFind.areaHatch = getAreaHatch();
-    }
-  }
+
   
   @Override
   public void robotPeriodic() {
     if (log) {
-      for (ConnectionInfo conninfo : convexHullsFinal.getConnections()){
-        System.out.println("Remoteid: "+conninfo.remote_id+", Remote IP: "+conninfo.remote_ip+", Port: "+conninfo.remote_port+", LastUpddate: "+conninfo.last_update);
-      }
+      Utils.getConnInfo();
     }
     try{
-    //updateNTData();
+    Utils.updateNTData();
     m_Drivetrain.updateYPRData();
     /*
     ballCs.read();
