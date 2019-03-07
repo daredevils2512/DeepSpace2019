@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.DriveDistance;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.vision.Utils;
 import frc.robot.Robot;
@@ -68,7 +69,7 @@ public class LineFind extends Subsystem {
     }
     */
 
-    public void pointToLine(Double tolerance, Double centerX) {
+    public void pointToLine(double tolerance, Double centerX) {
       if (centered == false && centerX != null) {
         if (centerX >= 0 + tolerance) {
           if (centerX >= 20) {
@@ -97,7 +98,7 @@ public class LineFind extends Subsystem {
       }
     }
 
-    public void pointToLineY(Double tolerance, Double centerY) {
+    public void pointToLineY(double tolerance, Double centerY) {
       centerY = centerY - 15;
       if (centered == false && centerY != null) {
         if (centerY >= 0 + tolerance) {
@@ -137,7 +138,6 @@ public class LineFind extends Subsystem {
       }
     }
 
-    
 
     public void resetVars() {
       centered = false;

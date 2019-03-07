@@ -27,6 +27,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import frc.robot.vision.*;
 
+import frc.robot.commands.*;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -71,7 +72,7 @@ public class Robot extends TimedRobot {
   public static NetworkTable ballTable = null;
   public static NetworkTable hatchTable = null;
 
-  // static NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
+  static NetworkTableEntry centerXEntry = convexHullsTable.getEntry("centerX");
   // NetworkTableEntry widthEntry = convexHullsTable.getEntry("width");
   // NetworkTableEntry heightEntry = convexHullsTable.getEntry("height");
   // NetworkTableEntry bottomEntry = convexHullsTable.getEntry("bottom");

@@ -45,4 +45,7 @@ public class RobotMap {
   public static double encoderDistancePerPulse = 0.02360656367;
 
   public static int spotlightRelayPort = 0;
+
+  //distance from center of robot to (centerX,centerY) = (0,0)
+  public static double visionTargetDistance = -1; // TODO need this
 }

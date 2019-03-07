@@ -101,6 +101,15 @@ public class OI {
     topWhite.whenPressed(new DriverVisionStart(1, 320, 240, Robot.dv1Online));
     rightBumper.whileHeld(new VisionControl());
     select.whenPressed(new ResetEncoders());
+    //double tolerance, int angleTolerance, Double centerX, Double centerY, double dist, double speed, float targetAngle
+    bigRed.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 90));
+    greenBoi.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, -90));
+    frontLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 0));
+    bottomLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 60));
+    topLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, -60));
+    bottomRight.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 120));
+    bottomLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, -120));
+
   }
 
   public Double desensitize(Double val) {
