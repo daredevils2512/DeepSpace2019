@@ -57,6 +57,8 @@ public class Drivetrain extends Subsystem {
   private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
   private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
 
+  private static int inverted = 1;
+
   public Drivetrain() {
 
     leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
@@ -96,11 +98,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public void arcadeDrive(double move, double turn) {
-    drivetrain.arcadeDrive(move, turn);
+    drivetrain.arcadeDrive(move * inverted, turn *inverted);
   }
 
   public void driveRobotTank(double leftSpeed, double rightSpeed) {
-    drivetrain.tankDrive(leftSpeed, rightSpeed);
+    drivetrain.tankDrive(leftSpeed *inverted, rightSpeed * inverted);
   }
 
   public double getLeftEncoderDistance() {
@@ -187,5 +189,9 @@ public class Drivetrain extends Subsystem {
 
   public double getRoll() {
     return this.getSelectedYPR(YPRSelect.ROLL);
+  }
+
+  public void toggleInverted() {
+    inverted = -inverted;
   }
 }
