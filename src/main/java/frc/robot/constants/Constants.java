@@ -15,4 +15,9 @@ public class Constants {
         PITCH,
         ROLL
     }
+
+    public enum DistanceSensorSide {
+        BALL, 
+        HATCH
+    }
 }

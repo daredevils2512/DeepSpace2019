@@ -88,6 +88,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
     SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
+    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
+    SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
+    SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
+    SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
+    // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
@@ -133,7 +139,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
-
+    m_Compressorsorus.compressorOn();
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -158,7 +164,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_lift.resetEncoder();
-    m_Compressorsorus.compressorOff();
+    m_Compressorsorus.compressorOn();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

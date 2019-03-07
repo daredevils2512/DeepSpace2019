@@ -25,8 +25,8 @@ public class RobotMap {
     // PORTS
   public static int ballUltrasonicPort = 0;
   public static int hatchUltrasonicPort = 1;
-  public static I2C.Port ballColorPort = I2C.Port.kOnboard;
-  public static I2C.Port hatchColorPort = I2C.Port.kMXP;
+  public static I2C.Port ballColorPort = I2C.Port.kMXP;
+  public static I2C.Port hatchColorPort = I2C.Port.kOnboard;
     // MISC
   public static double suppliedUltraVoltage = 5.0;
 

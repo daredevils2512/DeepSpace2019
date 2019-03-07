@@ -21,6 +21,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -56,12 +57,19 @@ public class Drivetrain extends Subsystem {
   private static double driveEncoderPulsesPerRotation = gearRatio * pulsePerRotation; // 42.6666666666
   private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsesPerRotation; // 0.4416315049
 
+  private static int inverted = 1;
+
   public Drivetrain() {
 
     leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
     rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
     leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
     rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
+
+    leftSpark.setIdleMode(IdleMode.kCoast);
+    rightSpark.setIdleMode(IdleMode.kCoast);
+    leftRearSpark.setIdleMode(IdleMode.kCoast);
+    rightRearSpark.setIdleMode(IdleMode.kCoast);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
@@ -73,9 +81,6 @@ public class Drivetrain extends Subsystem {
 
     leftEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
     rightEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
-    
-    // this.rumblely = RumbleType.kLeftRumble;
-    // this.rumblely = RumbleType.kRightRumble;
 
     shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
@@ -86,7 +91,7 @@ public class Drivetrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    //  setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
+     setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
   }
 
   public void setSpeed(double leftSpeed, double rightSpeed) {
@@ -97,11 +102,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public void arcadeDrive(double move, double turn) {
-    drivetrain.arcadeDrive(move, turn);
+    drivetrain.arcadeDrive(move * inverted, turn * inverted);
   }
 
   public void driveRobotTank(double leftSpeed, double rightSpeed) {
-    drivetrain.tankDrive(leftSpeed, rightSpeed);
+    drivetrain.tankDrive(leftSpeed * inverted, rightSpeed * inverted);
   }
 
   public double getLeftEncoderDistance() {
@@ -188,5 +193,9 @@ public class Drivetrain extends Subsystem {
 
   public double getRoll() {
     return this.getSelectedYPR(YPRSelect.ROLL);
+  }
+
+  public void toggleInverted() {
+    inverted = -inverted;
   }
 }

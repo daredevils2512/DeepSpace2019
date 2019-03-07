@@ -39,7 +39,6 @@ public class CargoIntake extends Subsystem {
   }
 
   public void runIntake(double infinitySpeed, double inSpeed) {
-    // positive speed is out
     this.infinityMotor.set(infinitySpeed);
     this.inMotor.set(inSpeed);
   }

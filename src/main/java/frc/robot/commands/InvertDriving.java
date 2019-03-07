@@ -8,19 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
-public class CargoFoldIntake extends Command {
-
-  private Value m_foldDir;
-
-  public CargoFoldIntake(Value foldDir) {
+public class InvertDriving extends Command {
+  public InvertDriving() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.m_cargoIntake);
-    this.m_foldDir = foldDir;
+    requires(Robot.m_Drivetrain);
   }
 
   // Called just before this Command runs the first time
@@ -31,11 +25,7 @@ public class CargoFoldIntake extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.m_ballDistanceSensor.getDistance() >= 18) {
-      Robot.m_cargoIntake.foldIntake(this.m_foldDir);
-    } else {
-      Robot.m_cargoIntake.foldIntake(RobotMap.cargoUpPos);
-    }
+    Robot.m_Drivetrain.toggleInverted();
   }
 
   // Make this return true when this Command no longer needs to run execute()
