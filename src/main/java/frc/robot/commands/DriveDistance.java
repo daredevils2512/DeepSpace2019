@@ -26,15 +26,15 @@ public class DriveDistance extends Command {
     protected void execute() {
         if (m_dist >= 0) {
             if (Robot.m_Drivetrain.getLeftEncoderDistance() <= targetDistL) {
-                Drivetrain.staticArcadeDrive(m_speed, 0.0);
+                Robot.m_Drivetrain.arcadeDrive(m_speed, 0.0);
             } else {
-                Drivetrain.staticArcadeDrive(0.0, 0.0);
+                Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
             }
         } else {
             if (Robot.m_Drivetrain.getLeftEncoderDistance() >= targetDistL) {
-                Drivetrain.staticArcadeDrive(-m_speed, 0.0);
+                Robot.m_Drivetrain.arcadeDrive(-m_speed, 0.0);
             } else {
-                Drivetrain.staticArcadeDrive(0.0, 0.0);
+                Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
             }
         }
     }

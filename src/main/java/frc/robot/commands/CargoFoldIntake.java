@@ -1,5 +1,5 @@
- /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -8,24 +8,34 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.RobotMap;
 
-/**
- * An example command.  You can replace me with your own command.
- */
-public abstract class DrivetrainShift extends Command {
+public class CargoFoldIntake extends Command {
 
-  protected Drivetrain mDriveTrain;
-  public DrivetrainShift() {
+  private Value m_foldDir;
+
+  public CargoFoldIntake(Value foldDir) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Drivetrain);
-    this.mDriveTrain = Robot.m_Drivetrain;
+    // eg. requires(chassis);
+    requires(Robot.m_cargoIntake);
+    this.m_foldDir = foldDir;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    if (Robot.m_ballDistanceSensor.getDistance() >= 18) {
+      Robot.m_cargoIntake.foldIntake(this.m_foldDir);
+    } else {
+      Robot.m_cargoIntake.foldIntake(RobotMap.cargoUpPos);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

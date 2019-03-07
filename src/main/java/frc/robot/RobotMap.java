@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -14,35 +17,66 @@ package frc.robot;
  * floating around.
  */
 public class RobotMap {
-  // For example to map the left and right motors, you could define the
-  // following variables to use with your drivetrain subsystem.
-  // public static int leftMotor = 1;
-  // public static int rightMotor = 2;
+
+  // DISTANCE SENSOR STUFF
+    // OFFSETS
+  public final static double hatchSensorsOffsetFromFrame = 6.1852; // in inches
+  public final static double ballSensorsOffsetFromFrame = 10.11;    // in inches
+    // PORTS
+  public static int ballUltrasonicPort = 0;
+  public static int hatchUltrasonicPort = 1;
+  public static I2C.Port ballColorPort = I2C.Port.kMXP;
+  public static I2C.Port hatchColorPort = I2C.Port.kOnboard;
+    // MISC
+  public static double suppliedUltraVoltage = 5.0;
 
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:
   // public static int rangefinderPort = 1;
   // public static int rangefinderModule = 1;
-
+  public static double driveEncoderDistancePerPulse = 0.0236065636;
+    
+  public static int liftTalon1Id = 5;
+  public static int liftTalon2Id = 6;
+  public static int limitSwitchBottomPort = 8;
+  public static int limitSwitchTopPort = 13;
+  // a negative implies we dont know the port yet
   //LEFT DRIVETRAIN STUFF
-  public static int leftTalonPort = 0;
-  public static int leftRearTalonPort = 1;
+  public static int leftSparkID = 1;
+  public static int leftRearSparkID = 2;
   public static int leftEncoderChannelA = 0;
   public static int leftEncoderChannelB = 1;
 
   //RIGHT DRIVETRAIN STUFF
-  public static int rightTalonPort = 2;
-  public static int rightRearTalonPort = 3;
+  public static int rightSparkID = 3;
+  public static int rightRearSparkID = 4;
   public static int rightEncoderChannelA = 2;
   public static int rightEncoderChannelB = 3;
   
-  public static int shifterForwardChannel = 4;
-  public static int shifterReverseChannel = 5;
+  public static int shifterForwardChannel = 0;
+  public static int shifterReverseChannel = 1;
 
   public static double wheelDiameter = 6; // inches
   public static double wheelCircumfrence = wheelDiameter * Math.PI; // 18.84
   public static double ticksPerInch = 360 / wheelCircumfrence; // 19.1082802548
   public static double encoderDistancePerPulse = 0.02360656367;
+  // CARGO STUFF
+  public static int cargoInfinityPort = 11;
+  public static int cargoInMotorPort = 10;
+  public static int cargoUpDownAPort = 2;
+  public static int cargoUpDownBPort = 3;
+  public static Value cargoUpPos = Value.kForward;
+  public static Value cargoDownPos = Value.kReverse;
+
+  public static int ballXtake1ID = 7;
+  public static int ballXtake2ID = 8;
+  public static int ballOccupancy = 9;
+
+  // HATCH STUFF
+  public static int flowerSolenoidForwardChannel = 4;
+  public static int flowerSolenoidReverseChannel = 5;
+  public static int flowerSlideForwardChannel = 6;
+  public static int flowerSlideReverseChannel = 7;
 
   public static int spotlightRelayPort = 0;
 

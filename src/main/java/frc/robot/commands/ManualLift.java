@@ -13,15 +13,31 @@ import frc.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ArcadeDrive extends Drive {
+public class ManualLift extends LiftCommand {
 
-  public ArcadeDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
-   super(getLeft, getRight);
+  public ManualLift(Supplier<Double> liftControlDirection) {
+    super(liftControlDirection);
+    // Use requires() here to declare subsystem dependencies
+    requires(Robot.m_lift);
+  }
+
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      Robot.m_Drivetrain.arcadeDrive(getLeft.get() * slowify, getRight.get() * slowify); // im not done with this yet
+    double speed = 0.0;
+    if( /*(this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchTop()) 
+    || */(this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchBottom())) {
+      speed = this.liftControlDirection.get();
+
+    } else {
+      speed = 0.0;
+      
+    }
+    Robot.m_lift.setSpeed(this.liftControlDirection.get());
   }
 }

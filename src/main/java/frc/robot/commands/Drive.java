@@ -17,7 +17,7 @@ import frc.robot.Robot;
  */
 public abstract class Drive extends Command {
 
-  protected double slowify = 0.75;
+  protected double slowify = 1.0;
   protected Supplier<Double> getLeft, getRight;
 
   public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {

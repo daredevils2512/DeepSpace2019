@@ -77,7 +77,7 @@ public class LineFind extends Subsystem {
           } else {
             s = 0.6;
           }
-          Drivetrain.staticArcadeDrive(0.0, -s);
+          Robot.m_Drivetrain.arcadeDrive(0.0, -s);
         }
         if (centerX <= 0 - tolerance) {
           if (centerX <= -20) {
@@ -85,10 +85,10 @@ public class LineFind extends Subsystem {
           } else {
             s = 0.6;
           }
-          Drivetrain.staticArcadeDrive(0.0, s);
+          Robot.m_Drivetrain.arcadeDrive(0.0, s);
         }
         if (centerX <= 0 + tolerance && centerX > 0 - tolerance) {
-          Drivetrain.staticArcadeDrive(0.0, 0.0);
+          Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
           centered = true;
         }
       } else if (centered == true) {
@@ -107,7 +107,7 @@ public class LineFind extends Subsystem {
           } else {
             s = 0.6;
           }
-          Drivetrain.staticArcadeDrive(s, 0.0);
+          Robot.m_Drivetrain.arcadeDrive(s, 0.0);
         }
         if (centerY <= 0 - tolerance) {
           if (centerY <= -20) {
@@ -115,10 +115,10 @@ public class LineFind extends Subsystem {
           } else {
             s = 0.6;
           }
-          Drivetrain.staticArcadeDrive(-s, 0.0);
+          Robot.m_Drivetrain.arcadeDrive(-s, 0.0);
         }
         if (centerY <= 0 + tolerance && centerY > 0 - tolerance) {
-          Drivetrain.staticArcadeDrive(0.0, 0.0);
+          Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
           centered = true;
         }
       } else if (centered == true) {

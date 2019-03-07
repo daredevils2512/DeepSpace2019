@@ -7,13 +7,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
+import frc.robot.TriggerButton;
 import frc.robot.commands.*;
 import frc.robot.Robot;
 import frc.robot.subsystems.LineFind;
@@ -25,38 +24,15 @@ import frc.robot.subsystems.LineFind;
 
 
 public class OI {
-  //// CREATING BUTTONS
-  // One type of button is a joystick button which is any button on a
-  //// joystick.
-  // You create one by telling it which joystick it's on and which button
-  // number it is.
-  // Joystick stick = new Joystick(port);
-  // Button button = new JoystickButton(stick, buttonNumber);
+  private int driverPort = 0;
+  private int coDriverPort = 1;
+  private int buttonBoxPort = 2;
+  //Joysticks
+  public Joystick driver = new Joystick(this.driverPort);
+  public Joystick extreme = new Joystick(this.coDriverPort);
+  public Joystick buttonBox = new Joystick(this.buttonBoxPort);
 
-  // There are a few additional built in buttons you can use. Additionally,
-  // by subclassing Button you can create custom triggers and bind those to
-  // commands the same as any other Button.
-
-  //// TRIGGERING COMMANDS WITH BUTTONS
-  // Once you have a button, it's trivial to bind it to a button in one of
-  // three ways
-
-  // Start the command when the button is pressed and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenPressed(new ExampleCommand());
-
-  // Run the command while the button is being held down and interrupt it once
-  // the button is released.
-  // button.whileHeld(new ExampleCommand());
-
-  // Start the command when the button is released and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenReleased(new ExampleCommand());
-
-  public Joystick driver = new Joystick(0);
-  public Joystick buttonBox = new Joystick(2);
-  public Joystick extreme = new Joystick(1);
-
+  //All buttons
   Button aButton = new JoystickButton(driver, 1);
   Button bButton = new JoystickButton(driver, 2);
   Button xButton = new JoystickButton(driver, 3);
@@ -67,6 +43,8 @@ public class OI {
   Button start = new JoystickButton(driver, 8);
   Button leftStick = new JoystickButton(driver, 9);
   Button rightStick = new JoystickButton(driver, 10);
+  TriggerButton leftTrigger = new TriggerButton(driver, 2);
+  TriggerButton rightTrigger = new TriggerButton(driver, 3);
 
   Button triggerBoi = new JoystickButton(extreme, 1);
   Button sideButton = new JoystickButton(extreme, 2);
@@ -93,33 +71,51 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    yButton.whileHeld(new LineAlignY(5, LineFind.centerYBall));
-    bButton.whileHeld(new LineAlignY(5, LineFind.centerYHatch));
-    xButton.whileHeld(new LineAlignX(5, LineFind.centerXBall));
-    aButton.whileHeld(new LineAlignX(5, LineFind.centerXHatch));
-    topRed.whenPressed(new DriverVisionStart(0, 320, 240, Robot.dv0Online));
-    topWhite.whenPressed(new DriverVisionStart(1, 320, 240, Robot.dv1Online));
-    rightBumper.whileHeld(new VisionControl());
-    select.whenPressed(new ResetEncoders());
-    //double tolerance, int angleTolerance, Double centerX, Double centerY, double dist, double speed, float targetAngle
-    bigRed.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 90));
-    greenBoi.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, -90));
-    frontLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 0));
-    bottomLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 60));
-    topLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, -60));
-    bottomRight.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, 120));
-    bottomLeft.whenPressed(new FullAlignment(5.0, 2, LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance, 0.6, -120));
+
+    rightTrigger.whileHeld(new ShiftDown());
+    rightTrigger.whenReleased(new ShiftUp());  
+
+    yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
+    aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+
+    xButton.whileHeld(new CargoRunIntake(0.5, 0.5, false));
+    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5, false));
+    // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
+    // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
+    // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
+    // midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
+    // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
+    // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
+    bigRed.whenPressed(new Compressor());
+    
+    bigWhite.whenPressed(new CMG_IntakeBall());
+    topLeft.whileHeld(new RunBallXtake(-1.0, false));
+    topRight.whileHeld(new RunBallXtake(1.0, false));
+
+    topWhite.whileHeld(new RunBallXtake(1.0, true));
+    topRed.whileHeld(new RunBallXtake(-1.0, true));
+    midWhite.whileHeld(new CargoRunIntake(0.5, 0.5, true));
+    midRed.whileHeld(new CargoRunIntake(-0.5, -0.5, true));
+
+    greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
+    yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+    
+    // topRight.whenPressed(new FlowerControl());
 
   }
 
   public Double desensitize(Double val) {
     double result = val;
     if (Math.abs(result) < 0.15) {
-      result = 0.0;
-    }
-    return result;
-	}
-
+			result = 0.0;
+		}
+		return result;
+  }
+  
+  public Double liftControl() {
+   return desensitize(extreme.getRawAxis(1));
+  }
+  
   public Double getMove() {
     return desensitize(driver.getRawAxis(1));
   }

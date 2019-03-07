@@ -13,8 +13,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.subsystems.*;
 import frc.robot.vision.Utils;
+import frc.robot.lib.DistanceSensor;
 
 import com.kauailabs.navx.frc.AHRS;
 // import sun.nio.ch.Net;
@@ -41,10 +43,13 @@ public class Robot extends TimedRobot {
 
   // public static GripWhiteLine m_grippipeline = new GripWhiteLine();
   public static LineFind m_LineFind;
+
+  public static CargoIntake m_cargoIntake;
   public static Drivetrain m_Drivetrain;
   // public static Spotlight m_Spotlight = new Spotlight();
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
+
   public static NavX m_navX;
   public static Boolean dv0Online = false;
   public static Boolean dv1Online = false;
@@ -81,6 +86,15 @@ public class Robot extends TimedRobot {
 
   // NetworkTableInstance convexHullsFinal = NetworkTableInstance.getDefault();
 
+  public static Lift m_lift;
+  public static BallXtake m_ballXtake;
+  public static Flower m_flower;
+
+  //public static ColorSensor ballCs, hatchCs;
+  //public static UltrasonicSensor ballUltra, hatchUltra;
+
+  public static DistanceSensor m_ballDistanceSensor, m_hatchDistanceSensor;
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -108,10 +122,24 @@ public class Robot extends TimedRobot {
     
     NavX.navX.reset();
     // Utils.startDriverVision(0, 320, 240, dv0Online);
-    
+    m_ballDistanceSensor = new DistanceSensor(RobotMap.ballUltrasonicPort, RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
+    m_hatchDistanceSensor = new DistanceSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+
+    m_Drivetrain = new Drivetrain();
+    m_Compressorsorus = new Compressorsorus();
+    m_lift = new Lift();
+    m_cargoIntake = new CargoIntake();
+    m_ballXtake = new BallXtake();
+    m_flower = new Flower();
+    m_oi = new OI();
+    // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
+    // chooser.addOption("My Auto", new MyAutoCommand());
+    SmartDashboard.putData("Auto mode", m_chooser);
+
+  }
 
     
-  }
+  
 
   /***
    * 
@@ -216,7 +244,16 @@ public class Robot extends TimedRobot {
       return 999.00; 
     }
     */
+
   }
+    /*ballCs = new ColorSensor(RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
+    hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+
+    ballUltra = new UltrasonicSensor(RobotMap.ballUltrasonicPort, RobotMap.ballSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
+    hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
+    */
+
+
 
   public static Double getTopBall() {
     return Utils.getNetworkTableDouble(ballTable, "topBall");
@@ -346,6 +383,31 @@ public class Robot extends TimedRobot {
     try{
     //updateNTData();
     m_Drivetrain.updateYPRData();
+    /*
+    ballCs.read();
+    hatchCs.read();
+
+    SmartDashboard.putNumberArray("Robo Proximity", ballCs.proxData);
+    SmartDashboard.putNumberArray("MXP Proximity", hatchCs.proxData);
+
+    SmartDashboard.putNumber("Hatch Voltage", hatchUltra.getAvgVoltage());
+    SmartDashboard.putNumber("Ball Voltage", ballUltra.getAvgVoltage());
+
+    SmartDashboard.putNumber("Hatch Ultra", hatchUltra.getDistInInch());
+    SmartDashboard.putNumber("Ball Ultra", ballUltra.getDistInInch());
+    */
+
+    m_hatchDistanceSensor.update();
+    m_ballDistanceSensor.update();
+
+    SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
+    SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
+
+    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
+    SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
+    SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
+    // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
@@ -373,11 +435,20 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
-    }catch(Exception e){
+
+  
+    
+    SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
+    SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
+    SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
+
+    SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
+    SmartDashboard.putBoolean("Extake Swqitch", m_ballXtake.getBallOccupancy());
+    
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
-
   /**
    * This function is called once each time the robot enters Disabled mode.
    * You can use it to reset any subsystem information you want to clear when
@@ -430,6 +501,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_lift.resetEncoder();
+    m_Compressorsorus.compressorOn();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -448,12 +521,5 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-  }
-
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
   }
 }
