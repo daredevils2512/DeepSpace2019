@@ -33,7 +33,7 @@ public class CMG_ExtakeBallBottom extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    addSequential(new RunBallXtake(0.5, false));
+    addParallel(new RunBallXtake(0.5, false));
     addParallel(new CargoRunIntake(0.0, 1.0, false));
   }
 }
