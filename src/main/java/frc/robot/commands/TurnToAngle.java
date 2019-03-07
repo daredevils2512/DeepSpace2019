@@ -16,7 +16,7 @@ public class TurnToAngle extends Command {
 
     @Override
     protected void execute() {
-        Robot.m_LineFind.alignByGyro(m_targetAngle, m_tolerance);
+        Robot.m_Drivetrain.alignByGyro(m_targetAngle, m_tolerance);
     }
 
     @Override

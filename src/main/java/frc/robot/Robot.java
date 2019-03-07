@@ -121,6 +121,7 @@ public class Robot extends TimedRobot {
     Utils.dumpNetworkTable(convexHullsTable);
     
     NavX.navX.reset();
+    Robot.m_Drivetrain.resetYaw();
     // Utils.startDriverVision(0, 320, 240, dv0Online);
     m_ballDistanceSensor = new DistanceSensor(RobotMap.ballUltrasonicPort, RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
     m_hatchDistanceSensor = new DistanceSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);

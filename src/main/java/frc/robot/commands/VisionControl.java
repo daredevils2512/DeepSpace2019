@@ -19,7 +19,7 @@ public class VisionControl extends Command {
 
     @Override
     protected void execute() {
-        Robot.m_LineFind.alignByGyro(116, 5.0);
+        Robot.m_Drivetrain.alignByGyro(116, 5.0);
         
     }
   

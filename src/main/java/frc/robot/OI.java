@@ -33,10 +33,10 @@ public class OI {
   public Joystick buttonBox = new Joystick(this.buttonBoxPort);
 
   //All buttons
-  Button aButton = new JoystickButton(driver, 1);
-  Button bButton = new JoystickButton(driver, 2);
-  Button xButton = new JoystickButton(driver, 3);
-  Button yButton = new JoystickButton(driver, 4);
+  Button aButton = new JoystickButton(driver, 1); //
+  Button bButton = new JoystickButton(driver, 2); //
+  Button xButton = new JoystickButton(driver, 3); //
+  Button yButton = new JoystickButton(driver, 4); //
   Button leftBumper = new JoystickButton(driver, 5);
   Button rightBumper = new JoystickButton(driver, 6);
   Button select = new JoystickButton(driver, 7);
@@ -44,30 +44,30 @@ public class OI {
   Button leftStick = new JoystickButton(driver, 9);
   Button rightStick = new JoystickButton(driver, 10);
   TriggerButton leftTrigger = new TriggerButton(driver, 2);
-  TriggerButton rightTrigger = new TriggerButton(driver, 3);
+  TriggerButton rightTrigger = new TriggerButton(driver, 3);  //
 
-  Button triggerBoi = new JoystickButton(extreme, 1);
-  Button sideButton = new JoystickButton(extreme, 2);
-  Button bottomLeft = new JoystickButton(extreme, 3);
+  Button triggerBoi = new JoystickButton(extreme, 1); 
+  Button sideButton = new JoystickButton(extreme, 2); 
+  Button bottomLeft = new JoystickButton(extreme, 3); 
   Button bottomRight = new JoystickButton(extreme, 4);
-  Button topLeft = new JoystickButton(extreme, 5);
-  Button topRight = new JoystickButton(extreme, 6);
-  Button frontLeft = new JoystickButton(extreme, 7);
-  Button frontRight = new JoystickButton(extreme, 8);
-  Button midLeft = new JoystickButton(extreme, 9);
-  Button midRight = new JoystickButton(extreme, 10);
-  Button backLeft = new JoystickButton(extreme, 11);
-  Button backRight = new JoystickButton(extreme, 12);
+  Button topLeft = new JoystickButton(extreme, 5);  //
+  Button topRight = new JoystickButton(extreme, 6); //
+  Button frontLeft = new JoystickButton(extreme, 7);  
+  Button frontRight = new JoystickButton(extreme, 8); 
+  Button midLeft = new JoystickButton(extreme, 9);    
+  Button midRight = new JoystickButton(extreme, 10);  
+  Button backLeft = new JoystickButton(extreme, 11);  
+  Button backRight = new JoystickButton(extreme, 12); 
 
-  Button topWhite = new JoystickButton(buttonBox, 2);
-  Button bigWhite = new JoystickButton(buttonBox, 3);
-  Button midRed = new JoystickButton(buttonBox, 4);
+  Button topWhite = new JoystickButton(buttonBox, 2); //
+  Button bigWhite = new JoystickButton(buttonBox, 3); //
+  Button midRed = new JoystickButton(buttonBox, 4); //
   Button bottomWhite = new JoystickButton(buttonBox, 5);
-  Button topRed = new JoystickButton(buttonBox, 6);
-  Button greenBoi = new JoystickButton(buttonBox, 7);
-  Button midWhite = new JoystickButton(buttonBox, 8);
-  Button bigRed = new JoystickButton(buttonBox, 14);
-  Button yellowBoi = new JoystickButton(buttonBox, 15);
+  Button topRed = new JoystickButton(buttonBox, 6); //
+  Button greenBoi = new JoystickButton(buttonBox, 7); //
+  Button midWhite = new JoystickButton(buttonBox, 8); //
+  Button bigRed = new JoystickButton(buttonBox, 14);  //
+  Button yellowBoi = new JoystickButton(buttonBox, 15); //
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
@@ -96,7 +96,7 @@ public class OI {
     topRed.whileHeld(new RunBallXtake(-1.0, true));
     midWhite.whileHeld(new CargoRunIntake(0.5, 0.5, true));
     midRed.whileHeld(new CargoRunIntake(-0.5, -0.5, true));
-
+    
     greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
     

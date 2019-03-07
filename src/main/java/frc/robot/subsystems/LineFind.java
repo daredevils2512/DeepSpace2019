@@ -128,15 +128,7 @@ public class LineFind extends Subsystem {
       }
     }
 
-    public void alignByGyro(float desiredYaw, double tolerance) {
-      if (Robot.m_Drivetrain.getNonCummulativeYaw() >= desiredYaw + tolerance) {
-        Robot.m_Drivetrain.arcadeDrive(0.0, -0.75);
-      } else if (Robot.m_Drivetrain.getYaw() <= desiredYaw - tolerance) {
-        Robot.m_Drivetrain.arcadeDrive(0.0, 0.75);
-      } else {
-        System.out.println("Robot is aligned");
-      }
-    }
+
 
 
     public void resetVars() {

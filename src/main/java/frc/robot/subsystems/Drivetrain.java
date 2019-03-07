@@ -195,6 +195,25 @@ public class Drivetrain extends Subsystem {
     return this.getSelectedYPR(YPRSelect.ROLL);
   }
 
+  public double convertToCummulative(double yaw) {
+    yaw = ((int) (this.getYaw() / 360)) * 360 + yaw;
+    return yaw;
+  }
+
+  public void resetYaw() {
+    gyro.setYaw(0.0);
+  }
+
+  public void alignByGyro(float desiredYaw, double tolerance) {
+    if (Robot.m_Drivetrain.getYaw() >= Robot.m_Drivetrain.convertToCummulative(desiredYaw) + tolerance) {
+      Robot.m_Drivetrain.arcadeDrive(0.0, -0.75);
+    } else if (Robot.m_Drivetrain.getYaw() <= Robot.m_Drivetrain.convertToCummulative(desiredYaw) - tolerance) {
+      Robot.m_Drivetrain.arcadeDrive(0.0, 0.75);
+    } else {
+      System.out.println("Robot is aligned");
+    }
+  }
+
   public void toggleInverted() {
     inverted = -inverted;
   }
