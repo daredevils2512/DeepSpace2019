@@ -25,6 +25,7 @@ import org.opencv.core.*;
 import edu.wpi.first.networktables.*;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogGyro;
+import frc.robot.vision.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -44,6 +45,8 @@ public class Robot extends TimedRobot {
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
   public static NavX m_navX;
+  public static Boolean dv0Online = false;
+  public static Boolean dv1Online = false;
 
   // public static Vision m_vision = new Vision();
   //THESE SHOULD BE PULLED FROM TEH IMAGE ITSELF.
@@ -51,27 +54,13 @@ public class Robot extends TimedRobot {
   public final int IMG_height = 240;
   public static Mat source = new Mat();
 
+  public static Double cameraSize;
+
   //Don't USE 999.00
   //SET THESE TO NULL!!!
   // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-  public static Double centerXBall = null;
-  public static Double widthBall = null;
-  public static Double heightBall = null;
-  public static Double bottomBall = null;
-  public static Double topBall = null;
-  public static Double widthPosBall = null;
-  public static Double centerYBall = null;
-  public static Double areaBall = null;
 
-  public static Double centerXHatch = null;
-  public static Double widthHatch = null;
-  public static Double heightHatch = null;
-  public static Double bottomHatch = null;
-  public static Double topHatch = null;
-  public static Double widthPosHatch = null;
-  public static Double centerYHatch = null;
-  public static Double areaHatch = null;
-
+  public static boolean log = false;
   public static boolean aligned = false;
   public static Double diff = 0.0;
   public static char dir = 'n';
@@ -117,7 +106,8 @@ public class Robot extends TimedRobot {
     Utils.dumpNetworkTable(convexHullsTable);
     
     NavX.navX.reset();
-    Utils.startDriverVision(0, 320, 240);
+    // Utils.startDriverVision(0, 320, 240, dv0Online);
+    
 
     
   }
@@ -128,6 +118,10 @@ public class Robot extends TimedRobot {
    * 
    * 
    */
+
+  public static Double getCameraSize() {
+    return Utils.getNetworkTableDouble(convexHullsTable, "Camera Size");
+  }
 
   public static Double getCenterXBall() {
     return Utils.getNetworkTableDouble(ballTable, "centerXBall");
@@ -318,53 +312,59 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before
    * LiveWindow and SmartDashboard integrated updating.
    */
+  
   public void updateNTData() {
-    centerXBall = getCenterXBall();
-    widthBall = getWidthBall();
-    bottomBall = getBottomBall();
-    heightBall =  getHeightBall();
-    topBall = getTopBall();
-    widthPosBall = getWidthPosBall();
-    centerYBall = getCenterYBall();
-    areaBall = getAreaBall();
-    centerXHatch = getCenterXHatch();
-    widthHatch = getWidthHatch();
-    bottomHatch = getBottomHatch();
-    heightHatch =  getHeightHatch();
-    topHatch = getTopHatch();
-    widthPosHatch = getWidthPosHatch();
-    centerYHatch = getCenterYHatch();
-    areaHatch = getAreaHatch();
+    Robot.cameraSize = getCameraSize();
+    LineFind.centerXBall = getCenterXBall();
+    LineFind.widthBall = getWidthBall();
+    LineFind.bottomBall = getBottomBall();
+    LineFind.heightBall =  getHeightBall();
+    LineFind.topBall = getTopBall();
+    LineFind.widthPosBall = getWidthPosBall();
+    LineFind.centerYBall = getCenterYBall();
+    LineFind.areaBall = getAreaBall();
+    if (cameraSize >= 2.0) {
+      LineFind.centerXHatch = getCenterXHatch();
+      LineFind.widthHatch = getWidthHatch();
+      LineFind.bottomHatch = getBottomHatch();
+      LineFind.heightHatch =  getHeightHatch();
+      LineFind.topHatch = getTopHatch();
+      LineFind.widthPosHatch = getWidthPosHatch();
+      LineFind.centerYHatch = getCenterYHatch();
+      LineFind.areaHatch = getAreaHatch();
+    }
   }
-
+  
   @Override
   public void robotPeriodic() {
-    for (ConnectionInfo conninfo : convexHullsFinal.getConnections()){
-      System.out.println("Remoteid: "+conninfo.remote_id+", Remote IP: "+conninfo.remote_ip+", Port: "+conninfo.remote_port+", LastUpddate: "+conninfo.last_update);
+    if (log) {
+      for (ConnectionInfo conninfo : convexHullsFinal.getConnections()){
+        System.out.println("Remoteid: "+conninfo.remote_id+", Remote IP: "+conninfo.remote_ip+", Port: "+conninfo.remote_port+", LastUpddate: "+conninfo.last_update);
+      }
     }
     try{
-    updateNTData();
+    //updateNTData();
     m_Drivetrain.updateYPRData();
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
     SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
     SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
-    SmartDashboard.putNumber("centerX", Robot.centerXBall  == null ? 999.00 : Robot.centerXBall);
-    SmartDashboard.putNumber("width", Robot.widthBall == null ? 999.00 : Robot.widthBall);
-    SmartDashboard.putNumber("height", Robot.heightBall == null ? 999.00 : Robot.heightBall);
-    SmartDashboard.putNumber("Bottom", Robot.bottomBall == null ? 999.00 : Robot.bottomBall);
-    SmartDashboard.putNumber("top", Robot.topBall == null ? 999.00 : Robot.topBall);
-    SmartDashboard.putNumber("centerY", Robot.centerYBall == null ? 999.00 : Robot.centerYBall);
-    SmartDashboard.putNumber("area", Robot.areaBall == null ? 999.00 : Robot.areaBall);
-    SmartDashboard.putNumber("widthPos", Robot.widthPosBall == null ? 999.00 : Robot.widthPosBall);
-    SmartDashboard.putNumber("centerX", Robot.centerXHatch  == null ? 999.00 : Robot.centerXHatch);
-    SmartDashboard.putNumber("width", Robot.widthHatch == null ? 999.00 : Robot.widthHatch);
-    SmartDashboard.putNumber("height", Robot.heightHatch == null ? 999.00 : Robot.heightHatch);
-    SmartDashboard.putNumber("Bottom", Robot.bottomHatch == null ? 999.00 : Robot.bottomHatch);
-    SmartDashboard.putNumber("top", Robot.topHatch == null ? 999.00 : Robot.topHatch);
-    SmartDashboard.putNumber("centerY", Robot.centerYHatch == null ? 999.00 : Robot.centerYHatch);
-    SmartDashboard.putNumber("area", Robot.areaHatch == null ? 999.00 : Robot.areaHatch);
-    SmartDashboard.putNumber("widthPos", Robot.widthPosHatch == null ? 999.00 : Robot.widthPosHatch);
+    SmartDashboard.putNumber("centerXBall", LineFind.centerXBall  == null ? 999.00 : LineFind.centerXBall);
+    SmartDashboard.putNumber("widthBall", LineFind.widthBall == null ? 999.00 : LineFind.widthBall);
+    SmartDashboard.putNumber("heightBall", LineFind.heightBall == null ? 999.00 : LineFind.heightBall);
+    SmartDashboard.putNumber("BottomBall", LineFind.bottomBall == null ? 999.00 : LineFind.bottomBall);
+    SmartDashboard.putNumber("topBall", LineFind.topBall == null ? 999.00 : LineFind.topBall);
+    SmartDashboard.putNumber("centerYBall", LineFind.centerYBall == null ? 999.00 : LineFind.centerYBall);
+    SmartDashboard.putNumber("areaBall", LineFind.areaBall == null ? 999.00 : LineFind.areaBall);
+    SmartDashboard.putNumber("widthPosBall", LineFind.widthPosBall == null ? 999.00 : LineFind.widthPosBall);
+    SmartDashboard.putNumber("centerXHatch", LineFind.centerXHatch  == null ? 999.00 : LineFind.centerXHatch);
+    SmartDashboard.putNumber("widthHatch", LineFind.widthHatch == null ? 999.00 : LineFind.widthHatch);
+    SmartDashboard.putNumber("heightHatch", LineFind.heightHatch == null ? 999.00 : LineFind.heightHatch);
+    SmartDashboard.putNumber("BottomHatch", LineFind.bottomHatch == null ? 999.00 : LineFind.bottomHatch);
+    SmartDashboard.putNumber("topHatch", LineFind.topHatch == null ? 999.00 : LineFind.topHatch);
+    SmartDashboard.putNumber("centerYHatch", LineFind.centerYHatch == null ? 999.00 : LineFind.centerYHatch);
+    SmartDashboard.putNumber("areaHatch", LineFind.areaHatch == null ? 999.00 : LineFind.areaHatch);
+    SmartDashboard.putNumber("widthPosHatch", LineFind.widthPosHatch == null ? 999.00 : LineFind.widthPosHatch);
     SmartDashboard.putNumber("navX yaw", m_navX.getYaw());
     SmartDashboard.putNumber("pidgine compass", m_Drivetrain.getNonCummulativeYaw());
     SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());

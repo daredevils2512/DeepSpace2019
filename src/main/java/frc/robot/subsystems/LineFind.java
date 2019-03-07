@@ -17,6 +17,23 @@ public class LineFind extends Subsystem {
 
     static boolean centered = false;
 
+    public static Double centerXBall = null;
+    public static Double widthBall = null;
+    public static Double heightBall = null;
+    public static Double bottomBall = null;
+    public static Double topBall = null;
+    public static Double widthPosBall = null;
+    public static Double centerYBall = null;
+    public static Double areaBall = null;
+  
+    public static Double centerXHatch = null;
+    public static Double widthHatch = null;
+    public static Double heightHatch = null;
+    public static Double bottomHatch = null;
+    public static Double topHatch = null;
+    public static Double widthPosHatch = null;
+    public static Double centerYHatch = null;
+    public static Double areaHatch = null;
 
     /*
     public void pointToLine(double m) {
@@ -81,6 +98,7 @@ public class LineFind extends Subsystem {
     }
 
     public void pointToLineY(Double tolerance, Double centerY) {
+      centerY = centerY - 15;
       if (centered == false && centerY != null) {
         if (centerY >= 0 + tolerance) {
           if (centerY >= 20) {
@@ -105,7 +123,7 @@ public class LineFind extends Subsystem {
       } else if (centered == true) {
         System.out.println("already centered");
       } else {
-        System.out.println("centerX is null");
+        System.out.println("centerY is null");
       }
     }
 

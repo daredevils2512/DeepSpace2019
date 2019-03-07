@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.commands.*;
 import frc.robot.Robot;
+import frc.robot.subsystems.LineFind;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -92,10 +93,12 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   public OI() {
-    yButton.whileHeld(new LineAlignY(5, Robot.centerYBall));
-    bButton.whileHeld(new LineAlignY(5, Robot.centerYHatch));
-    xButton.whileHeld(new LineAlignX(5, Robot.centerXBall));
-    aButton.whileHeld(new LineAlignX(5, Robot.centerXHatch));
+    yButton.whileHeld(new LineAlignY(5, LineFind.centerYBall));
+    bButton.whileHeld(new LineAlignY(5, LineFind.centerYHatch));
+    xButton.whileHeld(new LineAlignX(5, LineFind.centerXBall));
+    aButton.whileHeld(new LineAlignX(5, LineFind.centerXHatch));
+    topRed.whenPressed(new DriverVisionStart(0, 320, 240, Robot.dv0Online));
+    topWhite.whenPressed(new DriverVisionStart(1, 320, 240, Robot.dv1Online));
     rightBumper.whileHeld(new VisionControl());
     select.whenPressed(new ResetEncoders());
   }

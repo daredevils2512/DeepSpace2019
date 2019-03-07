@@ -9,7 +9,8 @@ import edu.wpi.cscore.UsbCamera;
 
 public class Utils {
 
-    static boolean dvOnline;
+    public Utils() {
+    }
 
     /* You don't needt o cast tthis to a kDouble. it will throw an exceptino if it's wrong */
     /** TODO:
@@ -48,10 +49,13 @@ public class Utils {
         }
     }
 
-    public static boolean startDriverVision(int port, int imageWidth, int imageHeight) {
-        UsbCamera driverCam = CameraServer.getInstance().startAutomaticCapture(port);
-        driverCam.setResolution(imageWidth, imageHeight);
-        dvOnline = driverCam.isConnected();
+    public static boolean startDriverVision(int port, int imageWidth, int imageHeight, Boolean dvOnline) {
+        if (!dvOnline) {
+            System.out.println("connencting Driver vision");
+            UsbCamera driverCam = CameraServer.getInstance().startAutomaticCapture(port);
+            driverCam.setResolution(imageWidth, imageHeight);
+            dvOnline = driverCam.isConnected();
+        }
         System.out.println("driver vision status: " + dvOnline);
         return dvOnline;
     }
