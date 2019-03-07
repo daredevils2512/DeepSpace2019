@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -59,6 +61,12 @@ public class Drivetrain extends Subsystem {
 
     leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
     rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
+
+    leftTalon.setNeutralMode(NeutralMode.Brake);
+    leftRearTalon.setNeutralMode(NeutralMode.Brake);
+    rightTalon.setNeutralMode(NeutralMode.Brake);
+    rightRearTalon.setNeutralMode(NeutralMode.Brake);
+
     drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
     // addChild("Differential Drive 1",drivetrain);
 
@@ -78,6 +86,14 @@ public class Drivetrain extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
+  }
+
+  public void leftSpeed(double speed) {
+    leftTalonGroup.set(speed);
+  }
+
+  public void rightSpeed(double speed) {
+    rightTalonGroup.set(speed);
   }
 
   public void arcadeDrive(double move, double turn) {
@@ -167,4 +183,5 @@ public class Drivetrain extends Subsystem {
     this.updateYPRData();
     return this.yprData[2];
   }
+
 }

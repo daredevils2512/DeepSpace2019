@@ -29,7 +29,7 @@ public class RobotMap {
   // DISTANCE SENSOR STUFF
     // OFFSETS
   public final static double hatchSensorsOffsetFromFrame = 6.1852; // in inches
-  public final static double ballSensorsOffsetFromFrame = 10.11;    // in inches
+  public final static double ballSensorsOffsetFromFrame = 3.25;    // in inches
     // PORTS
   public static int ballUltrasonicPort = 0;
   public static int hatchUltrasonicPort = 1;
