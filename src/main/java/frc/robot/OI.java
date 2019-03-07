@@ -8,9 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
 
@@ -89,7 +91,7 @@ public class OI {
     topLeft.whileHeld(new RunBallXtake(-1.0));
     topRight.whileHeld(new RunBallXtake(1.0));
 
-    start.whenPressed(new DriveToWall(10)); // I dont know what people want the dist to be
+    start.whenPressed(new DriveToWall(SmartDashboard.getNumber("DriveToWall", 12))); // I dont know what people want the dist to be
     // topRight.whenPressed(new FlowerControl());
 
   }

@@ -47,4 +47,5 @@ public class CargoIntake extends Subsystem {
   public void foldIntake(DoubleSolenoid.Value dir) {
     this.upDown.set(dir);
   }
+  
 }

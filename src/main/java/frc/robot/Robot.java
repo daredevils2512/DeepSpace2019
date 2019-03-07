@@ -33,6 +33,8 @@ public class Robot extends TimedRobot {
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
+  SendableChooser driveToWallChooser;
+
   //public static ColorSensor ballCs, hatchCs;
   //public static UltrasonicSensor ballUltra, hatchUltra;
 
@@ -65,9 +67,9 @@ public class Robot extends TimedRobot {
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
     m_oi = new OI();
-    // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
-    // chooser.addOption("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+
+    driveToWallChooser = new SendableChooser<>();
+    SmartDashboard.putData("driveToWall", driveToWallChooser);
 
   }
 
