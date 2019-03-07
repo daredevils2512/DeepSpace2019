@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.*;
-import frc.robot.constants.Constants;
+import frc.robot.lib.DistanceSensor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,6 +33,11 @@ public class Robot extends TimedRobot {
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
+  //public static ColorSensor ballCs, hatchCs;
+  //public static UltrasonicSensor ballUltra, hatchUltra;
+
+  public static DistanceSensor m_ballDistanceSensor, m_hatchDistanceSensor;
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -42,6 +47,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+
+    /*ballCs = new ColorSensor(RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
+    hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+
+    ballUltra = new UltrasonicSensor(RobotMap.ballUltrasonicPort, RobotMap.ballSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
+    hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
+    */
+
+    m_ballDistanceSensor = new DistanceSensor(RobotMap.ballUltrasonicPort, RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
+    m_hatchDistanceSensor = new DistanceSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_lift = new Lift();
@@ -65,10 +81,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
-    SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
-    SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
-    // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
+    m_hatchDistanceSensor.update();
+    m_ballDistanceSensor.update();
+
+    SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
+    SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
@@ -85,9 +103,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
     SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
-    SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
-    SmartDashboard.putBoolean("Extake Swqitch", m_ballXtake.getBallOccupancy());
-  }
+    }
 
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -142,7 +158,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_lift.resetEncoder();
-    m_Compressorsorus.compressorOn();
+    m_Compressorsorus.compressorOff();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
