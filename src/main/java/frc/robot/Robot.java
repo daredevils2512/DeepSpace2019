@@ -91,6 +91,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
     SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
+    SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
     SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());

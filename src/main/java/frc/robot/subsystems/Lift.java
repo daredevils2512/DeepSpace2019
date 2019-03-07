@@ -31,7 +31,7 @@ public class Lift extends Subsystem {
   public static DigitalInput limitSwitchTop; 
 
   private static final int magEncPulsesPerRev = 4096;
-  private static final double inchesPerRev = 5.0;
+  private static final double inchesPerRev = 4.75; // This will change
   public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev; 
 
   public Lift() {  
