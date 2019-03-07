@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
+import frc.robot.constants.Constants.DistanceSensorSide;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -72,14 +73,19 @@ public class OI {
 
     rightTrigger.whileHeld(new ShiftDown());
     rightTrigger.whenReleased(new ShiftUp());
-    
     leftTrigger.whenPressed(new InvertDriving());
-
     yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+    xButton.whileHeld(new CargoRunIntake(0.5, 0.5, false)); // out
+    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5, false)); // in
+    start.whenPressed(new DriveToWall(10, DistanceSensorSide.BALL)); // I dont know what people want the dist to be
 
-    xButton.whileHeld(new CargoRunIntake(0.5, 0.5, false));
-    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5, false));
+
+    topLeft.whileHeld(new RunBallXtake(-1.0, true)); //in
+    topRight.whileHeld(new RunBallXtake(1.0, true)); //out
+    backLeft.whileHeld(new CMG_ExtakeBallBottom());
+
+
     // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
     // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
     // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
@@ -87,23 +93,12 @@ public class OI {
     // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
     // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor());
-    
     bigWhite.whenPressed(new CMG_IntakeBall());
-    topLeft.whileHeld(new RunBallXtake(-1.0, false)); //in
-    topRight.whileHeld(new RunBallXtake(1.0, false)); //out
-    backLeft.whileHeld(new CMG_ExtakeBallBottom());
-
-    topWhite.whileHeld(new RunBallXtake(1.0, true));
-    topRed.whileHeld(new RunBallXtake(-1.0, true));
     midWhite.whileHeld(new CargoRunIntake(0.5, 0.5, true));
     midRed.whileHeld(new CargoRunIntake(-0.5, -0.5, true));
-
     greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
-
-    start.whenPressed(new DriveToWall(10)); // I dont know what people want the dist to be
     // topRight.whenPressed(new FlowerControl());
-
   }
 
   public double desensitize(double val) {
