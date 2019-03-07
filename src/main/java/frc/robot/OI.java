@@ -76,8 +76,8 @@ public class OI {
     leftTrigger.whenPressed(new InvertDriving());
     yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
-    xButton.whileHeld(new CargoRunIntake(0.5, 0.5, false)); // out
-    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5, false)); // in
+    xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
+    bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
     start.whenPressed(new DriveToWall(10, DistanceSensorSide.BALL)); // I dont know what people want the dist to be
 
 
@@ -94,8 +94,8 @@ public class OI {
     // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
-    midWhite.whileHeld(new CargoRunIntake(0.5, 0.5, true));
-    midRed.whileHeld(new CargoRunIntake(-0.5, -0.5, true));
+    midWhite.whileHeld(new CargoRunIntake(1.0, 1.0, true));
+    midRed.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
     // topRight.whenPressed(new FlowerControl());
