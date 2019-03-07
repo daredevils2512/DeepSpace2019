@@ -81,9 +81,6 @@ public class Drivetrain extends Subsystem {
 
     leftEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
     rightEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
-    
-    // this.rumblely = RumbleType.kLeftRumble;
-    // this.rumblely = RumbleType.kRightRumble;
 
     shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
@@ -98,11 +95,11 @@ public class Drivetrain extends Subsystem {
   }
 
   public void arcadeDrive(double move, double turn) {
-    drivetrain.arcadeDrive(move * inverted, turn *inverted);
+    drivetrain.arcadeDrive(move, turn);
   }
 
   public void driveRobotTank(double leftSpeed, double rightSpeed) {
-    drivetrain.tankDrive(leftSpeed *inverted, rightSpeed * inverted);
+    drivetrain.tankDrive(leftSpeed, rightSpeed);
   }
 
   public double getLeftEncoderDistance() {

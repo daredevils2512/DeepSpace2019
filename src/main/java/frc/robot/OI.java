@@ -71,7 +71,9 @@ public class OI {
   public OI() {
 
     rightTrigger.whileHeld(new ShiftDown());
-    rightTrigger.whenReleased(new ShiftUp());  
+    rightTrigger.whenReleased(new ShiftUp());
+    
+    leftTrigger.whenPressed(new InvertDriving());
 
     yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
@@ -87,8 +89,9 @@ public class OI {
     bigRed.whenPressed(new Compressor());
     
     bigWhite.whenPressed(new CMG_IntakeBall());
-    topLeft.whileHeld(new RunBallXtake(-1.0, false));
-    topRight.whileHeld(new RunBallXtake(1.0, false));
+    topLeft.whileHeld(new RunBallXtake(-1.0, false)); //in
+    topRight.whileHeld(new RunBallXtake(1.0, false)); //out
+    backLeft.whileHeld(new CMG_ExtakeBallBottom());
 
     topWhite.whileHeld(new RunBallXtake(1.0, true));
     topRed.whileHeld(new RunBallXtake(-1.0, true));
