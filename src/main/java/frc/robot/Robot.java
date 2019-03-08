@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -82,8 +83,10 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
 
-    m_hatchDistanceSensor.update();
-    m_ballDistanceSensor.update();
+    Timer t = new Timer();
+    t.start();
+    // m_hatchDistanceSensor.update();
+    // m_ballDistanceSensor.update();
 
     SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
     // SmartDashboard.putNumber("Hatch ultra volt", m_hatchDistanceSensor.getUltraVoltage());
@@ -104,7 +107,7 @@ public class Robot extends TimedRobot {
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
     /*
-    
+    x
     */
 
     // SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
@@ -123,6 +126,10 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
     SmartDashboard.putBoolean("Compressor on", m_Compressorsorus.isOn());
+    t.stop();
+    if (t.get() >= 0.015)
+     System.out.println("TooK: "+t.get());
+  
     }
 
   /**
@@ -153,7 +160,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_lift.resetEncoder();
-    m_autonomousCommand = m_chooser.getSelected();
+    // m_autonomousCommand = m_chooser.getSelected();
     m_Compressorsorus.compressorOn();
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -195,6 +202,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    Timer t = new Timer();
+    t.start();
     Scheduler.getInstance().run();
+    t.stop();
+    if (t.get() >= 0.015){
+      System.out.println("teleopPerodic (scheduler.run took) "+t.get());
+    }
   }
 }

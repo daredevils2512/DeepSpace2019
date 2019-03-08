@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -19,6 +20,7 @@ public class CargoFoldUp extends CargoFoldIntake {
     }
 
     public void execute() {
+        
         if (!Robot.m_cargoIntake.getCurrentPos().equals(this.m_foldDir)) {
             Robot.m_cargoIntake.foldUp();
         }

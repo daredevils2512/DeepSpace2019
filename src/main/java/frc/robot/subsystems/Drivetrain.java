@@ -76,6 +76,7 @@ public class Drivetrain extends Subsystem {
 
     leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
     rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
+
     drivetrain = new DifferentialDrive(leftSparkGroup, rightSparkGroup);
     // addChild("Differential Drive 1",drivetrain);
 
@@ -94,12 +95,15 @@ public class Drivetrain extends Subsystem {
      setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
   }
 
+  /*
+  @Override
   public void setSpeed(double leftSpeed, double rightSpeed) {
     this.leftSpark.set(leftSpeed);
     this.leftRearSpark.set(leftSpeed);
     this.rightSpark.set(rightSpeed);
     this.rightRearSpark.set(rightSpeed);
   }
+*/
 
   public void arcadeDrive(double move, double turn) {
     drivetrain.arcadeDrive(move * inverted, turn * inverted);

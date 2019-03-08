@@ -44,16 +44,16 @@ public class ManualLift extends LiftCommand {
     //   speed = 0.0;
       
     // }
-
-    if (Robot.m_oi.liftControl() > 0.0) {
+    double control = liftControlDirection.get();
+    if (control > 0.0) {
       if (!upperLimit()) {
-        Robot.m_lift.setSpeed(Robot.m_oi.liftControl());
+        Robot.m_lift.setSpeed(control);
       } else {
         Robot.m_lift.setSpeed(0.0);
       }
-    } else if (Robot.m_oi.liftControl() < 0.0) {
+    } else if (control < 0.0) {
       if (!Robot.m_lift.getLimitSwitchBottom()) {
-        Robot.m_lift.setSpeed(Robot.m_oi.liftControl());
+        Robot.m_lift.setSpeed(control);
       } else {
         Robot.m_lift.setSpeed(0.0);
       }
@@ -78,9 +78,5 @@ public class ManualLift extends LiftCommand {
           dont
 
     */
-
-
-
-    Robot.m_lift.setSpeed(this.liftControlDirection.get());
   }
 }

@@ -1,6 +1,9 @@
 package frc.robot.lib;
 
+import java.util.Date;
+
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotMap;
 
 /**
@@ -23,7 +26,7 @@ public class DistanceSensor {
         this.offset = offset;
     }
 
-    public void update(){
+    private void update(){
         this.colorSensor.read();
     }
 
@@ -31,10 +34,12 @@ public class DistanceSensor {
         double distance = 0.0;
         //pick the correct distance sensor to return the value from and return it.
         //also perform the calcs on it
+        this.update();
         double ultraDist = this.ultraSonicSensor.getDistInInch();
         double colorDist = this.colorSensor.getDistance();
 
         distance = (colorDist >= this.maxColorDist) ? ultraDist : colorDist;
+      
 
         return distance - offset;
     }
