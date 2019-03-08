@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -36,6 +38,7 @@ public class Robot extends TimedRobot {
   public static Flower m_flower;
 
   public static PowerDistributionPanel m_PDP;
+  public static SendableBuilder m_PDPBuilder;
 
   //public static ColorSensor ballCs, hatchCs;
   //public static UltrasonicSensor ballUltra, hatchUltra;
@@ -71,6 +74,9 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
 
     m_PDP = new PowerDistributionPanel();
+    m_PDPBuilder = new SendableBuilderImpl();
+
+    m_PDP.initSendable(m_PDPBuilder);
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -117,7 +123,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
     SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
     SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
-
     /*
     x
     */

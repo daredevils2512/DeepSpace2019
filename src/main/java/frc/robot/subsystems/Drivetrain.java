@@ -74,6 +74,12 @@ public class Drivetrain extends Subsystem {
     rightSpark.setIdleMode(IdleMode.kCoast);
     // leftRearSpark.setIdleMode(IdleMode.kCoast);
     // rightRearSpark.setIdleMode(IdleMode.kCoast);
+
+    leftSpark.setOpenLoopRampRate(0.5);
+    rightSpark.setOpenLoopRampRate(0.5);
+
+    leftSpark.setSmartCurrentLimit(65, 10);
+    rightSpark.setSmartCurrentLimit(65, 10);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
