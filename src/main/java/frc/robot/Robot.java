@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
     // m_hatchDistanceSensor.update();
     // m_ballDistanceSensor.update();
 
-    SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
+    // SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
     // SmartDashboard.putNumber("Hatch ultra volt", m_hatchDistanceSensor.getUltraVoltage());
     // SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
     // SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("ball ultra volt", m_ballDistanceSensor.getUltraVoltage());
     // SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
     // SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
-    SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
+    // SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
     SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
     SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
@@ -128,7 +128,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Compressor on", m_Compressorsorus.isOn());
     t.stop();
     if (t.get() >= 0.015)
-     System.out.println("TooK: "+t.get());
+     System.out.println("robotPeriodic TooK: "+t.get());
   
     }
 
