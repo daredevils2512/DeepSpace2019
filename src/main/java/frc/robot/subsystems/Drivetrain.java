@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
 
 import frc.robot.Robot;
@@ -66,18 +67,21 @@ public class Drivetrain extends Subsystem {
     leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
     rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
 
+    leftRearSpark.follow(leftSpark);
+    rightRearSpark.follow(rightSpark);
+
     leftSpark.setIdleMode(IdleMode.kCoast);
     rightSpark.setIdleMode(IdleMode.kCoast);
-    leftRearSpark.setIdleMode(IdleMode.kCoast);
-    rightRearSpark.setIdleMode(IdleMode.kCoast);
+    // leftRearSpark.setIdleMode(IdleMode.kCoast);
+    // rightRearSpark.setIdleMode(IdleMode.kCoast);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
-    leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
-    rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
+    // leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
+    // rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
 
-    drivetrain = new DifferentialDrive(leftSparkGroup, rightSparkGroup);
+    drivetrain = new DifferentialDrive(leftSpark, rightSpark);
     // addChild("Differential Drive 1",drivetrain);
 
     leftEncoder.setDistancePerPulse(driveEncoderDistancePerTick);
@@ -201,5 +205,12 @@ public class Drivetrain extends Subsystem {
 
   public void toggleInverted() {
     inverted = -inverted;
+  }
+
+  public void updateDashboard() {
+    SmartDashboard.putNumber("D1 Temp", leftSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
   }
 }

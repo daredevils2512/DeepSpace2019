@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
@@ -77,6 +78,11 @@ public class RobotMap {
   public static int flowerSolenoidReverseChannel = 5;
   public static int flowerSlideForwardChannel = 6;
   public static int flowerSlideReverseChannel = 7;
+
+  public static Value flowerUpPos = Value.kForward;
+  public static Value flowerDownPos = Value.kReverse;
+  public static Value flowerOpenPos = Value.kForward;
+  public static Value flowerClosedPos = Value.kReverse;
 
   public static int spotlightRelayPort = 0;
 }

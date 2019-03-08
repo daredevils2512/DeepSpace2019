@@ -100,6 +100,9 @@ public class OI {
     midRed.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
+
+    topWhite.whenPressed(new FlowerControl());
+    topRed.whenPressed(new FlowerSlideControl());
     // topRight.whenPressed(new FlowerControl());
   }
 

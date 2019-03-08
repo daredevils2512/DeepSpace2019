@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
 import frc.robot.lib.DistanceSensor;
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
   public static Lift m_lift;
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
+
+  public static PowerDistributionPanel m_PDP;
 
   //public static ColorSensor ballCs, hatchCs;
   //public static UltrasonicSensor ballUltra, hatchUltra;
@@ -66,6 +69,8 @@ public class Robot extends TimedRobot {
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
     m_oi = new OI();
+
+    m_PDP = new PowerDistributionPanel();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -85,6 +90,7 @@ public class Robot extends TimedRobot {
 
     Timer t = new Timer();
     t.start();
+    m_Drivetrain.updateDashboard();
     // m_hatchDistanceSensor.update();
     // m_ballDistanceSensor.update();
 
@@ -105,6 +111,12 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Ball lmit switch", m_ballXtake.getBallOccupancy());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
+
+    SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
+    SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
+    SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
+    SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
 
     /*
     x
