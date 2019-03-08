@@ -20,37 +20,41 @@ public class RunToPosition extends Command {
     protected void execute() {
         // the values will need to be changed
         /* heights on rocket:
-
         front :
         2 3
         4 7
         6 11
-
         sides :
         1 7
         3 11
         6 3
-
         */
-        if (this.position == LiftPosition.CARGOBOTTOM) {
-            Robot.m_lift.runTo(0);
-
-        } else if (this.position == LiftPosition.CARGOMIDDLE) {
-            Robot.m_lift.runTo(1);
-
-        } else if (this.position == LiftPosition.CARGOTOP) {
-            Robot.m_lift.runTo(2);
-
-        } else if (this.position == LiftPosition.HATCHBOTTOM) {
-            Robot.m_lift.runTo(0.5);
-
-        } else if (this.position == LiftPosition.HATCHMIDDLE) {
-            Robot.m_lift.runTo(1.5);
-
-        } else if (this.position == LiftPosition.HATCHTOP) {
-            Robot.m_lift.runTo(2.5);
-
+        int height = 0;
+        switch (this.position) {
+            case CARGOBOTTOM:
+                height = 27;
+                break;
+            case CARGOMIDDLE:
+                height = 55;
+                break;
+            case CARGOTOP:
+                height = 83;
+                break;
+            case HATCHBOTTOM:
+                height = 19;
+                break;
+            case HATCHMIDDLE:
+                height = 47;
+                break;
+            case HATCHTOP:
+                height = 75;
+                break;
+            default:
+                height = 0;
+                break;
         }
+        Robot.m_lift.runTo(height);
+
     }
 
     @Override

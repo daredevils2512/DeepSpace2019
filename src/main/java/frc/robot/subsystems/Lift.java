@@ -78,14 +78,27 @@ public class Lift extends Subsystem {
 
   public void runTo(double runTo) {
 
-    if (this.getLiftHeight() < runTo && !(getLimitSwitchTop())) {
-      setSpeed(1);
-    } else if (this.getLiftHeight() > runTo && !(getLimitSwitchBottom())) {
-      setSpeed(-1);
+    double liftSpeed = 0;
+    double diffrence = runTo - this.getLiftHeight();
+    double distance = Math.abs(diffrence);
+    double sign = Math.signum(diffrence);
+
+    if (distance > 75) {
+      liftSpeed = sign * 1;
+
+    } else if (distance > 50) {
+      liftSpeed = sign * 0.5;
+
+    } else if (distance > 25) {
+      liftSpeed = sign * 0.25;
+
+    } else if (distance > 0) {
+      liftSpeed = sign * 0.15;
+      
     } else {
-      setSpeed(0);
+      liftSpeed = 0;
     }
-    
+    setSpeed(liftSpeed);
   }
   
 }
