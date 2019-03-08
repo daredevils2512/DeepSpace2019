@@ -9,4 +9,15 @@ public class Constants {
         CARGOTOP,
         HATCHTOP
     }
+    
+    public enum YPRSelect {
+        YAW,
+        PITCH,
+        ROLL
+    }
+
+    public enum DistanceSensorSide {
+        BALL, 
+        HATCH
+    }
 }
