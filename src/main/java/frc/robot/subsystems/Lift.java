@@ -61,11 +61,7 @@ public class Lift extends Subsystem {
 
   public double getLiftHeight() {
     return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToInches); // this might seem like a random number but it is needed (I will find out math)
-  }
-
-  public void resetEncoder() {
-    liftTalon1.setSelectedSensorPosition(0);
-  }  
+  } 
 
   public boolean getLimitSwitchBottom() {
     return limitSwitchBottom.get();
