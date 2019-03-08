@@ -218,5 +218,15 @@ public class Drivetrain extends Subsystem {
     SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
     SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
     SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
+
+    SmartDashboard.putNumber("D1 Out Current", leftSpark.getOutputCurrent());
+    SmartDashboard.putNumber("D2 Out Current", leftRearSpark.getOutputCurrent());
+    SmartDashboard.putNumber("D3 Out Current", rightSpark.getOutputCurrent());
+    SmartDashboard.putNumber("D4 Out Current", rightRearSpark.getOutputCurrent());
+
+    SmartDashboard.putNumber("D1 Set Speed", leftSpark.get());
+    SmartDashboard.putNumber("D2 Set Speed", leftRearSpark.get());
+    SmartDashboard.putNumber("D3 Set Speed", rightSpark.get());
+    SmartDashboard.putNumber("D4 Set Speed", rightRearSpark.get());
   }
 }

@@ -117,12 +117,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Ball lmit switch", m_ballXtake.getBallOccupancy());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
-
-
-    SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
-    SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
-    SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
-    SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
     /*
     x
     */
