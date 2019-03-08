@@ -12,11 +12,11 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class CargoFoldIntake extends Command {
+public abstract class CargoFoldIntake extends Command {
 
-  private Value m_foldDir;
+  protected Value m_foldDir;
 
-  public CargoFoldIntake(Value foldDir) {
+  protected CargoFoldIntake(Value foldDir) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.m_cargoIntake);
@@ -28,15 +28,15 @@ public class CargoFoldIntake extends Command {
   protected void initialize() {
   }
 
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    if (Robot.m_ballDistanceSensor.getDistance() >= 18) {
-      Robot.m_cargoIntake.foldIntake(this.m_foldDir);
-    } else {
-      Robot.m_cargoIntake.foldIntake(RobotMap.cargoUpPos);
-    }
-  }
+  // // Called repeatedly when this Command is scheduled to run
+  // @Override
+  // protected void execute() {
+  //   if (Robot.m_ballDistanceSensor.getDistance() >= 18) {
+  //     Robot.m_cargoIntake.foldIntake(this.m_foldDir);
+  //   } else {
+  //     Robot.m_cargoIntake.foldUp();
+  //   }
+  // }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

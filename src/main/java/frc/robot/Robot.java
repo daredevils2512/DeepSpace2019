@@ -86,6 +86,14 @@ public class Robot extends TimedRobot {
     m_ballDistanceSensor.update();
 
     SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
+    SmartDashboard.putNumber("Hatch ultra volt", m_hatchDistanceSensor.getUltraVoltage());
+    SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
+    SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
+    SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
+
+    SmartDashboard.putNumber("ball ultra volt", m_ballDistanceSensor.getUltraVoltage());
+    SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
+    SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
     SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
     SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
@@ -94,21 +102,22 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
-    SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
-    SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
-    SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
-    SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
+    // SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
+    // SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
+    // SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
+    // SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
 
-    SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
-    SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
-    SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
-    SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
-    SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
+    // SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
+    // SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
+    // SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
+    // SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
+    // SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
     
     SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
     SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
     SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
+    SmartDashboard.putBoolean("Compressor on", m_Compressorsorus.isOn());
     }
 
   /**
@@ -138,6 +147,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_lift.resetEncoder();
     m_autonomousCommand = m_chooser.getSelected();
     m_Compressorsorus.compressorOn();
     /*

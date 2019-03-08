@@ -26,18 +26,61 @@ public class ManualLift extends LiftCommand {
   protected void initialize() {
   }
 
+  // Contains both limit switch and encoder top
+  private boolean upperLimit() {
+    double currentClicks = Robot.m_lift.getLiftPosition();
+    double maxEncClicks = 39000;
+    return (currentClicks >= maxEncClicks);
+  }
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     double speed = 0.0;
-    if( /*(this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchTop()) 
-    || */(this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchBottom())) {
-      speed = this.liftControlDirection.get();
+    // if((this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchBottom())) {
+    //   speed = this.liftControlDirection.get();
 
-    } else {
-      speed = 0.0;
+    // } else {
+    //   speed = 0.0;
       
+    // }
+
+    if (Robot.m_oi.liftControl() > 0.0) {
+      if (!upperLimit()) {
+        Robot.m_lift.setSpeed(Robot.m_oi.liftControl());
+      } else {
+        Robot.m_lift.setSpeed(0.0);
+      }
+    } else if (Robot.m_oi.liftControl() < 0.0) {
+      if (!Robot.m_lift.getLimitSwitchBottom()) {
+        Robot.m_lift.setSpeed(Robot.m_oi.liftControl());
+      } else {
+        Robot.m_lift.setSpeed(0.0);
+      }
+    } else {
+      Robot.m_lift.setSpeed(0.0);
     }
+
+    /*
+
+      switch (joystick)
+        case +joystick
+          check topLimit
+            dont
+          check !topLimit
+            drive
+        case -joystick
+          check bottomLimit
+            dont
+          else
+            drive
+        default
+          dont
+
+    */
+
+
+
     Robot.m_lift.setSpeed(this.liftControlDirection.get());
   }
 }

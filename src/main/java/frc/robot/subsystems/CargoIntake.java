@@ -46,4 +46,16 @@ public class CargoIntake extends Subsystem {
   public void foldIntake(DoubleSolenoid.Value dir) {
     this.upDown.set(dir);
   }
+
+  public void foldUp() {
+    this.foldIntake(RobotMap.cargoUpPos);
+  }
+
+  public void foldDown() {
+    this.foldIntake(RobotMap.cargoDownPos);
+  }
+
+  public DoubleSolenoid.Value getCurrentPos() {
+    return this.upDown.get();
+  }
 }

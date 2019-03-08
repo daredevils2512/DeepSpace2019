@@ -31,7 +31,7 @@ public class DistanceSensor {
         double distance = 0.0;
         //pick the correct distance sensor to return the value from and return it.
         //also perform the calcs on it
-        double ultraDist = this.ultraSonicSensor.getDistInCm();
+        double ultraDist = this.ultraSonicSensor.getDistInInch();
         double colorDist = this.colorSensor.getDistance();
 
         distance = (colorDist >= this.maxColorDist) ? ultraDist : colorDist;
@@ -39,11 +39,15 @@ public class DistanceSensor {
         return distance - offset;
     }
 
-    private double getColorDist() {
+    public double getColorDist() {
         return this.colorSensor.getDistance();
     }
 
-    private double getUltraDist() {
-        return this.ultraSonicSensor.getDistInCm();
+    public double getUltraDist() {
+        return this.ultraSonicSensor.getDistInInch();
+    }
+
+    public double getUltraVoltage(){
+        return this.ultraSonicSensor.getAvgVoltage();
     }
 }

@@ -47,4 +47,8 @@ public class Compressorsorus extends Subsystem {
       compressorOff();
     }
   }
+
+  public boolean isOn() {
+    return sorus.enabled();
+  }
 }
