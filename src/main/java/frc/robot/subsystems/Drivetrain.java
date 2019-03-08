@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.*;
 
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.ArcadeDrive;
+// import frc.robot.commands.ArcadeDrive;
 import frc.robot.constants.Constants.YPRSelect;
 
-import com.ctre.phoenix.motorcontrol.can.*;
+// import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import com.revrobotics.CANSparkMax;
@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-  public static PigeonIMU gyro;
+  public PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
@@ -56,6 +56,8 @@ public class Drivetrain extends Subsystem {
   private static double gearRatio = 1/3; //wheel-encoder
   private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
   private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
+  
+
 
   private static int inverted = 1;
 

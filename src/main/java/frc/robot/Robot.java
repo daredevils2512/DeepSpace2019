@@ -10,7 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,17 +17,14 @@ import frc.robot.subsystems.*;
 import frc.robot.vision.Utils;
 import frc.robot.lib.DistanceSensor;
 
-import com.kauailabs.navx.frc.AHRS;
+// import com.kauailabs.navx.frc.AHRS;
 // import sun.nio.ch.Net;
 
 import org.opencv.core.*;
 // import java.util.ArrayList;
 // import frc.robot.GripWhiteLine;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
-import frc.robot.vision.*;
 
-import frc.robot.commands.*;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot

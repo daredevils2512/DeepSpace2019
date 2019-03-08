@@ -3,7 +3,6 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.constants.*;
-import frc.robot.constants.Constants.LiftPosition;
 
 public class RunToPosition extends Command {
     private Constants.LiftPosition position;

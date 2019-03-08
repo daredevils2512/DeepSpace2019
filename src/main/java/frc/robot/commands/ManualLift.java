@@ -38,6 +38,6 @@ public class ManualLift extends LiftCommand {
       speed = 0.0;
       
     }
-    Robot.m_lift.setSpeed(this.liftControlDirection.get());
+    Robot.m_lift.setSpeed(speed);
   }
 }
