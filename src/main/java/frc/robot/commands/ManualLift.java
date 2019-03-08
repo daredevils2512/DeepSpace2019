@@ -29,7 +29,7 @@ public class ManualLift extends LiftCommand {
   // Contains both limit switch and encoder top
   private boolean upperLimit() {
     double currentClicks = Robot.m_lift.getLiftPosition();
-    double maxEncClicks = 39000;
+    double maxEncClicks = 31500;
     return (currentClicks >= maxEncClicks);
   }
 

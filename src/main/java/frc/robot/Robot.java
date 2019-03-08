@@ -159,7 +159,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_lift.resetEncoder();
+    m_lift.resetLiftEncoder();
     // m_autonomousCommand = m_chooser.getSelected();
     m_Compressorsorus.compressorOn();
     /*
@@ -185,7 +185,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    m_lift.resetEncoder();
+    m_lift.resetLiftEncoder();
     m_Compressorsorus.compressorOn();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
