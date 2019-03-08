@@ -73,7 +73,7 @@ public class OI {
 
     rightTrigger.whileHeld(new ShiftDown());
     rightTrigger.whenReleased(new ShiftUp());
-    leftTrigger.whenPressed(new InvertDriving());
+    // leftTrigger.whenPressed(new InvertDriving());
     yButton.whenPressed(new CargoFoldUp());
     aButton.whenPressed(new CargoFoldDown());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
@@ -81,8 +81,10 @@ public class OI {
     start.whenPressed(new DriveToWall(10, DistanceSensorSide.BALL)); // I dont know what people want the dist to be
 
 
-    topLeft.whileHeld(new RunBallXtake(-1.0, true)); //in
-    topRight.whileHeld(new RunBallXtake(1.0, true)); //out
+    topLeft.whileHeld(new RunBallXtake(1.0, true)); //out
+    bottomLeft.whileHeld(new RunBallXtake(-1.0, true)); //in
+    topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
+    bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
 
 

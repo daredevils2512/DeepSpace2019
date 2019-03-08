@@ -86,21 +86,26 @@ public class Robot extends TimedRobot {
     m_ballDistanceSensor.update();
 
     SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
-    SmartDashboard.putNumber("Hatch ultra volt", m_hatchDistanceSensor.getUltraVoltage());
-    SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
-    SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
-    SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
+    // SmartDashboard.putNumber("Hatch ultra volt", m_hatchDistanceSensor.getUltraVoltage());
+    // SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
+    // SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
 
-    SmartDashboard.putNumber("ball ultra volt", m_ballDistanceSensor.getUltraVoltage());
-    SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
-    SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
+    // SmartDashboard.putNumber("ball ultra volt", m_ballDistanceSensor.getUltraVoltage());
+    // SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
+    // SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
     SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
     SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
     SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
     SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
+
+    SmartDashboard.putBoolean("Ball lmit switch", m_ballXtake.getBallOccupancy());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
+    /*
+    
+    */
 
     // SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
     // SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
@@ -113,9 +118,9 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     // SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
     
-    SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
-    SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
-    SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
+    // SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
+    // SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
+    // SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
     SmartDashboard.putBoolean("Compressor on", m_Compressorsorus.isOn());
     }
