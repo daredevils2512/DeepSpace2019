@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 
-public class DriveDistance extends Command {
+public class DriveDistance extends Command { //TODO untested
 
     private double m_speed;
     private double m_tolerance;
