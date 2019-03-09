@@ -97,6 +97,10 @@ public class Lift extends Subsystem {
     // double distance = Math.abs(diffrence);
     // double sign = Math.signum(diffrence);
 
+    // if the distance from the runTo to the current height
+    // is more than the ramping start it goes at full
+    // if isn't it will ramp down
+    // it is the same for going down just opposite
     if (diffrence > tolerance) {
       liftSpeed = Math.min(1.0, (diffrence / rampStart));
     } else if (diffrence < -tolerance) {
