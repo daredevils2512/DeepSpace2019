@@ -66,7 +66,11 @@ public class Lift extends Subsystem {
   } 
 
   public boolean getLimitSwitchBottom() {
-    return limitSwitchBottom.get();
+    boolean pressed = limitSwitchBottom.get();
+    if (pressed) {
+      this.resetLiftEncoder();
+    }
+    return pressed;
   }
 
   public boolean getLimitSwitchTop() {

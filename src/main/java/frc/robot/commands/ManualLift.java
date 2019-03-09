@@ -59,7 +59,6 @@ public class ManualLift extends LiftCommand {
           Robot.m_lift.setSpeed(control);
         }
       } else {
-        Robot.m_lift.resetLiftEncoder();
         Robot.m_lift.setSpeed(0.0);
       }
     } else {
