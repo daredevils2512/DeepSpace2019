@@ -116,6 +116,9 @@ public class OI {
     // topRed.whenPressed(new FlowerSlideControl());
 
     liftSwitch.whenActive(new ResetLiftEncoder());
+
+    // Add in disable until ball is extaked. then reset trigger
+    // cargoSwitch.whenActive(new CMG_LiftCargo());
     
     // topRight.whenPressed(new FlowerControl());
 
