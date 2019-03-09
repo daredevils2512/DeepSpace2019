@@ -33,7 +33,9 @@ public class Lift extends Subsystem {
   private static final int magEncPulsesPerRev = 4096;
   private static final double inchesPerRev = (4 + (3/4)) + (5 + (3/8)); // This will change
   // public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev;
-  public static double liftEncoderPulseToInches = 0.00244125; 
+  public static double liftEncoderPulseToInches = 0.00244125;
+
+  public double maxDownSpeed = -0.1;
 
   public Lift() {  
 
@@ -91,6 +93,6 @@ public class Lift extends Subsystem {
     
   }
 
-  
+
   
 }
