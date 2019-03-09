@@ -8,11 +8,12 @@ import frc.robot.subsystems.Drivetrain;
 public class DriveDistance extends Command {
 
     private double m_speed;
+    private double m_tolerance;
     private double m_dist;
     private double targetDistL;
 
-    public DriveDistance(double speed, double dist) {
-        m_speed = speed;
+    public DriveDistance(double tolerance, double dist) {
+        m_tolerance = tolerance;
         m_dist = dist;
         requires(Robot.m_Drivetrain);
     }
@@ -25,14 +26,20 @@ public class DriveDistance extends Command {
     @Override
     protected void execute() {
         if (m_dist >= 0) {
-            if (Robot.m_Drivetrain.getLeftEncoderDistance() <= targetDistL) {
+            if (Robot.m_Drivetrain.getLeftEncoderDistance() <= targetDistL - m_tolerance) {
+
+                m_speed = Math.min(1, m_dist / 24);
+
                 Robot.m_Drivetrain.arcadeDrive(m_speed, 0.0);
             } else {
                 Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
             }
         } else {
-            if (Robot.m_Drivetrain.getLeftEncoderDistance() >= targetDistL) {
-                Robot.m_Drivetrain.arcadeDrive(-m_speed, 0.0);
+            if (Robot.m_Drivetrain.getLeftEncoderDistance() >= targetDistL + m_tolerance) {
+
+                m_speed = Math.max(-1, m_dist / 24);
+
+                Robot.m_Drivetrain.arcadeDrive(m_speed, 0.0);
             } else {
                 Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
             }
@@ -42,6 +49,12 @@ public class DriveDistance extends Command {
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return (Robot.m_Drivetrain.getLeftEncoderDistance() >= targetDistL + m_tolerance &&
+        Robot.m_Drivetrain.getLeftEncoderDistance() <= targetDistL - m_tolerance);
+    }
+
+    @Override
+    protected void end() {
+        Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
     }
 }
