@@ -72,14 +72,18 @@ public class Drivetrain extends Subsystem {
 
     leftSpark.setIdleMode(IdleMode.kCoast);
     rightSpark.setIdleMode(IdleMode.kCoast);
-    // leftRearSpark.setIdleMode(IdleMode.kCoast);
-    // rightRearSpark.setIdleMode(IdleMode.kCoast);
+    leftRearSpark.setIdleMode(IdleMode.kCoast);
+    rightRearSpark.setIdleMode(IdleMode.kCoast);
 
-    leftSpark.setOpenLoopRampRate(0.5);
-    rightSpark.setOpenLoopRampRate(0.5);
+    leftSpark.setOpenLoopRampRate(0.25);
+    rightSpark.setOpenLoopRampRate(0.25);
+    leftRearSpark.setOpenLoopRampRate(0.25);
+    rightRearSpark.setOpenLoopRampRate(0.25);
 
     leftSpark.setSmartCurrentLimit(65, 10);
     rightSpark.setSmartCurrentLimit(65, 10);
+    leftRearSpark.setSmartCurrentLimit(65, 10);
+    rightRearSpark.setSmartCurrentLimit(65, 10);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
@@ -219,14 +223,14 @@ public class Drivetrain extends Subsystem {
     SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
     SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
 
-    SmartDashboard.putNumber("D1 Out Current", leftSpark.getOutputCurrent());
-    SmartDashboard.putNumber("D2 Out Current", leftRearSpark.getOutputCurrent());
-    SmartDashboard.putNumber("D3 Out Current", rightSpark.getOutputCurrent());
-    SmartDashboard.putNumber("D4 Out Current", rightRearSpark.getOutputCurrent());
+    // SmartDashboard.putNumber("D1 Out Current", leftSpark.getOutputCurrent());
+    // SmartDashboard.putNumber("D2 Out Current", leftRearSpark.getOutputCurrent());
+    // SmartDashboard.putNumber("D3 Out Current", rightSpark.getOutputCurrent());
+    // SmartDashboard.putNumber("D4 Out Current", rightRearSpark.getOutputCurrent());
 
-    SmartDashboard.putNumber("D1 Set Speed", leftSpark.get());
-    SmartDashboard.putNumber("D2 Set Speed", leftRearSpark.get());
-    SmartDashboard.putNumber("D3 Set Speed", rightSpark.get());
-    SmartDashboard.putNumber("D4 Set Speed", rightRearSpark.get());
+    // SmartDashboard.putNumber("D1 Set Speed", leftSpark.get());
+    // SmartDashboard.putNumber("D2 Set Speed", leftRearSpark.get());
+    // SmartDashboard.putNumber("D3 Set Speed", rightSpark.get());
+    // SmartDashboard.putNumber("D4 Set Speed", rightRearSpark.get());
   }
 }

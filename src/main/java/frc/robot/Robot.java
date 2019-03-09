@@ -75,8 +75,6 @@ public class Robot extends TimedRobot {
 
     m_PDP = new PowerDistributionPanel();
     m_PDPBuilder = new SendableBuilderImpl();
-
-    m_PDP.initSendable(m_PDPBuilder);
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -117,6 +115,12 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Ball lmit switch", m_ballXtake.getBallOccupancy());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
+    SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
+    SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
+    SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
+    SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
+
     /*
     x
     */

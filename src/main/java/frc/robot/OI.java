@@ -82,7 +82,7 @@ public class OI {
 
 
     topLeft.whileHeld(new RunBallXtake(1.0, true)); //out
-    bottomLeft.whileHeld(new RunBallXtake(-1.0, true)); //in
+    bottomLeft.whileHeld(new RunBallXtake(-0.75, true)); //in
     topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
     bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
@@ -96,8 +96,6 @@ public class OI {
     // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
-    midWhite.whileHeld(new CargoRunIntake(1.0, 1.0, true));
-    midRed.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
 

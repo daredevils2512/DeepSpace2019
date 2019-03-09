@@ -53,7 +53,11 @@ public class ManualLift extends LiftCommand {
       }
     } else if (control < 0.0) {
       if (!Robot.m_lift.getLimitSwitchBottom()) {
-        Robot.m_lift.setSpeed(control);
+        if (control < -0.1) {
+          Robot.m_lift.setSpeed(-0.1);
+        } else {
+          Robot.m_lift.setSpeed(control);
+        }
       } else {
         Robot.m_lift.resetLiftEncoder();
         Robot.m_lift.setSpeed(0.0);
