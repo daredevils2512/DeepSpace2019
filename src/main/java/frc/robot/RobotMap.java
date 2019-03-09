@@ -79,8 +79,8 @@ public class RobotMap {
   public static int flowerSlideForwardChannel = 6;
   public static int flowerSlideReverseChannel = 7;
 
-  public static Value flowerUpPos = Value.kForward;
-  public static Value flowerDownPos = Value.kReverse;
+  public static Value flowerOutPos = Value.kForward;
+  public static Value flowerInPos = Value.kReverse;
   public static Value flowerOpenPos = Value.kForward;
   public static Value flowerClosedPos = Value.kReverse;
 

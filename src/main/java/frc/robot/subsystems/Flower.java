@@ -10,39 +10,63 @@ public class Flower extends Subsystem {
     private DoubleSolenoid flowerSolenoid;
     private DoubleSolenoid flowerSlide;
 
-    private DoubleSolenoid.Value position = Value.kForward;
-
     public Flower() {
 
         this.flowerSolenoid = new DoubleSolenoid(RobotMap.flowerSolenoidForwardChannel, RobotMap.flowerSolenoidReverseChannel);
         this.flowerSlide = new DoubleSolenoid(RobotMap.flowerSlideForwardChannel, RobotMap.flowerSlideReverseChannel);
-
-        this.flowerSlide.set(RobotMap.flowerUpPos);
     }
-
-
 
     @Override
     public void initDefaultCommand() {
 
     }
 
-    public void toggleFlower() {
-        if (position == Value.kForward) {
-            position = Value.kReverse;
-        } else {
-            position = Value.kForward;
-        }
-        flowerSolenoid.set(position);
+    private void openFlower(Value dir) {
+        this.flowerSolenoid.set(dir);
     }
 
-    public void toggleFlowerSlide() {
-        if (position == Value.kForward) {
-            position = Value.kReverse;
+    public Value getOpeningPos() {
+        return this.flowerSolenoid.get();
+    }
+
+    public void open() {
+        this.openFlower(RobotMap.flowerOpenPos);
+    }
+
+    public void close() {
+        this.openFlower(RobotMap.flowerClosedPos);
+    }
+
+    public void toggleFlower() {
+        if (this.getOpeningPos().equals(RobotMap.flowerClosedPos)) {
+            this.open();
         } else {
-            position = Value.kForward;
+            this.close();
         }
-        flowerSlide.set(position);
+    }
+
+    private void slideFlower(Value dir) {
+        this.flowerSlide.set(dir);
+    }
+
+    public Value getSlidePos() {
+        return this.flowerSlide.get();
+    }
+
+    public void slideOut() {
+        this.slideFlower(RobotMap.flowerOutPos);
+    }
+
+    public void slideIn() {
+        this.slideFlower(RobotMap.flowerInPos);
+    }
+
+    public void toggleSlide() {
+        if (this.getSlidePos().equals(RobotMap.flowerInPos)) {
+            this.slideOut();
+        } else {
+            this.slideIn();
+        }
     }
 
 }
