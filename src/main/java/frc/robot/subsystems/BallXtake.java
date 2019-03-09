@@ -12,7 +12,7 @@ public class BallXtake extends Subsystem {
     private WPI_TalonSRX ballXtake1;
     private WPI_TalonSRX ballXtake2;
 
-    private DigitalInput ballOccupancy;
+    private static DigitalInput ballOccupancy;
 
     public BallXtake() {
         ballXtake1 = new WPI_TalonSRX(RobotMap.ballXtake1ID);
@@ -33,8 +33,12 @@ public class BallXtake extends Subsystem {
         ballXtake2.set(XtakeSpeed);
     }
 
-    public boolean getBallOccupancy() {
+    public static boolean getBallOccupancy() {
         return ballOccupancy.get();
+    }
+
+    public static DigitalInput getBallOccupancySwitch() {
+        return ballOccupancy;
     }
 
 }
