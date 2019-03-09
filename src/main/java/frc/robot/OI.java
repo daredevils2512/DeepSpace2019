@@ -21,6 +21,7 @@ import frc.robot.commands.*;
 import frc.robot.constants.Constants.*;
 import frc.robot.Robot;
 import frc.robot.subsystems.BallXtake;
+import frc.robot.subsystems.Lift;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -77,6 +78,7 @@ public class OI {
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
+  Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
 
   public OI() {
 
@@ -113,6 +115,7 @@ public class OI {
     // topRed.whenPressed(new FlowerSlideControl());
 
     cargoSwitch.whenActive(new CMG_LiftCargo());
+    liftSwitch.whenActive(new ResetLiftEncoder());
     
     // topRight.whenPressed(new FlowerControl());
 

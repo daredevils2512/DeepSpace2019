@@ -71,6 +71,8 @@ public class Robot extends TimedRobot {
     m_cargoIntake = new CargoIntake();
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
+
+    // ALWAYS LAST
     m_oi = new OI();
 
     m_PDP = new PowerDistributionPanel();

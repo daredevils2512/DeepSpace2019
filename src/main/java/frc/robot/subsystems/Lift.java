@@ -66,12 +66,12 @@ public class Lift extends Subsystem {
     return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToInches); // this might seem like a random number but it is needed (I will find out math)
   } 
 
+  public static DigitalInput getLimitSwitch() {
+    return limitSwitchBottom;
+  }
+
   public boolean getLimitSwitchBottom() {
-    boolean pressed = limitSwitchBottom.get();
-    if (pressed) {
-      this.resetLiftEncoder();
-    }
-    return pressed;
+    return limitSwitchBottom.get();
   }
 
   public boolean getLimitSwitchTop() {
