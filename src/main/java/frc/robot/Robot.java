@@ -7,14 +7,20 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.subsystems.*;
 import frc.robot.vision.Utils;
+import frc.robot.commands.FullAlignment;
+import frc.robot.constants.Constants;
+import frc.robot.constants.Constants.DistanceSensorSide;
 import frc.robot.lib.DistanceSensor;
 
 // import com.kauailabs.navx.frc.AHRS;
@@ -35,6 +41,9 @@ import org.opencv.core.*;
 public class Robot extends TimedRobot {
 
   public static int teamNumber = 2512;
+
+  PowerDistributionPanel pdp = new PowerDistributionPanel();
+  SendableBuilder pdpBuilder = new SendableBuilderImpl();
 
   // public static GripWhiteLine m_grippipeline = new GripWhiteLine();
   public static LineFind m_LineFind;
@@ -77,6 +86,7 @@ public class Robot extends TimedRobot {
   public static DistanceSensor m_ballDistanceSensor, m_hatchDistanceSensor;
 
   Command m_autonomousCommand;
+  public static SendableChooser<Command> alignChooser = new SendableChooser<Command>();
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /**
@@ -116,6 +126,38 @@ public class Robot extends TimedRobot {
     m_oi = new OI();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
+
+    alignChooser.setDefaultOption("Forward",
+      new FullAlignment(5.0, 3,
+        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
+        0.6, 0, 5, DistanceSensorSide.BALL));
+    alignChooser.addOption("Right",
+      new FullAlignment(5.0, 3,
+        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
+        0.6, 90, 5, DistanceSensorSide.BALL));
+    alignChooser.addOption("Right Forward",
+      new FullAlignment(5.0, 3,
+        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
+        0.6, 60, 5, DistanceSensorSide.BALL));
+    alignChooser.addOption("Right Back",
+      new FullAlignment(5.0, 3,
+        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
+        0.6, 120, 5, DistanceSensorSide.BALL));
+    alignChooser.addOption("Left",
+      new FullAlignment(5.0, 3,
+        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
+        0.6, -90, 5, DistanceSensorSide.BALL));
+    alignChooser.addOption("Left Forward",
+      new FullAlignment(5.0, 3,
+        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
+        0.6, -60, 5, DistanceSensorSide.BALL));
+    alignChooser.addOption("Left Back",
+      new FullAlignment(5.0, 3,
+        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
+        0.6, -120, 5, DistanceSensorSide.BALL));
+
+    pdp.initSendable(pdpBuilder);
+
     SmartDashboard.putData("Auto mode", m_chooser);
 
   }
@@ -199,8 +241,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
     SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
     SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
-
-  
     
     SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
     SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
@@ -208,6 +248,9 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
     SmartDashboard.putBoolean("Extake Swqitch", m_ballXtake.getBallOccupancy());
+
+    SmartDashboard.putData("Alignment Control", alignChooser);
+
     
     } catch (Exception e) {
       e.printStackTrace();

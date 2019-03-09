@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 import frc.robot.TriggerButton;
@@ -40,7 +41,7 @@ public class OI {
   Button leftBumper = new JoystickButton(driver, 5);
   Button rightBumper = new JoystickButton(driver, 6);
   Button select = new JoystickButton(driver, 7);
-  Button start = new JoystickButton(driver, 8);
+  Button start = new JoystickButton(driver, 8); //
   Button leftStick = new JoystickButton(driver, 9);
   Button rightStick = new JoystickButton(driver, 10);
   TriggerButton leftTrigger = new TriggerButton(driver, 2);
@@ -96,9 +97,11 @@ public class OI {
     topRed.whileHeld(new RunBallXtake(-1.0, true));
     midWhite.whileHeld(new CargoRunIntake(0.5, 0.5, true));
     midRed.whileHeld(new CargoRunIntake(-0.5, -0.5, true));
-    
+
     greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
     yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+
+    start.whenPressed(Robot.alignChooser.getSelected());
     
     // topRight.whenPressed(new FlowerControl());
 
