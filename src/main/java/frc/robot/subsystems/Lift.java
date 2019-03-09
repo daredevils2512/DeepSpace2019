@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
  
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -85,29 +86,35 @@ public class Lift extends Subsystem {
     liftTalon1.set(speed);
   }
 
-  public void runTo(double runTo) {
+  public boolean runTo(double runTo) {
 
     double liftSpeed = 0;
     double diffrence = runTo - this.getLiftHeight();
     double distance = Math.abs(diffrence);
     double sign = Math.signum(diffrence);
 
+    System.out.println("Lift speed:: " + liftSpeed);
+    System.out.println("difference:: " + diffrence);
+    System.out.println("distance:: " + distance);
+    System.out.println("sign:: " + sign);
     if (distance > 75) {
       liftSpeed = sign * 1;
 
-    } else if (distance > 50) {
+    } else if (distance > 0) {
       liftSpeed = sign * 0.5;
 
-    } else if (distance > 25) {
-      liftSpeed = sign * 0.25;
+    // } else if (distance > 25) {
+    //   liftSpeed = sign * 0.25;
 
-    } else if (distance > 0) {
-      liftSpeed = sign * 0.15;
+    // } else if (distance > 0) {
+    //   liftSpeed = sign * 0.15;
       
     } else {
       liftSpeed = 0;
     }
     setSpeed(liftSpeed);
+    System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + runTo);
+    return (this.getLiftHeight() >= (runTo - (runTo * 0.15)) && this.getLiftHeight() <= (runTo + (runTo * 0.15)));
   }
 
 

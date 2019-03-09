@@ -40,6 +40,9 @@ public class CargoIntake extends Subsystem {
   }
 
   public void runIntake(double infinitySpeed, double inSpeed) {
+    if (this.upDown.get().equals(RobotMap.cargoUpPos)) {
+      this.foldDown();
+    }
     this.infinityMotor.set(infinitySpeed);
     this.inMotor.set(inSpeed);
   }

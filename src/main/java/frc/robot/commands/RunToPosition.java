@@ -7,6 +7,7 @@ import frc.robot.constants.Constants.LiftPosition;
 
 public class RunToPosition extends Command {
     private Constants.LiftPosition position;
+    private boolean finished;
     public RunToPosition(Constants.LiftPosition value) {
         requires(Robot.m_lift);
         this.position = value;
@@ -53,13 +54,14 @@ public class RunToPosition extends Command {
                 height = 0;
                 break;
         }
-        Robot.m_lift.runTo(height);
+        System.out.println("Height: " + height);
+        this.finished = Robot.m_lift.runTo(height);
 
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return (this.finished);
     }
 
     @Override
