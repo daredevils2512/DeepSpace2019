@@ -86,36 +86,35 @@ public class Lift extends Subsystem {
     liftTalon1.set(speed);
   }
 
-  public boolean runTo(double runTo) {
+  private double m_runTo;
+  public void runTo(double runTo) {
+    m_runTo = runTo;
 
-    double liftSpeed = 0;
+    double liftSpeed;
     double diffrence = runTo - this.getLiftHeight();
-    double distance = Math.abs(diffrence);
-    double sign = Math.signum(diffrence);
+    double tolerance = 4;
+    double rampStart = 12;
+    // double distance = Math.abs(diffrence);
+    // double sign = Math.signum(diffrence);
 
-    System.out.println("Lift speed:: " + liftSpeed);
-    System.out.println("difference:: " + diffrence);
-    System.out.println("distance:: " + distance);
-    System.out.println("sign:: " + sign);
-    if (distance > 75) {
-      liftSpeed = sign * 1;
-
-    } else if (distance > 0) {
-      liftSpeed = sign * 0.5;
-
-    // } else if (distance > 25) {
-    //   liftSpeed = sign * 0.25;
-
-    // } else if (distance > 0) {
-    //   liftSpeed = sign * 0.15;
-      
+    if (diffrence > tolerance) {
+      liftSpeed = Math.min(1.0, (diffrence / rampStart));
+    } else if (diffrence < -tolerance) {
+      liftSpeed = Math.max(-1.0, (diffrence / rampStart));
     } else {
       liftSpeed = 0;
     }
     setSpeed(liftSpeed);
-    System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + runTo);
-    return (this.getLiftHeight() >= (runTo - (runTo * 0.15)) 
-    && this.getLiftHeight() <= (runTo + (runTo * 0.15)));
+  }
+
+  public boolean isFinishedRunTo() {
+    System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + m_runTo);
+    // 0.15 is percent allowed error of distance
+    // needs to change based off the height
+    // higher the height, lower the percent
+    return (this.getLiftHeight() >= (m_runTo - (m_runTo * 0.15)) 
+    && this.getLiftHeight() <= (m_runTo + (m_runTo * 0.15)));
+
   }
 
 
