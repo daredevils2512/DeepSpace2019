@@ -8,12 +8,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
 import frc.robot.constants.Constants.DistanceSensorSide;
+import frc.robot.Robot;
+import frc.robot.subsystems.BallXtake;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -69,6 +76,8 @@ public class OI {
   Button yellowBoi = new JoystickButton(buttonBox, 15);
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
+  Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
+
   public OI() {
 
     rightTrigger.whileHeld(new ShiftDown());
@@ -101,6 +110,9 @@ public class OI {
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
+
+    cargoSwitch.whenActive(new CMG_IntakeBall());
+    
     // topRight.whenPressed(new FlowerControl());
 
     bottomRed.whenPressed(new RunToBottom());
