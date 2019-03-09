@@ -20,17 +20,14 @@ public class RunToPosition extends Command {
     protected void execute() {
         // the values will need to be changed
         /* heights on rocket:
-
         front :
         2 3
         4 7
         6 11
-
         sides :
         1 7
         3 11
         6 3
-
         */
         int height = 0;
         switch (this.position) {
