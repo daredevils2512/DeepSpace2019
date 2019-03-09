@@ -18,7 +18,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
-import frc.robot.constants.Constants.DistanceSensorSide;
+import frc.robot.constants.Constants.*;
 import frc.robot.Robot;
 import frc.robot.subsystems.BallXtake;
 
@@ -84,7 +84,7 @@ public class OI {
     rightTrigger.whenReleased(new ShiftUp());
     // leftTrigger.whenPressed(new InvertDriving());
     yButton.whenPressed(new CargoFoldUp());
-    aButton.whenPressed(new CargoFoldDown());
+    aButton.whenPressed(new RunToBottom());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
     bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
     start.whenPressed(new DriveToWall(10, DistanceSensorSide.BALL)); // I dont know what people want the dist to be
@@ -97,12 +97,13 @@ public class OI {
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
 
 
-    // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
-    // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
-    // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
-    // midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
-    // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
-    // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
+    bottomRed.whenPressed(new RunToPosition(LiftPosition.CARGOBOTTOM));
+    bottomWhite.whenPressed(new RunToPosition(LiftPosition.HATCHBOTTOM));
+    midRed.whenPressed(new RunToPosition(LiftPosition.CARGOMIDDLE));
+    midWhite.whenPressed(new RunToPosition(LiftPosition.HATCHMIDDLE));
+    topRed.whenPressed(new RunToPosition(LiftPosition.CARGOTOP));
+    topWhite.whenPressed(new RunToPosition(LiftPosition.HATCHTOP));
+
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
     greenBoi.whenPressed(new CargoFoldUp());
@@ -115,7 +116,7 @@ public class OI {
     
     // topRight.whenPressed(new FlowerControl());
 
-    bottomRed.whenPressed(new RunToBottom());
+    // bottomRed.whenPressed(new RunToBottom());
   }
 
   public double desensitize(double val) {

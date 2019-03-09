@@ -114,7 +114,8 @@ public class Lift extends Subsystem {
     }
     setSpeed(liftSpeed);
     System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + runTo);
-    return (this.getLiftHeight() >= (runTo - (runTo * 0.15)) && this.getLiftHeight() <= (runTo + (runTo * 0.15)));
+    return (this.getLiftHeight() >= (runTo - (runTo * 0.15)) 
+    && this.getLiftHeight() <= (runTo + (runTo * 0.15)));
   }
 
 
