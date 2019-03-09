@@ -86,6 +86,24 @@ public class Lift extends Subsystem {
     liftTalon1.set(speed);
   }
 
+  /** 
+  *       @param tolerance  the room for error
+  *
+  *       @param distDiffrence the distance between the robot and the point you are going to
+  *
+  *       @param rampStartDist the distance from where it will start to deccelerate
+  */
+
+  public static double ramp(double tolerance, double distDiffrence, double rampStartDist) {
+    if (distDiffrence > tolerance) {
+      return Math.min(1.0, (distDiffrence / rampStartDist));
+    } else if (distDiffrence < -tolerance) {
+      return Math.max(-1.0, (distDiffrence / rampStartDist));
+    } else {
+      return 0;
+    }
+  }
+
   private double m_runTo;
   public void runTo(double runTo) {
     m_runTo = runTo;
@@ -101,15 +119,17 @@ public class Lift extends Subsystem {
     // is more than the ramping start it goes at full
     // if isn't it will ramp down
     // it is the same for going down just opposite
-    if (diffrence > tolerance) {
-      liftSpeed = Math.min(1.0, (diffrence / rampStart));
-    } else if (diffrence < -tolerance) {
-      liftSpeed = Math.max(-1.0, (diffrence / rampStart));
-    } else {
-      liftSpeed = 0;
-    }
-    setSpeed(liftSpeed);
+    setSpeed(ramp(4, diffrence, 12));
+    // if (diffrence > tolerance) {
+    //   liftSpeed = Math.min(1.0, (diffrence / rampStart));
+    // } else if (diffrence < -tolerance) {
+    //   liftSpeed = Math.max(-1.0, (diffrence / rampStart));
+    // } else {
+    //   liftSpeed = 0;
+    // }
+    
   }
+
 
   public boolean isFinishedRunTo() {
     System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + m_runTo);
