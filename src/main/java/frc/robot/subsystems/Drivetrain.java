@@ -75,10 +75,10 @@ public class Drivetrain extends Subsystem {
     leftRearSpark.setIdleMode(IdleMode.kCoast);
     rightRearSpark.setIdleMode(IdleMode.kCoast);
 
-    leftSpark.setOpenLoopRampRate(0.25);
-    rightSpark.setOpenLoopRampRate(0.25);
-    leftRearSpark.setOpenLoopRampRate(0.25);
-    rightRearSpark.setOpenLoopRampRate(0.25);
+    // leftSpark.setOpenLoopRampRate(0.25);
+    // rightSpark.setOpenLoopRampRate(0.25);
+    // leftRearSpark.setOpenLoopRampRate(0.25);
+    // rightRearSpark.setOpenLoopRampRate(0.25);
 
     leftSpark.setSmartCurrentLimit(65, 10);
     rightSpark.setSmartCurrentLimit(65, 10);
