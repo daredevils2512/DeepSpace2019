@@ -99,9 +99,11 @@ public class OI {
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
 
-    topWhite.whenPressed(new FlowerControl());
-    topRed.whenPressed(new FlowerSlideControl());
+    // topWhite.whenPressed(new FlowerControl());
+    // topRed.whenPressed(new FlowerSlideControl());
     // topRight.whenPressed(new FlowerControl());
+
+    bottomRed.whenPressed(new RunToBottom());
   }
 
   public double desensitize(double val) {

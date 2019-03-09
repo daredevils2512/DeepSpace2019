@@ -53,8 +53,8 @@ public class ManualLift extends LiftCommand {
       }
     } else if (control < 0.0) {
       if (!Robot.m_lift.getLimitSwitchBottom()) {
-        if (control < -0.1) {
-          Robot.m_lift.setSpeed(-0.1);
+        if (control < Robot.m_lift.maxDownSpeed) {
+          Robot.m_lift.setSpeed(Robot.m_lift.maxDownSpeed);
         } else {
           Robot.m_lift.setSpeed(control);
         }
