@@ -36,7 +36,7 @@ public class Lift extends Subsystem {
   // public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev;
   public static double liftEncoderPulseToInches = 0.00244125;
 
-  public double maxDownSpeed = -0.1;
+  public double maxDownSpeed = -0.4;
 
   public Lift() {  
 
@@ -108,12 +108,14 @@ public class Lift extends Subsystem {
   }
 
   public boolean isFinishedRunTo() {
-    System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + m_runTo);
+    // System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + m_runTo);
     // 0.15 is percent allowed error of distance
     // needs to change based off the height
     // higher the height, lower the percent
-    return (this.getLiftHeight() >= (m_runTo - (m_runTo * 0.15)) 
-    && this.getLiftHeight() <= (m_runTo + (m_runTo * 0.15)));
+
+    // 10 in window centered on the desired height
+    return (this.getLiftHeight() >= (m_runTo - (5)) 
+    && this.getLiftHeight() <= (m_runTo + (5)));
 
   }
 

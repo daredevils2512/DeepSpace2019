@@ -108,13 +108,13 @@ public class OI {
 
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
+
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
 
-    cargoSwitch.whenActive(new CMG_LiftCargo());
     liftSwitch.whenActive(new ResetLiftEncoder());
     
     // topRight.whenPressed(new FlowerControl());

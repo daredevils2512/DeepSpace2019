@@ -54,7 +54,7 @@ public class RunToPosition extends Command {
                 height = 0;
                 break;
         }
-        System.out.println("Height: " + height);
+        // System.out.println("Height: " + height);
         Robot.m_lift.runTo(height);
         this.finished = Robot.m_lift.isFinishedRunTo();
 
