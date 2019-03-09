@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -44,6 +45,22 @@ public class CargoIntake extends Subsystem {
   }
 
   public void foldIntake(DoubleSolenoid.Value dir) {
+    Timer t = new Timer();
+    t.start();
     this.upDown.set(dir);
+    t.stop();
+    System.out.println("FoldIntake took: "+t.get());
+  }
+
+  public void foldUp() {
+    this.foldIntake(RobotMap.cargoUpPos);
+  }
+
+  public void foldDown() {
+    this.foldIntake(RobotMap.cargoDownPos);
+  }
+
+  public DoubleSolenoid.Value getCurrentPos() {
+    return this.upDown.get();
   }
 }
