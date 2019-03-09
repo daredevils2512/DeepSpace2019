@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
-  SendableChooser driveToWallChooser;
+  public static SendableChooser<Integer> driveToWallChooser;
 
   //public static ColorSensor ballCs, hatchCs;
   //public static UltrasonicSensor ballUltra, hatchUltra;
@@ -68,7 +68,11 @@ public class Robot extends TimedRobot {
     m_flower = new Flower();
     m_oi = new OI();
 
-    driveToWallChooser = new SendableChooser<>();
+    driveToWallChooser = new SendableChooser<Integer>();
+    driveToWallChooser.addOption("6", 6);
+    driveToWallChooser.setDefaultOption("12", 12);
+    driveToWallChooser.addOption("24", 24);
+    driveToWallChooser.addOption("36", 36);
     SmartDashboard.putData("driveToWall", driveToWallChooser);
 
   }

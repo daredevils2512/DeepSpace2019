@@ -91,7 +91,7 @@ public class OI {
     topLeft.whileHeld(new RunBallXtake(-1.0));
     topRight.whileHeld(new RunBallXtake(1.0));
 
-    start.whenPressed(new DriveToWall(SmartDashboard.getNumber("DriveToWall", 12))); // I dont know what people want the dist to be
+    start.whenPressed(new DriveToWall());
     // topRight.whenPressed(new FlowerControl());
 
   }

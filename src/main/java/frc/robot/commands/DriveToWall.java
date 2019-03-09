@@ -7,9 +7,13 @@ public class DriveToWall extends Command {
 
     private double m_distance;
 
-    public DriveToWall(double distance) {
+    public DriveToWall() {
         requires(Robot.m_Drivetrain);
-        m_distance = distance;
+    }
+
+    @Override
+    protected void initialize() {
+        m_distance = Robot.driveToWallChooser.getSelected();
     }
 
     @Override
