@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
+import frc.robot.commands.CMG_LiftCargo;
 import frc.robot.lib.DistanceSensor;
 
 /**

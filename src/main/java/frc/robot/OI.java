@@ -120,6 +120,8 @@ public class OI {
     // Add in disable until ball is extaked. then reset trigger
     // cargoSwitch.whenActive(new CMG_LiftCargo());
     
+    cargoSwitch.whenActive(new CMG_IntakeBall());
+    
     // topRight.whenPressed(new FlowerControl());
 
     // bottomRed.whenPressed(new RunToBottom());
