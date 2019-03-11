@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
+import frc.robot.commands.CMG_LiftCargo;
 import frc.robot.lib.DistanceSensor;
 
 /**
@@ -39,6 +40,8 @@ public class Robot extends TimedRobot {
 
   public static PowerDistributionPanel m_PDP;
   public static SendableBuilder m_PDPBuilder;
+
+  public static boolean ballIn;
 
   //public static ColorSensor ballCs, hatchCs;
   //public static UltrasonicSensor ballUltra, hatchUltra;
@@ -78,6 +81,7 @@ public class Robot extends TimedRobot {
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    ballIn = false;
 
   }
 

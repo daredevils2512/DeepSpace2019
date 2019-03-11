@@ -110,8 +110,8 @@ public class OI {
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
-
-    cargoSwitch.whenActive(new CMG_IntakeBall());
+    
+    cargoSwitch.whileActive(new CMG_IntakeBall());
     
     // topRight.whenPressed(new FlowerControl());
 

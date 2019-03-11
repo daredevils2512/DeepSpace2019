@@ -8,13 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.RobotMap;
+import frc.robot.Robot;
 
 public class CMG_IntakeBall extends CommandGroup {
   /**
    * Add your docs here.
    */
   public CMG_IntakeBall() {
+
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -31,8 +32,11 @@ public class CMG_IntakeBall extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    addSequential(new CargoFoldDown());
-    addParallel(new CargoRunIntake(-0.5, -0.5, false));
-    addSequential(new RunBallXtake(-1.0, false));
+    if (!Robot.ballIn) {
+      addSequential(new CargoFoldDown());
+      addParallel(new CargoRunIntake(-0.5, -0.5, false));
+      addSequential(new RunBallXtake(-1.0, false));
+      Robot.ballIn = true;
+    }
   }
 }
