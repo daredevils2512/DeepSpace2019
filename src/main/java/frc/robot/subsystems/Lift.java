@@ -37,6 +37,7 @@ public class Lift extends Subsystem {
   public static double liftEncoderPulseToInches = 0.00244125;
 
   public double maxDownSpeed = -0.4;
+  private double tolerance = 4;
 
   public Lift() {  
 
@@ -115,7 +116,6 @@ public class Lift extends Subsystem {
 
     double defaultLiftSpeed = 1;
     double difference = runTo - this.getLiftHeight();
-    double tolerance = 4;
     double rampStart = 12;
 
     // if the distance from the runTo to the current height
@@ -130,10 +130,10 @@ public class Lift extends Subsystem {
   public boolean isFinishedRunTo() {
     // needs to change based off the height
     // higher the height, lower the percent
-
+    
     // 10 in window centered on the desired height
-    return (this.getLiftHeight() >= (m_runTo - (5)) 
-    && this.getLiftHeight() <= (m_runTo + (5)));
+    return (this.getLiftHeight() >= (m_runTo - (tolerance)) 
+    && this.getLiftHeight() <= (m_runTo + (tolerance)));
 
   }
 
