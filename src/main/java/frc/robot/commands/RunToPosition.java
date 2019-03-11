@@ -7,6 +7,7 @@ import frc.robot.constants.Constants.LiftPosition;
 
 public class RunToPosition extends Command {
     private Constants.LiftPosition position;
+    private boolean finished;
     public RunToPosition(Constants.LiftPosition value) {
         requires(Robot.m_lift);
         this.position = value;
@@ -29,37 +30,41 @@ public class RunToPosition extends Command {
         3 11
         6 3
         */
+        
         int height = 0;
         switch (this.position) {
             case CARGOBOTTOM:
-                height = 27;
+                height = 20;
                 break;
             case CARGOMIDDLE:
-                height = 55;
-                break;
-            case CARGOTOP:
-                height = 83;
-                break;
-            case HATCHBOTTOM:
-                height = 19;
-                break;
-            case HATCHMIDDLE:
                 height = 47;
                 break;
-            case HATCHTOP:
+            case CARGOTOP:
                 height = 75;
+                break;
+            case HATCHBOTTOM:
+                height = 12;
+                break;
+            case HATCHMIDDLE:
+                height = 40;
+                break;
+            case HATCHTOP:
+                height = 68;
                 break;
             default:
                 height = 0;
                 break;
         }
+        // System.out.println("Height: " + height);
         Robot.m_lift.runTo(height);
+
+        this.finished = Robot.m_lift.isFinishedRunTo();
 
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return (this.finished);
     }
 
     @Override

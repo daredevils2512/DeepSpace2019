@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
+import frc.robot.commands.CMG_LiftCargo;
 import frc.robot.lib.DistanceSensor;
 
 /**
@@ -71,6 +72,8 @@ public class Robot extends TimedRobot {
     m_cargoIntake = new CargoIntake();
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
+
+    // ALWAYS LAST
     m_oi = new OI();
 
     m_PDP = new PowerDistributionPanel();
@@ -94,7 +97,7 @@ public class Robot extends TimedRobot {
 
     Timer t = new Timer();
     t.start();
-    m_Drivetrain.updateDashboard();
+    // m_Drivetrain.updateDashboard();
     // m_hatchDistanceSensor.update();
     // m_ballDistanceSensor.update();
 
@@ -116,10 +119,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Ball lmit switch", m_ballXtake.getBallOccupancy());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
-    SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
-    SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
-    SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
-    SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
+    // SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
+    // SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
+    // SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
+    // SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
 
     /*
     x
@@ -225,4 +228,5 @@ public class Robot extends TimedRobot {
       System.out.println("teleopPerodic (scheduler.run took) "+t.get());
     }
   }
+  
 }
