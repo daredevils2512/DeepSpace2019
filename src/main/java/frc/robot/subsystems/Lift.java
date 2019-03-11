@@ -113,32 +113,21 @@ public class Lift extends Subsystem {
   public void runTo(double runTo) {
     m_runTo = runTo;
 
-    double liftSpeed;
-    double diffrence = runTo - this.getLiftHeight();
+    double defaultLiftSpeed = 1;
+    double difference = runTo - this.getLiftHeight();
     double tolerance = 4;
     double rampStart = 12;
-    // double distance = Math.abs(diffrence);
-    // double sign = Math.signum(diffrence);
 
     // if the distance from the runTo to the current height
     // is more than the ramping start it goes at full
     // if isn't it will ramp down
     // it is the same for going down just opposite
-    setSpeed(speedRamp(4, diffrence, 12, 1));
-    // if (diffrence > tolerance) {
-    //   liftSpeed = Math.min(1.0, (diffrence / rampStart));
-    // } else if (diffrence < -tolerance) {
-    //   liftSpeed = Math.max(-1.0, (diffrence / rampStart));
-    // } else {
-    //   liftSpeed = 0;
-    // }
+    setSpeed(speedRamp(tolerance, difference, rampStart, defaultLiftSpeed));
     
   }
 
 
   public boolean isFinishedRunTo() {
-    // System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + m_runTo);
-    // 0.15 is percent allowed error of distance
     // needs to change based off the height
     // higher the height, lower the percent
 
