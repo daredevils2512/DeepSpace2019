@@ -34,7 +34,6 @@ public class RunBallXtake extends Command {
     @Override
     protected void end() {
         Robot.m_ballXtake.setBallXtakeSpeed(0.0);
-        Robot.ballIn = false;
     }
 
     @Override

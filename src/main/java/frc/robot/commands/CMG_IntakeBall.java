@@ -11,10 +11,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 
 public class CMG_IntakeBall extends CommandGroup {
+
+  private boolean ballIn = false;
+
+
   /**
    * Add your docs here.
    */
   public CMG_IntakeBall() {
+
 
     // Add Commands here:
     // e.g. addSequential(new Command1());
