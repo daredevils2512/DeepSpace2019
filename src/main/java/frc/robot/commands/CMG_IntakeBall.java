@@ -34,5 +34,6 @@ public class CMG_IntakeBall extends CommandGroup {
     addSequential(new CargoFoldDown());
     addParallel(new CargoRunIntake(-0.5, -0.5, false));
     addSequential(new RunBallXtake(-1.0, false));
+    addChild(new CMG_LiftCargo());
   }
 }

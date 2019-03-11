@@ -108,14 +108,17 @@ public class OI {
 
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
+
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
 
-    cargoSwitch.whenActive(new CMG_LiftCargo());
     liftSwitch.whenActive(new ResetLiftEncoder());
+
+    // Add in disable until ball is extaked. then reset trigger
+    // cargoSwitch.whenActive(new CMG_LiftCargo());
     
     // topRight.whenPressed(new FlowerControl());
 
