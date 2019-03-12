@@ -11,10 +11,18 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
+import frc.robot.constants.Constants.*;
+import frc.robot.Robot;
+import frc.robot.subsystems.BallXtake;
+import frc.robot.subsystems.Lift;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -70,30 +78,55 @@ public class OI {
   Button yellowBoi = new JoystickButton(buttonBox, 15);
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
+  Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
+  Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
+
   public OI() {
 
-    rightTrigger.whenPressed(new ShiftUp());
-    rightTrigger.whenReleased(new ShiftDown());  
+    rightTrigger.whileHeld(new ShiftDown());
+    rightTrigger.whenReleased(new ShiftUp());
+    // leftTrigger.whenPressed(new InvertDriving());
+    yButton.whenPressed(new CargoFoldUp());
+    aButton.whenPressed(new RunToBottom());
+    xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
+    bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
+    start.whenPressed(new DriveToWall(10, DistanceSensorSide.BALL)); // I dont know what people want the dist to be
 
-    yButton.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
-    aButton.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
 
-    xButton.whileHeld(new CargoRunIntake(0.5, 0.5));
-    bButton.whileHeld(new CargoRunIntake(-0.5, -0.5));
-    // bottomRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOBOTTOM));
-    // bottomWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHBOTTOM));
-    // midRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOMIDDLE));
-    // midWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHMIDDLE));
-    // topRed.whenPressed(new RunToPosition(Constants.LiftPosition.CARGOTOP));
-    // topWhite.whenPressed(new RunToPosition(Constants.LiftPosition.HATCHTOP));
-    bigRed.whenPressed(new Compressor()); 
+    topLeft.whileHeld(new RunBallXtake(1.0, true)); //out
+    bottomLeft.whileHeld(new RunBallXtake(-0.75, true)); //in
+    topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
+    bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
+    backLeft.whileHeld(new CMG_ExtakeBallBottom());
+
+
+    bottomRed.whenPressed(new RunToPosition(LiftPosition.CARGOBOTTOM));
+    bottomWhite.whenPressed(new RunToPosition(LiftPosition.HATCHBOTTOM));
+    midRed.whenPressed(new RunToPosition(LiftPosition.CARGOMIDDLE));
+    midWhite.whenPressed(new RunToPosition(LiftPosition.HATCHMIDDLE));
+    topRed.whenPressed(new RunToPosition(LiftPosition.CARGOTOP));
+    topWhite.whenPressed(new RunToPosition(LiftPosition.HATCHTOP));
+
+    bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
-    topLeft.whileHeld(new RunBallXtake(-1.0));
-    topRight.whileHeld(new RunBallXtake(1.0));
 
     start.whenPressed(new DriveToWall());
+    greenBoi.whenPressed(new CargoFoldUp());
+    yellowBoi.whenPressed(new CargoFoldDown());
+
+    // topWhite.whenPressed(new FlowerControl());
+    // topRed.whenPressed(new FlowerSlideControl());
+
+    liftSwitch.whenActive(new ResetLiftEncoder());
+
+    // Add in disable until ball is extaked. then reset trigger
+    // cargoSwitch.whenActive(new CMG_LiftCargo());
+    
+    cargoSwitch.whenActive(new CMG_IntakeBall());
+    
     // topRight.whenPressed(new FlowerControl());
 
+    // bottomRed.whenPressed(new RunToBottom());
   }
 
   public double desensitize(double val) {

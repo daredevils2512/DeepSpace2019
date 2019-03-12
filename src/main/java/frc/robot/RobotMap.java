@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
@@ -25,8 +26,8 @@ public class RobotMap {
     // PORTS
   public static int ballUltrasonicPort = 0;
   public static int hatchUltrasonicPort = 1;
-  public static I2C.Port ballColorPort = I2C.Port.kOnboard;
-  public static I2C.Port hatchColorPort = I2C.Port.kMXP;
+  public static I2C.Port ballColorPort = I2C.Port.kMXP;
+  public static I2C.Port hatchColorPort = I2C.Port.kOnboard;
     // MISC
   public static double suppliedUltraVoltage = 5.0;
 
@@ -77,6 +78,11 @@ public class RobotMap {
   public static int flowerSolenoidReverseChannel = 5;
   public static int flowerSlideForwardChannel = 6;
   public static int flowerSlideReverseChannel = 7;
+
+  public static Value flowerUpPos = Value.kForward;
+  public static Value flowerDownPos = Value.kReverse;
+  public static Value flowerOpenPos = Value.kForward;
+  public static Value flowerClosedPos = Value.kReverse;
 
   public static int spotlightRelayPort = 0;
 }
