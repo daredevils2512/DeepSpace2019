@@ -90,8 +90,6 @@ public class OI {
     aButton.whenPressed(new RunToBottom());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
     bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
-    start.whenPressed(new DriveToWall(10, DistanceSensorSide.BALL)); // I dont know what people want the dist to be
-
 
     topLeft.whileHeld(new RunBallXtake(1.0, true)); //out
     bottomLeft.whileHeld(new RunBallXtake(-0.75, true)); //in
@@ -110,7 +108,7 @@ public class OI {
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
 
-    start.whenPressed(new DriveToWall());
+    start.whileHeld(new DriveToWall(Robot.m_hatchDistanceSensor));
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
 

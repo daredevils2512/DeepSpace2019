@@ -17,7 +17,7 @@ import frc.robot.Robot;
  */
 public abstract class Drive extends Command {
 
-  protected double slowify = 1.0;
+  protected double slowify = 0.75;
   protected Supplier<Double> getLeft, getRight;
 
   public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
@@ -47,5 +47,6 @@ public abstract class Drive extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.m_Drivetrain.arcadeDrive(0.0 , 0.0);
   }
 }

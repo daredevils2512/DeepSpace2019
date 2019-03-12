@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
-  public static SendableChooser<Integer> driveToWallChooser;
+  public static SendableChooser<Double> driveToWallChooser;
   
   public static PowerDistributionPanel m_PDP;
   public static SendableBuilder m_PDPBuilder;
@@ -75,20 +75,21 @@ public class Robot extends TimedRobot {
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
 
-    // ALWAYS LAST
-    m_oi = new OI();
-
-    driveToWallChooser = new SendableChooser<Integer>();
-    driveToWallChooser.addOption("6", 6);
-    driveToWallChooser.setDefaultOption("12", 12);
-    driveToWallChooser.addOption("24", 24);
-    driveToWallChooser.addOption("36", 36);
+    driveToWallChooser = new SendableChooser<>();
+    driveToWallChooser.addOption("6", 6.0);
+    driveToWallChooser.setDefaultOption("12", 12.0);
+    driveToWallChooser.addOption("24", 24.0);
+    driveToWallChooser.addOption("36", 36.0);
     SmartDashboard.putData("driveToWall", driveToWallChooser);
     
     m_PDP = new PowerDistributionPanel();
     m_PDPBuilder = new SendableBuilderImpl();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
+    
+    // ALWAYS LAST
+    m_oi = new OI();
+
     SmartDashboard.putData("Auto mode", m_chooser);
 
   }
@@ -110,15 +111,15 @@ public class Robot extends TimedRobot {
     // m_hatchDistanceSensor.update();
     // m_ballDistanceSensor.update();
 
-    // SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
+    SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
     // SmartDashboard.putNumber("Hatch ultra volt", m_hatchDistanceSensor.getUltraVoltage());
-    // SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
-    // SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
+    SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
+    SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
 
     // SmartDashboard.putNumber("ball ultra volt", m_ballDistanceSensor.getUltraVoltage());
-    // SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
-    // SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
-    // SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
+    SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
+    SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
+    SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
     SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
     SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());

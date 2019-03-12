@@ -19,10 +19,18 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public class RobotMap {
 
+   //LEFT DRIVETRAIN STUFF
+   public static int leftTalonPort = 0;
+   public static int leftRearTalonPort = 1;
+ 
+   //RIGHT DRIVETRAIN STUFF
+   public static int rightTalonPort = 2;
+   public static int rightRearTalonPort = 3;
+
   // DISTANCE SENSOR STUFF
     // OFFSETS
   public final static double hatchSensorsOffsetFromFrame = 6.1852; // in inches
-  public final static double ballSensorsOffsetFromFrame = 10.11;    // in inches
+  public final static double ballSensorsOffsetFromFrame = 3.25;    // in inches
     // PORTS
   public static int ballUltrasonicPort = 0;
   public static int hatchUltrasonicPort = 1;
