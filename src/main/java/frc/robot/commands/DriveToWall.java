@@ -14,9 +14,9 @@ public class DriveToWall extends Command {
     private double tolerance = 4;
     private double defaultSpeed = 1;
 
-    public DriveToWall(double distToWall) {
+    public DriveToWall() {
         requires(Robot.m_Drivetrain);
-        m_distToWall = distToWall;
+        m_distToWall = Robot.driveToWallChooser.getSelected();
     }
 
     @Override

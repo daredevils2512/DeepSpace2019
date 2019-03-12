@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.*;
+
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
@@ -18,6 +21,11 @@ import frc.robot.commands.ArcadeDrive;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.*;
@@ -29,13 +37,11 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private WPI_TalonSRX leftTalon;
-  private WPI_TalonSRX rightTalon;
-  private WPI_TalonSRX leftRearTalon;
-  private WPI_TalonSRX rightRearTalon;
+  private CANSparkMax rightSpark;
+  private CANSparkMax leftSpark;
+  private CANSparkMax leftRearSpark;
+  private CANSparkMax rightRearSpark;
   private static DifferentialDrive drivetrain;
-  private SpeedControllerGroup leftTalonGroup;
-  private SpeedControllerGroup rightTalonGroup;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
@@ -48,33 +54,44 @@ public class Drivetrain extends Subsystem {
   
   // private RumbleType rumblely;
 
+  private static int inverted = 1;
+
   public Drivetrain() {
 
-    leftTalon = new WPI_TalonSRX(RobotMap.leftTalonPort);    
-    rightTalon = new WPI_TalonSRX(RobotMap.rightTalonPort);
-    leftRearTalon = new WPI_TalonSRX(RobotMap.leftRearTalonPort);
-    rightRearTalon = new WPI_TalonSRX(RobotMap.rightRearTalonPort);
-    
+    leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
+    rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
+    leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
+    rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
+
+    leftRearSpark.follow(leftSpark);
+    rightRearSpark.follow(rightSpark);
+
+    leftSpark.setIdleMode(IdleMode.kCoast);
+    rightSpark.setIdleMode(IdleMode.kCoast);
+    leftRearSpark.setIdleMode(IdleMode.kCoast);
+    rightRearSpark.setIdleMode(IdleMode.kCoast);
+
+    // leftSpark.setOpenLoopRampRate(0.25);
+    // rightSpark.setOpenLoopRampRate(0.25);
+    // leftRearSpark.setOpenLoopRampRate(0.25);
+    // rightRearSpark.setOpenLoopRampRate(0.25);
+
+    leftSpark.setSmartCurrentLimit(65, 10);
+    rightSpark.setSmartCurrentLimit(65, 10);
+    leftRearSpark.setSmartCurrentLimit(65, 10);
+    rightRearSpark.setSmartCurrentLimit(65, 10);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
-    leftTalonGroup = new SpeedControllerGroup(leftTalon, leftRearTalon);
-    rightTalonGroup = new SpeedControllerGroup(rightTalon, rightRearTalon);
+    // leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
+    // rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
 
-    leftTalon.setNeutralMode(NeutralMode.Brake);
-    leftRearTalon.setNeutralMode(NeutralMode.Brake);
-    rightTalon.setNeutralMode(NeutralMode.Brake);
-    rightRearTalon.setNeutralMode(NeutralMode.Brake);
-
-    drivetrain = new DifferentialDrive(leftTalonGroup, rightTalonGroup);
+    drivetrain = new DifferentialDrive(leftSpark, rightSpark);
     // addChild("Differential Drive 1",drivetrain);
 
-    leftEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
-    rightEncoder.setDistancePerPulse(RobotMap.encoderDistancePerPulse);
-    
-    // this.rumblely = RumbleType.kLeftRumble;
-    // this.rumblely = RumbleType.kRightRumble;
+    leftEncoder.setDistancePerPulse(RobotMap.driveEncoderDistancePerPulse);
+    rightEncoder.setDistancePerPulse(RobotMap.driveEncoderDistancePerPulse);
 
     shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
 
@@ -89,15 +106,15 @@ public class Drivetrain extends Subsystem {
   }
 
   public void leftSpeed(double speed) {
-    leftTalonGroup.set(speed);
+    leftSpark.set(speed);
   }
 
   public void rightSpeed(double speed) {
-    rightTalonGroup.set(speed);
+    rightSpark.set(speed);
   }
 
   public void arcadeDrive(double move, double turn) {
-    drivetrain.arcadeDrive(move, turn);
+    drivetrain.arcadeDrive(move * inverted, turn * inverted);
   }
 
   public static void staticArcadeDrive(double move, double turn) {
@@ -105,7 +122,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void driveRobotTank(double leftSpeed, double rightSpeed) {
-    drivetrain.tankDrive(leftSpeed, rightSpeed);
+    drivetrain.tankDrive(leftSpeed * inverted, rightSpeed * inverted);
   }
 
   public double getLeftEncoderDistance() {
@@ -146,19 +163,19 @@ public class Drivetrain extends Subsystem {
   }
 
   public double leftFrontSpeed() {
-    return this.leftTalon.get();
+    return this.leftSpark.get();
   }
 
   public double leftRearSpeed() {
-    return this.leftRearTalon.get();
+    return this.leftRearSpark.get();
   }
 
   public double rightFrontSpeed() {
-    return this.rightTalon.get();
+    return this.rightSpark.get();
   }
 
   public double rightRearSpeed() {
-    return this.rightRearTalon.get();
+    return this.rightRearSpark.get();
   }
 
   public void updateYPRData() {
@@ -184,4 +201,24 @@ public class Drivetrain extends Subsystem {
     return this.yprData[2];
   }
 
+  public void toggleInverted() {
+    inverted = -inverted;
+  }
+
+  public void updateDashboard() {
+    SmartDashboard.putNumber("D1 Temp", leftSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
+
+    // SmartDashboard.putNumber("D1 Out Current", leftSpark.getOutputCurrent());
+    // SmartDashboard.putNumber("D2 Out Current", leftRearSpark.getOutputCurrent());
+    // SmartDashboard.putNumber("D3 Out Current", rightSpark.getOutputCurrent());
+    // SmartDashboard.putNumber("D4 Out Current", rightRearSpark.getOutputCurrent());
+
+    // SmartDashboard.putNumber("D1 Set Speed", leftSpark.get());
+    // SmartDashboard.putNumber("D2 Set Speed", leftRearSpark.get());
+    // SmartDashboard.putNumber("D3 Set Speed", rightSpark.get());
+    // SmartDashboard.putNumber("D4 Set Speed", rightRearSpark.get());
+  }
 }

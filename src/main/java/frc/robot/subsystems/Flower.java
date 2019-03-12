@@ -17,6 +17,7 @@ public class Flower extends Subsystem {
         this.flowerSolenoid = new DoubleSolenoid(RobotMap.flowerSolenoidForwardChannel, RobotMap.flowerSolenoidReverseChannel);
         this.flowerSlide = new DoubleSolenoid(RobotMap.flowerSlideForwardChannel, RobotMap.flowerSlideReverseChannel);
 
+        this.flowerSlide.set(RobotMap.flowerUpPos);
     }
 
 

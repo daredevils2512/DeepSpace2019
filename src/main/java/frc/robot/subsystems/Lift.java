@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
  
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -18,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.ManualLift;
+import frc.robot.lib.SpeedRamp;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -31,8 +33,12 @@ public class Lift extends Subsystem {
   public static DigitalInput limitSwitchTop; 
 
   private static final int magEncPulsesPerRev = 4096;
-  private static final double inchesPerRev = 5.5;
-  public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev; 
+  private static final double inchesPerRev = (4 + (3/4)) + (5 + (3/8)); // This will change
+  // public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev;
+  public static double liftEncoderPulseToInches = 0.00244125;
+
+  public double maxDownSpeed = -0.4;
+  private double tolerance = 4;
 
   public Lift() {  
 
@@ -60,11 +66,11 @@ public class Lift extends Subsystem {
 
   public double getLiftHeight() {
     return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToInches); // this might seem like a random number but it is needed (I will find out math)
-  }
+  } 
 
-  public void resetEncoder() {
-    liftTalon1.setSelectedSensorPosition(0);
-  }  
+  public static DigitalInput getLimitSwitch() {
+    return limitSwitchBottom;
+  }
 
   public boolean getLimitSwitchBottom() {
     return limitSwitchBottom.get();
@@ -82,17 +88,34 @@ public class Lift extends Subsystem {
     liftTalon1.set(speed);
   }
 
-  
-  public void runTo(double runTo) {
 
-    if (this.getLiftHeight() < runTo && !(getLimitSwitchTop())) {
-      setSpeed(1);
-    } else if (this.getLiftHeight() > runTo && !(getLimitSwitchBottom())) {
-      setSpeed(-1);
-    } else {
-      setSpeed(0);
-    }
+  private double m_runTo;
+  public void runTo(double runTo) {
+    m_runTo = runTo;
+
+    double defaultLiftSpeed = 1;
+    double difference = runTo - this.getLiftHeight();
+    double rampStart = 12;
+
+    // if the distance from the runTo to the current height
+    // is more than the ramping start it goes at full
+    // if isn't it will ramp down
+    // it is the same for going down just opposite
+    setSpeed(SpeedRamp.speedRamp(tolerance, difference, rampStart, defaultLiftSpeed));
     
   }
+
+
+  public boolean isFinishedRunTo() {
+    // needs to change based off the height
+    // higher the height, lower the percent
+    
+    // 10 in window centered on the desired height
+    return (this.getLiftHeight() >= (m_runTo - (tolerance)) 
+    && this.getLiftHeight() <= (m_runTo + (tolerance)));
+
+  }
+
+
   
 }
