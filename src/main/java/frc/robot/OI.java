@@ -108,7 +108,7 @@ public class OI {
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
 
-    start.whileHeld(new DriveToWall(Robot.m_ballDistanceSensor));
+    start.whileHeld(new DriveToWall(Robot.m_hatchDistanceSensor));
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
 

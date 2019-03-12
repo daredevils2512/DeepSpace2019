@@ -21,12 +21,12 @@ public class DriveToWall extends Command {
     @Override
     public void execute() {
         double dist = m_sensor.getDistance();
-        Robot.m_Drivetrain.arcadeDrive(SpeedRamp.speedRamp(tolerance, dist, m_distToWall, defaultSpeed), 0);
+        Robot.m_Drivetrain.arcadeDrive(-SpeedRamp.speedRamp(tolerance, dist, m_distToWall + 12, defaultSpeed), 0);
     }
 
     @Override
     public boolean isFinished() {
-        return m_distToWall > m_sensor.getDistance();
+        return m_distToWall < m_sensor.getDistance();
     }
 
     @Override
