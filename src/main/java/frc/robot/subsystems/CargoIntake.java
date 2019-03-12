@@ -68,4 +68,5 @@ public class CargoIntake extends Subsystem {
   public DoubleSolenoid.Value getCurrentPos() {
     return this.upDown.get();
   }
+  
 }

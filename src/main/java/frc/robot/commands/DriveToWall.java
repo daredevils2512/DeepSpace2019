@@ -15,7 +15,6 @@ public class DriveToWall extends Command {
         requires(Robot.m_Drivetrain);
         m_distance = distance;
         m_sensor = sensor;
-
     }
 
     @Override

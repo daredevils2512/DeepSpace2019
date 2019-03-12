@@ -38,6 +38,8 @@ public class Robot extends TimedRobot {
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
+  public static SendableChooser<Integer> driveToWallChooser;
+  
   public static PowerDistributionPanel m_PDP;
   public static SendableBuilder m_PDPBuilder;
 
@@ -76,6 +78,13 @@ public class Robot extends TimedRobot {
     // ALWAYS LAST
     m_oi = new OI();
 
+    driveToWallChooser = new SendableChooser<Integer>();
+    driveToWallChooser.addOption("6", 6);
+    driveToWallChooser.setDefaultOption("12", 12);
+    driveToWallChooser.addOption("24", 24);
+    driveToWallChooser.addOption("36", 36);
+    SmartDashboard.putData("driveToWall", driveToWallChooser);
+    
     m_PDP = new PowerDistributionPanel();
     m_PDPBuilder = new SendableBuilderImpl();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
