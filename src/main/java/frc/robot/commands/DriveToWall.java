@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import java.util.Date;
 
+import edu.wpi.first.wpilibj.PIDBase.Tolerance;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Lift;
@@ -10,6 +11,8 @@ import frc.robot.lib.SpeedRamp;
 public class DriveToWall extends Command {
 
     private double m_distToWall;
+    private double tolerance = 4;
+    private double defaultSpeed = 1;
 
     public DriveToWall(double distToWall) {
         requires(Robot.m_Drivetrain);
@@ -19,7 +22,7 @@ public class DriveToWall extends Command {
     @Override
     public void execute() {
         double distDifference = Robot.m_ballDistanceSensor.getDistance();
-        Robot.m_Drivetrain.arcadeDrive(SpeedRamp.speedRamp(4, distDifference, m_distToWall, 1), 0);
+        Robot.m_Drivetrain.arcadeDrive(SpeedRamp.speedRamp(tolerance, distDifference, m_distToWall, defaultSpeed), 0);
     }
 
     @Override
