@@ -37,6 +37,7 @@ public class Lift extends Subsystem {
   public static double liftEncoderPulseToInches = 0.00244125;
 
   public double maxDownSpeed = -0.4;
+  private double tolerance = 4;
 
   public Lift() {  
 
@@ -87,18 +88,23 @@ public class Lift extends Subsystem {
   }
 
   /** 
-  *       @param tolerance  the room for error
+  *       @param tolerance  the distance room for error
   *
   *       @param distDiffrence the distance between the robot and the point you are going to
   *
   *       @param rampStartDist the distance from where it will start to deccelerate
+  *
+  *       @param defaultSpeed the speed it will go while not ramping
+  *
+  *       @return a double from -1 to 1
+  *
   */
 
-  public static double ramp(double tolerance, double distDiffrence, double rampStartDist) {
+  public static double speedRamp(double tolerance, double distDiffrence, double rampStartDist, double defaultSpeed) {
     if (distDiffrence > tolerance) {
-      return Math.min(1.0, (distDiffrence / rampStartDist));
+      return Math.min(defaultSpeed, (distDiffrence / rampStartDist));
     } else if (distDiffrence < -tolerance) {
-      return Math.max(-1.0, (distDiffrence / rampStartDist));
+      return Math.max(-defaultSpeed, (distDiffrence / rampStartDist));
     } else {
       return 0;
     }
@@ -108,38 +114,26 @@ public class Lift extends Subsystem {
   public void runTo(double runTo) {
     m_runTo = runTo;
 
-    double liftSpeed;
-    double diffrence = runTo - this.getLiftHeight();
-    double tolerance = 4;
+    double defaultLiftSpeed = 1;
+    double difference = runTo - this.getLiftHeight();
     double rampStart = 12;
-    // double distance = Math.abs(diffrence);
-    // double sign = Math.signum(diffrence);
 
     // if the distance from the runTo to the current height
     // is more than the ramping start it goes at full
     // if isn't it will ramp down
     // it is the same for going down just opposite
-    setSpeed(ramp(4, diffrence, 12));
-    // if (diffrence > tolerance) {
-    //   liftSpeed = Math.min(1.0, (diffrence / rampStart));
-    // } else if (diffrence < -tolerance) {
-    //   liftSpeed = Math.max(-1.0, (diffrence / rampStart));
-    // } else {
-    //   liftSpeed = 0;
-    // }
+    setSpeed(speedRamp(tolerance, difference, rampStart, defaultLiftSpeed));
     
   }
 
 
   public boolean isFinishedRunTo() {
-    // System.out.println("Lift height: " + this.getLiftHeight() + " Run to: " + m_runTo);
-    // 0.15 is percent allowed error of distance
     // needs to change based off the height
     // higher the height, lower the percent
-
+    
     // 10 in window centered on the desired height
-    return (this.getLiftHeight() >= (m_runTo - (5)) 
-    && this.getLiftHeight() <= (m_runTo + (5)));
+    return (this.getLiftHeight() >= (m_runTo - (tolerance)) 
+    && this.getLiftHeight() <= (m_runTo + (tolerance)));
 
   }
 

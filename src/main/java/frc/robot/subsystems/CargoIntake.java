@@ -42,10 +42,9 @@ public class CargoIntake extends Subsystem {
   public void runIntake(double infinitySpeed, double inSpeed) {
     if (this.getCurrentPos().equals(RobotMap.cargoUpPos)) {
       this.foldDown();
-    } else {
-      this.infinityMotor.set(infinitySpeed);
-      this.inMotor.set(inSpeed);
-    }
+    } 
+    this.infinityMotor.set(infinitySpeed);
+    this.inMotor.set(inSpeed);
   }
 
   private void foldIntake(DoubleSolenoid.Value dir) {
@@ -69,4 +68,5 @@ public class CargoIntake extends Subsystem {
   public DoubleSolenoid.Value getCurrentPos() {
     return this.upDown.get();
   }
+  
 }
