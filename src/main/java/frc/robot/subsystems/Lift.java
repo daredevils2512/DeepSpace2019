@@ -82,6 +82,7 @@ public class Lift extends Subsystem {
     liftTalon1.set(speed);
   }
 
+  
   public void runTo(double runTo) {
 
     if (this.getLiftHeight() < runTo && !(getLimitSwitchTop())) {
