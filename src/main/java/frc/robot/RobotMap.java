@@ -74,8 +74,8 @@ public class RobotMap {
   public static int ballOccupancy = 9;
 
   // HATCH STUFF
-  public static int flowerSolenoidForwardChannel = 6;
-  public static int flowerSolenoidReverseChannel = 7;
+  public static int flowerSolenoidForwardChannel = 6; // open
+  public static int flowerSolenoidReverseChannel = 7; // close
   public static int flowerSlideForwardChannel = 4;  // down
   public static int flowerSlideReverseChannel = 5;  // up
 
