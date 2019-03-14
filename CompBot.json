@@ -197,17 +197,6 @@
               "_title": "D4 Temp"
             }
           },
-          "10,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto mode",
-              "_title": "Auto mode"
-            }
-          },
           "4,3": {
             "size": [
               1,
@@ -217,6 +206,72 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/PDP 13",
               "_title": "PDP 13"
+            }
+          },
+          "10,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Ball Ultra",
+              "_title": "/SmartDashboard/Ball Ultra"
+            }
+          },
+          "10,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Ball Distance",
+              "_title": "/SmartDashboard/Ball Distance"
+            }
+          },
+          "10,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Ball Color",
+              "_title": "/SmartDashboard/Ball Color"
+            }
+          },
+          "12,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Hatch Distance",
+              "_title": "/SmartDashboard/Hatch Distance"
+            }
+          },
+          "12,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Hatch Ultra",
+              "_title": "/SmartDashboard/Hatch Ultra"
+            }
+          },
+          "12,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Hatch Color",
+              "_title": "/SmartDashboard/Hatch Color"
             }
           }
         }
@@ -243,11 +298,6 @@
               "_title": "Ungrouped",
               "Layout/Label position": "BOTTOM",
               "_children": [
-                {
-                  "_type": "PID Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
-                  "_title": "PIDController[1]"
-                },
                 {
                   "_type": "Speed Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [4]",
@@ -431,12 +481,6 @@
                   "_type": "Encoder",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[1]",
                   "_title": "Encoder[1]"
-                },
-                {
-                  "_type": "PDP",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
-                  "_title": "PowerDistributionPanel[0]",
-                  "Visuals/Show voltage and current values": true
                 },
                 {
                   "_type": "Speed Controller",

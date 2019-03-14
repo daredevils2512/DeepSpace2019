@@ -36,12 +36,13 @@ public class CMG_IntakeBall extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    if (!ballIn) {
+    // if (!ballIn) {
       addSequential(new CargoFoldDown());
       addParallel(new CargoRunIntake(-0.5, -0.5, false));
       addSequential(new RunBallXtake(-1.0, false));
-      ballIn = true;
-    }
+      // ballIn = true;
+      addSequential(new CMG_LiftCargo());
+    // }
   }
 
   public static void ballOut() {

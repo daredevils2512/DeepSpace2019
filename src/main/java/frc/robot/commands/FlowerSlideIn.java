@@ -19,8 +19,9 @@ public class FlowerSlideIn extends FlowerSlide {
     }
 
     public void execute() {
-        if (!Robot.m_flower.getSlidePos().equals(this.m_actuateDir)) {
-            Robot.m_flower.slideIn();
-        }
+        // if (!Robot.m_flower.getSlidePos().equals(this.m_actuateDir)) {
+        //     Robot.m_flower.slideIn();
+        // }
+        Robot.m_flower.slideIn();
     }
 }
