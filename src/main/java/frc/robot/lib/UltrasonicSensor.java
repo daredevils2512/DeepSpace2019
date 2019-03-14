@@ -26,6 +26,7 @@ public class UltrasonicSensor {
         this.voltagePerIn = this.voltagePerCm * 2.54;
         
         this.input = new AnalogInput(this.m_port);
+        this.input.setAverageBits(50);
  
         System.out.print("V/In: " + this.voltagePerIn + ", V/Cm: " + this.voltagePerCm + "\n");
     }
@@ -34,11 +35,11 @@ public class UltrasonicSensor {
         return this.input.getAverageVoltage();
     }
 
-    public double getDistInCm() {
+    public double getDistInInch() {
         return (this.getAvgVoltage() / this.voltagePerIn);
     }
 
-    public double getDistInInch() {
+    public double getDistInCm() {
         return (this.getAvgVoltage() / this.voltagePerCm);
     }
 }

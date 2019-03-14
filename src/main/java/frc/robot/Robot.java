@@ -82,8 +82,8 @@ public class Robot extends TimedRobot {
     driveToWallChooser.addOption("36", 36.0);
     SmartDashboard.putData("driveToWall", driveToWallChooser);
     
-    m_PDP = new PowerDistributionPanel();
-    m_PDPBuilder = new SendableBuilderImpl();
+    // m_PDP = new PowerDistributionPanel();
+    // m_PDPBuilder = new SendableBuilderImpl();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     
