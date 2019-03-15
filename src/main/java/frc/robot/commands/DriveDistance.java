@@ -11,6 +11,7 @@ public class DriveDistance extends Command { //TODO untested
     private double m_tolerance;
     private double m_dist;
     private double targetDistL;
+    private double rampDist = 24;
 
     public DriveDistance(double tolerance, double dist) {
         m_tolerance = tolerance;
@@ -20,24 +21,24 @@ public class DriveDistance extends Command { //TODO untested
 
     @Override
     protected void initialize() {
-        targetDistL = Robot.m_Drivetrain.getLeftEncoderDistance() + m_dist;
+        targetDistL = Robot.m_Drivetrain.getAverageEncDist() + m_dist;
     }
 
     @Override
     protected void execute() {
         if (m_dist >= 0) {
-            if (Robot.m_Drivetrain.getLeftEncoderDistance() <= targetDistL - m_tolerance) {
+            if (Robot.m_Drivetrain.getAverageEncDist() <= targetDistL - m_tolerance) {
 
-                m_speed = Math.min(1, m_dist / 24);
+                m_speed = Math.min(1, m_dist / rampDist);
 
                 Robot.m_Drivetrain.arcadeDrive(m_speed, 0.0);
             } else {
                 Robot.m_Drivetrain.arcadeDrive(0.0, 0.0);
             }
         } else {
-            if (Robot.m_Drivetrain.getLeftEncoderDistance() >= targetDistL + m_tolerance) {
+            if (Robot.m_Drivetrain.getAverageEncDist() >= targetDistL + m_tolerance) {
 
-                m_speed = Math.max(-1, m_dist / 24);
+                m_speed = Math.max(-1, m_dist / rampDist);
 
                 Robot.m_Drivetrain.arcadeDrive(m_speed, 0.0);
             } else {
@@ -49,8 +50,8 @@ public class DriveDistance extends Command { //TODO untested
 
     @Override
     protected boolean isFinished() {
-        return (Robot.m_Drivetrain.getLeftEncoderDistance() >= targetDistL + m_tolerance &&
-        Robot.m_Drivetrain.getLeftEncoderDistance() <= targetDistL - m_tolerance);
+        return (Robot.m_Drivetrain.getAverageEncDist() >= targetDistL + m_tolerance &&
+        Robot.m_Drivetrain.getAverageEncDist() <= targetDistL - m_tolerance);
     }
 
     @Override

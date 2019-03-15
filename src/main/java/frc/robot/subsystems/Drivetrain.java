@@ -148,6 +148,14 @@ public class Drivetrain extends Subsystem {
     rightEncoder.reset();
   }
 
+  public double getAverageEncVal() {
+    return (this.getLeftEncoderValue() + this.getRightEncoderValue()) / 2;
+  }
+
+  public double getAverageEncDist() {
+    return (this.getLeftEncoderDistance() + this.getRightEncoderDistance()) / 2;
+  }
+
   public DoubleSolenoid.Value getShifterPos() {
     return shifter.get();
   }
