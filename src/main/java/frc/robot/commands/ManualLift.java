@@ -28,9 +28,9 @@ public class ManualLift extends LiftCommand {
 
   // Contains both limit switch and encoder top
   private boolean upperLimit() {
-    double currentClicks = Robot.m_lift.getLiftPosition();
-    double maxEncClicks = 31500;
-    return (currentClicks >= maxEncClicks);
+    double currentHeight = Robot.m_lift.getLiftHeight();
+    double maxHeight = 78;
+    return (currentHeight >= maxHeight);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -38,7 +38,7 @@ public class ManualLift extends LiftCommand {
   protected void execute() {
     double speed = 0.0;
     // if((this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchBottom())) {
-    //   speed = this.liftControlDirection.get();
+    //   speed = this.liftControlDirection.get();x
 
     // } else {
     //   speed = 0.0;

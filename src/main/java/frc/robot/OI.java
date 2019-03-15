@@ -101,13 +101,17 @@ public class OI {
     // midLeft.whenPressed(new FlowerSlideOut());
     // midRight.whenPressed(new FlowerSlideIn());
 
+    // center flower begins 1'3" off ground
+    // center ball begins 7.5" off ground
     bottomRed.whenPressed(new RunToBottom());
-    bottomWhite.whenPressed(new RunToPosition(12)); // feeder
-    midRed.whenPressed(new RunToPosition(14)); // first rockeyt h
-    midWhite.whenPressed(new RunToPosition(46)); // second h
 
-    topRed.whenPressed(new RunToPosition(27)); //ball b
-    topWhite.whenPressed(new RunToPosition(57)); //ball m
+    bottomWhite.whenPressed(new RunToPosition(6)); // feeder and everything else
+    midRed.whenPressed(new RunToPosition(41)); // second level rocket hatch
+    // run top hatch all up
+
+    midWhite.whenPressed(new RunToPosition(20)); // bottom level ball rocket
+    topRed.whenPressed(new RunToPosition(34)); // cargo ball
+    topWhite.whenPressed(new RunToPosition(54.5)); //ball second level rocket
 
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());

@@ -37,10 +37,10 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private WPI_TalonSRX rightSpark;
-  private WPI_TalonSRX leftSpark;
-  private WPI_TalonSRX leftRearSpark;
-  private WPI_TalonSRX rightRearSpark;
+  private CANSparkMax rightSpark;
+  private CANSparkMax leftSpark;
+  private CANSparkMax leftRearSpark;
+  private CANSparkMax rightRearSpark;
   private static DifferentialDrive drivetrain;
   private Encoder leftEncoder;
   private Encoder rightEncoder;
@@ -58,28 +58,28 @@ public class Drivetrain extends Subsystem {
 
   public Drivetrain() {
 
-    leftSpark = new WPI_TalonSRX(RobotMap.leftSparkID);    
-    rightSpark = new WPI_TalonSRX(RobotMap.rightSparkID);
-    leftRearSpark = new WPI_TalonSRX(RobotMap.leftRearSparkID);
-    rightRearSpark = new WPI_TalonSRX(RobotMap.rightRearSparkID);
+    leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
+    rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
+    leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
+    rightRearSpark = new CANSparkMax(RobotMap.rightRearSparkID, MotorType.kBrushless);
 
     leftRearSpark.follow(leftSpark);
     rightRearSpark.follow(rightSpark);
 
-    // leftSpark.setIdleMode(IdleMode.kCoast);
-    // rightSpark.setIdleMode(IdleMode.kCoast);
-    // leftRearSpark.setIdleMode(IdleMode.kCoast);
-    // rightRearSpark.setIdleMode(IdleMode.kCoast);
+    leftSpark.setIdleMode(IdleMode.kCoast);
+    rightSpark.setIdleMode(IdleMode.kCoast);
+    leftRearSpark.setIdleMode(IdleMode.kCoast);
+    rightRearSpark.setIdleMode(IdleMode.kCoast);
 
     // leftSpark.setOpenLoopRampRate(0.25);
     // rightSpark.setOpenLoopRampRate(0.25);
     // leftRearSpark.setOpenLoopRampRate(0.25);
     // rightRearSpark.setOpenLoopRampRate(0.25);
 
-    // leftSpark.setSmartCurrentLimit(65, 10);
-    // rightSpark.setSmartCurrentLimit(65, 10);
-    // leftRearSpark.setSmartCurrentLimit(65, 10);
-    // rightRearSpark.setSmartCurrentLimit(65, 10);
+    leftSpark.setSmartCurrentLimit(65, 10);
+    rightSpark.setSmartCurrentLimit(65, 10);
+    leftRearSpark.setSmartCurrentLimit(65, 10);
+    rightRearSpark.setSmartCurrentLimit(65, 10);
         
     leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
     rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
@@ -214,10 +214,10 @@ public class Drivetrain extends Subsystem {
   }
 
   public void updateDashboard() {
-    // SmartDashboard.putNumber("D1 Temp", leftSpark.getMotorTemperature());
-    // SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
-    // SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
-    // SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D1 Temp", leftSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
 
     // SmartDashboard.putNumber("D1 Out Current", leftSpark.getOutputCurrent());
     // SmartDashboard.putNumber("D2 Out Current", leftRearSpark.getOutputCurrent());

@@ -107,18 +107,18 @@ public class Robot extends TimedRobot {
 
     Timer t = new Timer();
     t.start();
-    m_Drivetrain.updateDashboard();
+    // m_Drivetrain.updateDashboard();
     // m_hatchDistanceSensor.update();
     // m_ballDistanceSensor.update();
 
     SmartDashboard.putNumber("Hatch Distance", m_hatchDistanceSensor.getDistance());
     // SmartDashboard.putNumber("Hatch ultra volt", m_hatchDistanceSensor.getUltraVoltage());
-    SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
-    SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
+    // SmartDashboard.putNumber("Hatch Ultra", m_hatchDistanceSensor.getUltraDist());
+    // SmartDashboard.putNumber("Hatch Color", m_hatchDistanceSensor.getColorDist());
 
     // SmartDashboard.putNumber("ball ultra volt", m_ballDistanceSensor.getUltraVoltage());
-    SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
-    SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
+    // SmartDashboard.putNumber("Ball Ultra", m_ballDistanceSensor.getUltraDist());
+    // SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
     SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
     SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
