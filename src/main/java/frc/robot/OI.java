@@ -90,8 +90,6 @@ public class OI {
     aButton.whenPressed(new CargoFoldDown());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
     bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
-    start.whenPressed(new DriveToWall(10, DistanceSensorSide.BALL)); // I dont know what people want the dist to be
-
 
     topLeft.whileHeld(new RunBallXtake(1.0, true)); //out
     bottomLeft.whileHeld(new RunBallXtake(-0.75, true)); //in

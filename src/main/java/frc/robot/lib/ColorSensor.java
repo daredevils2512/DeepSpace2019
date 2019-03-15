@@ -36,7 +36,7 @@ public class ColorSensor {
     protected final static int AIEN  = 0b00010000;
     protected final static int PIEN  = 0b00100000;
 
-    private final static int RESET_TIME = 150;
+    private final static int RESET_TIME = 100;
 
     private final double integrationTime = 10;
 

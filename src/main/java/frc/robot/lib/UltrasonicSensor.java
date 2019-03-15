@@ -35,10 +35,10 @@ public class UltrasonicSensor {
     }
 
     public double getDistInCm() {
-        return (this.getAvgVoltage() / this.voltagePerCm);
+        return (this.getAvgVoltage() / this.voltagePerIn);
     }
 
     public double getDistInInch() {
-        return (this.getAvgVoltage() / this.voltagePerIn);
+        return (this.getAvgVoltage() / this.voltagePerCm);
     }
 }

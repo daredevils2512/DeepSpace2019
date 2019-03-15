@@ -19,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.ManualLift;
+import frc.robot.lib.SpeedRamp;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -87,28 +88,6 @@ public class Lift extends Subsystem {
     liftTalon1.set(speed);
   }
 
-  /** 
-  *       @param tolerance  the distance room for error
-  *
-  *       @param distDiffrence the distance between the robot and the point you are going to
-  *
-  *       @param rampStartDist the distance from where it will start to deccelerate
-  *
-  *       @param defaultSpeed the speed it will go while not ramping
-  *
-  *       @return a double from -1 to 1
-  *
-  */
-
-  public static double speedRamp(double tolerance, double distDiffrence, double rampStartDist, double defaultSpeed) {
-    if (distDiffrence > tolerance) {
-      return Math.min(defaultSpeed, (distDiffrence / rampStartDist));
-    } else if (distDiffrence < -tolerance) {
-      return Math.max(-defaultSpeed, (distDiffrence / rampStartDist));
-    } else {
-      return 0;
-    }
-  }
 
   private double m_runTo;
   public void runTo(double runTo) {
@@ -122,7 +101,7 @@ public class Lift extends Subsystem {
     // is more than the ramping start it goes at full
     // if isn't it will ramp down
     // it is the same for going down just opposite
-    setSpeed(speedRamp(tolerance, difference, rampStart, defaultLiftSpeed));
+    setSpeed(SpeedRamp.speedRamp(tolerance, difference, rampStart, defaultLiftSpeed));
     
   }
 
