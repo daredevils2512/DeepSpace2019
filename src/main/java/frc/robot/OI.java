@@ -103,10 +103,9 @@ public class OI {
     // midLeft.whenPressed(new FlowerSlideOut());
     // midRight.whenPressed(new FlowerSlideIn());
 
-
-    // bottomRed.whenPressed(new RunToPosition(LiftPosition.CARGOBOTTOM));
-    bottomWhite.whileHeld(new RunToPosition(12)); // feeder
-    midRed.whileHeld(new RunToPosition(14)); // first rockeyt h
+    bottomRed.whenPressed(new RunToBottom());
+    bottomWhite.whenPressed(new RunToPosition(12)); // feeder
+    midRed.whenPressed(new RunToPosition(14)); // first rockeyt h
     midWhite.whenPressed(new RunToPosition(46)); // second h
 
     topRed.whenPressed(new RunToPosition(27)); //ball b
@@ -133,8 +132,6 @@ public class OI {
     // cargoSwitch.whenActive(new CMG_IntakeBall());
     
     // topRight.whenPressed(new FlowerControl());
-
-    bottomRed.whenPressed(new RunToBottom());
   }
 
   public double desensitize(double val) {
