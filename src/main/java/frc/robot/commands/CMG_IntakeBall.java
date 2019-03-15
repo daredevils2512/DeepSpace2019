@@ -40,7 +40,7 @@ public class CMG_IntakeBall extends CommandGroup {
     if (!Robot.m_lift.getLimitSwitchBottom()) {
       addSequential(new RunToBottom());
     }
-    // if (Robot.m_lift.getLimitSwitchBottom()) {
+    // if (!ballIn) {
       addSequential(new CargoFoldDown());
       addParallel(new CargoRunIntake(-1.0, -1.0, false));
       addSequential(new RunBallXtake(-1.0, false));
