@@ -13,15 +13,14 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class CargoFoldUp extends CargoFoldIntake {
-    public CargoFoldUp() {
-        super(RobotMap.cargoUpPos);
+public class FlowerClose extends FlowerActuate {
+    public FlowerClose() {
+        super(RobotMap.flowerClosedPos);
     }
 
     public void execute() {
-        
-        if (!Robot.m_cargoIntake.getCurrentPos().equals(this.m_foldDir)) {
-            Robot.m_cargoIntake.foldUp();
+        if (!Robot.m_flower.getOpeningPos().equals(this.m_actuateDir)) {
+            Robot.m_flower.close();
         }
     }
 }

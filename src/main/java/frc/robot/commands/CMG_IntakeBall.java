@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
 
 public class CMG_IntakeBall extends CommandGroup {
 
@@ -36,12 +37,16 @@ public class CMG_IntakeBall extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    if (!ballIn) {
-      addSequential(new CargoFoldDown());
-      addParallel(new CargoRunIntake(-0.5, -0.5, false));
-      addSequential(new RunBallXtake(-1.0, false));
-      ballIn = true;
+    if (!Robot.m_lift.getLimitSwitchBottom()) {
+      addSequential(new RunToBottom());
     }
+    // if (!ballIn) {
+      addSequential(new CargoFoldDown());
+      addParallel(new CargoRunIntake(-1.0, -1.0, false));
+      addSequential(new RunBallXtake(-1.0, false));
+      // ballIn = true;
+      addSequential(new CMG_LiftCargo());
+    // }
   }
 
   public static void ballOut() {

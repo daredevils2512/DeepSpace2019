@@ -107,7 +107,7 @@ public class Robot extends TimedRobot {
 
     Timer t = new Timer();
     t.start();
-    // m_Drivetrain.updateDashboard();
+    m_Drivetrain.updateDashboard();
     // m_hatchDistanceSensor.update();
     // m_ballDistanceSensor.update();
 
@@ -213,6 +213,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_flower.slideIn();
     m_lift.resetLiftEncoder();
     m_Compressorsorus.compressorOn();
     // This makes sure that the autonomous stops running when

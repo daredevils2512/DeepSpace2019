@@ -10,10 +10,10 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "8,4": {
+          "4,0": {
             "size": [
-              1,
-              1
+              2,
+              2
             ],
             "content": {
               "_type": "Boolean Box",
@@ -95,10 +95,10 @@
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "compression": 39.928102056964555,
+              "fps": 15,
+              "imageWidth": 320,
+              "imageHeight": 240
             }
           },
           "6,0": {
@@ -114,109 +114,76 @@
               "Crosshair/Crosshair color": "#FFFFFFFF",
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
-              "compression": -1.0,
-              "fps": -1,
-              "imageWidth": -1,
-              "imageHeight": -1
+              "compression": 39.928104889938254,
+              "fps": 10,
+              "imageWidth": 320,
+              "imageHeight": 240
             }
           },
-          "4,0": {
+          "10,2": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/PDP 01",
-              "_title": "PDP 01"
+              "_source0": "network_table:///SmartDashboard/Ball Ultra",
+              "_title": "/SmartDashboard/Ball Ultra"
             }
           },
-          "4,1": {
+          "10,1": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/PDP 00",
-              "_title": "PDP 00"
+              "_source0": "network_table:///SmartDashboard/Ball Distance",
+              "_title": "/SmartDashboard/Ball Distance"
             }
           },
-          "4,2": {
+          "10,3": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/PDP 14",
-              "_title": "PDP 14"
+              "_source0": "network_table:///SmartDashboard/Ball Color",
+              "_title": "/SmartDashboard/Ball Color"
             }
           },
-          "5,0": {
+          "12,1": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/D1 Temp",
-              "_title": "D1 Temp"
+              "_source0": "network_table:///SmartDashboard/Hatch Distance",
+              "_title": "/SmartDashboard/Hatch Distance"
             }
           },
-          "5,1": {
+          "12,2": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/D2 Temp",
-              "_title": "D2 Temp"
+              "_source0": "network_table:///SmartDashboard/Hatch Ultra",
+              "_title": "/SmartDashboard/Hatch Ultra"
             }
           },
-          "5,2": {
+          "12,3": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/D3 Temp",
-              "_title": "D3 Temp"
-            }
-          },
-          "5,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/D4 Temp",
-              "_title": "D4 Temp"
-            }
-          },
-          "10,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto mode",
-              "_title": "Auto mode"
-            }
-          },
-          "4,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/PDP 13",
-              "_title": "PDP 13"
+              "_source0": "network_table:///SmartDashboard/Hatch Color",
+              "_title": "/SmartDashboard/Hatch Color"
             }
           }
         }
@@ -243,11 +210,6 @@
               "_title": "Ungrouped",
               "Layout/Label position": "BOTTOM",
               "_children": [
-                {
-                  "_type": "PID Controller",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
-                  "_title": "PIDController[1]"
-                },
                 {
                   "_type": "Speed Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [4]",
@@ -433,12 +395,6 @@
                   "_title": "Encoder[1]"
                 },
                 {
-                  "_type": "PDP",
-                  "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
-                  "_title": "PowerDistributionPanel[0]",
-                  "Visuals/Show voltage and current values": true
-                },
-                {
                   "_type": "Speed Controller",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [11]",
                   "_title": "Talon SRX [11]",
@@ -543,6 +499,31 @@
               "_title": "DaredevilDashboard",
               "Layout/Label position": "BOTTOM",
               "_children": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "PDP",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 128.0,
+        "showGrid": true,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "2,0": {
+            "size": [
+              6,
+              5
+            ],
+            "content": {
+              "_type": "PDP",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]",
+              "_title": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]",
+              "Visuals/Show voltage and current values": true
             }
           }
         }

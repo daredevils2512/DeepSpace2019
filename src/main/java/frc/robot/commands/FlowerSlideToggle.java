@@ -3,9 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FlowerControl extends Command {
+public class FlowerSlideToggle extends Command {
 
-    public FlowerControl() {
+    public FlowerSlideToggle() {
         requires(Robot.m_flower);
     }
 
@@ -15,7 +15,7 @@ public class FlowerControl extends Command {
 
     @Override
     protected void execute() {
-        Robot.m_flower.toggleFlower();
+        Robot.m_flower.toggleSlide();
     }
 
     @Override

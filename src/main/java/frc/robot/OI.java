@@ -87,7 +87,7 @@ public class OI {
     rightTrigger.whenReleased(new ShiftUp());
     // leftTrigger.whenPressed(new InvertDriving());
     yButton.whenPressed(new CargoFoldUp());
-    aButton.whenPressed(new RunToBottom());
+    aButton.whenPressed(new CargoFoldDown());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
     bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
 
@@ -96,21 +96,28 @@ public class OI {
     topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
     bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
+    frontLeft.whenPressed(new FlowerOpen());
+    frontRight.whenPressed(new FlowerClose());
+    // midLeft.whenPressed(new FlowerSlideOut());
+    // midRight.whenPressed(new FlowerSlideIn());
 
+    bottomRed.whenPressed(new RunToBottom());
+    bottomWhite.whenPressed(new RunToPosition(12)); // feeder
+    midRed.whenPressed(new RunToPosition(14)); // first rockeyt h
+    midWhite.whenPressed(new RunToPosition(46)); // second h
 
-    bottomRed.whenPressed(new RunToPosition(LiftPosition.CARGOBOTTOM));
-    bottomWhite.whenPressed(new RunToPosition(LiftPosition.HATCHBOTTOM));
-    midRed.whenPressed(new RunToPosition(LiftPosition.CARGOMIDDLE));
-    midWhite.whenPressed(new RunToPosition(LiftPosition.HATCHMIDDLE));
-    topRed.whenPressed(new RunToPosition(LiftPosition.CARGOTOP));
-    topWhite.whenPressed(new RunToPosition(LiftPosition.HATCHTOP));
+    topRed.whenPressed(new RunToPosition(27)); //ball b
+    topWhite.whenPressed(new RunToPosition(57)); //ball m
 
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
 
-    start.whileHeld(new DriveToWall(Robot.m_hatchDistanceSensor));
-    greenBoi.whenPressed(new CargoFoldUp());
-    yellowBoi.whenPressed(new CargoFoldDown());
+    // start.whenPressed(new DriveToWall());
+    // greenBoi.whenPressed(new CargoFoldUp());
+    // yellowBoi.whenPressed(new CargoFoldDown());
+
+    greenBoi.whenPressed(new FlowerSlideIn());
+    yellowBoi.whenPressed(new FlowerSlideOut());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
@@ -120,11 +127,9 @@ public class OI {
     // Add in disable until ball is extaked. then reset trigger
     // cargoSwitch.whenActive(new CMG_LiftCargo());
     
-    cargoSwitch.whenActive(new CMG_IntakeBall());
+    // cargoSwitch.whenActive(new CMG_IntakeBall());
     
     // topRight.whenPressed(new FlowerControl());
-
-    // bottomRed.whenPressed(new RunToBottom());
   }
 
   public double desensitize(double val) {
