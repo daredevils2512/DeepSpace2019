@@ -105,11 +105,12 @@ public class OI {
 
 
     // bottomRed.whenPressed(new RunToPosition(LiftPosition.CARGOBOTTOM));
-    // bottomWhite.whenPressed(new RunToPosition(LiftPosition.HATCHBOTTOM));
-    // midRed.whenPressed(new RunToPosition(LiftPosition.CARGOMIDDLE));
-    // midWhite.whenPressed(new RunToPosition(LiftPosition.HATCHMIDDLE));
-    // topRed.whenPressed(new RunToPosition(LiftPosition.CARGOTOP));
-    // topWhite.whenPressed(new RunToPosition(LiftPosition.HATCHTOP));
+    bottomWhite.whileHeld(new RunToPosition(12)); // feeder
+    midRed.whileHeld(new RunToPosition(14)); // first rockeyt h
+    midWhite.whenPressed(new RunToPosition(46)); // second h
+
+    topRed.whenPressed(new RunToPosition(27)); //ball b
+    topWhite.whenPressed(new RunToPosition(57)); //ball m
 
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());

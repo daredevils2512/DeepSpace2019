@@ -106,7 +106,7 @@ public class Robot extends TimedRobot {
 
     Timer t = new Timer();
     t.start();
-    // m_Drivetrain.updateDashboard();
+    m_Drivetrain.updateDashboard();
     // m_hatchDistanceSensor.update();
     // m_ballDistanceSensor.update();
 

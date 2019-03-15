@@ -7,10 +7,16 @@ import frc.robot.constants.Constants.LiftPosition;
 
 public class RunToPosition extends Command {
     private Constants.LiftPosition position;
+    private double height;
     private boolean finished;
     public RunToPosition(Constants.LiftPosition value) {
         requires(Robot.m_lift);
         this.position = value;
+    }
+
+    public RunToPosition(double height) {
+        requires(Robot.m_lift);
+        this.height = height;
     }
 
     @Override
@@ -31,29 +37,35 @@ public class RunToPosition extends Command {
         6 3
         */
         
-        int height = 0;
-        switch (this.position) {
-            case CARGOBOTTOM:
-                height = 20;
-                break;
-            case CARGOMIDDLE:
-                height = 47;
-                break;
-            case CARGOTOP:
-                height = 75;
-                break;
-            case HATCHBOTTOM:
-                height = 12;
-                break;
-            case HATCHMIDDLE:
-                height = 40;
-                break;
-            case HATCHTOP:
-                height = 68;
-                break;
-            default:
-                height = 0;
-                break;
+        double height;
+        if (this.position != null) {
+            switch (this.position) {
+                case FEEDER:
+                    height = 12;
+                case CARGOBOTTOM:
+                    height = 27;
+                    break;
+                case CARGOMIDDLE:
+                    height = 57;
+                    break;
+                case CARGOTOP:
+                    height = 75;
+                    break;
+                case HATCHBOTTOM:
+                    height = 14;
+                    break;
+                case HATCHMIDDLE:
+                    height = 46;
+                    break;
+                case HATCHTOP:
+                    height = 68;
+                    break;
+                default:
+                    height = 0;
+                    break;
+            }
+        } else {
+            height = this.height;
         }
         // System.out.println("Height: " + height);
         Robot.m_lift.runTo(height);

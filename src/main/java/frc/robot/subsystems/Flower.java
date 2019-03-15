@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class Flower extends Subsystem {
@@ -30,10 +31,12 @@ public class Flower extends Subsystem {
     }
 
     public void open() {
+        System.out.println("Flower open height: " + Robot.m_lift.getLiftHeight());
         this.openFlower(RobotMap.flowerOpenPos);
     }
 
     public void close() {
+        System.out.println("Flower close height: " + Robot.m_lift.getLiftHeight());
         this.openFlower(RobotMap.flowerClosedPos);
     }
 
