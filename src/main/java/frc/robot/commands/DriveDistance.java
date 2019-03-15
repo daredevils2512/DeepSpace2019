@@ -27,7 +27,7 @@ public class DriveDistance extends Command { //TODO untested
     protected void execute() {
         double currentDist = Robot.m_Drivetrain.getAverageEncDist();
         double diff = m_targetDistL - currentDist;
-        
+
         double direction = Math.signum(diff);
         double driveDist = Math.abs(diff);
 
@@ -39,8 +39,8 @@ public class DriveDistance extends Command { //TODO untested
 
     @Override
     protected boolean isFinished() {
-        return (Robot.m_Drivetrain.getAverageEncDist() >= m_targetDistL + m_tolerance &&
-        Robot.m_Drivetrain.getAverageEncDist() <= m_targetDistL - m_tolerance);
+        double diff = m_targetDistL - Robot.m_Drivetrain.getAverageEncDist();
+        return Math.abs(diff) <= m_tolerance;
     }
 
     @Override
