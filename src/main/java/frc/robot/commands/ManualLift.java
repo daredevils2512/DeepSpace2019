@@ -29,7 +29,7 @@ public class ManualLift extends LiftCommand {
   // Contains both limit switch and encoder top
   private boolean upperLimit() {
     double currentHeight = Robot.m_lift.getLiftHeight();
-    double maxHeight = 78;
+    double maxHeight = 60;
     return (currentHeight >= maxHeight);
   }
 

@@ -120,37 +120,15 @@
               "imageHeight": 240
             }
           },
-          "10,2": {
+          "4,2": {
             "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Ball Ultra",
-              "_title": "/SmartDashboard/Ball Ultra"
-            }
-          },
-          "10,1": {
-            "size": [
-              1,
+              2,
               1
             ],
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Ball Distance",
-              "_title": "/SmartDashboard/Ball Distance"
-            }
-          },
-          "10,3": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Ball Color",
-              "_title": "/SmartDashboard/Ball Color"
+              "_title": "Ball Distance"
             }
           },
           "12,1": {
@@ -184,6 +162,17 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Hatch Color",
               "_title": "/SmartDashboard/Hatch Color"
+            }
+          },
+          "4,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Hatch Distance",
+              "_title": "/SmartDashboard/Hatch Distance"
             }
           }
         }

@@ -1,0 +1,6 @@
+Static IPs: 
+
+rPi3B+ = 10.25.12.11
+roborio = 10.25.12.2
+radio = 10.25.12.1
+Lenovo = 10.25.12.5
