@@ -73,6 +73,9 @@ public class Lift extends Subsystem {
   }
 
   public boolean getLimitSwitchBottom() {
+    if (limitSwitchBottom.get()) {
+      this.resetLiftEncoder();
+    }
     return limitSwitchBottom.get();
   }
 
@@ -95,7 +98,7 @@ public class Lift extends Subsystem {
 
     double defaultLiftSpeed = 1;
     double difference = runTo - this.getLiftHeight();
-    double rampStart = 12;
+    double rampStart = 10;
 
     // if the distance from the runTo to the current height
     // is more than the ramping start it goes at full
