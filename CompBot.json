@@ -120,7 +120,7 @@
               "imageHeight": 240
             }
           },
-          "4,2": {
+          "4,4": {
             "size": [
               2,
               1
@@ -173,6 +173,30 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Hatch Distance",
               "_title": "/SmartDashboard/Hatch Distance"
+            }
+          },
+          "4,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/High Gear",
+              "_title": "/SmartDashboard/High Gear",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Slowify Amount",
+              "_title": "/SmartDashboard/Slowify Amount"
             }
           }
         }

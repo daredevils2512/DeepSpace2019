@@ -46,6 +46,8 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
+  private boolean highGear;
+
   public static PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
@@ -163,11 +165,19 @@ public class Drivetrain extends Subsystem {
   }
 
   public void shiftUp() {
+    System.out.println("Shifted up");
+    this.highGear = true;
     this.shift(high);
   }
 
   public void shiftDown() {
+    System.out.println("Shifted down")
+    this.highGear = false;
     this.shift(low);
+  }
+
+  public boolean getHighState() {
+    return this.highGear;
   }
 
   public double leftFrontSpeed() {
