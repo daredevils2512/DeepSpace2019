@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
-  public static SendableChooser<Double> driveToWallChooser;
+  public static SendableChooser<Double> driveToWallChooser, slowifyChooser;
   
   public static PowerDistributionPanel m_PDP;
   public static SendableBuilder m_PDPBuilder;
@@ -81,6 +81,15 @@ public class Robot extends TimedRobot {
     driveToWallChooser.addOption("24", 24.0);
     driveToWallChooser.addOption("36", 36.0);
     SmartDashboard.putData("driveToWall", driveToWallChooser);
+
+    slowifyChooser = new SendableChooser<>();
+    slowifyChooser.addOption("100%", 1.0);
+    slowifyChooser.addOption("85%", 0.85);
+    slowifyChooser.addOption("75%", 0.75);
+    slowifyChooser.addOption("65%", 0.65);
+    slowifyChooser.addOption("50%", 0.5);
+    slowifyChooser.setDefaultOption("Default", 0.8);
+    SmartDashboard.putData(slowifyChooser);
     
     m_PDP = new PowerDistributionPanel();
     m_PDPBuilder = new SendableBuilderImpl();
