@@ -78,14 +78,14 @@ public class OI {
   Button yellowBoi = new JoystickButton(buttonBox, 15);
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
-  Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
-  Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
+  // Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
+  // Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
 
   public OI() {
 
     rightTrigger.whileHeld(new ShiftDown());
     rightTrigger.whenReleased(new ShiftUp());
-    // leftTrigger.whenPressed(new InvertDriving());
+    leftTrigger.whenPressed(new InvertDriving());
     yButton.whenPressed(new CargoFoldUp());
     aButton.whenPressed(new CargoFoldDown());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
@@ -98,8 +98,8 @@ public class OI {
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
     frontLeft.whenPressed(new FlowerOpen());
     frontRight.whenPressed(new FlowerClose());
-    // midLeft.whenPressed(new FlowerSlideOut());
-    // midRight.whenPressed(new FlowerSlideIn());
+    midLeft.whenPressed(new FlowerSlideOut());
+    midRight.whenPressed(new FlowerSlideIn());
 
     // center flower begins 1'3" off ground
     // center ball begins 7.5" off ground
@@ -117,8 +117,8 @@ public class OI {
     bigWhite.whenPressed(new CMG_IntakeBall());
 
     // start.whenPressed(new DriveToWall());
-    // greenBoi.whenPressed(new CargoFoldUp());
-    // yellowBoi.whenPressed(new CargoFoldDown());
+    greenBoi.whenPressed(new CargoFoldUp());
+    yellowBoi.whenPressed(new CargoFoldDown());
 
     greenBoi.whenPressed(new FlowerSlideIn());
     yellowBoi.whenPressed(new FlowerSlideOut());
@@ -126,7 +126,7 @@ public class OI {
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
 
-    liftSwitch.whenActive(new ResetLiftEncoder());
+    // liftSwitch.whenActive(new ResetLiftEncoder());
 
     // Add in disable until ball is extaked. then reset trigger
     // cargoSwitch.whenActive(new CMG_LiftCargo());
@@ -145,7 +145,8 @@ public class OI {
   }
   
   public Double liftControl() {
-   return desensitize(extreme.getRawAxis(1));
+  //  return desensitize(extreme.getRawAxis(1));
+      return 0.0;
   }
   
   public Double getMove() {

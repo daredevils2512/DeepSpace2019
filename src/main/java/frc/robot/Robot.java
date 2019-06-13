@@ -121,20 +121,22 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
     // SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
-    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
+    // SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
     SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
     SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
 
     SmartDashboard.putBoolean("Ball lmit switch", m_ballXtake.getBallOccupancy());
 
-    SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
+    // SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
     // SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
     // SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
     // SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
     // SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
+
+    SmartDashboard.putBoolean("A Button State", m_oi.aButton.get());
 
     /*
     x
