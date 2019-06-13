@@ -53,6 +53,8 @@ public class Drivetrain extends Subsystem {
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
   private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
+
+  private boolean arcade = true; // control mode
   
   // private RumbleType rumblely;
 
@@ -106,6 +108,15 @@ public class Drivetrain extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
   }
+  
+  public boolean controlMode() {
+    if (arcade) {
+        arcade = false;
+    } else {
+        arcade = true;
+    }
+    return arcade;
+}
 
   public void leftSpeed(double speed) {
     leftSpark.set(speed);

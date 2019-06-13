@@ -90,6 +90,7 @@ public class OI {
     aButton.whenPressed(new CargoFoldDown());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
     bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
+    leftBumper.whenPressed(new ControlShift()); // toggles between arcade and tank
 
     topLeft.whileHeld(new RunBallXtake(1.0, true)); //out
     bottomLeft.whileHeld(new RunBallXtake(-0.75, true)); //in
@@ -104,18 +105,14 @@ public class OI {
     // center flower begins 1'3" off ground
     // center ball begins 7.5" off ground
     bottomRed.whenPressed(new RunToBottom());
-
     bottomWhite.whenPressed(new RunToPosition(6)); // feeder and everything else
     midRed.whenPressed(new RunToPosition(41)); // second level rocket hatch
     // run top hatch all up
-
     midWhite.whenPressed(new RunToPosition(20)); // bottom level ball rocket
     topRed.whenPressed(new RunToPosition(34)); // cargo ball
     topWhite.whenPressed(new RunToPosition(54.5)); //ball second level rocket
-
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
-
     // start.whenPressed(new DriveToWall());
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
