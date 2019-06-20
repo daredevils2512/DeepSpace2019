@@ -171,7 +171,7 @@ public class Drivetrain extends Subsystem {
   }
 
   public void shiftDown() {
-    System.out.println("Shifted down")
+    System.out.println("Shifted down");
     this.highGear = false;
     this.shift(low);
   }
