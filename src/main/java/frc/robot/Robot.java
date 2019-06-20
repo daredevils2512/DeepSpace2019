@@ -19,7 +19,9 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
 import frc.robot.commands.CMG_LiftCargo;
+import frc.robot.constants.Constants;
 import frc.robot.lib.DistanceSensor;
+import frc.robot.lib.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,6 +39,8 @@ public class Robot extends TimedRobot {
   public static Lift m_lift;
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
+
+  public static Limelight m_limelight;
 
   public static SendableChooser<Double> driveToWallChooser, slowifyChooser;
   
@@ -74,6 +78,8 @@ public class Robot extends TimedRobot {
     m_cargoIntake = new CargoIntake();
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
+
+    m_limelight = new Limelight();
 
     driveToWallChooser = new SendableChooser<>();
     driveToWallChooser.addOption("6", 6.0);
@@ -139,6 +145,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
+    SmartDashboard.putNumber("Limelight height", m_lift.getLiftHeight() + Constants.Lift.HEIGHTOFFSET + Constants.Limelight.HEIGHTOFFSET);
 
     // SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
     // SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));

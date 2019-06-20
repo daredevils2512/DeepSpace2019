@@ -67,16 +67,16 @@ public class OI {
   Button backLeft = new JoystickButton(extreme, 11);
   Button backRight = new JoystickButton(extreme, 12);
 
-  Button topWhite = new JoystickButton(buttonBox, 2);
-  Button bigWhite = new JoystickButton(buttonBox, 3);
-  Button midRed = new JoystickButton(buttonBox, 4);
-  Button bottomWhite = new JoystickButton(buttonBox, 5);
-  Button topRed = new JoystickButton(buttonBox, 6);
-  Button greenBoi = new JoystickButton(buttonBox, 7);
-  Button midWhite = new JoystickButton(buttonBox, 8);
-  Button bigRed = new JoystickButton(buttonBox, 14);
-  Button yellowBoi = new JoystickButton(buttonBox, 15);
-  Button bottomRed = new JoystickButton(buttonBox, 16); 
+  Button buttonBox2 = new JoystickButton(buttonBox, 2);
+  Button buttonBox3 = new JoystickButton(buttonBox, 3);
+  Button buttonBox4 = new JoystickButton(buttonBox, 4);
+  Button buttonBox5 = new JoystickButton(buttonBox, 5);
+  Button buttonBox6 = new JoystickButton(buttonBox, 6);
+  Button buttonBox7 = new JoystickButton(buttonBox, 7);
+  Button buttonBox8 = new JoystickButton(buttonBox, 8);
+  Button buttonBox14 = new JoystickButton(buttonBox, 14);
+  Button buttonBox15 = new JoystickButton(buttonBox, 15);
+  Button buttonBox16 = new JoystickButton(buttonBox, 16); 
 
   Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
   Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
@@ -103,25 +103,27 @@ public class OI {
 
     // center flower begins 1'3" off ground
     // center ball begins 7.5" off ground
-    bottomRed.whenPressed(new RunToBottom());
+    buttonBox16.whenPressed(new RunToBottom());
 
-    bottomWhite.whenPressed(new RunToPosition(6)); // feeder and everything else
-    midRed.whenPressed(new RunToPosition(41)); // second level rocket hatch
+    buttonBox5.whenPressed(new RunToPosition(6)); // feeder and everything else
+    buttonBox4.whenPressed(new RunToPosition(41)); // second level rocket hatch
     // run top hatch all up
 
-    midWhite.whenPressed(new RunToPosition(20)); // bottom level ball rocket
-    topRed.whenPressed(new RunToPosition(34)); // cargo ball
-    topWhite.whenPressed(new RunToPosition(54.5)); //ball second level rocket
+    buttonBox8.whenPressed(new RunToPosition(20)); // bottom level ball rocket
+    buttonBox6.whenPressed(new RunToPosition(34)); // cargo ball
+    buttonBox2.whenPressed(new RunToPosition(54.5)); //ball second level rocket
 
-    bigRed.whenPressed(new Compressor());
-    bigWhite.whenPressed(new CMG_IntakeBall());
+    buttonBox14.whenPressed(new Compressor());
+    buttonBox3.whenPressed(new CMG_IntakeBall());
 
     // start.whenPressed(new DriveToWall());
     // greenBoi.whenPressed(new CargoFoldUp());
     // yellowBoi.whenPressed(new CargoFoldDown());
 
-    greenBoi.whenPressed(new FlowerSlideIn());
-    yellowBoi.whenPressed(new FlowerSlideOut());
+    // Temporarily using these for limelight
+    // buttonBox7.whenPressed(new FlowerSlideIn());
+    // buttonBox15.whenPressed(new FlowerSlideOut());
+    buttonBox7.whileHeld(new AlignRocketCargo());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());

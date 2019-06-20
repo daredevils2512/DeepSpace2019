@@ -44,7 +44,7 @@ public class ManualLift extends LiftCommand {
     //   speed = 0.0;
       
     // }
-    double control = liftControlDirection.get();
+    double control = liftControlDirection.get() * 0.5;
     if (control > 0.0) {
       if (!upperLimit()) {
         Robot.m_lift.setSpeed(control);

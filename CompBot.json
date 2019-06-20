@@ -10,127 +10,6 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "4,0": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Compressor on",
-              "_title": "Compressor on",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "7,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/lift switch",
-              "_title": "lift switch",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "6,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Ball lmit switch",
-              "_title": "Ball lmit switch",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "0,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/lift control",
-              "_title": "lift control"
-            }
-          },
-          "2,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/lift hieght",
-              "_title": "lift hieght"
-            }
-          },
-          "1,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/lift pos",
-              "_title": "lift pos"
-            }
-          },
-          "0,0": {
-            "size": [
-              4,
-              4
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://rPi Camera 0",
-              "_title": "rPi Camera 0",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": 39.928102056964555,
-              "fps": 15,
-              "imageWidth": 320,
-              "imageHeight": 240
-            }
-          },
-          "6,0": {
-            "size": [
-              4,
-              4
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://rPi Camera 1",
-              "_title": "rPi Camera 1",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": 39.928104889938254,
-              "fps": 10,
-              "imageWidth": 320,
-              "imageHeight": 240
-            }
-          },
-          "4,4": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Ball Distance",
-              "_title": "Ball Distance"
-            }
-          },
           "12,1": {
             "size": [
               1,
@@ -164,39 +43,67 @@
               "_title": "/SmartDashboard/Hatch Color"
             }
           },
-          "4,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Hatch Distance",
-              "_title": "/SmartDashboard/Hatch Distance"
-            }
-          },
-          "4,2": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/High Gear",
-              "_title": "/SmartDashboard/High Gear",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "3,4": {
+          "7,0": {
             "size": [
               1,
               1
             ],
             "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Slowify Amount",
-              "_title": "/SmartDashboard/Slowify Amount"
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Distance to Target",
+              "_title": "SmartDashboard/Distance to Target"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/tv",
+              "_title": "limelight/tv"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/tx",
+              "_title": "limelight/tx"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///limelight/ty",
+              "_title": "limelight/ty"
+            }
+          },
+          "3,0": {
+            "size": [
+              4,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
+              "Crosshair/Show crosshair": true,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": -1,
+              "imageHeight": -1
             }
           }
         }
