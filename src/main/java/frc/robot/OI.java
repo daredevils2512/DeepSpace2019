@@ -96,10 +96,12 @@ public class OI {
     topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
     bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
+    
+    
     frontLeft.whenPressed(new FlowerOpen());
     frontRight.whenPressed(new FlowerClose());
-    // midLeft.whenPressed(new FlowerSlideOut());
-    // midRight.whenPressed(new FlowerSlideIn());
+    midLeft.whenPressed(new FlowerSlideOut());
+    midRight.whenPressed(new FlowerSlideIn());
 
     // center flower begins 1'3" off ground
     // center ball begins 7.5" off ground
@@ -120,10 +122,8 @@ public class OI {
     // greenBoi.whenPressed(new CargoFoldUp());
     // yellowBoi.whenPressed(new CargoFoldDown());
 
-    // Temporarily using these for limelight
-    // buttonBox7.whenPressed(new FlowerSlideIn());
-    // buttonBox15.whenPressed(new FlowerSlideOut());
-    buttonBox7.whileHeld(new AlignRocketCargo());
+    buttonBox7.whenPressed(new FlowerSlideIn());
+    buttonBox15.whenPressed(new FlowerSlideOut());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());

@@ -41,7 +41,7 @@ public class Lift extends Subsystem {
   public double maxDownSpeed = -0.55;
   private double tolerance = 1;
 
-  public Lift() {  
+  public Lift() {
 
     liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
     liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);

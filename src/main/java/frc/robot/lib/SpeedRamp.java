@@ -17,9 +17,9 @@ public class SpeedRamp {
 
     public static double speedRamp(double tolerance, double distDiffrence, double rampStartDist, double defaultSpeed) {
         if (distDiffrence > tolerance) {
-            return Math.min(defaultSpeed, (distDiffrence / rampStartDist));
+            return Math.min(defaultSpeed, distDiffrence / rampStartDist);
           } else if (distDiffrence < -tolerance) {
-            return Math.max(-defaultSpeed, (distDiffrence / rampStartDist));
+            return Math.max(-defaultSpeed, distDiffrence / rampStartDist);
           } else {
             return 0;
           }

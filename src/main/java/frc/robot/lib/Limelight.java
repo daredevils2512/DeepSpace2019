@@ -30,7 +30,11 @@ public class Limelight {
         return ty.getDouble(0.0);
     }
 
-    public double getDistance() {
-        return 0.0;
+    // Angles are in degrees
+    public static double getDistance(double heightDifference, double angleToTarget) {
+        double sumAngle = angleToTarget;
+        double sumAngleRadians = sumAngle * Math.PI / 180.0;
+        double distance = heightDifference / Math.tan(sumAngleRadians);
+        return distance;
     }
 }
