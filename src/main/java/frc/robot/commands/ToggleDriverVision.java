@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,29 +7,30 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * An example command.  You can replace me with your own command.
- */
-public abstract class Drive extends Command {
-  private boolean enabled = true;
-  private double slowify = 1.0;
-  protected Supplier<Double> getLeft, getRight;
+public class ToggleDriverVision extends Command {
 
-  public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
+  public ToggleDriverVision() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Drivetrain);
-    this.getLeft = getLeft;
-    this.getRight = getRight;
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    if(Robot.m_drivervision.getIsEnabled()) {
+      Robot.m_drivervision.disable();
+    } else {
+      Robot.m_drivervision.enable();
+    }
+    // driverVision = Robot.m_drivervision.toggleDriverVision();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -47,6 +48,5 @@ public abstract class Drive extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.m_Drivetrain.arcadeDrive(0.0 , 0.0);
   }
 }

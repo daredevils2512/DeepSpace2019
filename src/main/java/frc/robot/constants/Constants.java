@@ -2,13 +2,24 @@ package frc.robot.constants;
 
 public final class Constants {
     public enum LiftPosition {
-        FEEDER,
-        CARGOBOTTOM,
-        HATCHBOTTOM,
-        CARGOMIDDLE,
-        HATCHMIDDLE,
-        CARGOTOP,
-        HATCHTOP
+        FEEDER(4),
+        CARGO_SHIP_CARGO(36), // Needs to be measured
+        ROCKET_CARGO_BOTTOM(27),
+        ROCKET_CARGO_MIDDLE(57),
+        ROCKET_CARGO_TOP(75),
+        ROCKET_HATCH_BOTTOM(14),
+        ROCKET_HATCH_MIDDLE(46),
+        ROCKET_HATCH_TOP(68);
+
+        private double position;
+
+        LiftPosition(double position) {
+            this.position = position;
+        }
+
+        public double getPosition() {
+            return position;
+        }
     }
     
     public enum YPRSelect {
@@ -23,12 +34,10 @@ public final class Constants {
     }
 
     public static final class Lift {
-        public static final double SPEED = 0.75; // Maximum lift speed used universally (theoretically)
-        public static final double BACKDRIVE = 0.1; // Idle lift speed to maintain position
-        public static final double HEIGHTOFFSET = 15; // Difference between lift height and actual height off ground
-        public static final double MAXHEIGHT = 60;
-        public static final double MAXHEIGHTTOLERANCE = 5; // Stops backdrive this high above max height
-        public static final class Position {
+        public static final double BACKDRIVE = 0.08; // Idle lift speed to maintain position
+        public static final double MAXHEIGHT = Height.CARGOMIDDLE;
+        public static final double MAXHEIGHTTOLERANCE = 2; // Stops backdrive this high above max height
+        public static final class Height {
             public static final double FEEDER = 12;
             public static final double CARGOBOTTOM = 27;
             public static final double CARGOMIDDLE = 57;

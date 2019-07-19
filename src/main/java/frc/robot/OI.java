@@ -67,16 +67,16 @@ public class OI {
   Button backLeft = new JoystickButton(extreme, 11);
   Button backRight = new JoystickButton(extreme, 12);
 
-  Button buttonBox2 = new JoystickButton(buttonBox, 2);
-  Button buttonBox3 = new JoystickButton(buttonBox, 3);
-  Button buttonBox4 = new JoystickButton(buttonBox, 4);
-  Button buttonBox5 = new JoystickButton(buttonBox, 5);
-  Button buttonBox6 = new JoystickButton(buttonBox, 6);
-  Button buttonBox7 = new JoystickButton(buttonBox, 7);
-  Button buttonBox8 = new JoystickButton(buttonBox, 8);
-  Button buttonBox14 = new JoystickButton(buttonBox, 14);
-  Button buttonBox15 = new JoystickButton(buttonBox, 15);
-  Button buttonBox16 = new JoystickButton(buttonBox, 16); 
+  Button topWhite = new JoystickButton(buttonBox, 2);
+  Button bigWhite = new JoystickButton(buttonBox, 3);
+  Button midRed = new JoystickButton(buttonBox, 4);
+  Button bottomWhite = new JoystickButton(buttonBox, 5);
+  Button topRed = new JoystickButton(buttonBox, 6);
+  Button green = new JoystickButton(buttonBox, 7);
+  Button midWhite = new JoystickButton(buttonBox, 8);
+  Button bigRed = new JoystickButton(buttonBox, 14);
+  Button yellow = new JoystickButton(buttonBox, 15);
+  Button bottomRed = new JoystickButton(buttonBox, 16);
 
   Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
   Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
@@ -98,32 +98,35 @@ public class OI {
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
     
     
-    frontLeft.whenPressed(new FlowerOpen());
-    frontRight.whenPressed(new FlowerClose());
-    midLeft.whenPressed(new FlowerSlideOut());
-    midRight.whenPressed(new FlowerSlideIn());
+    // frontLeft.whenPressed(new FlowerOpen());
+    // frontRight.whenPressed(new FlowerClose());
+    // midLeft.whenPressed(new FlowerSlideOut());
+    // midRight.whenPressed(new FlowerSlideIn());
 
     // center flower begins 1'3" off ground
     // center ball begins 7.5" off ground
-    buttonBox16.whenPressed(new RunToBottom());
+    bottomRed.whenPressed(new RunToBottom());
+    bottomWhite.whenPressed(new RunToPosition(LiftPosition.FEEDER));
+    midRed.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_BOTTOM));
+    midWhite.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_MIDDLE));
+    topRed.whenPressed(new RunToPosition(LiftPosition.CARGO_SHIP_CARGO));
 
-    buttonBox5.whenPressed(new RunToPosition(6)); // feeder and everything else
-    buttonBox4.whenPressed(new RunToPosition(41)); // second level rocket hatch
-    // run top hatch all up
+    // topWhite.whenPressed(new ToggleDriverVision());
 
-    buttonBox8.whenPressed(new RunToPosition(20)); // bottom level ball rocket
-    buttonBox6.whenPressed(new RunToPosition(34)); // cargo ball
-    buttonBox2.whenPressed(new RunToPosition(54.5)); //ball second level rocket
-
-    buttonBox14.whenPressed(new Compressor());
-    buttonBox3.whenPressed(new CMG_IntakeBall());
+    bigRed.whenPressed(new Compressor());
+    bigWhite.whenPressed(new CMG_IntakeBall());
 
     // start.whenPressed(new DriveToWall());
     // greenBoi.whenPressed(new CargoFoldUp());
     // yellowBoi.whenPressed(new CargoFoldDown());
 
-    buttonBox7.whenPressed(new FlowerSlideIn());
-    buttonBox15.whenPressed(new FlowerSlideOut());
+    // Flower not on robot
+    // Using for controlling both intakes and extakes
+    // buttonBox7.whenPressed(new FlowerSlideIn());
+    // buttonBox15.whenPressed(new FlowerSlideOut());
+    green.whileHeld(new ExtakeCargo());
+    yellow.whileHeld(new IntakeCargo());
+    // buttonBox7.whenPressed(new ToggleDriverVision());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());

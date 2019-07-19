@@ -22,7 +22,6 @@ public class ArcadeDrive extends Drive {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    slowify = Robot.slowify;
-    Robot.m_Drivetrain.arcadeDrive(getLeft.get() * slowify, getRight.get() * slowify); // im not done with this yet
+    Robot.m_Drivetrain.arcadeDrive(getLeft.get() * Robot.slowify, getRight.get() * Robot.slowify); // im not done with this yet
   }
 }

@@ -25,7 +25,7 @@ public class RunToBottom extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_lift.setSpeed(Robot.m_lift.maxDownSpeed);
+    Robot.m_lift.setSpeed(-Robot.m_lift.MAX_DOWN_SPEED);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +44,6 @@ public class RunToBottom extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.m_lift.setSpeed(0.0);
+    end();
   }
 }

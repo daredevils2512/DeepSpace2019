@@ -15,12 +15,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Size;
+
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
-import frc.robot.commands.CMG_LiftCargo;
-import frc.robot.constants.Constants;
-import frc.robot.lib.DistanceSensor;
+import frc.robot.commands.ToggleDriverVision;
+import frc.robot.lib.DriverVision;
 import frc.robot.lib.Limelight;
 
 /**
@@ -41,6 +51,7 @@ public class Robot extends TimedRobot {
   public static Flower m_flower;
 
   public static Limelight m_limelight;
+  public static DriverVision m_drivervision;
 
   public static double slowify = 1.0;
   public static SendableChooser<Double> driveToWallChooser;
@@ -99,6 +110,7 @@ public class Robot extends TimedRobot {
     m_flower = new Flower();
 
     m_limelight = new Limelight();
+    // m_drivervision = new DriverVision();
     
     m_PDP = new PowerDistributionPanel();
     m_PDPBuilder = new SendableBuilderImpl();
@@ -145,12 +157,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
 
     SmartDashboard.putBoolean("Ball lmit switch", BallXtake.getBallOccupancy());
-
+    // SmartDashboard.putBoolean("Driver vision enabled", m_drivervision.getIsEnabled());
     SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
-
-    SmartDashboard.putNumber("Limelight height", m_lift.getLiftHeight() + Constants.Limelight.LOWEST);
-    // SmartDashboard.putNumber("Limelight distance to target", Limelight.getDistance(Constants.Limelight.HEIGHTOFFSET, Constants.Limelight.PITCH, m_limelight.getY()));
 
     slowify = slowifyChooser.getSelected() == null ? 1.0 : slowifyChooser.getSelected();
 
