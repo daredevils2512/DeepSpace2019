@@ -10,17 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RunToBottom extends Command {
-  private boolean overrideManualControl;
-  private final double manualControlOverrideTolerance = 0.1;
+public class ToggleDriverVision extends Command {
 
-  /**
-   * Run lift to lowest height
-   * @param overrideManualControl Take priority over joystick controls
-   */
-  public RunToBottom(boolean overrideManualControl) {
-    requires(Robot.m_lift);
-    this.overrideManualControl = overrideManualControl;
+  public ToggleDriverVision() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
   // Called just before this Command runs the first time
@@ -31,32 +25,28 @@ public class RunToBottom extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_lift.setSpeed(-Robot.m_lift.MAX_DOWN_SPEED);
+    if(Robot.m_drivervision.getIsEnabled()) {
+      Robot.m_drivervision.disable();
+    } else {
+      Robot.m_drivervision.enable();
+    }
+    // driverVision = Robot.m_drivervision.toggleDriverVision();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //Allows joystick to override RunToPosition
-    if(!overrideManualControl) {
-      if(Math.abs(Robot.m_oi.liftControl()) > manualControlOverrideTolerance) {
-        return true;
-      }
-    }
-
-    return Robot.m_lift.getLimitSwitchBottom();
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_lift.setSpeed(0.0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

@@ -3,20 +3,25 @@ package frc.robot.commands;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.constants.*;
-import frc.robot.constants.Constants.LiftPosition;
+import frc.robot.constants.Constants.Lift;
+import frc.robot.lib.SpeedRamp;
 
 public class RunToPosition extends Command {
     private Constants.LiftPosition position;
-    private double height;
-    private boolean finished;
-    public RunToPosition(Constants.LiftPosition value) {
-        requires(Robot.m_lift);
-        this.position = value;
-    }
+    private boolean overrideManualControl;
+    private final double manualControlOverrideTolerance = 0.1;
+    private final double speedRampTolerance = 1, speedRampStartDist = 10;
 
-    public RunToPosition(double height) {
+    /**
+     * Run lift to height
+     * @param position Desired height
+     * @param overrideManualControl Take priority over joystick contols
+     */
+
+    public RunToPosition(Constants.LiftPosition position, boolean overrideManualControl) {
         requires(Robot.m_lift);
-        this.height = height;
+        this.position = position;
+        this.overrideManualControl = overrideManualControl;
     }
 
     @Override
@@ -36,51 +41,33 @@ public class RunToPosition extends Command {
         3 11
         6 3
         */
-        
-        double height;
-        if (this.position != null) {
-            switch (this.position) {
-                case FEEDER:
-                    height = 12;
-                case CARGOBOTTOM:
-                    height = 27;
-                    break;
-                case CARGOMIDDLE:
-                    height = 57;
-                    break;
-                case CARGOTOP:
-                    height = 75;
-                    break;
-                case HATCHBOTTOM:
-                    height = 14;
-                    break;
-                case HATCHMIDDLE:
-                    height = 46;
-                    break;
-                case HATCHTOP:
-                    height = 68;
-                    break;
-                default:
-                    height = 0;
-                    break;
-            }
-        } else {
-            height = this.height;
-        }
+
         // System.out.println("Height: " + height);
-        Robot.m_lift.runTo(height);
+        // Robot.m_lift.runTo(position.getPosition());
 
-        this.finished = Robot.m_lift.isFinishedRunTo();
+        double distance = position.getPosition() - Robot.m_lift.getLiftHeight();
+        double speed = SpeedRamp.speedRamp(speedRampTolerance, distance, speedRampStartDist, 1.0);
+        Robot.m_lift.setSpeed(speed);
 
+        // this.finished = Math.abs(height - Robot.m_lift.getLiftHeight()) < 1;
     }
 
     @Override
     protected boolean isFinished() {
-        return (this.finished);
+        //Allows joystick to override RunToPosition
+        if(!overrideManualControl) {
+            if(Math.abs(Robot.m_oi.liftControl()) > manualControlOverrideTolerance) {
+                return true;
+            }
+        }
+
+        double tolerance = 1; // Move to constants
+        return Math.abs(position.getPosition() - Robot.m_lift.getLiftHeight()) < tolerance;
     }
 
     @Override
     protected void end() {
+        Robot.m_lift.setSpeed(Lift.BACKDRIVE);
     }
 
     @Override

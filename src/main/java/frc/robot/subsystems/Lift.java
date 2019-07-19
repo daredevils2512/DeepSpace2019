@@ -19,18 +19,22 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.ManualLift;
+import frc.robot.constants.Constants;
 import frc.robot.lib.SpeedRamp;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class Lift extends Subsystem {
+  public final double MAX_UP_SPEED = 1.0;
+  public final double MAX_DOWN_SPEED = 0.75; // Positive because control is multiplied by this
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private WPI_TalonSRX liftTalon1;
   private WPI_TalonSRX liftTalon2;
   public static DigitalInput limitSwitchBottom;
-  public static DigitalInput limitSwitchTop; 
+  public static DigitalInput limitSwitchTop;
 
   private static final int magEncPulsesPerRev = 4096;
   private static final double inchesPerRev = (4 + (3/4)) + (5 + (3/8)); // This will change
@@ -40,7 +44,7 @@ public class Lift extends Subsystem {
   public double maxDownSpeed = -0.55;
   private double tolerance = 1;
 
-  public Lift() {  
+  public Lift() {
 
     liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
     liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
@@ -73,6 +77,9 @@ public class Lift extends Subsystem {
   }
 
   public boolean getLimitSwitchBottom() {
+    if (limitSwitchBottom.get()) {
+      this.resetLiftEncoder();
+    }
     return limitSwitchBottom.get();
   }
 
@@ -93,9 +100,9 @@ public class Lift extends Subsystem {
   public void runTo(double runTo) {
     m_runTo = runTo;
 
-    double defaultLiftSpeed = 1;
+    double defaultLiftSpeed = 1.0;
     double difference = runTo - this.getLiftHeight();
-    double rampStart = 12;
+    double rampStart = 10;
 
     // if the distance from the runTo to the current height
     // is more than the ramping start it goes at full
@@ -115,7 +122,5 @@ public class Lift extends Subsystem {
     && this.getLiftHeight() <= (m_runTo + (tolerance)));
 
   }
-
-
   
 }

@@ -38,7 +38,7 @@ public class CMG_IntakeBall extends CommandGroup {
     // a CommandGroup containing them would require both the chassis and the
     // arm.
     if (!Robot.m_lift.getLimitSwitchBottom()) {
-      addSequential(new RunToBottom());
+      addSequential(new RunToBottom(true));
     }
     // if (!ballIn) {
       addSequential(new CargoFoldDown());

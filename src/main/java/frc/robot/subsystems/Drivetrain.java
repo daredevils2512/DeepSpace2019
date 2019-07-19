@@ -46,6 +46,8 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
+  private boolean highGear;
+
   public static PigeonIMU gyro;
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
@@ -163,11 +165,19 @@ public class Drivetrain extends Subsystem {
   }
 
   public void shiftUp() {
+    System.out.println("Shifted up");
+    this.highGear = true;
     this.shift(high);
   }
 
   public void shiftDown() {
+    System.out.println("Shifted down");
+    this.highGear = false;
     this.shift(low);
+  }
+
+  public boolean getHighState() {
+    return this.highGear;
   }
 
   public double leftFrontSpeed() {
@@ -214,10 +224,10 @@ public class Drivetrain extends Subsystem {
   }
 
   public void updateDashboard() {
-    // SmartDashboard.putNumber("D1 Temp", leftSpark.getMotorTemperature());
-    // SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
-    // SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
-    // SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D1 Temp", leftSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());
+    SmartDashboard.putNumber("D4 Temp", rightRearSpark.getMotorTemperature());
 
     // SmartDashboard.putNumber("D1 Out Current", leftSpark.getOutputCurrent());
     // SmartDashboard.putNumber("D2 Out Current", leftRearSpark.getOutputCurrent());

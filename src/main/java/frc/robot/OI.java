@@ -72,11 +72,11 @@ public class OI {
   Button midRed = new JoystickButton(buttonBox, 4);
   Button bottomWhite = new JoystickButton(buttonBox, 5);
   Button topRed = new JoystickButton(buttonBox, 6);
-  Button greenBoi = new JoystickButton(buttonBox, 7);
+  Button green = new JoystickButton(buttonBox, 7);
   Button midWhite = new JoystickButton(buttonBox, 8);
   Button bigRed = new JoystickButton(buttonBox, 14);
-  Button yellowBoi = new JoystickButton(buttonBox, 15);
-  Button bottomRed = new JoystickButton(buttonBox, 16); 
+  Button yellow = new JoystickButton(buttonBox, 15);
+  Button bottomRed = new JoystickButton(buttonBox, 16);
 
   Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
   Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
@@ -96,18 +96,28 @@ public class OI {
     topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
     bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
-    frontLeft.whenPressed(new FlowerOpen());
-    frontRight.whenPressed(new FlowerClose());
+    
+    
+    // frontLeft.whenPressed(new FlowerOpen());
+    // frontRight.whenPressed(new FlowerClose());
     // midLeft.whenPressed(new FlowerSlideOut());
     // midRight.whenPressed(new FlowerSlideIn());
 
-    bottomRed.whenPressed(new RunToBottom());
-    bottomWhite.whenPressed(new RunToPosition(12)); // feeder
-    midRed.whenPressed(new RunToPosition(14)); // first rockeyt h
-    midWhite.whenPressed(new RunToPosition(46)); // second h
+    // center flower begins 1'3" off ground
+    // center ball begins 7.5" off ground
+    bottomRed.whenPressed(new RunToBottom(false));
+    bottomWhite.whenPressed(new RunToPosition(LiftPosition.FEEDER, false));
+    midRed.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_BOTTOM, false));
+    midWhite.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_MIDDLE, false));
+    topRed.whenPressed(new RunToPosition(LiftPosition.CARGO_SHIP_CARGO, false));
+    topWhite.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_TOP, false));
 
-    topRed.whenPressed(new RunToPosition(27)); //ball b
-    topWhite.whenPressed(new RunToPosition(57)); //ball m
+
+    //---------Driver Vision on RIO----------------//
+
+    // frontLeft.whenPressed(new ToggleDriverVision());
+
+    //
 
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
@@ -116,8 +126,13 @@ public class OI {
     // greenBoi.whenPressed(new CargoFoldUp());
     // yellowBoi.whenPressed(new CargoFoldDown());
 
-    greenBoi.whenPressed(new FlowerSlideIn());
-    yellowBoi.whenPressed(new FlowerSlideOut());
+    // Flower not on robot
+    // Using for controlling both intakes and extakes
+    // buttonBox7.whenPressed(new FlowerSlideIn());
+    // buttonBox15.whenPressed(new FlowerSlideOut());
+    green.whileHeld(new ExtakeCargo());
+    yellow.whileHeld(new IntakeCargo());
+    // buttonBox7.whenPressed(new ToggleDriverVision());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());

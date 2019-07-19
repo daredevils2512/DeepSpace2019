@@ -16,8 +16,8 @@ import frc.robot.Robot;
  * An example command.  You can replace me with your own command.
  */
 public abstract class Drive extends Command {
-
-  protected double slowify = 0.75;
+  private boolean enabled = true;
+  private double slowify = 1.0;
   protected Supplier<Double> getLeft, getRight;
 
   public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
