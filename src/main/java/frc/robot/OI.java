@@ -110,9 +110,15 @@ public class OI {
     midRed.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_BOTTOM, false));
     midWhite.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_MIDDLE, false));
     topRed.whenPressed(new RunToPosition(LiftPosition.CARGO_SHIP_CARGO, false));
+    topWhite.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_TOP, false));
 
-    // topWhite.whenPressed(new ToggleDriverVision());
 
+    //---------Driver Vision on RIO----------------//
+
+    // frontLeft.whenPressed(new ToggleDriverVision());
+
+    //
+    
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
 
