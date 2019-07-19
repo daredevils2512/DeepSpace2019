@@ -83,7 +83,7 @@ public class OI {
 
   public OI() {
 
-    rightTrigger.whileHeld(new ShiftDown());
+    rightTrigger.whenPressed(new ShiftDown());
     rightTrigger.whenReleased(new ShiftUp());
     // leftTrigger.whenPressed(new InvertDriving());
     yButton.whenPressed(new CargoFoldUp());
