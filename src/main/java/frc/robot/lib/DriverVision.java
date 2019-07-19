@@ -39,11 +39,13 @@ public class DriverVision {
   }
 
   public void disable() {
+    if(frontCamera == null) return;
     frontCamera.setFPS(0);
     isEnabled = false;
   }
 
   public void enable() {
+    if(frontCamera == null) return;
     frontCamera.setFPS(30);
     isEnabled = true;
   }

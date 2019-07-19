@@ -8,6 +8,6 @@ public class CMG_LiftCargo extends CommandGroup {
     public CMG_LiftCargo() {
         System.out.println("lift cargo did");
         addSequential(new CargoFoldUp());
-        addSequential(new RunToPosition(LiftPosition.ROCKET_HATCH_BOTTOM)); 
+        addSequential(new RunToPosition(LiftPosition.ROCKET_HATCH_BOTTOM, true)); 
     }
 }

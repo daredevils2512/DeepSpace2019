@@ -11,10 +11,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class RunToBottom extends Command {
-  public RunToBottom() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  private boolean overrideManualControl;
+  private final double manualControlOverrideTolerance = 0.1;
+
+  /**
+   * Run lift to lowest height
+   * @param overrideManualControl Take priority over joystick controls
+   */
+  public RunToBottom(boolean overrideManualControl) {
     requires(Robot.m_lift);
+    this.overrideManualControl = overrideManualControl;
   }
 
   // Called just before this Command runs the first time
@@ -31,6 +37,13 @@ public class RunToBottom extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    //Allows joystick to override RunToPosition
+    if(!overrideManualControl) {
+      if(Math.abs(Robot.m_oi.liftControl()) > manualControlOverrideTolerance) {
+        return true;
+      }
+    }
+
     return Robot.m_lift.getLimitSwitchBottom();
   }
 

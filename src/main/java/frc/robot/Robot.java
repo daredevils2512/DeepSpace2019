@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
     m_flower = new Flower();
 
     m_limelight = new Limelight();
-    // m_drivervision = new DriverVision();
+    // m_drivervision = new DriverVision(); //Uses RoboRIO instead of Raspberry PI
     
     m_PDP = new PowerDistributionPanel();
     m_PDPBuilder = new SendableBuilderImpl();

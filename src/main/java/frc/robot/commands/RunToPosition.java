@@ -8,11 +8,20 @@ import frc.robot.lib.SpeedRamp;
 
 public class RunToPosition extends Command {
     private Constants.LiftPosition position;
+    private boolean overrideManualControl;
+    private final double manualControlOverrideTolerance = 0.1;
     private final double speedRampTolerance = 1, speedRampStartDist = 10;
 
-    public RunToPosition(Constants.LiftPosition position) {
+    /**
+     * Run lift to height
+     * @param position Desired height
+     * @param overrideManualControl Take priority over joystick contols
+     */
+
+    public RunToPosition(Constants.LiftPosition position, boolean overrideManualControl) {
         requires(Robot.m_lift);
         this.position = position;
+        this.overrideManualControl = overrideManualControl;
     }
 
     @Override
@@ -45,6 +54,13 @@ public class RunToPosition extends Command {
 
     @Override
     protected boolean isFinished() {
+        //Allows joystick to override RunToPosition
+        if(!overrideManualControl) {
+            if(Math.abs(Robot.m_oi.liftControl()) > manualControlOverrideTolerance) {
+                return true;
+            }
+        }
+
         double tolerance = 1; // Move to constants
         return Math.abs(position.getPosition() - Robot.m_lift.getLiftHeight()) < tolerance;
     }

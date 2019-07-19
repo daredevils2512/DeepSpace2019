@@ -105,11 +105,11 @@ public class OI {
 
     // center flower begins 1'3" off ground
     // center ball begins 7.5" off ground
-    bottomRed.whenPressed(new RunToBottom());
-    bottomWhite.whenPressed(new RunToPosition(LiftPosition.FEEDER));
-    midRed.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_BOTTOM));
-    midWhite.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_MIDDLE));
-    topRed.whenPressed(new RunToPosition(LiftPosition.CARGO_SHIP_CARGO));
+    bottomRed.whenPressed(new RunToBottom(false));
+    bottomWhite.whenPressed(new RunToPosition(LiftPosition.FEEDER, false));
+    midRed.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_BOTTOM, false));
+    midWhite.whenPressed(new RunToPosition(LiftPosition.ROCKET_CARGO_MIDDLE, false));
+    topRed.whenPressed(new RunToPosition(LiftPosition.CARGO_SHIP_CARGO, false));
 
     // topWhite.whenPressed(new ToggleDriverVision());
 
