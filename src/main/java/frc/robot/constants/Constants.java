@@ -2,8 +2,8 @@ package frc.robot.constants;
 
 public final class Constants {
     public enum LiftPosition {
-        FEEDER(4),
-        CARGO_SHIP_CARGO(36), // Needs to be measured
+        FEEDER(12),
+        CARGO_SHIP_CARGO(48), // Needs to be measured
         ROCKET_CARGO_BOTTOM(27),
         ROCKET_CARGO_MIDDLE(57),
         ROCKET_CARGO_TOP(75),

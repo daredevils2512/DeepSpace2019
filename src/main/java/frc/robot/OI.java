@@ -118,7 +118,7 @@ public class OI {
     // frontLeft.whenPressed(new ToggleDriverVision());
 
     //
-    
+
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
 
