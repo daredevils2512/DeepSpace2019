@@ -1,6 +1,7 @@
 package frc.robot.constants;
 
 public final class Constants {
+    //TODO: measure and double check all of these
     public enum LiftPosition {
         FEEDER(12),
         CARGO_SHIP_CARGO(48), // Needs to be measured
@@ -32,7 +33,7 @@ public final class Constants {
         BALL, 
         HATCH
     }
-
+    //not used 
     public static final class Lift {
         public static final double BACKDRIVE = 0.08; // Idle lift speed to maintain position
         public static final double MAXHEIGHT = Height.HATCHTOP;
@@ -47,6 +48,8 @@ public final class Constants {
             public static final double HATCHTOP = 68;
         }
     }
+    //
+
 
     public static final class VisionTape {
         public static final class Height {
