@@ -26,8 +26,8 @@ import frc.robot.lib.SpeedRamp;
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class Lift extends Subsystem {
-  public final double MAX_UP_SPEED = 1.0;
-  public final double MAX_DOWN_SPEED = 0.75; // Positive because control is multiplied by this
+  public final double MAX_UP_SPEED = 0.75;
+  public final double MAX_DOWN_SPEED = 0.55; // Positive because control is multiplied by this
 
   // Put methods for controlling this subsystem
   // here. Call these from Commands.

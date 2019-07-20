@@ -9,7 +9,7 @@ import frc.robot.lib.SpeedRamp;
 public class RunToPosition extends Command {
     private Constants.LiftPosition position;
     private boolean overrideManualControl;
-    private final double manualControlOverrideTolerance = 0.1;
+    private final double manualControlOverrideTolerance = 0.2;
     private final double speedRampTolerance = 1, speedRampStartDist = 10;
 
     /**
@@ -46,7 +46,7 @@ public class RunToPosition extends Command {
         // Robot.m_lift.runTo(position.getPosition());
 
         double distance = position.getPosition() - Robot.m_lift.getLiftHeight();
-        double speed = SpeedRamp.speedRamp(speedRampTolerance, distance, speedRampStartDist, 1.0);
+        double speed = SpeedRamp.speedRamp(speedRampTolerance, distance, speedRampStartDist, distance < 0 ? Robot.m_lift.MAX_DOWN_SPEED : Robot.m_lift.MAX_UP_SPEED);
         Robot.m_lift.setSpeed(speed);
 
         // this.finished = Math.abs(height - Robot.m_lift.getLiftHeight()) < 1;
