@@ -145,6 +145,8 @@ public class OI {
     // cargoSwitch.whenActive(new CMG_IntakeBall());
     
     // topRight.whenPressed(new FlowerControl());
+
+    sideButton.whenPressed(new PutCargoInShip());
   }
 
   public double desensitize(double val) {
