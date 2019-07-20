@@ -4,7 +4,7 @@ public final class Constants {
     //TODO: measure and double check all of these
     public enum LiftPosition {
         FEEDER(12),
-        CARGO_SHIP_CARGO(48), // Needs to be measured
+        CARGO_SHIP_CARGO(56), // Needs to be measured
         ROCKET_CARGO_BOTTOM(27),
         ROCKET_CARGO_MIDDLE(57),
         ROCKET_CARGO_TOP(75),
@@ -35,8 +35,10 @@ public final class Constants {
     }
     //not used 
     public static final class Lift {
+        public static final double MAX_UP_SPEED = 0.75; //Not using yet
+        public static final double MAX_DOWN_SPEED = 0.55; //Not using yet
         public static final double BACKDRIVE = 0.08; // Idle lift speed to maintain position
-        public static final double MAXHEIGHT = Height.HATCHTOP;
+        public static final double MAXHEIGHT = Height.CARGOTOP;
         public static final double MAXHEIGHTTOLERANCE = 2; // Stops backdrive this high above max height
         public static final class Height {
             public static final double FEEDER = 12;

@@ -9,10 +9,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.lib.SpeedRamp;
+import frc.robot.subsystems.Lift;
 
 public class RunToBottom extends Command {
   private boolean overrideManualControl;
-  private final double manualControlOverrideTolerance = 0.1;
+  private final double manualControlOverrideTolerance = 0.2;
 
   /**
    * Run lift to lowest height
@@ -31,7 +33,10 @@ public class RunToBottom extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_lift.setSpeed(-Robot.m_lift.MAX_DOWN_SPEED);
+    double distance = -Robot.m_lift.getLiftHeight();
+    double speed = SpeedRamp.speedRamp(0, distance, 10, Robot.m_lift.MAX_DOWN_SPEED);
+    Robot.m_lift.setSpeed(speed);
+    // Robot.m_lift.setSpeed(-Robot.m_lift.MAX_DOWN_SPEED);
   }
 
   // Make this return true when this Command no longer needs to run execute()
