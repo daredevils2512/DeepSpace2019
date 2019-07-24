@@ -78,53 +78,59 @@ public class OI {
   Button yellowBoi = new JoystickButton(buttonBox, 15);
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
-  Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
-  Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
+  // Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
+  // Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
 
   public OI() {
 
     rightTrigger.whileHeld(new ShiftDown());
     rightTrigger.whenReleased(new ShiftUp());
-    // leftTrigger.whenPressed(new InvertDriving());
+    leftTrigger.whenPressed(new InvertDriving());
     yButton.whenPressed(new CargoFoldUp());
-    aButton.whenPressed(new RunToBottom());
+    aButton.whenPressed(new CargoFoldDown());
     xButton.whileHeld(new CargoRunIntake(1.0, 1.0, false)); // out
     bButton.whileHeld(new CargoRunIntake(-1.0, -1.0, false)); // in
+    leftBumper.whenPressed(new ControlShift()); // toggles between arcade and tank
 
     topLeft.whileHeld(new RunBallXtake(1.0, true)); //out
     bottomLeft.whileHeld(new RunBallXtake(-0.75, true)); //in
     topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
     bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
     backLeft.whileHeld(new CMG_ExtakeBallBottom());
+    frontLeft.whenPressed(new FlowerOpen());
+    frontRight.whenPressed(new FlowerClose());
+    midLeft.whenPressed(new FlowerSlideOut());
+    midRight.whenPressed(new FlowerSlideIn());
 
-
-    bottomRed.whenPressed(new RunToPosition(LiftPosition.CARGOBOTTOM));
-    bottomWhite.whenPressed(new RunToPosition(LiftPosition.HATCHBOTTOM));
-    midRed.whenPressed(new RunToPosition(LiftPosition.CARGOMIDDLE));
-    midWhite.whenPressed(new RunToPosition(LiftPosition.HATCHMIDDLE));
-    topRed.whenPressed(new RunToPosition(LiftPosition.CARGOTOP));
-    topWhite.whenPressed(new RunToPosition(LiftPosition.HATCHTOP));
-
+    // center flower begins 1'3" off ground
+    // center ball begins 7.5" off ground
+    bottomRed.whenPressed(new RunToBottom());
+    bottomWhite.whenPressed(new RunToPosition(6)); // feeder and everything else
+    midRed.whenPressed(new RunToPosition(41)); // second level rocket hatch
+    // run top hatch all up
+    midWhite.whenPressed(new RunToPosition(20)); // bottom level ball rocket
+    topRed.whenPressed(new RunToPosition(34)); // cargo ball
+    topWhite.whenPressed(new RunToPosition(54.5)); //ball second level rocket
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
-
-    start.whileHeld(new DriveToWall(Robot.m_hatchDistanceSensor));
+    // start.whenPressed(new DriveToWall());
     greenBoi.whenPressed(new CargoFoldUp());
     yellowBoi.whenPressed(new CargoFoldDown());
+
+    greenBoi.whenPressed(new FlowerSlideIn());
+    yellowBoi.whenPressed(new FlowerSlideOut());
 
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
 
-    liftSwitch.whenActive(new ResetLiftEncoder());
+    // liftSwitch.whenActive(new ResetLiftEncoder());
 
     // Add in disable until ball is extaked. then reset trigger
     // cargoSwitch.whenActive(new CMG_LiftCargo());
     
-    cargoSwitch.whenActive(new CMG_IntakeBall());
+    // cargoSwitch.whenActive(new CMG_IntakeBall());
     
     // topRight.whenPressed(new FlowerControl());
-
-    // bottomRed.whenPressed(new RunToBottom());
   }
 
   public double desensitize(double val) {
@@ -136,7 +142,8 @@ public class OI {
   }
   
   public Double liftControl() {
-   return desensitize(extreme.getRawAxis(1));
+  //  return desensitize(extreme.getRawAxis(1));
+      return 0.0;
   }
   
   public Double getMove() {

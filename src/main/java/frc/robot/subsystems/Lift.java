@@ -37,8 +37,8 @@ public class Lift extends Subsystem {
   // public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev;
   public static double liftEncoderPulseToInches = 0.00244125;
 
-  public double maxDownSpeed = -0.4;
-  private double tolerance = 4;
+  public double maxDownSpeed = -0.55;
+  private double tolerance = 1;
 
   public Lift() {  
 
@@ -73,6 +73,9 @@ public class Lift extends Subsystem {
   }
 
   public boolean getLimitSwitchBottom() {
+    if (limitSwitchBottom.get()) {
+      this.resetLiftEncoder();
+    }
     return limitSwitchBottom.get();
   }
 
@@ -95,7 +98,7 @@ public class Lift extends Subsystem {
 
     double defaultLiftSpeed = 1;
     double difference = runTo - this.getLiftHeight();
-    double rampStart = 12;
+    double rampStart = 10;
 
     // if the distance from the runTo to the current height
     // is more than the ramping start it goes at full
