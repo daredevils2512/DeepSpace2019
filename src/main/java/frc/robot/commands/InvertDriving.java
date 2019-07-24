@@ -13,8 +13,12 @@ import frc.robot.Robot;
 public class InvertDriving extends Command {
   public InvertDriving() {
     // Use requires() here to declare subsystem dependencies
+<<<<<<< HEAD:src/main/java/frc/robot/commands/InvertDriving.java
     // eg. requires(chassis);
     requires(Robot.m_Drivetrain);
+=======
+    // requires(Robot.m_subsystem);
+>>>>>>> hatchIntake:src/main/java/frc/robot/commands/ExampleCommand.java
   }
 
   // Called just before this Command runs the first time

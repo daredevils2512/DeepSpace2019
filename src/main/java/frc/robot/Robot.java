@@ -7,7 +7,11 @@
 
 package frc.robot;
 
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+=======
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+>>>>>>> hatchIntake
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
@@ -36,6 +41,11 @@ import org.opencv.core.*;
 // import java.util.ArrayList;
 // import frc.robot.GripWhiteLine;
 
+=======
+import frc.robot.subsystems.*;
+// import frc.robot.commands.ExampleCommand;
+// import frc.robot.subsystems.ExampleSubsystem;
+>>>>>>> hatchIntake
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -45,6 +55,7 @@ import org.opencv.core.*;
  * project.
  */
 public class Robot extends TimedRobot {
+<<<<<<< HEAD
 
   public static int teamNumber = 2512;
 
@@ -57,7 +68,12 @@ public class Robot extends TimedRobot {
   public static CargoIntake m_cargoIntake;
   public static Drivetrain m_Drivetrain;
   public static Compressorsorus m_Compressorsorus;
+=======
+  // public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+>>>>>>> hatchIntake
   public static OI m_oi;
+  public static HatchIntake m_HatchIntake = new HatchIntake();
+
 
   public static NavX m_navX;
   public static Boolean dv0Online = false;
@@ -110,6 +126,7 @@ public class Robot extends TimedRobot {
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_oi = new OI();
+<<<<<<< HEAD
     // Robot.m_vision.init(320 , 240);
     // Robot.m_vision.view(Robot.source);
 
@@ -144,6 +161,10 @@ public class Robot extends TimedRobot {
     // m_PDP = new PowerDistributionPanel();
     // m_PDPBuilder = new SendableBuilderImpl();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
+=======
+    m_HatchIntake = new HatchIntake();
+    // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
+>>>>>>> hatchIntake
     // chooser.addOption("My Auto", new MyAutoCommand());
 <<<<<<< HEAD
     
