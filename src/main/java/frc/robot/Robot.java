@@ -7,11 +7,7 @@
 
 package frc.robot;
 
-<<<<<<< HEAD
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-=======
-import edu.wpi.first.wpilibj.DoubleSolenoid;
->>>>>>> hatchIntake
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,18 +16,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-<<<<<<< HEAD
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
-<<<<<<< HEAD
 import frc.robot.commands.CMG_LiftCargo;
-=======
-import frc.robot.vision.Utils;
-import frc.robot.commands.FullAlignment;
-import frc.robot.constants.Constants;
-import frc.robot.constants.Constants.DistanceSensorSide;
->>>>>>> vision
 import frc.robot.lib.DistanceSensor;
 
 // import com.kauailabs.navx.frc.AHRS;
@@ -41,11 +29,6 @@ import org.opencv.core.*;
 // import java.util.ArrayList;
 // import frc.robot.GripWhiteLine;
 
-=======
-import frc.robot.subsystems.*;
-// import frc.robot.commands.ExampleCommand;
-// import frc.robot.subsystems.ExampleSubsystem;
->>>>>>> hatchIntake
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -55,7 +38,6 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-<<<<<<< HEAD
 
   public static int teamNumber = 2512;
 
@@ -68,12 +50,7 @@ public class Robot extends TimedRobot {
   public static CargoIntake m_cargoIntake;
   public static Drivetrain m_Drivetrain;
   public static Compressorsorus m_Compressorsorus;
-=======
-  // public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
->>>>>>> hatchIntake
   public static OI m_oi;
-  public static HatchIntake m_HatchIntake = new HatchIntake();
-
 
   public static NavX m_navX;
   public static Boolean dv0Online = false;
@@ -126,7 +103,6 @@ public class Robot extends TimedRobot {
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
     m_oi = new OI();
-<<<<<<< HEAD
     // Robot.m_vision.init(320 , 240);
     // Robot.m_vision.view(Robot.source);
 
@@ -161,48 +137,10 @@ public class Robot extends TimedRobot {
     // m_PDP = new PowerDistributionPanel();
     // m_PDPBuilder = new SendableBuilderImpl();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
-=======
-    m_HatchIntake = new HatchIntake();
-    // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
->>>>>>> hatchIntake
     // chooser.addOption("My Auto", new MyAutoCommand());
-<<<<<<< HEAD
     
     // ALWAYS LAST
     m_oi = new OI();
-=======
-
-    alignChooser.setDefaultOption("Forward",
-      new FullAlignment(5.0, 3,
-        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
-        0.6, 0, 5, DistanceSensorSide.BALL));
-    alignChooser.addOption("Right",
-      new FullAlignment(5.0, 3,
-        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
-        0.6, 90, 5, DistanceSensorSide.BALL));
-    alignChooser.addOption("Right Forward",
-      new FullAlignment(5.0, 3,
-        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
-        0.6, 60, 5, DistanceSensorSide.BALL));
-    alignChooser.addOption("Right Back",
-      new FullAlignment(5.0, 3,
-        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
-        0.6, 120, 5, DistanceSensorSide.BALL));
-    alignChooser.addOption("Left",
-      new FullAlignment(5.0, 3,
-        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
-        0.6, -90, 5, DistanceSensorSide.BALL));
-    alignChooser.addOption("Left Forward",
-      new FullAlignment(5.0, 3,
-        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
-        0.6, -60, 5, DistanceSensorSide.BALL));
-    alignChooser.addOption("Left Back",
-      new FullAlignment(5.0, 3,
-        LineFind.centerXBall, LineFind.centerYBall, RobotMap.visionTargetDistance,
-        0.6, -120, 5, DistanceSensorSide.BALL));
-
-    pdp.initSendable(pdpBuilder);
->>>>>>> vision
 
     SmartDashboard.putData("Auto mode", m_chooser);
 
@@ -229,21 +167,6 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
-<<<<<<< HEAD
-=======
-    if (log) {
-      Utils.getConnInfo();
-    }
-    try{
-    Utils.updateNTData();
-    m_Drivetrain.updateYPRData();
-    /*
-    ballCs.read();
-    hatchCs.read();
-
-    SmartDashboard.putNumberArray("Robo Proximity", ballCs.proxData);
-    SmartDashboard.putNumberArray("MXP Proximity", hatchCs.proxData);
->>>>>>> vision
 
     Timer t = new Timer();
     t.start();
@@ -271,7 +194,6 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
-<<<<<<< HEAD
     // SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
     // SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
     // SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
@@ -304,42 +226,6 @@ public class Robot extends TimedRobot {
      System.out.println("robotPeriodic TooK: "+t.get());
   
     }
-=======
-    SmartDashboard.putNumber("left clicks", m_Drivetrain.getLeftEncoderValue());
-    SmartDashboard.putNumber("right clicks", m_Drivetrain.getRightEncoderValue());
-    SmartDashboard.putNumber("left distance", m_Drivetrain.getLeftEncoderDistance());
-    SmartDashboard.putNumber("right distance", m_Drivetrain.getRightEncoderDistance());
-    SmartDashboard.putNumber("centerXBall", LineFind.centerXBall  == null ? 999.00 : LineFind.centerXBall);
-    SmartDashboard.putNumber("widthBall", LineFind.widthBall == null ? 999.00 : LineFind.widthBall);
-    SmartDashboard.putNumber("heightBall", LineFind.heightBall == null ? 999.00 : LineFind.heightBall);
-    SmartDashboard.putNumber("BottomBall", LineFind.bottomBall == null ? 999.00 : LineFind.bottomBall);
-    SmartDashboard.putNumber("topBall", LineFind.topBall == null ? 999.00 : LineFind.topBall);
-    SmartDashboard.putNumber("centerYBall", LineFind.centerYBall == null ? 999.00 : LineFind.centerYBall);
-    SmartDashboard.putNumber("areaBall", LineFind.areaBall == null ? 999.00 : LineFind.areaBall);
-    SmartDashboard.putNumber("widthPosBall", LineFind.widthPosBall == null ? 999.00 : LineFind.widthPosBall);
-    SmartDashboard.putNumber("centerXHatch", LineFind.centerXHatch  == null ? 999.00 : LineFind.centerXHatch);
-    SmartDashboard.putNumber("widthHatch", LineFind.widthHatch == null ? 999.00 : LineFind.widthHatch);
-    SmartDashboard.putNumber("heightHatch", LineFind.heightHatch == null ? 999.00 : LineFind.heightHatch);
-    SmartDashboard.putNumber("BottomHatch", LineFind.bottomHatch == null ? 999.00 : LineFind.bottomHatch);
-    SmartDashboard.putNumber("topHatch", LineFind.topHatch == null ? 999.00 : LineFind.topHatch);
-    SmartDashboard.putNumber("centerYHatch", LineFind.centerYHatch == null ? 999.00 : LineFind.centerYHatch);
-    SmartDashboard.putNumber("areaHatch", LineFind.areaHatch == null ? 999.00 : LineFind.areaHatch);
-    SmartDashboard.putNumber("widthPosHatch", LineFind.widthPosHatch == null ? 999.00 : LineFind.widthPosHatch);
-    SmartDashboard.putNumber("navX yaw", m_navX.getYaw());
-    SmartDashboard.putNumber("pidgine compass", m_Drivetrain.getNonCummulativeYaw());
-    SmartDashboard.putNumber("Left Front", m_Drivetrain.leftFrontSpeed());
-    SmartDashboard.putNumber("Left Rear", m_Drivetrain.leftRearSpeed());
-    SmartDashboard.putNumber("Right Front", m_Drivetrain.rightFrontSpeed());
-    SmartDashboard.putNumber("Right Rear", m_Drivetrain.rightRearSpeed());
-    SmartDashboard.putNumber("Move COntrol", m_oi.getMove());
-    
-    SmartDashboard.putNumber("Yaw", m_Drivetrain.getYaw());
-    SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
-    SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
-
-    SmartDashboard.putBoolean("Lift Switch", m_lift.getLimitSwitchBottom());
-    SmartDashboard.putBoolean("Extake Swqitch", m_ballXtake.getBallOccupancy());
->>>>>>> vision
 
     SmartDashboard.putData("Alignment Control", alignChooser);
 
