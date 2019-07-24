@@ -19,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.ManualLift;
+import frc.robot.constants.Constants;
 import frc.robot.lib.SpeedRamp;
 
 /**
@@ -40,7 +41,7 @@ public class Lift extends Subsystem {
   public double maxDownSpeed = -0.55;
   private double tolerance = 1;
 
-  public Lift() {  
+  public Lift() {
 
     liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
     liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
@@ -96,7 +97,7 @@ public class Lift extends Subsystem {
   public void runTo(double runTo) {
     m_runTo = runTo;
 
-    double defaultLiftSpeed = 1;
+    double defaultLiftSpeed = Constants.Lift.SPEED;
     double difference = runTo - this.getLiftHeight();
     double rampStart = 10;
 
@@ -119,6 +120,13 @@ public class Lift extends Subsystem {
 
   }
 
+  // Bottom position is actual height 22 inches and lift height 7 inches
+  public static double fromActualHeight(double height) {
+    return height - Constants.Lift.HEIGHTOFFSET;
+  }
 
+  public static double toActualHeight(double height) {
+    return height + Constants.Lift.HEIGHTOFFSET;
+  }
   
 }

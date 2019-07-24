@@ -16,17 +16,10 @@ import edu.wpi.first.wpilibj.*;
 
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-<<<<<<< HEAD
 import frc.robot.commands.ArcadeDrive;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.*;
-=======
-// import frc.robot.commands.ArcadeDrive;
-import frc.robot.constants.Constants.YPRSelect;
-
-// import com.ctre.phoenix.motorcontrol.can.*;
->>>>>>> vision
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import com.revrobotics.CANSparkMax;
@@ -53,13 +46,9 @@ public class Drivetrain extends Subsystem {
   private Encoder rightEncoder;
   private DoubleSolenoid shifter;
 
-<<<<<<< HEAD
   private boolean highGear;
 
   public static PigeonIMU gyro;
-=======
-  public PigeonIMU gyro;
->>>>>>> vision
   private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
@@ -67,17 +56,7 @@ public class Drivetrain extends Subsystem {
 
   private boolean arcade = true; // control mode
   
-<<<<<<< HEAD
   // private RumbleType rumblely;
-=======
-  private static double wheelDiameter = 6; // inches
-  private static double pulsePerRotation = 128;
-  private static double gearRatio = 1/3; //wheel-encoder
-  private static double driveEncoderPulsePerRotation = gearRatio * pulsePerRotation; // 42.6666666666
-  private static double driveEncoderDistancePerTick = (Math.PI * wheelDiameter) / driveEncoderPulsePerRotation; // 0.4416315049
-  
-
->>>>>>> vision
 
   private static int inverted = 1;
 
@@ -234,26 +213,6 @@ public class Drivetrain extends Subsystem {
 
   public double getNonCummulativeYaw() {
     return getYaw() % 360;
-<<<<<<< HEAD
-=======
-  }
-
-  private double getSelectedYPR(YPRSelect selectedYPR) {
-    this.updateYPRData();
-    double selectedYPRData = 0.0;
-    switch (selectedYPR) {
-      case YAW:
-        selectedYPRData = this.yprData[0];
-        break;
-      case PITCH:
-        selectedYPRData = this.yprData[1];
-        break;
-      case ROLL:
-        selectedYPRData = this.yprData[0];
-        break;
-    }
-    return selectedYPRData;
->>>>>>> vision
   }
 
   public double getYaw() {

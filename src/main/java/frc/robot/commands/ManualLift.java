@@ -9,6 +9,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import frc.robot.Robot;
+import frc.robot.constants.Constants;
 
 /**
  * An example command.  You can replace me with your own command.
@@ -36,20 +37,23 @@ public class ManualLift extends LiftCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double speed = 0.0;
     // if((this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchBottom())) {
-    //   speed = this.liftControlDirection.get();x
+    //   speed = this.liftControlDirection.get();
 
     // } else {
     //   speed = 0.0;
       
     // }
-    double control = liftControlDirection.get();
+    double control = liftControlDirection.get() * Constants.Lift.SPEED;
     if (control > 0.0) {
-      if (!upperLimit()) {
+      if (Robot.m_lift.getLiftHeight() < Constants.Lift.MAXHEIGHT) {
         Robot.m_lift.setSpeed(control);
       } else {
-        Robot.m_lift.setSpeed(0.0);
+        if(Robot.m_lift.getLiftHeight() < Constants.Lift.MAXHEIGHT + Constants.Lift.MAXHEIGHTTOLERANCE) {
+          Robot.m_lift.setSpeed(Constants.Lift.BACKDRIVE);
+        } else {
+          Robot.m_lift.setSpeed(0.0);
+        }
       }
     } else if (control < 0.0) {
       if (!Robot.m_lift.getLimitSwitchBottom()) {
@@ -62,9 +66,8 @@ public class ManualLift extends LiftCommand {
         Robot.m_lift.setSpeed(0.0);
       }
     } else {
-      Robot.m_lift.setSpeed(0.0);
+      Robot.m_lift.setSpeed(Constants.Lift.BACKDRIVE);
     }
-<<<<<<< HEAD
 
     /*
 
@@ -83,8 +86,5 @@ public class ManualLift extends LiftCommand {
           dont
 
     */
-=======
-    Robot.m_lift.setSpeed(speed);
->>>>>>> vision
   }
 }

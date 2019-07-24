@@ -19,7 +19,8 @@ public class CargoFoldDown extends CargoFoldIntake {
     }
 
     public void execute() {
-        System.out.println("Ball Distance: " + Robot.m_ballDistanceSensor.getDistance());
+        // Not on robot
+    //     System.out.println("Ball Distance: " + Robot.m_ballDistanceSensor.getDistance());
         if (!Robot.m_cargoIntake.getCurrentPos().equals(this.m_foldDir)/* && Robot.m_ballDistanceSensor.getDistance() >= 18*/) {
             Robot.m_cargoIntake.foldDown();
         }

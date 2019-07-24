@@ -20,7 +20,9 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
 import frc.robot.commands.CMG_LiftCargo;
+import frc.robot.constants.Constants;
 import frc.robot.lib.DistanceSensor;
+import frc.robot.lib.Limelight;
 
 // import com.kauailabs.navx.frc.AHRS;
 // import sun.nio.ch.Net;
@@ -78,7 +80,11 @@ public class Robot extends TimedRobot {
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
+  public static Limelight m_limelight;
+
+  public static double slowify = 1.0;
   public static SendableChooser<Double> driveToWallChooser;
+  SendableChooser<Double> slowifyChooser = new SendableChooser<>();
   
   public static PowerDistributionPanel m_PDP;
   public static SendableBuilder m_PDPBuilder;
@@ -86,11 +92,11 @@ public class Robot extends TimedRobot {
   //public static ColorSensor ballCs, hatchCs;
   //public static UltrasonicSensor ballUltra, hatchUltra;
 
-  public static DistanceSensor m_ballDistanceSensor, m_hatchDistanceSensor;
-
   Command m_autonomousCommand;
   public static SendableChooser<Command> alignChooser = new SendableChooser<Command>();
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  // SendableChooser<Double> m_driveSpeedChooser = new SendableChooser<>();
+  // SendableChooser<Double> m_liftSpeedChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -98,6 +104,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+<<<<<<< HEAD
     m_LineFind = new LineFind();
     m_navX = new NavX();
     m_Drivetrain = new Drivetrain();
@@ -119,6 +126,35 @@ public class Robot extends TimedRobot {
     // Utils.startDriverVision(0, 320, 240, dv0Online);
     m_ballDistanceSensor = new DistanceSensor(RobotMap.ballUltrasonicPort, RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
     m_hatchDistanceSensor = new DistanceSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+=======
+
+    /*ballCs = new ColorSensor(RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
+    hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+
+    ballUltra = new UltrasonicSensor(RobotMap.ballUltrasonicPort, RobotMap.ballSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
+    hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
+    */
+
+    // Not on robot
+    // m_ballDistanceSensor = new DistanceSensor(RobotMap.ballUltrasonicPort, RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
+    // m_hatchDistanceSensor = new DistanceSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
+
+    driveToWallChooser = new SendableChooser<>();
+    driveToWallChooser.addOption("6", 6.0);
+    driveToWallChooser.setDefaultOption("12", 12.0);
+    driveToWallChooser.addOption("24", 24.0);
+    driveToWallChooser.addOption("36", 36.0);
+    SmartDashboard.putData("driveToWall", driveToWallChooser);
+
+    slowifyChooser.addOption("100%", 1.0);
+    slowifyChooser.addOption("85%", 0.85);
+    slowifyChooser.addOption("70%", 0.7);
+    slowifyChooser.addOption("55%", 0.55);
+    slowifyChooser.addOption("40%", 0.4);
+    slowifyChooser.addOption("25%", 0.25);
+    slowifyChooser.setDefaultOption("Default", 0.85);
+    SmartDashboard.putData("Slowify", slowifyChooser);
+>>>>>>> GrandForks
 
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
@@ -127,12 +163,7 @@ public class Robot extends TimedRobot {
     m_ballXtake = new BallXtake();
     m_flower = new Flower();
 
-    driveToWallChooser = new SendableChooser<>();
-    driveToWallChooser.addOption("6", 6.0);
-    driveToWallChooser.setDefaultOption("12", 12.0);
-    driveToWallChooser.addOption("24", 24.0);
-    driveToWallChooser.addOption("36", 36.0);
-    SmartDashboard.putData("driveToWall", driveToWallChooser);
+    m_limelight = new Limelight();
     
     // m_PDP = new PowerDistributionPanel();
     // m_PDPBuilder = new SendableBuilderImpl();
@@ -189,10 +220,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
     SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
 
-    SmartDashboard.putBoolean("Ball lmit switch", m_ballXtake.getBallOccupancy());
+    SmartDashboard.putBoolean("Ball lmit switch", BallXtake.getBallOccupancy());
 
     // SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
+
+    SmartDashboard.putNumber("Limelight height", m_lift.getLiftHeight() + Constants.Limelight.LOWEST);
+    // SmartDashboard.putNumber("Limelight distance to target", Limelight.getDistance(Constants.Limelight.HEIGHTOFFSET, Constants.Limelight.PITCH, m_limelight.getY()));
+
+    slowify = slowifyChooser.getSelected() == null ? 1.0 : slowifyChooser.getSelected();
 
     // SmartDashboard.putNumber("PDP 01", m_PDP.getCurrent(1));
     // SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
