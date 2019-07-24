@@ -9,10 +9,11 @@ public class RunBallXtake extends Command {
     private double m_speed;
     private boolean m_ovveride;
 
-    public RunBallXtake(double speed, boolean ovveride) {
+    public RunBallXtake(double speed, boolean override) {
+        super(2);
         requires(Robot.m_ballXtake);
         this.m_speed = speed;
-        this.m_ovveride = ovveride;
+        this.m_ovveride = override;
     }
 
     @Override
@@ -27,8 +28,15 @@ public class RunBallXtake extends Command {
     @Override
     protected boolean isFinished() {
         // If intaking, stop when limit switch is tripped
-        // else, just keep spinning
-        boolean result =  (!this.m_ovveride && this.m_speed < 0) ? BallXtake.getBallOccupancy() : false;
+        // else, just keep spinning 
+        boolean result = true;
+        if (!this.m_ovveride && this.m_speed < 0) {
+            result = BallXtake.getBallOccupancy();
+        }else if (!this.m_ovveride && this.m_speed > 0){
+            result = false;
+        }else{
+            result = false;
+        }
 
         if (result && this.m_speed > 0) {
             CMG_IntakeBall.ballOut();

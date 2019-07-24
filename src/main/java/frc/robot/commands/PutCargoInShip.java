@@ -35,7 +35,7 @@ public class PutCargoInShip extends CommandGroup {
     // arm.
 
     addSequential(new RunToPosition(LiftPosition.CARGO_SHIP_CARGO, true));
-    addSequential(new RunBallXtake(1, true));
+    addSequential(new RunBallXtake(1, false));
     addSequential(new WaitCommand(1));
     addSequential(new RunToBottom(true));
 
