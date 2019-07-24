@@ -11,19 +11,27 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+=======
+>>>>>>> vision
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
+<<<<<<< HEAD
 import frc.robot.constants.Constants.*;
 import frc.robot.Robot;
 import frc.robot.subsystems.BallXtake;
 import frc.robot.subsystems.Lift;
 
+=======
+import frc.robot.Robot;
+import frc.robot.subsystems.LineFind;
+>>>>>>> vision
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -41,41 +49,41 @@ public class OI {
   public Joystick buttonBox = new Joystick(this.buttonBoxPort);
 
   //All buttons
-  Button aButton = new JoystickButton(driver, 1);
-  Button bButton = new JoystickButton(driver, 2);
-  Button xButton = new JoystickButton(driver, 3);
-  Button yButton = new JoystickButton(driver, 4);
+  Button aButton = new JoystickButton(driver, 1); //
+  Button bButton = new JoystickButton(driver, 2); //
+  Button xButton = new JoystickButton(driver, 3); //
+  Button yButton = new JoystickButton(driver, 4); //
   Button leftBumper = new JoystickButton(driver, 5);
   Button rightBumper = new JoystickButton(driver, 6);
   Button select = new JoystickButton(driver, 7);
-  Button start = new JoystickButton(driver, 8);
+  Button start = new JoystickButton(driver, 8); //
   Button leftStick = new JoystickButton(driver, 9);
   Button rightStick = new JoystickButton(driver, 10);
   TriggerButton leftTrigger = new TriggerButton(driver, 2);
-  TriggerButton rightTrigger = new TriggerButton(driver, 3);
+  TriggerButton rightTrigger = new TriggerButton(driver, 3);  //
 
-  Button triggerBoi = new JoystickButton(extreme, 1);
-  Button sideButton = new JoystickButton(extreme, 2);
-  Button bottomLeft = new JoystickButton(extreme, 3);
+  Button triggerBoi = new JoystickButton(extreme, 1); 
+  Button sideButton = new JoystickButton(extreme, 2); 
+  Button bottomLeft = new JoystickButton(extreme, 3); 
   Button bottomRight = new JoystickButton(extreme, 4);
-  Button topLeft = new JoystickButton(extreme, 5);
-  Button topRight = new JoystickButton(extreme, 6);
-  Button frontLeft = new JoystickButton(extreme, 7);
-  Button frontRight = new JoystickButton(extreme, 8);
-  Button midLeft = new JoystickButton(extreme, 9);
-  Button midRight = new JoystickButton(extreme, 10);
-  Button backLeft = new JoystickButton(extreme, 11);
-  Button backRight = new JoystickButton(extreme, 12);
+  Button topLeft = new JoystickButton(extreme, 5);  //
+  Button topRight = new JoystickButton(extreme, 6); //
+  Button frontLeft = new JoystickButton(extreme, 7);  
+  Button frontRight = new JoystickButton(extreme, 8); 
+  Button midLeft = new JoystickButton(extreme, 9);    
+  Button midRight = new JoystickButton(extreme, 10);  
+  Button backLeft = new JoystickButton(extreme, 11);  
+  Button backRight = new JoystickButton(extreme, 12); 
 
-  Button topWhite = new JoystickButton(buttonBox, 2);
-  Button bigWhite = new JoystickButton(buttonBox, 3);
-  Button midRed = new JoystickButton(buttonBox, 4);
+  Button topWhite = new JoystickButton(buttonBox, 2); //
+  Button bigWhite = new JoystickButton(buttonBox, 3); //
+  Button midRed = new JoystickButton(buttonBox, 4); //
   Button bottomWhite = new JoystickButton(buttonBox, 5);
-  Button topRed = new JoystickButton(buttonBox, 6);
-  Button greenBoi = new JoystickButton(buttonBox, 7);
-  Button midWhite = new JoystickButton(buttonBox, 8);
-  Button bigRed = new JoystickButton(buttonBox, 14);
-  Button yellowBoi = new JoystickButton(buttonBox, 15);
+  Button topRed = new JoystickButton(buttonBox, 6); //
+  Button greenBoi = new JoystickButton(buttonBox, 7); //
+  Button midWhite = new JoystickButton(buttonBox, 8); //
+  Button bigRed = new JoystickButton(buttonBox, 14);  //
+  Button yellowBoi = new JoystickButton(buttonBox, 15); //
   Button bottomRed = new JoystickButton(buttonBox, 16); 
 
   // Trigger cargoSwitch = new DigitalInputTrigger(BallXtake.getBallOccupancySwitch());
@@ -123,17 +131,24 @@ public class OI {
     // topWhite.whenPressed(new FlowerControl());
     // topRed.whenPressed(new FlowerSlideControl());
 
+<<<<<<< HEAD
     // liftSwitch.whenActive(new ResetLiftEncoder());
 
     // Add in disable until ball is extaked. then reset trigger
     // cargoSwitch.whenActive(new CMG_LiftCargo());
     
     // cargoSwitch.whenActive(new CMG_IntakeBall());
+=======
+    greenBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoUpPos));
+    yellowBoi.whenPressed(new CargoFoldIntake(RobotMap.cargoDownPos));
+
+    start.whenPressed(Robot.alignChooser.getSelected());
+>>>>>>> vision
     
     // topRight.whenPressed(new FlowerControl());
   }
 
-  public double desensitize(double val) {
+  public Double desensitize(Double val) {
     double result = val;
     if (Math.abs(result) < 0.15) {
 			result = 0.0;

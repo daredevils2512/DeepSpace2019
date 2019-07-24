@@ -7,8 +7,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -21,6 +19,6 @@ public class ShiftDown extends DrivetrainShift {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_Drivetrain.shiftDown();
+    this.mDriveTrain.shiftDown();
   }
 }

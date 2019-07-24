@@ -64,6 +64,7 @@ public class ManualLift extends LiftCommand {
     } else {
       Robot.m_lift.setSpeed(0.0);
     }
+<<<<<<< HEAD
 
     /*
 
@@ -82,5 +83,8 @@ public class ManualLift extends LiftCommand {
           dont
 
     */
+=======
+    Robot.m_lift.setSpeed(speed);
+>>>>>>> vision
   }
 }

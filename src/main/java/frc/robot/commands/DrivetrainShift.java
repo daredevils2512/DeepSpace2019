@@ -8,16 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * An example command.  You can replace me with your own command.
  */
 public abstract class DrivetrainShift extends Command {
 
+  protected Drivetrain mDriveTrain;
   public DrivetrainShift() {
     // Use requires() here to declare subsystem dependencies
-    // requires(Robot.m_Drivetrain);
-
+    requires(Robot.m_Drivetrain);
+    this.mDriveTrain = Robot.m_Drivetrain;
   }
 
   // Called just before this Command runs the first time

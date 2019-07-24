@@ -49,7 +49,7 @@ public class RobotMap {
   public static int liftTalon2Id = 6;
   public static int limitSwitchBottomPort = 8;
   public static int limitSwitchTopPort = 13;
-  // a negative implies we dont know the port yet
+
   //LEFT DRIVETRAIN STUFF
   public static int leftSparkID = 1;
   public static int leftRearSparkID = 2;
@@ -93,4 +93,7 @@ public class RobotMap {
   public static Value flowerClosedPos = Value.kReverse;
 
   public static int spotlightRelayPort = 0;
+
+  //distance from center of robot to (centerX,centerY) = (0,0)
+  public static double visionTargetDistance = 52.5; // horizontal is 11
 }
