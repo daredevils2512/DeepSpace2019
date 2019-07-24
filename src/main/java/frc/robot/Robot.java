@@ -31,7 +31,7 @@ import frc.robot.lib.DistanceSensor;
 public class Robot extends TimedRobot {
   public static CargoIntake m_cargoIntake;
   public static Drivetrain m_Drivetrain;
-  // public static Spotlight m_Spotlight = new Spotlight();
+  public static Climber m_climber;
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
   public static Lift m_lift;
