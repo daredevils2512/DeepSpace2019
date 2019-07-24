@@ -26,12 +26,15 @@ import frc.robot.lib.SpeedRamp;
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class Lift extends Subsystem {
+  public final double MAX_UP_SPEED = 0.75;
+  public final double MAX_DOWN_SPEED = 0.55; // Positive because control is multiplied by this
+
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private WPI_TalonSRX liftTalon1;
   private WPI_TalonSRX liftTalon2;
   public static DigitalInput limitSwitchBottom;
-  public static DigitalInput limitSwitchTop; 
+  public static DigitalInput limitSwitchTop;
 
   private static final int magEncPulsesPerRev = 4096;
   private static final double inchesPerRev = (4 + (3/4)) + (5 + (3/8)); // This will change
@@ -97,7 +100,7 @@ public class Lift extends Subsystem {
   public void runTo(double runTo) {
     m_runTo = runTo;
 
-    double defaultLiftSpeed = Constants.Lift.SPEED;
+    double defaultLiftSpeed = 1.0;
     double difference = runTo - this.getLiftHeight();
     double rampStart = 10;
 
@@ -118,15 +121,6 @@ public class Lift extends Subsystem {
     return (this.getLiftHeight() >= (m_runTo - (tolerance)) 
     && this.getLiftHeight() <= (m_runTo + (tolerance)));
 
-  }
-
-  // Bottom position is actual height 22 inches and lift height 7 inches
-  public static double fromActualHeight(double height) {
-    return height - Constants.Lift.HEIGHTOFFSET;
-  }
-
-  public static double toActualHeight(double height) {
-    return height + Constants.Lift.HEIGHTOFFSET;
   }
   
 }

@@ -8,19 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
+import frc.robot.constants.Constants.LiftPosition;
+import frc.robot.commands.*;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class CMG_IntakeBall extends CommandGroup {
-
-  private static boolean ballIn = false;
-
-
+public class PutCargoInShip extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public CMG_IntakeBall() {
-
-
+  public PutCargoInShip() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -37,20 +33,11 @@ public class CMG_IntakeBall extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-    if (!Robot.m_lift.getLimitSwitchBottom()) {
-      addSequential(new RunToBottom(true));
-    }
-    // if (!ballIn) {
-      addSequential(new CargoFoldDown());
-      addParallel(new CargoRunIntake(-1.0, -1.0, false));
-      addSequential(new RunBallXtake(-1.0, false));
-      // ballIn = true;
-      addSequential(new CMG_LiftCargo());
-    // }
-  }
 
-  public static void ballOut() {
-    ballIn = false;
-  }
+    addSequential(new RunToPosition(LiftPosition.CARGO_SHIP_CARGO, true));
+    addSequential(new RunBallXtake(1, false));
+    addSequential(new WaitCommand(1));
+    addSequential(new RunToBottom(true));
 
+  }
 }

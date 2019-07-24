@@ -28,46 +28,35 @@ public class ManualLift extends LiftCommand {
   }
 
   // Contains both limit switch and encoder top
-  private boolean upperLimit() {
+  private boolean isAtUpperLimit() {
     double currentHeight = Robot.m_lift.getLiftHeight();
-    double maxHeight = 60;
-    return (currentHeight >= maxHeight);
+    return (currentHeight >= Constants.Lift.MAXHEIGHT);
   }
+
+
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
     // if((this.liftControlDirection.get() > 0 && !Robot.m_lift.getLimitSwitchBottom())) {
     //   speed = this.liftControlDirection.get();
 
     // } else {
     //   speed = 0.0;
-      
     // }
-    double control = liftControlDirection.get() * Constants.Lift.SPEED;
+    double control = liftControlDirection.get();
+    double liftSpeed = 0.0;
     if (control > 0.0) {
-      if (Robot.m_lift.getLiftHeight() < Constants.Lift.MAXHEIGHT) {
-        Robot.m_lift.setSpeed(control);
-      } else {
-        if(Robot.m_lift.getLiftHeight() < Constants.Lift.MAXHEIGHT + Constants.Lift.MAXHEIGHTTOLERANCE) {
-          Robot.m_lift.setSpeed(Constants.Lift.BACKDRIVE);
-        } else {
-          Robot.m_lift.setSpeed(0.0);
-        }
-      }
+      liftSpeed = isAtUpperLimit()
+          ? Constants.Lift.BACKDRIVE : control * Robot.m_lift.MAX_UP_SPEED;
     } else if (control < 0.0) {
-      if (!Robot.m_lift.getLimitSwitchBottom()) {
-        if (control < Robot.m_lift.maxDownSpeed) {
-          Robot.m_lift.setSpeed(Robot.m_lift.maxDownSpeed);
-        } else {
-          Robot.m_lift.setSpeed(control);
-        }
-      } else {
-        Robot.m_lift.setSpeed(0.0);
-      }
+      liftSpeed = Robot.m_lift.getLimitSwitchBottom()
+          ? 0.0 : control * Robot.m_lift.MAX_DOWN_SPEED;
     } else {
-      Robot.m_lift.setSpeed(Constants.Lift.BACKDRIVE);
+      liftSpeed = Constants.Lift.BACKDRIVE;
     }
+    Robot.m_lift.setSpeed(liftSpeed);
 
     /*
 

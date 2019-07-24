@@ -7,19 +7,20 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+// import edu.wpi.first.wpilibj.SpeedControllerGroup;
+// import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
 
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.*;
+// import com.ctre.phoenix.motorcontrol.NeutralMode;
+// import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.sensors.PigeonIMU;
 
 import com.revrobotics.CANSparkMax;
@@ -28,7 +29,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 // import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 // import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.*;
+// import edu.wpi.first.wpilibj.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -53,8 +54,6 @@ public class Drivetrain extends Subsystem {
 
   private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
   private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
-
-  private boolean arcade = true; // control mode
   
   // private RumbleType rumblely;
 
@@ -75,10 +74,10 @@ public class Drivetrain extends Subsystem {
     leftRearSpark.setIdleMode(IdleMode.kCoast);
     rightRearSpark.setIdleMode(IdleMode.kCoast);
 
-    // leftSpark.setOpenLoopRampRate(0.25);
-    // rightSpark.setOpenLoopRampRate(0.25);
-    // leftRearSpark.setOpenLoopRampRate(0.25);
-    // rightRearSpark.setOpenLoopRampRate(0.25);
+    leftSpark.setOpenLoopRampRate(0.25);
+    rightSpark.setOpenLoopRampRate(0.25);
+    leftRearSpark.setOpenLoopRampRate(0.25);
+    rightRearSpark.setOpenLoopRampRate(0.25);
 
     leftSpark.setSmartCurrentLimit(65, 10);
     rightSpark.setSmartCurrentLimit(65, 10);
@@ -108,15 +107,6 @@ public class Drivetrain extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new ArcadeDrive(Robot.m_oi::getMove, Robot.m_oi::getTurn));
   }
-  
-  public boolean controlMode() {
-    if (arcade) {
-        arcade = false;
-    } else {
-        arcade = true;
-    }
-    return arcade;
-}
 
   public void leftSpeed(double speed) {
     leftSpark.set(speed);
@@ -228,25 +218,6 @@ public class Drivetrain extends Subsystem {
   public double getRoll() {
     this.updateYPRData();
     return this.yprData[2];
-  }
-
-  public double convertToCummulative(double yaw) {
-    yaw = ((int) (this.getYaw() / 360)) * 360 + yaw;
-    return yaw;
-  }
-
-  public void resetYaw() {
-    gyro.setYaw(0.0);
-  }
-
-  public void alignByGyro(float desiredYaw, double tolerance) {
-    if (Robot.m_Drivetrain.getYaw() >= Robot.m_Drivetrain.convertToCummulative(desiredYaw) + tolerance) {
-      Robot.m_Drivetrain.arcadeDrive(0.0, -0.75);
-    } else if (Robot.m_Drivetrain.getYaw() <= Robot.m_Drivetrain.convertToCummulative(desiredYaw) - tolerance) {
-      Robot.m_Drivetrain.arcadeDrive(0.0, 0.75);
-    } else {
-      System.out.println("Robot is aligned");
-    }
   }
 
   public void toggleInverted() {

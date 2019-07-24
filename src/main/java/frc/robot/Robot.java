@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -16,21 +15,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Size;
+
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 import frc.robot.subsystems.*;
-import frc.robot.commands.CMG_LiftCargo;
-import frc.robot.constants.Constants;
-import frc.robot.lib.DistanceSensor;
+import frc.robot.commands.ToggleDriverVision;
+import frc.robot.lib.DriverVision;
 import frc.robot.lib.Limelight;
-
-// import com.kauailabs.navx.frc.AHRS;
-// import sun.nio.ch.Net;
-
-import org.opencv.core.*;
-// import java.util.ArrayList;
-// import frc.robot.GripWhiteLine;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,47 +41,17 @@ import org.opencv.core.*;
  * project.
  */
 public class Robot extends TimedRobot {
-
-  public static int teamNumber = 2512;
-
-  PowerDistributionPanel pdp = new PowerDistributionPanel();
-  SendableBuilder pdpBuilder = new SendableBuilderImpl();
-
-  // public static GripWhiteLine m_grippipeline = new GripWhiteLine();
-  public static LineFind m_LineFind;
-
   public static CargoIntake m_cargoIntake;
   public static Drivetrain m_Drivetrain;
+  // public static Spotlight m_Spotlight = new Spotlight();
   public static Compressorsorus m_Compressorsorus;
   public static OI m_oi;
-
-  public static NavX m_navX;
-  public static Boolean dv0Online = false;
-  public static Boolean dv1Online = false;
-
-  // public static Vision m_vision = new Vision();
-  //THESE SHOULD BE PULLED FROM TEH IMAGE ITSELF.
-  public final int IMG_width = 320;
-  public final int IMG_height = 240;
-  public static Mat source = new Mat();
-
-  public static Double cameraSize;
-
-  //Don't USE 999.00
-  //SET THESE TO NULL!!!
-  // public static ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-
-  public static boolean log = false;
-  public static boolean aligned = false;
-  public static Double diff = 0.0;
-  public static char dir = 'n';
-  public static final String NTserver = "frcvision.local";
-
   public static Lift m_lift;
   public static BallXtake m_ballXtake;
   public static Flower m_flower;
 
   public static Limelight m_limelight;
+  public static DriverVision m_drivervision;
 
   public static double slowify = 1.0;
   public static SendableChooser<Double> driveToWallChooser;
@@ -93,7 +64,6 @@ public class Robot extends TimedRobot {
   //public static UltrasonicSensor ballUltra, hatchUltra;
 
   Command m_autonomousCommand;
-  public static SendableChooser<Command> alignChooser = new SendableChooser<Command>();
   SendableChooser<Command> m_chooser = new SendableChooser<>();
   // SendableChooser<Double> m_driveSpeedChooser = new SendableChooser<>();
   // SendableChooser<Double> m_liftSpeedChooser = new SendableChooser<>();
@@ -104,29 +74,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-<<<<<<< HEAD
-    m_LineFind = new LineFind();
-    m_navX = new NavX();
-    m_Drivetrain = new Drivetrain();
-    m_Compressorsorus = new Compressorsorus();
-    m_oi = new OI();
-    // Robot.m_vision.init(320 , 240);
-    // Robot.m_vision.view(Robot.source);
-
-    // start clientside table
-    // Utils.resetTables(convexHullsFinal, 2512);
-    Utils.convexHullsFinal.startServer();
-    Utils.convexHullsTable = Utils.convexHullsFinal.getTable("White Line Tracking");
-    Utils.ballTable = Utils.convexHullsTable.getSubTable("Ball Table");
-    Utils.hatchTable = Utils.convexHullsTable.getSubTable("Hatch Table");
-    Utils.dumpNetworkTable(Utils.convexHullsTable);
-    
-    NavX.navX.reset();
-    Robot.m_Drivetrain.resetYaw();
-    // Utils.startDriverVision(0, 320, 240, dv0Online);
-    m_ballDistanceSensor = new DistanceSensor(RobotMap.ballUltrasonicPort, RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
-    m_hatchDistanceSensor = new DistanceSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
-=======
 
     /*ballCs = new ColorSensor(RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
     hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
@@ -154,7 +101,6 @@ public class Robot extends TimedRobot {
     slowifyChooser.addOption("25%", 0.25);
     slowifyChooser.setDefaultOption("Default", 0.85);
     SmartDashboard.putData("Slowify", slowifyChooser);
->>>>>>> GrandForks
 
     m_Drivetrain = new Drivetrain();
     m_Compressorsorus = new Compressorsorus();
@@ -164,9 +110,10 @@ public class Robot extends TimedRobot {
     m_flower = new Flower();
 
     m_limelight = new Limelight();
+    // m_drivervision = new DriverVision(); //Uses RoboRIO instead of Raspberry PI
     
-    // m_PDP = new PowerDistributionPanel();
-    // m_PDPBuilder = new SendableBuilderImpl();
+    m_PDP = new PowerDistributionPanel();
+    m_PDPBuilder = new SendableBuilderImpl();
     // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     
@@ -177,14 +124,6 @@ public class Robot extends TimedRobot {
 
   }
 
-    /*ballCs = new ColorSensor(RobotMap.ballColorPort, RobotMap.ballSensorsOffsetFromFrame);
-    hatchCs = new ColorSensor(RobotMap.hatchColorPort, RobotMap.hatchSensorsOffsetFromFrame);
-
-    ballUltra = new UltrasonicSensor(RobotMap.ballUltrasonicPort, RobotMap.ballSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
-    hatchUltra = new UltrasonicSensor(RobotMap.hatchUltrasonicPort, RobotMap.hatchSensorsOffsetFromFrame, RobotMap.suppliedUltraVoltage);
-    */
-
-
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -193,9 +132,6 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before
    * LiveWindow and SmartDashboard integrated updating.
    */
-  
-
-  
   @Override
   public void robotPeriodic() {
 
@@ -215,18 +151,15 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
     // SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
-    // SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
+    SmartDashboard.putNumber("lift control", m_oi.liftControl().doubleValue());
     SmartDashboard.putNumber("lift pos", m_lift.getLiftPosition());
     SmartDashboard.putNumber("lift hieght", m_lift.getLiftHeight());
     SmartDashboard.putBoolean("lift switch", m_lift.getLimitSwitchBottom());
 
     SmartDashboard.putBoolean("Ball lmit switch", BallXtake.getBallOccupancy());
-
-    // SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
+    // SmartDashboard.putBoolean("Driver vision enabled", m_drivervision.getIsEnabled());
+    SmartDashboard.putBoolean("High Gear", m_Drivetrain.getHighState());
     // System.out.println(" lift pos: " + m_lift.getLiftHeight());
-
-    SmartDashboard.putNumber("Limelight height", m_lift.getLiftHeight() + Constants.Limelight.LOWEST);
-    // SmartDashboard.putNumber("Limelight distance to target", Limelight.getDistance(Constants.Limelight.HEIGHTOFFSET, Constants.Limelight.PITCH, m_limelight.getY()));
 
     slowify = slowifyChooser.getSelected() == null ? 1.0 : slowifyChooser.getSelected();
 
@@ -234,8 +167,6 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber("PDP 00", m_PDP.getCurrent(0));
     // SmartDashboard.putNumber("PDP 13", m_PDP.getCurrent(13));
     // SmartDashboard.putNumber("PDP 14", m_PDP.getCurrent(14));
-
-    SmartDashboard.putBoolean("A Button State", m_oi.aButton.get());
 
     /*
     x
@@ -263,13 +194,6 @@ public class Robot extends TimedRobot {
   
     }
 
-    SmartDashboard.putData("Alignment Control", alignChooser);
-
-    
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
   /**
    * This function is called once each time the robot enters Disabled mode.
    * You can use it to reset any subsystem information you want to clear when
@@ -334,8 +258,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    
   }
 
   /**
