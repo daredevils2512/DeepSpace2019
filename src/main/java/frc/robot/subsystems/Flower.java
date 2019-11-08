@@ -7,6 +7,9 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class Flower extends Subsystem {
+    public enum State {
+        CLOSED, OPEN
+    }
 
     private DoubleSolenoid flowerSolenoid;
     private DoubleSolenoid flowerSlide;

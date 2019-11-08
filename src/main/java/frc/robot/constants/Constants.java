@@ -1,6 +1,10 @@
 package frc.robot.constants;
 
 public final class Constants {
+    private Constants() {
+
+    }
+
     public enum LiftPosition {
         FEEDER(12),
         CARGO_SHIP_CARGO(56),
@@ -31,6 +35,10 @@ public final class Constants {
     public enum DistanceSensorSide {
         BALL, 
         HATCH
+    }
+
+    public static final class OI {
+        public static final double DEADZONE = 0.0;
     }
 
     public static final class Lift {

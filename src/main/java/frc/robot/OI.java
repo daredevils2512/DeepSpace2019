@@ -19,6 +19,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
+import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.*;
 import frc.robot.Robot;
 import frc.robot.subsystems.BallXtake;
@@ -95,13 +96,9 @@ public class OI {
     bottomLeft.whileHeld(new RunBallXtake(-0.75, true)); //in
     topRight.whileHeld(new CargoRunIntake(1.0, 1.0, true));
     bottomRight.whileHeld(new CargoRunIntake(-1.0, -1.0, true));
-    backLeft.whileHeld(new CMG_ExtakeBallBottom());
-    
-    
-    // frontLeft.whenPressed(new FlowerOpen());
-    // frontRight.whenPressed(new FlowerClose());
-    // midLeft.whenPressed(new FlowerSlideOut());
-    // midRight.whenPressed(new FlowerSlideIn());
+
+    frontLeft.whenPressed(new FlowerSlideOut());
+    frontRight.whenPressed(new FlowerSlideIn());
 
     // center flower begins 1'3" off ground
     // center ball begins 7.5" off ground
@@ -117,8 +114,6 @@ public class OI {
 
     // frontLeft.whenPressed(new ToggleDriverVision());
 
-    //
-
     bigRed.whenPressed(new Compressor());
     bigWhite.whenPressed(new CMG_IntakeBall());
 
@@ -126,12 +121,13 @@ public class OI {
     // greenBoi.whenPressed(new CargoFoldUp());
     // yellowBoi.whenPressed(new CargoFoldDown());
 
-    // Flower not on robot
-    // Using for controlling both intakes and extakes
-    // buttonBox7.whenPressed(new FlowerSlideIn());
-    // buttonBox15.whenPressed(new FlowerSlideOut());
-    green.whileHeld(new ExtakeCargo());
-    yellow.whileHeld(new IntakeCargo());
+    green.whenPressed(new FlowerClose());
+    yellow.whenPressed(new FlowerOpen());
+
+    // Control both intakes and extakes simultaneously
+    // green.whileHeld(new ExtakeCargo());
+    // yellow.whileHeld(new IntakeCargo());
+
     // buttonBox7.whenPressed(new ToggleDriverVision());
 
     // topWhite.whenPressed(new FlowerControl());
@@ -151,7 +147,7 @@ public class OI {
 
   public double desensitize(double val) {
     double result = val;
-    if (Math.abs(result) < 0.15) {
+    if (Math.abs(result) < Constants.OI.DEADZONE) {
 			result = 0.0;
 		}
 		return result;
@@ -162,11 +158,14 @@ public class OI {
   }
   
   public Double getMove() {
-    return desensitize(driver.getRawAxis(1));
+    double value = desensitize(driver.getRawAxis(1));
+    double dir = Math.signum(value);
+    return dir * value * value;
   }
 
   public Double getTurn() {
-    return desensitize(-driver.getRawAxis(4));
+    double value = desensitize(-driver.getRawAxis(4));
+    return value;
   }
 
   public Double getRight() {
