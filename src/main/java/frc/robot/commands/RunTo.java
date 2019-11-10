@@ -8,7 +8,7 @@ public abstract class RunTo extends Command {
     protected final double manualControlOverrideTolerance = 0.5;
 
     /**
-     * Base class for running the lift to a specified heigh
+     * Base class for running the lift to a specified height
      * @param overrideManualControl Take priority over joystick controls
      */
     public RunTo(boolean overrideManualControl) {

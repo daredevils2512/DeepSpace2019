@@ -38,7 +38,7 @@ public final class Constants {
         public static final double MAX_DOWN_SPEED = 0.55; //Not using yet
         public static final double BACKDRIVE = 0.08; // Idle lift speed to maintain position
         public static final double MAXHEIGHT = Height.CARGOTOP;
-        public static final double MAXHEIGHTTOLERANCE = 2; // Stops backdrive this high above max height
+        public static final double MAXHEIGHTTOLERANCE = 2; // Stops backdrive this many inches above max height
         public static final class Height {
             public static final double FEEDER = 12;
             public static final double CARGOBOTTOM = 27;
