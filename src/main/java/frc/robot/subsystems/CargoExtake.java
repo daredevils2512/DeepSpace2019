@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
 
-public class CargoExtake extends Subsystem {
+public final class CargoExtake extends Subsystem {
     private static CargoExtake instance;
 
     private final WPI_TalonSRX cargoExtake1;

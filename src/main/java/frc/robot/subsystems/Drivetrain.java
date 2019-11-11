@@ -19,7 +19,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class Drivetrain extends Subsystem {
+public final class Drivetrain extends Subsystem {
     private static Drivetrain instance;
 
     private CANSparkMax rightSpark;

@@ -21,7 +21,7 @@ import frc.robot.commands.ManualLift;
 import frc.robot.constants.Constants;
 import frc.robot.lib.SpeedRamp;
 
-public class Lift extends Subsystem {
+public final class Lift extends Subsystem {
     private static Lift instance;
 
     private WPI_TalonSRX liftTalon1;

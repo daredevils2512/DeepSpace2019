@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Compressor;
 
-public class Compressorsorus extends Subsystem {
+public final class Compressorsorus extends Subsystem {
     public Compressor sorus;
 
     private static Compressorsorus instance;

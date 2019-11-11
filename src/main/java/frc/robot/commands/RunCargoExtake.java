@@ -4,14 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.CargoExtake;
 
 public class RunCargoExtake extends Command {
-
     private double speed;
     private boolean override;
 
     /**
      * Run cargo extake
      * @param speed speed at which to run (negative values intake, positive values extake)
-     * @param override 
+     * @param override override cargo limit switch
      */
     public RunCargoExtake(double speed, boolean override) {
         super(2);

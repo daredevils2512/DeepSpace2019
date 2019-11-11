@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
-public class Flower extends Subsystem {
+public final class Flower extends Subsystem {
     private DoubleSolenoid flowerSolenoid;
     private DoubleSolenoid flowerSlide;
 

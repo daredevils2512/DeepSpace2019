@@ -100,8 +100,8 @@ public class OI {
         xButton.whileHeld(new RunCargoIntake(1.0, 1.0, false)); // out
         bButton.whileHeld(new RunCargoIntake(-1.0, -1.0, false)); // in
 
-        topLeft.whileHeld(new RunCargoExtake(1.0, true)); //out
-        bottomLeft.whileHeld(new RunCargoExtake(-0.75, true)); //in
+        topLeft.whileHeld(new RunCargoExtake(1.0, true)); // out
+        bottomLeft.whileHeld(new RunCargoExtake(-0.75, true)); // in
         topRight.whileHeld(new RunCargoIntake(1.0, 1.0, true));
         bottomRight.whileHeld(new RunCargoIntake(-1.0, -1.0, true));
 

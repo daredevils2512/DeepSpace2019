@@ -15,17 +15,23 @@ public class RunCargoIntake extends Command {
     private double m_infinitySpeed;
     private double m_inSpeed;
 
-    private boolean m_ovveride;
+    private boolean m_override;
 
-    public RunCargoIntake(double infinitySpeed, double inSpeed, boolean ovveride) {
+    /**
+     * Run cargo intake
+     * @param infinitySpeed speed to turn the bands that center cargo (negative values move towards center, positive values move away from center)
+     * @param inSpeed speed to run the bands that intake/extake cargo (negative values intake, positive values extake)
+     * @param override override cargo limit switch
+     */
+    public RunCargoIntake(double infinitySpeed, double inSpeed, boolean override) {
         requires(CargoIntake.getInstance());
         this.m_infinitySpeed = infinitySpeed;
         this.m_inSpeed = inSpeed;
-        this.m_ovveride = ovveride;
+        this.m_override = override;
     }
 
     @Override
-        protected void initialize() {
+    protected void initialize() {
     }
 
     @Override
@@ -35,8 +41,7 @@ public class RunCargoIntake extends Command {
 
     @Override
     protected boolean isFinished() {
-        return (!this.m_ovveride && this.m_inSpeed < 0) ? CargoExtake.getBallOccupancy() : false;
-        // return false;
+        return (!m_override && m_inSpeed < 0) ? CargoExtake.getBallOccupancy() : false;
     }
 
     @Override
