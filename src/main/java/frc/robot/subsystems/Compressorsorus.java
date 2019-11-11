@@ -10,47 +10,54 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Compressor;
 
-/**
- * An example subsystem.  You can replace me with your own Subsystem.
- */
 public class Compressorsorus extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-  public Compressor sorus;
-  // private Boolean enabled; 
+    public Compressor sorus;
 
-  public Compressorsorus() {
+    private static Compressorsorus instance;
 
-    this.sorus = new Compressor();
-    
-  }
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
-
-  public void compressorOff() {
-    this.sorus.setClosedLoopControl(false);
-  }
-
-  public void compressorOn() {
-    this.sorus.setClosedLoopControl(true);
-  }
-
-  public void toggleCompressor() {
-    // enabled = sorus.enabled();
-    if (!sorus.enabled()) {
-      System.out.println("Compressor enabled");
-      compressorOn();
-    } else {
-      System.out.println("Compressor disabled");
-      compressorOff();
+    private Compressorsorus() {
+        sorus = new Compressor();
     }
-  }
 
-  public boolean isOn() {
-    return sorus.enabled();
-  }
+    @Override
+    public void initDefaultCommand() {
+        
+    }
+
+    public static Compressorsorus getInstance() {
+        if(instance == null) {
+            instance = new Compressorsorus();
+        }
+        return instance;
+    }
+
+    public boolean isEnabled() {
+        return sorus.getClosedLoopControl();
+    }
+
+    public boolean isOn() {
+        return sorus.enabled();
+    }
+
+    public boolean isPressureLow() {
+        return sorus.getPressureSwitchValue();
+    }
+
+    public void enable() {
+        sorus.setClosedLoopControl(true);
+    }
+
+    public void disable() {
+        sorus.setClosedLoopControl(false);
+    }
+
+    public void toggle() {
+        if(isEnabled()) {
+            disable();
+            System.out.println("Compressor disabled");
+        } else {
+            enable();
+            System.out.println("Compressor enabled");
+        }
+    }
 }

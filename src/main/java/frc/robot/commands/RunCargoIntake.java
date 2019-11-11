@@ -8,39 +8,44 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.subsystems.CargoExtake;
+import frc.robot.subsystems.CargoIntake;
 
-public class ToggleDriverVision extends Command {
-    public ToggleDriverVision() {
+public class RunCargoIntake extends Command {
+    private double m_infinitySpeed;
+    private double m_inSpeed;
 
+    private boolean m_ovveride;
+
+    public RunCargoIntake(double infinitySpeed, double inSpeed, boolean ovveride) {
+        requires(CargoIntake.getInstance());
+        this.m_infinitySpeed = infinitySpeed;
+        this.m_inSpeed = inSpeed;
+        this.m_ovveride = ovveride;
     }
 
     @Override
-    protected void initialize() {
-
+        protected void initialize() {
     }
 
     @Override
     protected void execute() {
-        if(Robot.m_driverVision.getIsEnabled()) {
-            Robot.m_driverVision.disable();
-        } else {
-            Robot.m_driverVision.enable();
-        }
+        CargoIntake.getInstance().setSpeed(this.m_infinitySpeed, this.m_inSpeed);
     }
 
     @Override
     protected boolean isFinished() {
-    return true;
+        return (!this.m_ovveride && this.m_inSpeed < 0) ? CargoExtake.getBallOccupancy() : false;
+        // return false;
     }
 
     @Override
     protected void end() {
-
+        CargoIntake.getInstance().setSpeed(0.0, 0.0);
     }
 
     @Override
     protected void interrupted() {
-
+        this.end();
     }
 }

@@ -7,16 +7,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.HatchIntake;
 
-public class InvertDriving extends InstantCommand {
-    public InvertDriving() {
-        
+/**
+ * Add your docs here.
+ */
+public class FoldDownHatchIntake extends FoldHatchIntake {
+    public FoldDownHatchIntake() {
+        super();
     }
 
     @Override
-    protected void initialize() {
-        Drivetrain.getInstance().toggleInverted();
+    public void initialize() {
+        HatchIntake.getInstance().foldDown();
     }
 }

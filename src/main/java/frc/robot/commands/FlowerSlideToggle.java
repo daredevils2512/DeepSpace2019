@@ -1,12 +1,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.subsystems.HatchIntake;
 
 public class FlowerSlideToggle extends Command {
 
     public FlowerSlideToggle() {
-        requires(Robot.m_flower);
+        requires(HatchIntake.getInstance());
     }
 
     @Override
@@ -15,7 +15,7 @@ public class FlowerSlideToggle extends Command {
 
     @Override
     protected void execute() {
-        Robot.m_flower.toggleSlide();
+        HatchIntake.getInstance().toggleFoldPosition();
     }
 
     @Override

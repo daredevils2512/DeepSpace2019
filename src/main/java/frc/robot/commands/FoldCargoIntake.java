@@ -8,15 +8,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.CargoExtake;
 
-public class InvertDriving extends InstantCommand {
-    public InvertDriving() {
-        
-    }
-
-    @Override
-    protected void initialize() {
-        Drivetrain.getInstance().toggleInverted();
+public abstract class FoldCargoIntake extends InstantCommand {
+    protected FoldCargoIntake() {
+        requires(CargoExtake.getInstance());
     }
 }

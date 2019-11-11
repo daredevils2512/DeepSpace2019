@@ -8,66 +8,82 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
-/**
- * An example subsystem.  You can replace me with your own Subsystem.
- */
-public class CargoIntake extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+public final class CargoIntake extends Subsystem {
+    public enum FoldPosition {
+        NONE, UP, DOWN
+    }
 
-  private WPI_TalonSRX infinityMotor;
-  private WPI_TalonSRX inMotor;
+    private static CargoIntake instance;
 
-  private DoubleSolenoid upDown;
+    private final WPI_TalonSRX infinityMotor;
+    private final WPI_TalonSRX inMotor;
+    private final DoubleSolenoid foldSolenoid;
 
-  public CargoIntake() {
-    this.infinityMotor = new WPI_TalonSRX(RobotMap.cargoInfinityPort);
-    this.inMotor = new WPI_TalonSRX(RobotMap.cargoInMotorPort);
+    private final Value foldUpValue = Value.kForward;
+    private final Value foldDownValue = Value.kReverse;
 
-    this.upDown = new DoubleSolenoid(RobotMap.cargoUpDownAPort, RobotMap.cargoUpDownBPort);
-  }
+    private CargoIntake() {
+        infinityMotor = new WPI_TalonSRX(RobotMap.cargoInfinityPort);
+        inMotor = new WPI_TalonSRX(RobotMap.cargoInMotorPort);
+        foldSolenoid = new DoubleSolenoid(RobotMap.cargoUpDownAPort, RobotMap.cargoUpDownBPort);
+        foldSolenoid.set(foldUpValue);
+    }
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+    @Override
+    public void initDefaultCommand() {
+        
+    }
 
-  public void runIntake(double infinitySpeed, double inSpeed) {
-    if (this.getCurrentPos().equals(RobotMap.cargoUpPos)) {
-      this.foldDown();
-    } 
-    this.infinityMotor.set(infinitySpeed);
-    this.inMotor.set(inSpeed);
-  }
+    public static CargoIntake getInstance() {
+        if(instance == null) {
+            instance = new CargoIntake();
+        }
+        return instance;
+    }
 
-  private void foldIntake(DoubleSolenoid.Value dir) {
-    Timer t = new Timer();
-    t.start();
-    this.upDown.set(dir);
-    t.stop();
-    System.out.println("FoldIntake took: "+t.get());
-  }
+    /**
+     * Get the current intake position
+     * @return UP if the intake is up, DOWN if the intake is down, or NONE if the neither output is activated on the double solenoid responsible for folding
+     */
+    public FoldPosition getFoldPosition() {
+        Value value = foldSolenoid.get();
+        FoldPosition result;
 
-  public void foldUp() {
-    System.out.println("Folding up");
-    this.foldIntake(RobotMap.cargoUpPos);
-  }
+        if(value == foldUpValue) {
+            result = FoldPosition.UP;
+        } else if(value == foldDownValue) {
+            result = FoldPosition.DOWN;
+        } else {
+            result = FoldPosition.NONE;
+        }
 
-  public void foldDown() {
-    System.out.println("Folding down");
-    this.foldIntake(RobotMap.cargoDownPos);
-  }
+        return result;
+    }
 
-  public DoubleSolenoid.Value getCurrentPos() {
-    return this.upDown.get();
-  }
-  
+    /**
+     * Fold the hatch intake down out of the frame perimeter
+     */
+    public void foldDown() {
+        foldSolenoid.set(foldDownValue);
+    }
+
+    /**
+     * Fold the hatch intake up into the frame perimeter
+     */
+    public void foldUp() {
+        foldSolenoid.set(foldUpValue);
+    }
+
+    public void setSpeed(double infinitySpeed, double inSpeed) {
+        if(foldSolenoid.get() == foldDownValue) {
+            this.infinityMotor.set(infinitySpeed);
+            this.inMotor.set(inSpeed);
+        }
+    }
+
 }

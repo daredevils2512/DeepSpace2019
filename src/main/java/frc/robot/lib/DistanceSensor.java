@@ -1,9 +1,6 @@
 package frc.robot.lib;
 
-import java.util.Date;
-
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotMap;
 
 /**

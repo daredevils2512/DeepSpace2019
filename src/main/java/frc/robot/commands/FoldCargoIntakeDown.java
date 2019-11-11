@@ -7,20 +7,17 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.subsystems.CargoIntake;
 
 /**
  * Add your docs here.
  */
-public class FlowerOpen extends FlowerActuate {
-    public FlowerOpen() {
-        super (RobotMap.flowerOpenPos);
+public class FoldCargoIntakeDown extends FoldCargoIntake {
+    public FoldCargoIntakeDown() {
+        super();
     }
 
     public void execute() {
-        if (!Robot.m_flower.getOpeningPos().equals(this.m_actuateDir)) {
-            Robot.m_flower.open();
-        }
+        CargoIntake.getInstance().foldDown();
     }
 }

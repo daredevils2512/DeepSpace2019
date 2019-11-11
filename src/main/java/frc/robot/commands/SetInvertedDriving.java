@@ -7,22 +7,18 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.subsystems.Drivetrain;
 
-/**
- * Add your docs here.
- */
-public class CargoFoldDown extends CargoFoldIntake {
-    public CargoFoldDown() {
-        super(RobotMap.cargoDownPos);
+public class SetInvertedDriving extends InstantCommand {
+    private boolean inverted;
+
+    public SetInvertedDriving(boolean inverted) {
+        this.inverted = inverted;
     }
 
-    public void execute() {
-        // Not on robot
-    //     System.out.println("Ball Distance: " + Robot.m_ballDistanceSensor.getDistance());
-        if (!Robot.m_cargoIntake.getCurrentPos().equals(this.m_foldDir)/* && Robot.m_ballDistanceSensor.getDistance() >= 18*/) {
-            Robot.m_cargoIntake.foldDown();
-        }
+    @Override
+    protected void initialize() {
+        Drivetrain.getInstance().setInverted(inverted);
     }
 }

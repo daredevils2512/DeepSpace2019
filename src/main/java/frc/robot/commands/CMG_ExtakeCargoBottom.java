@@ -7,21 +7,14 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- * Add your docs here.
- */
-public class FlowerSlideOut extends FlowerSlide {
-    public FlowerSlideOut() {
-        super(RobotMap.flowerOutPos);
-    }
+import frc.robot.commands.RunCargoExtake;
+import frc.robot.commands.RunCargoIntake;
 
-    public void execute() {
-        // if (!Robot.m_flower.getSlidePos().equals(this.m_actuateDir)) {
-        //     Robot.m_flower.slideOut();
-        // }
-        Robot.m_flower.slideOut();
+public class CMG_ExtakeCargoBottom extends CommandGroup {
+    public CMG_ExtakeCargoBottom() {
+        addParallel(new RunCargoExtake(0.5, false));
+        addParallel(new RunCargoIntake(0.0, 1.0, false));
     }
 }

@@ -7,21 +7,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.subsystems.HatchIntake;
 
-/**
- * Add your docs here.
- */
-public class CargoFoldUp extends CargoFoldIntake {
-    public CargoFoldUp() {
-        super(RobotMap.cargoUpPos);
+public class FoldUpHatchIntake extends FoldHatchIntake {
+    public FoldUpHatchIntake() {
+        super();
     }
 
-    public void execute() {
-        if (!Robot.m_cargoIntake.getCurrentPos().equals(this.m_foldDir)) {
-            Robot.m_cargoIntake.foldUp();
-        }
+    @Override
+    public void initialize() {
+        HatchIntake.getInstance().foldUp();
     }
 }

@@ -7,20 +7,11 @@
 
 package frc.robot.commands;
 
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.subsystems.HatchIntake;
 
-/**
- * Add your docs here.
- */
-public class FlowerClose extends FlowerActuate {
-    public FlowerClose() {
-        super(RobotMap.flowerClosedPos);
-    }
-
-    public void execute() {
-        if (!Robot.m_flower.getOpeningPos().equals(this.m_actuateDir)) {
-            Robot.m_flower.close();
-        }
+public abstract class FoldHatchIntake extends InstantCommand {
+    public FoldHatchIntake() {
+        requires(HatchIntake.getInstance());
     }
 }

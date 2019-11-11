@@ -7,22 +7,14 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.subsystems.CargoIntake;
 
-/**
- * Add your docs here.
- */
-public class FlowerSlideIn extends FlowerSlide {
-    public FlowerSlideIn() {
-        super(RobotMap.flowerOutPos);
+public class FoldCargoIntakeUp extends FoldCargoIntake {
+    public FoldCargoIntakeUp() {
+        super();
     }
 
     public void execute() {
-        // if (!Robot.m_flower.getSlidePos().equals(this.m_actuateDir)) {
-        //     Robot.m_flower.slideIn();
-        // }
-        Robot.m_flower.slideIn();
+        CargoIntake.getInstance().foldUp();
     }
 }

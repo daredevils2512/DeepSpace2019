@@ -7,46 +7,22 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.InstantCommand;
+
 import java.util.function.Supplier;
+import frc.robot.subsystems.Drivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+public abstract class Drive extends InstantCommand {
+    protected Supplier<Double> getLeft, getRight;
 
-/**
- * An example command.  You can replace me with your own command.
- */
-public abstract class Drive extends Command {
-  private boolean enabled = true;
-  private double slowify = 1.0;
-  protected Supplier<Double> getLeft, getRight;
+    public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
+        requires(Drivetrain.getInstance());
+        this.getLeft = getLeft;
+        this.getRight = getRight;
+    }
 
-  public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
-    // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_Drivetrain);
-    this.getLeft = getLeft;
-    this.getRight = getRight;
-  }
-
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-  }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-  }
-
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    Robot.m_Drivetrain.arcadeDrive(0.0 , 0.0);
-  }
+    @Override
+    protected void interrupted() {
+        Drivetrain.getInstance().arcadeDrive(0.0, 0.0);
+    }
 }

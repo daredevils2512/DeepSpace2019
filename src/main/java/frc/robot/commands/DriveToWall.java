@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.lib.DistanceSensor;
 import frc.robot.lib.SpeedRamp;
+import frc.robot.subsystems.Drivetrain;
 
 public class DriveToWall extends Command {
 
@@ -13,7 +14,7 @@ public class DriveToWall extends Command {
     private DistanceSensor m_sensor;
 
     public DriveToWall(DistanceSensor sensor) {
-        requires(Robot.m_Drivetrain);
+        requires(Drivetrain.getInstance());
         m_distToWall = Robot.driveToWallChooser.getSelected();
         m_sensor = sensor;
     }
@@ -21,7 +22,7 @@ public class DriveToWall extends Command {
     @Override
     public void execute() {
         double dist = m_sensor.getDistance();
-        Robot.m_Drivetrain.arcadeDrive(-SpeedRamp.speedRamp(tolerance, dist, m_distToWall + 12, defaultSpeed), 0);
+        Drivetrain.getInstance().arcadeDrive(-SpeedRamp.speedRamp(tolerance, dist, m_distToWall + 12, defaultSpeed), 0);
     }
 
     @Override
@@ -31,6 +32,6 @@ public class DriveToWall extends Command {
 
     @Override
     public void interrupted() {
-        Robot.m_Drivetrain.arcadeDrive(0, 0);
+        Drivetrain.getInstance().arcadeDrive(0, 0);
     }
 }

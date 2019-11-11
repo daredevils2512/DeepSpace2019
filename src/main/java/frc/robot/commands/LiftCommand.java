@@ -10,7 +10,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.subsystems.Lift;
 
 /**
  * An example command.  You can replace me with your own command.
@@ -20,8 +20,7 @@ public abstract class LiftCommand extends Command {
     protected Supplier<Double> liftControlDirection = null;
 
   public LiftCommand(Supplier<Double> liftControlDirection) {
-    // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_lift);
+    requires(Lift.getInstance());
     this.liftControlDirection = liftControlDirection;
   }
 
@@ -34,7 +33,7 @@ public abstract class LiftCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.m_lift.setSpeed(0.0);
+    Lift.getInstance().setSpeed(0.0);
   }
 
   // Called when another command which requires one or more of the same

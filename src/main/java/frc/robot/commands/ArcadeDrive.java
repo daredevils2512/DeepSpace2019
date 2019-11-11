@@ -9,19 +9,15 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
-/**
- * An example command.  You can replace me with your own command.
- */
 public class ArcadeDrive extends Drive {
+    public ArcadeDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
+        super(getLeft, getRight);
+    }
 
-  public ArcadeDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
-   super(getLeft, getRight);
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Robot.m_Drivetrain.arcadeDrive(getLeft.get() * Robot.slowify, getRight.get() * Robot.slowify); // im not done with this yet
-  }
+    @Override
+    protected void initialize() {
+        Drivetrain.getInstance().arcadeDrive(getLeft.get() * Robot.slowify, getRight.get() * Robot.slowify);
+    }
 }

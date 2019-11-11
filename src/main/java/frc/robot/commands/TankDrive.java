@@ -8,20 +8,18 @@
 package frc.robot.commands;
 import java.util.function.Supplier;
 
-import frc.robot.Robot;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * An example command.  You can replace me with your own command.
  */
 public class TankDrive extends Drive {
+    public TankDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
+        super(getLeft, getRight);
+    }
 
-  public TankDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
-   super(getLeft, getRight);
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Robot.m_Drivetrain.driveRobotTank(getLeft.get(), getRight.get());
-  }
+    @Override
+    protected void execute() {
+        Drivetrain.getInstance().driveRobotTank(getLeft.get(), getRight.get());
+    }
 }

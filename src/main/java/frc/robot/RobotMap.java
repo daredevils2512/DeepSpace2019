@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-// import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
@@ -77,8 +76,8 @@ public class RobotMap {
   public static Value cargoUpPos = Value.kForward;
   public static Value cargoDownPos = Value.kReverse;
 
-  public static int ballXtake1ID = 7;
-  public static int ballXtake2ID = 8;
+  public static int cargoExtake1ID = 7;
+  public static int cargoExtake2ID = 8;
   public static int ballOccupancy = 9;
 
   // HATCH STUFF
