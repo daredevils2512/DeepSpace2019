@@ -7,15 +7,20 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.HatchIntake;
 
-public class FoldCargoIntakeDown extends FoldCargoIntake {
-    public FoldCargoIntakeDown() {
+public class ToggleHatchIntakeFoldPosition extends FoldHatchIntake {
+    public ToggleHatchIntakeFoldPosition() {
         super();
     }
 
     @Override
-    protected void execute() {
-        CargoIntake.getInstance().foldDown();
+    protected void initialize() {
+        HatchIntake.FoldPosition currentFoldPosition = HatchIntake.getInstance().getFoldPosition();
+        if(currentFoldPosition == HatchIntake.FoldPosition.UP) {
+            HatchIntake.getInstance().foldDown();
+        } else if(currentFoldPosition == HatchIntake.FoldPosition.DOWN) {
+            HatchIntake.getInstance().foldUp();
+        }
     }
 }

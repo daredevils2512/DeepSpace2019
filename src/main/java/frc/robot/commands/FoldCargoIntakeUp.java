@@ -14,7 +14,8 @@ public class FoldCargoIntakeUp extends FoldCargoIntake {
         super();
     }
 
-    public void execute() {
+    @Override
+    protected void execute() {
         CargoIntake.getInstance().foldUp();
     }
 }

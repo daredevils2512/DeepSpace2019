@@ -15,7 +15,7 @@ import frc.robot.subsystems.Lift;
 public class RunToBottom extends RunTo {
     /**
      * Run lift to lowest height
-     * @param overrideManualControl can be manually overriden
+     * @param allowManualOverride can be manually overriden
      */
     public RunToBottom(boolean allowManualOverride) {
         super(allowManualOverride);

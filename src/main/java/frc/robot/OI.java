@@ -17,6 +17,7 @@ import frc.robot.commands.*;
 import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.*;
 import frc.robot.subsystems.CargoExtake;
+import frc.robot.subsystems.HatchIntake;
 import frc.robot.subsystems.Lift;
 
 /**
@@ -88,15 +89,17 @@ public class OI {
 
         // center flower begins 1'3" off ground
         // center ball begins 7.5" off ground
-        bottomRed.whenPressed(new RunToBottom(false));
-        bottomWhite.whenPressed(new RunToHeight(LiftHeight.FEEDER, false));
-        midRed.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_BOTTOM, false));
-        midWhite.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_MIDDLE, false));
-        topRed.whenPressed(new RunToHeight(LiftHeight.CARGO_SHIP_CARGO, false));
-        topWhite.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_TOP, false));
+        bottomRed.whenPressed(new RunToBottom(true));
+        bottomWhite.whenPressed(new RunToHeight(LiftHeight.FEEDER, true));
+        midRed.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_BOTTOM, true));
+        midWhite.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_MIDDLE, true));
+        topRed.whenPressed(new RunToHeight(LiftHeight.CARGO_SHIP_CARGO, true));
+        topWhite.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_TOP, true));
 
+        // Make this togglable?
         yButton.whenPressed(new FoldCargoIntakeUp());
         aButton.whenPressed(new FoldCargoIntakeDown());
+
         xButton.whileHeld(new RunCargoIntake(1.0, 1.0, false)); // out
         bButton.whileHeld(new RunCargoIntake(-1.0, -1.0, false)); // in
 
@@ -105,14 +108,11 @@ public class OI {
         topRight.whileHeld(new RunCargoIntake(1.0, 1.0, true));
         bottomRight.whileHeld(new RunCargoIntake(-1.0, -1.0, true));
 
-        frontLeft.whenPressed(new FoldDownHatchIntake());
-        frontRight.whenPressed(new FoldUpHatchIntake());
-
         bigRed.whenPressed(new ToggleCompressor());
         bigWhite.whenPressed(new CMG_IntakeCargo());
 
-        green.whenPressed(new CloseHatchPanelLatch());
-        yellow.whenPressed(new OpenHatchPanelLatch());
+        green.whenPressed(new ToggleHatchIntakeLatch());
+        yellow.whenPressed(new ToggleHatchIntakeFoldPosition());
 
         // Control both intakes and extakes simultaneously
         // green.whileHeld(new ExtakeCargo());
