@@ -8,15 +8,13 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
 
 public final class CargoExtake extends Subsystem {
-    private static CargoExtake instance;
-
     private final WPI_TalonSRX cargoExtake1;
     private final WPI_TalonSRX cargoExtake2;
     private final SpeedControllerGroup cargoExtake;
     
     private static DigitalInput ballOccupancy;
 
-    private CargoExtake() {
+    public CargoExtake() {
         cargoExtake1 = new WPI_TalonSRX(RobotMap.cargoExtake1ID);
         cargoExtake2 = new WPI_TalonSRX(RobotMap.cargoExtake2ID);
         cargoExtake2.setInverted(true);
@@ -29,13 +27,6 @@ public final class CargoExtake extends Subsystem {
     @Override
     public void initDefaultCommand() {
 
-    }
-
-    public static CargoExtake getInstance() {
-        if(instance == null) {
-            instance = new CargoExtake();
-        }
-        return instance;
     }
 
     /**

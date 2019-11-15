@@ -16,8 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-
-import frc.robot.lib.DriverVision;
 import frc.robot.lib.Limelight;
 import frc.robot.subsystems.*;
 
@@ -29,8 +27,16 @@ import frc.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-    public static Limelight m_limelight;
-    public static DriverVision m_driverVision;
+    private Drivetrain drivetrain;
+    private Lift lift;
+    private Compressorsorus compressor;
+    private CargoIntake cargoIntake;
+    private CargoExtake cargoExtake;
+    private HatchIntake hatchIntake;
+
+    private OI oi;
+
+    public Limelight m_limelight;
 
     public static double slowify = 1.0;
     public static SendableChooser<Double> driveToWallChooser;
@@ -64,14 +70,18 @@ public class Robot extends TimedRobot {
         slowifyChooser.setDefaultOption("Default", 1.0);
         SmartDashboard.putData("Slowify", slowifyChooser);
 
-        m_limelight = new Limelight();
-
         m_PDP = new PowerDistributionPanel();
         m_PDPBuilder = new SendableBuilderImpl();
-        // m_chooser.setDefaultOption("Default Auto", new LiftCommand());
-        // chooser.addOption("My Auto", new MyAutoCommand());
+        
+        drivetrain = new Drivetrain(oi::getMove, oi::getTurn);
+        lift = new Lift(oi::liftControl);
+        compressor = new Compressorsorus();
+        cargoIntake = new CargoIntake();
+        cargoExtake = new CargoExtake();
+        hatchIntake = new HatchIntake();
+        m_limelight = new Limelight();
 
-        SmartDashboard.putData("Auto mode", m_chooser);
+        oi = new OI(drivetrain, lift, compressor, cargoIntake, cargoExtake, hatchIntake);
     }
 
     /**
@@ -86,7 +96,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         Timer t = new Timer();
         t.start();
-        Drivetrain.getInstance().updateDashboard();
+        drivetrain.updateDashboard();
         // m_hatchDistanceSensor.update();
         // m_ballDistanceSensor.update();
 
@@ -100,14 +110,14 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber("Ball Color", m_ballDistanceSensor.getColorDist());
         // SmartDashboard.putNumber("Ball Distance", m_ballDistanceSensor.getDistance());
 
-        SmartDashboard.putNumber("lift control", OI.getInstance().liftControl().doubleValue());
-        SmartDashboard.putNumber("lift pos", Lift.getInstance().getLiftEncoderPosition());
-        SmartDashboard.putNumber("lift hieght", Lift.getInstance().getLiftHeight());
-        SmartDashboard.putBoolean("lift switch", Lift.getInstance().getLimitSwitchBottom());
+        SmartDashboard.putNumber("lift control", oi.liftControl().doubleValue());
+        SmartDashboard.putNumber("lift pos", lift.getLiftEncoderPosition());
+        SmartDashboard.putNumber("lift hieght", lift.getLiftHeight());
+        SmartDashboard.putBoolean("lift switch", lift.getLimitSwitchBottom());
 
         SmartDashboard.putBoolean("Ball lmit switch", CargoExtake.getBallOccupancy());
         // SmartDashboard.putBoolean("Driver vision enabled", m_drivervision.getIsEnabled());
-        SmartDashboard.putBoolean("High Gear", Drivetrain.getInstance().getHighState());
+        SmartDashboard.putBoolean("Low Gear", drivetrain.getLowGear());
         // System.out.println(" lift pos: " + m_lift.getLiftHeight());
 
         slowify = slowifyChooser.getSelected() == null ? 1.0 : slowifyChooser.getSelected();
@@ -136,7 +146,7 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putNumber("Pitch", m_Drivetrain.getPitch());
         // SmartDashboard.putNumber("Roll", m_Drivetrain.getRoll());
 
-        SmartDashboard.putBoolean("Compressor on", Compressorsorus.getInstance().isOn());
+        SmartDashboard.putBoolean("Compressor on", compressor.isOn());
         t.stop();
         if (t.get() >= 0.015)
             System.out.println("robotPeriodic TooK: "+t.get());
@@ -169,9 +179,9 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        Lift.getInstance().resetLiftEncoder();
+        lift.resetLiftEncoder();
         // m_autonomousCommand = m_chooser.getSelected();
-        Compressorsorus.getInstance().enable();
+        compressor.enable();
         /*
             * String autoSelected = SmartDashboard.getString("Auto Selector",
             * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -192,14 +202,14 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        HatchIntake.getInstance().foldUp();
-        Lift.getInstance().resetLiftEncoder();
-        Compressorsorus.getInstance().enable();
+        hatchIntake.setExtended(false);
+        lift.resetLiftEncoder();
+        compressor.enable();
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        Drivetrain.getInstance().resetEncoders();
+        drivetrain.resetEncoders();
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }

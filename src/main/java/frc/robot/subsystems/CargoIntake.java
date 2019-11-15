@@ -14,69 +14,39 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 public final class CargoIntake extends Subsystem {
-    public enum FoldPosition {
-        NONE, UP, DOWN
-    }
-
-    private static CargoIntake instance;
-
     private final WPI_TalonSRX infinityMotor;
     private final WPI_TalonSRX inMotor;
-    private final DoubleSolenoid foldSolenoid;
+    private final DoubleSolenoid extender;
 
-    private final Value foldUpValue = Value.kForward;
-    private final Value foldDownValue = Value.kReverse;
+    private final Value retractedValue = Value.kForward;
+    private final Value extendedValue = Value.kReverse;
 
-    private CargoIntake() {
+    public CargoIntake() {
         infinityMotor = new WPI_TalonSRX(RobotMap.cargoInfinityPort);
         inMotor = new WPI_TalonSRX(RobotMap.cargoInMotorPort);
-        foldSolenoid = new DoubleSolenoid(RobotMap.cargoUpDownAPort, RobotMap.cargoUpDownBPort);
-        foldSolenoid.set(foldUpValue);
+        extender = new DoubleSolenoid(RobotMap.cargoUpDownAPort, RobotMap.cargoUpDownBPort);
+        extender.set(retractedValue);
     }
 
     @Override
     public void initDefaultCommand() {
-        
-    }
-
-    public static CargoIntake getInstance() {
-        if(instance == null) {
-            instance = new CargoIntake();
-        }
-        return instance;
+        setDefaultCommand(null);
     }
 
     /**
-     * Get the current intake position
-     * @return UP if the intake is up, DOWN if the intake is down, or NONE if the neither output is activated on the double solenoid responsible for folding
+     * Get whether the cargo intake is extended
+     * @return true if extended, false if retracted
      */
-    public FoldPosition getFoldPosition() {
-        Value value = foldSolenoid.get();
-        FoldPosition result;
-
-        if(value == foldUpValue) {
-            result = FoldPosition.UP;
-        } else if(value == foldDownValue) {
-            result = FoldPosition.DOWN;
-        } else {
-            result = FoldPosition.NONE;
-        }
-
-        return result;
+    public boolean getExtended() {
+        return extender.get() == extendedValue;
     }
 
     /**
-     * Fold the hatch intake down out of the frame perimeter
+     * Set whether the cargo intake is extended
+     * @param extended true to extend, false to retract
      */
-    public void foldDown() {
-        foldSolenoid.set(foldDownValue);
-    }
-
-    /**
-     * Fold the hatch intake up into the frame perimeter
-     */
-    public void foldUp() {
-        foldSolenoid.set(foldUpValue);
+    public void setExtended(boolean extended) {
+        extender.set(extended ? extendedValue : retractedValue);
     }
 
     /**
@@ -85,9 +55,9 @@ public final class CargoIntake extends Subsystem {
      * @param inSpeed speed to run the bands that intake/extake cargo (negative values intake, positive values extake)
      */
     public void setSpeed(double infinitySpeed, double inSpeed) {
-        if(foldSolenoid.get() == foldDownValue) {
-            this.infinityMotor.set(infinitySpeed);
-            this.inMotor.set(inSpeed);
+        if(extender.get() == extendedValue) {
+            infinityMotor.set(infinitySpeed);
+            inMotor.set(inSpeed);
         }
     }
 

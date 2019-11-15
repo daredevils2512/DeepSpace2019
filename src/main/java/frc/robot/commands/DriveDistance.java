@@ -4,27 +4,28 @@ import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.subsystems.Drivetrain;
 
-public class DriveDistance extends Command { //TODO untested
-
+public final class DriveDistance extends Command { //TODO untested
+    protected Drivetrain drivetrain;
     private double m_tolerance;
     private double m_dist;
     private double m_targetDistL;
     private double m_rampDist = 24;
 
-    public DriveDistance(double tolerance, double dist) {
+    public DriveDistance(Drivetrain drivetrain, double tolerance, double dist) {
         m_tolerance = tolerance;
         m_dist = dist;
-        requires(Drivetrain.getInstance());
+        requires(drivetrain);
+        this.drivetrain = drivetrain;
     }
 
     @Override
     protected void initialize() {
-        m_targetDistL = Drivetrain.getInstance().getAverageEncDist() + m_dist;
+        m_targetDistL = drivetrain.getAverageEncDist() + m_dist;
     }
 
     @Override
     protected void execute() {
-        double currentDist = Drivetrain.getInstance().getAverageEncDist();
+        double currentDist = drivetrain.getAverageEncDist();
         double diff = m_targetDistL - currentDist;
 
         double direction = Math.signum(diff);
@@ -32,18 +33,18 @@ public class DriveDistance extends Command { //TODO untested
 
         double speed = Math.min(1, driveDist / m_rampDist) * direction;
 
-        Drivetrain.getInstance().arcadeDrive(speed, 0.0);
+        drivetrain.arcadeDrive(speed, 0.0);
     }
 
 
     @Override
     protected boolean isFinished() {
-        double diff = m_targetDistL - Drivetrain.getInstance().getAverageEncDist();
+        double diff = m_targetDistL - drivetrain.getAverageEncDist();
         return Math.abs(diff) <= m_tolerance;
     }
 
     @Override
     protected void end() {
-        Drivetrain.getInstance().arcadeDrive(0.0, 0.0);
+        drivetrain.arcadeDrive(0.0, 0.0);
     }
 }

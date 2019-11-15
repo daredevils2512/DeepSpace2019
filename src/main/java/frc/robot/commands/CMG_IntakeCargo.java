@@ -7,27 +7,21 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.subsystems.CargoExtake;
+import frc.robot.subsystems.CargoIntake;
 import frc.robot.subsystems.Lift;
 
-public class CMG_IntakeCargo extends CommandGroup {
-    private static boolean ballIn = false;
-
-    public CMG_IntakeCargo() {
-        if (!Lift.getInstance().getLimitSwitchBottom()) {
-            addSequential(new RunToBottom(false));
+public final class CMG_IntakeCargo extends CommandGroup {
+    public CMG_IntakeCargo(Lift lift, CargoIntake cargoIntake, CargoExtake cargoExtake, Supplier<Double> getLiftControl) {
+        if (!lift.getLimitSwitchBottom()) {
+            addSequential(new RunToBottom(lift, getLiftControl, false));
         }
-    // if (!ballIn) {
-        addSequential(new FoldCargoIntakeDown());
-        addParallel(new RunCargoIntake(-1.0, -1.0, false));
-        addSequential(new RunCargoExtake(-1.0, false));
-        // ballIn = true;
-        addSequential(new CMG_LiftCargo());
-    // }
+        addSequential(new ExtendCargoIntake(cargoIntake));
+        addParallel(new RunCargoIntake(cargoIntake, -1.0, -1.0, false));
+        addSequential(new RunCargoExtake(cargoExtake, -1.0, false));
+        addSequential(new CMG_LiftCargo(lift, cargoIntake, getLiftControl));
     }
-
-    public static void ballOut() {
-        ballIn = false;
-    }
-
 }

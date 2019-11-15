@@ -6,15 +6,16 @@ import frc.robot.lib.DistanceSensor;
 import frc.robot.lib.SpeedRamp;
 import frc.robot.subsystems.Drivetrain;
 
-public class DriveToWall extends Command {
-
+public final class DriveToWall extends Command {
+    protected Drivetrain drivetrain;
     private double m_distToWall;
     private double tolerance = 4;
     private double defaultSpeed = 1;
     private DistanceSensor m_sensor;
 
-    public DriveToWall(DistanceSensor sensor) {
-        requires(Drivetrain.getInstance());
+    public DriveToWall(Drivetrain drivetrain, DistanceSensor sensor) {
+        requires(drivetrain);
+        this.drivetrain = drivetrain;
         m_distToWall = Robot.driveToWallChooser.getSelected();
         m_sensor = sensor;
     }
@@ -22,7 +23,7 @@ public class DriveToWall extends Command {
     @Override
     public void execute() {
         double dist = m_sensor.getDistance();
-        Drivetrain.getInstance().arcadeDrive(-SpeedRamp.speedRamp(tolerance, dist, m_distToWall + 12, defaultSpeed), 0);
+        drivetrain.arcadeDrive(-SpeedRamp.speedRamp(tolerance, dist, m_distToWall + 12, defaultSpeed), 0);
     }
 
     @Override
@@ -32,6 +33,6 @@ public class DriveToWall extends Command {
 
     @Override
     public void interrupted() {
-        Drivetrain.getInstance().arcadeDrive(0, 0);
+        drivetrain.arcadeDrive(0, 0);
     }
 }

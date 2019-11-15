@@ -13,22 +13,13 @@ import edu.wpi.first.wpilibj.Compressor;
 public final class Compressorsorus extends Subsystem {
     public Compressor sorus;
 
-    private static Compressorsorus instance;
-
-    private Compressorsorus() {
+    public Compressorsorus() {
         sorus = new Compressor();
     }
 
     @Override
     public void initDefaultCommand() {
         
-    }
-
-    public static Compressorsorus getInstance() {
-        if(instance == null) {
-            instance = new Compressorsorus();
-        }
-        return instance;
     }
 
     public boolean isEnabled() {

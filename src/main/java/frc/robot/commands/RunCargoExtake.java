@@ -3,18 +3,20 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.CargoExtake;
 
-public class RunCargoExtake extends Command {
-    private double speed;
-    private boolean override;
+public final class RunCargoExtake extends Command {
+    protected CargoExtake cargoExtake;
+    protected double speed;
+    protected boolean override;
 
     /**
      * Run cargo extake
      * @param speed speed at which to run (negative values intake, positive values extake)
      * @param override override cargo limit switch
      */
-    public RunCargoExtake(double speed, boolean override) {
+    public RunCargoExtake(CargoExtake cargoExtake, double speed, boolean override) {
         super(2);
-        requires(CargoExtake.getInstance());
+        requires(cargoExtake);
+        this.cargoExtake = cargoExtake;
         this.speed = speed;
         this.override = override;
     }
@@ -25,7 +27,7 @@ public class RunCargoExtake extends Command {
 
     @Override
     protected void execute() {
-        CargoExtake.getInstance().setSpeed(speed);
+        cargoExtake.setSpeed(speed);
     }
 
     @Override
@@ -38,21 +40,17 @@ public class RunCargoExtake extends Command {
         } else {
             result = false;
         }
-
-        if (result && speed > 0) {
-            CMG_IntakeCargo.ballOut();
-        }
+        
         return result;
     }
 
     @Override
     protected void end() {
-        CargoExtake.getInstance().setSpeed(0.0);
+        cargoExtake.setSpeed(0.0);
     }
 
     @Override
     protected void interrupted() {
         end();
     }
-
 }

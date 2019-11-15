@@ -16,28 +16,18 @@ import frc.robot.RobotMap;
  * The subsystem responsible for grabbing hatch panels from  feeder stations and placing them on the cargo ship or rockets
  */
 public final class HatchIntake extends Subsystem {
-    public enum FoldPosition {
-        NONE, UP, DOWN
-    }
+    private final DoubleSolenoid extender;
+    private final DoubleSolenoid opener;
+    private final Value retractedValue = Value.kReverse;
+    private final Value extendedValue = Value.kForward;
+    private final Value closedValue = Value.kForward;
+    private final Value openValue = Value.kReverse;
 
-    public enum LatchPosition {
-        NONE, CLOSED, OPEN
-    }
-
-    private static HatchIntake instance;
-
-    private final DoubleSolenoid foldSolenoid;
-    private final DoubleSolenoid latchSolenoid;
-    private Value foldUpValue = Value.kReverse;
-    private Value foldDownValue = Value.kForward;
-    private Value latchClosedValue = Value.kForward;
-    private Value latchOpenValue = Value.kReverse;
-
-    private HatchIntake() {
-        foldSolenoid = new DoubleSolenoid(RobotMap.flowerSlideForwardChannel, RobotMap.flowerSlideReverseChannel);
-        latchSolenoid = new DoubleSolenoid(RobotMap.flowerSolenoidForwardChannel, RobotMap.flowerSolenoidReverseChannel);
-        foldSolenoid.set(foldUpValue);
-        latchSolenoid.set(latchClosedValue);
+    public HatchIntake() {
+        extender = new DoubleSolenoid(RobotMap.flowerSlideForwardChannel, RobotMap.flowerSlideReverseChannel);
+        opener = new DoubleSolenoid(RobotMap.flowerSolenoidForwardChannel, RobotMap.flowerSolenoidReverseChannel);
+        extender.set(retractedValue);
+        opener.set(closedValue);
     }
 
     @Override
@@ -45,99 +35,49 @@ public final class HatchIntake extends Subsystem {
         
     }
 
-    public static HatchIntake getInstance() {
-        if(instance == null) {
-            instance = new HatchIntake();
-        }
-        return instance;
+    /**
+     * Get whether the hatch intake is extended
+     * @return true if extended, false if retracted
+     */
+    public boolean getExtended() {
+        // Return true if the solenoid is set to off
+        return extender.get() != retractedValue;
     }
 
     /**
-     * Get the current intake position
-     * @return UP if the intake is up, DOWN if the intake is down, or NONE if the neither output is activated on the double solenoid responsible for folding
+     * Get whether the hatch intake is open (securing hatch panel)
+     * @return true if open, false if closed
      */
-    public FoldPosition getFoldPosition() {
-        Value value = foldSolenoid.get();
-        FoldPosition result;
-
-        if(value == foldUpValue) {
-            result = FoldPosition.UP;
-        } else if(value == foldDownValue) {
-            result = FoldPosition.DOWN;
-        } else {
-            result = FoldPosition.NONE;
-        }
-
-        return result;
+    public boolean getOpen() {
+        // Return true if the solenoid is set to off
+        return opener.get() != closedValue;
     }
 
     /**
-     * Get the current latch position
-     * @return CLOSED if the latch is closed, OPEN if the latch is open, or NONE if the neither output is activated on the double solenoid responsible for latching
+     * Set whether the hatch intake is extended
+     * @param extended true to extend, false to retract
      */
-    public LatchPosition getLatchPosition() {
-        Value value = latchSolenoid.get();
-        LatchPosition result;
+    public void setExtended(boolean extended) {
+        // If the solenoid is set to off, retract
+        extender.set(extended ? extendedValue : retractedValue);
+    }
 
-        if(value == latchClosedValue) {
-            result = LatchPosition.CLOSED;
-        } else if(value == latchOpenValue) {
-            result = LatchPosition.OPEN;
-        } else {
-            result = LatchPosition.NONE;
-        }
-
-        return result;
+    public void setOpen(boolean open) {
+        // If the solenoid is set to off, close
+        opener.set(open ? openValue : closedValue);
     }
 
     /**
-     * Fold the hatch intake down out of the frame perimeter
+     * Extend the hatch intake if it is retracted and vice versa
      */
-    public void foldDown() {
-        foldSolenoid.set(foldDownValue);
+    public void toggleExtended() {
+        extender.set(extender.get() == retractedValue ? extendedValue : retractedValue);
     }
 
     /**
-     * Fold the hatch intake up into the frame perimeter
+     * Open the hatch intake if it is closed and vice versa
      */
-    public void foldUp() {
-        foldSolenoid.set(foldUpValue);
-    }
-
-    /**
-     * Open the latch to grab a hatch panel
-     */
-    public void openLatch() {
-        latchSolenoid.set(latchOpenValue);
-    }
-
-    /**
-     * Close the latch to release a hatch panel
-     */
-    public void closeLatch() {
-        latchSolenoid.set(latchClosedValue);
-    }
-
-    /**
-     * Fold the intake up if it is down and vice versa
-     */
-    public void toggleFoldPosition() {
-        Value currentValue = foldSolenoid.get();
-        if(currentValue == foldUpValue) {
-            foldDown();
-        } else if(currentValue == foldDownValue) {
-            foldUp();
-        }
-    }
-
-    /**
-     * Open the latch if it is closed and vice versa
-     */
-    public void toggleLatch() {
-        if(latchSolenoid.get() == latchClosedValue) {
-            openLatch();
-        } else if(latchSolenoid.get() == latchOpenValue) {
-            closeLatch();
-        }
+    public void toggleOpen() {
+        opener.set(opener.get() == closedValue ? openValue : closedValue);
     }
 }

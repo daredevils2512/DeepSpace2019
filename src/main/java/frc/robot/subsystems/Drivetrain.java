@@ -11,17 +11,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
-import frc.robot.OI;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
+
+import java.util.function.Supplier;
+
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public final class Drivetrain extends Subsystem {
-    private static Drivetrain instance;
-
     private CANSparkMax rightSpark;
     private CANSparkMax leftSpark;
     private CANSparkMax leftRearSpark;
@@ -31,19 +31,20 @@ public final class Drivetrain extends Subsystem {
     private Encoder rightEncoder;
     private DoubleSolenoid shifter;
 
-    private boolean highGear;
-
     public static PigeonIMU gyro;
     private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
     private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
     private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
 
-    // private RumbleType rumblely;
+    private Supplier<Double> getMove, getTurn;
 
     private boolean inverted = false;
 
-    private Drivetrain() {
+    public Drivetrain(Supplier<Double> getMove, Supplier<Double> getTurn) {
+        this.getMove = getMove;
+        this.getTurn = getTurn;
+
         leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
         rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
         leftRearSpark = new CANSparkMax(RobotMap.leftRearSparkID, MotorType.kBrushless);
@@ -70,11 +71,7 @@ public final class Drivetrain extends Subsystem {
         leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
         rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
-        // leftSparkGroup = new SpeedControllerGroup(leftSpark, leftRearSpark);
-        // rightSparkGroup = new SpeedControllerGroup(rightSpark, rightRearSpark);
-
         drivetrain = new DifferentialDrive(leftSpark, rightSpark);
-        // addChild("Differential Drive 1",drivetrain);
 
         leftEncoder.setDistancePerPulse(RobotMap.driveEncoderDistancePerPulse);
         rightEncoder.setDistancePerPulse(RobotMap.driveEncoderDistancePerPulse);
@@ -86,14 +83,7 @@ public final class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new ArcadeDrive(OI.getInstance()::getMove, OI.getInstance()::getTurn));
-    }
-
-    public static Drivetrain getInstance() {
-        if(instance == null) {
-            instance = new Drivetrain();
-        }
-        return instance;
+        setDefaultCommand(new ArcadeDrive(this, getMove, getTurn));
     }
 
     public void leftSpeed(double speed) {
@@ -149,28 +139,21 @@ public final class Drivetrain extends Subsystem {
         return (this.getLeftEncoderDistance() + this.getRightEncoderDistance()) / 2;
     }
 
-    public DoubleSolenoid.Value getShifterPos() {
-        return shifter.get();
+    public boolean getLowGear() {
+        return shifter.get() == low;
     }
 
-    private void shift(DoubleSolenoid.Value shiftPos) {
-        shifter.set(shiftPos);
+    public void setLowGear(boolean lowGear) {
+        shifter.set(lowGear ? low : high);
     }
 
-    public void shiftUp() {
-        System.out.println("Shifted up");
-        this.highGear = true;
-        this.shift(high);
-    }
-
-    public void shiftDown() {
-        System.out.println("Shifted down");
-        this.highGear = false;
-        this.shift(low);
-    }
-
-    public boolean getHighState() {
-        return this.highGear;
+    public void toggleGearing() {
+        boolean isInLowGear = shifter.get() == low;
+        if(isInLowGear) {
+            setLowGear(false);
+        } else {
+            setLowGear(true);
+        }
     }
 
     public double leftFrontSpeed() {
@@ -217,7 +200,7 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void toggleInverted() {
-        inverted = !inverted;
+        setInverted(!inverted);
     }
 
     public void updateDashboard() {

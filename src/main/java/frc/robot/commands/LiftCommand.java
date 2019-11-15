@@ -16,30 +16,27 @@ import frc.robot.subsystems.Lift;
  * An example command.  You can replace me with your own command.
  */
 public abstract class LiftCommand extends Command {
-
+    protected Lift lift;
     protected Supplier<Double> liftControlDirection = null;
 
-  public LiftCommand(Supplier<Double> liftControlDirection) {
-    requires(Lift.getInstance());
+    public LiftCommand(Lift lift, Supplier<Double> liftControlDirection) {
+    requires(lift);
+    this.lift = lift;
     this.liftControlDirection = liftControlDirection;
-  }
+    }
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
+    @Override
+    protected boolean isFinished() {
+        return false;
+    }
 
-  // Called once after isFinished returns true
-  @Override
-  protected void end() {
-    Lift.getInstance().setSpeed(0.0);
-  }
+    @Override
+    protected void end() {
+        lift.setSpeed(0.0);
+    }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
-  @Override
-  protected void interrupted() {
-    this.end();
-  }
+    @Override
+    protected void interrupted() {
+        this.end();
+    }
 }

@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import frc.robot.commands.RunCargoExtake;
 import frc.robot.commands.RunCargoIntake;
+import frc.robot.subsystems.CargoExtake;
+import frc.robot.subsystems.CargoIntake;
 
-public class CMG_ExtakeCargoBottom extends CommandGroup {
-    public CMG_ExtakeCargoBottom() {
-        addParallel(new RunCargoExtake(0.5, false));
-        addParallel(new RunCargoIntake(0.0, 1.0, false));
+public final class CMG_ExtakeCargoBottom extends CommandGroup {
+    public CMG_ExtakeCargoBottom(CargoIntake cargoIntake, CargoExtake cargoExtake) {
+        addParallel(new RunCargoExtake(cargoExtake, 0.5, false));
+        addParallel(new RunCargoIntake(cargoIntake, 0.0, 1.0, false));
     }
 }

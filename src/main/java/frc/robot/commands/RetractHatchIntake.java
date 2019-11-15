@@ -7,20 +7,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.HatchIntake;
 
-public class ToggleHatchIntakeFoldPosition extends FoldHatchIntake {
-    public ToggleHatchIntakeFoldPosition() {
-        super();
+public final class RetractHatchIntake extends InstantCommand {
+    protected final HatchIntake hatchIntake;
+
+    public RetractHatchIntake(HatchIntake hatchIntake) {
+        this.hatchIntake = hatchIntake;
+        requires(hatchIntake);
     }
 
     @Override
     protected void initialize() {
-        HatchIntake.FoldPosition currentFoldPosition = HatchIntake.getInstance().getFoldPosition();
-        if(currentFoldPosition == HatchIntake.FoldPosition.UP) {
-            HatchIntake.getInstance().foldDown();
-        } else if(currentFoldPosition == HatchIntake.FoldPosition.DOWN) {
-            HatchIntake.getInstance().foldUp();
-        }
+        hatchIntake.setExtended(false);
     }
 }

@@ -7,35 +7,36 @@
 
 package frc.robot.commands;
 
-import frc.robot.OI;
+import java.util.function.Supplier;
+
 import frc.robot.constants.Constants;
 import frc.robot.lib.SpeedRamp;
 import frc.robot.subsystems.Lift;
 
-public class RunToBottom extends RunTo {
+public final class RunToBottom extends RunTo {
     /**
      * Run lift to lowest height
      * @param allowManualOverride can be manually overriden
      */
-    public RunToBottom(boolean allowManualOverride) {
-        super(allowManualOverride);
+    public RunToBottom(Lift lift, Supplier<Double> getLiftControl, boolean allowManualOverride) {
+        super(lift, getLiftControl, allowManualOverride);
     }
 
     @Override
     protected void execute() {
-        double distance = -Lift.getInstance().getLiftHeight();
+        double distance = -lift.getLiftHeight();
         double speed = SpeedRamp.speedRamp(0, distance, 10, Constants.Lift.MAX_DOWN_SPEED);
-        Lift.getInstance().setSpeed(speed);
+        lift.setSpeed(speed);
     }
 
     @Override
     protected boolean isFinished() {
         boolean result = false;
 
-        if(allowManualOverride && Math.abs(OI.getInstance().liftControl()) > Constants.Lift.MANUAL_OVERRIDE_TOLERANCE) {
+        if(allowManualOverride && Math.abs(getLiftControl.get()) > Constants.Lift.MANUAL_OVERRIDE_TOLERANCE) {
             result = true; // Allows joystick to override RunToPosition
         } else {
-            result = Lift.getInstance().getLimitSwitchBottom();
+            result = lift.getLimitSwitchBottom();
         }
 
         return result;
@@ -43,6 +44,6 @@ public class RunToBottom extends RunTo {
 
     @Override
     protected void end() {
-        Lift.getInstance().setSpeed(0.0);
+        lift.setSpeed(0.0);
     }
 }

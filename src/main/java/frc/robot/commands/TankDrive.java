@@ -14,12 +14,12 @@ import frc.robot.subsystems.Drivetrain;
  * An example command.  You can replace me with your own command.
  */
 public class TankDrive extends Drive {
-    public TankDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
-        super(getLeft, getRight);
+    public TankDrive(Drivetrain drivetrain, Supplier<Double> getLeft, Supplier<Double> getRight) {
+        super(drivetrain, getLeft, getRight);
     }
 
     @Override
     protected void execute() {
-        Drivetrain.getInstance().driveRobotTank(getLeft.get(), getRight.get());
+        drivetrain.driveRobotTank(getLeft.get(), getRight.get());
     }
 }

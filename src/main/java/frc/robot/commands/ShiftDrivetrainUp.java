@@ -12,15 +12,13 @@ import frc.robot.subsystems.Drivetrain;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ShiftUp extends DrivetrainShift {
+public final class ShiftDrivetrainUp extends ShiftDrivetrain {
+    public ShiftDrivetrainUp(Drivetrain drivetrain) {
+        super(drivetrain);
+    }
 
-  public ShiftUp() {
-
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Drivetrain.getInstance().shiftUp();
-  }
+    @Override
+    protected void initialize() {
+        drivetrain.setLowGear(false);
+    }
 }

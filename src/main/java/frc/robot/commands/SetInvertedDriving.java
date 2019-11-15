@@ -11,14 +11,17 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
 public class SetInvertedDriving extends InstantCommand {
+    Drivetrain drivetrain;
     private boolean inverted;
 
-    public SetInvertedDriving(boolean inverted) {
+    public SetInvertedDriving(Drivetrain drivetrain, boolean inverted) {
+        requires(drivetrain);
+        this.drivetrain = drivetrain;
         this.inverted = inverted;
     }
 
     @Override
     protected void initialize() {
-        Drivetrain.getInstance().setInverted(inverted);
+        drivetrain.setInverted(inverted);
     }
 }

@@ -7,22 +7,35 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.InstantCommand;
-
 import java.util.function.Supplier;
+
+import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.Drivetrain;
 
-public abstract class Drive extends InstantCommand {
-    protected Supplier<Double> getLeft, getRight;
+public abstract class Drive extends Command {
+    protected final Drivetrain drivetrain;
+    protected final Supplier<Double> getLeft, getRight;
 
-    public Drive(Supplier<Double> getLeft, Supplier<Double> getRight) {
-        requires(Drivetrain.getInstance());
+    public Drive(Drivetrain drivetrain, Supplier<Double> getLeft, Supplier<Double> getRight) {
+        requires(drivetrain);
+        this.drivetrain = drivetrain;
         this.getLeft = getLeft;
         this.getRight = getRight;
     }
 
     @Override
+    protected boolean isFinished() {
+        return false;
+    }
+
+    @Override
+    protected void end() {
+        drivetrain.leftSpeed(0.0);
+        drivetrain.rightSpeed(0.0);
+    }
+
+    @Override
     protected void interrupted() {
-        Drivetrain.getInstance().arcadeDrive(0.0, 0.0);
+        end();
     }
 }

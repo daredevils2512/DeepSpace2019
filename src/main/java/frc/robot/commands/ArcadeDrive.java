@@ -11,13 +11,13 @@ import java.util.function.Supplier;
 import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 
-public class ArcadeDrive extends Drive {
-    public ArcadeDrive(Supplier<Double> getLeft, Supplier<Double> getRight) {
-        super(getLeft, getRight);
+public final class ArcadeDrive extends Drive {
+    public ArcadeDrive(Drivetrain drivetrain, Supplier<Double> getLeft, Supplier<Double> getRight) {
+        super(drivetrain, getLeft, getRight);
     }
 
     @Override
     protected void initialize() {
-        Drivetrain.getInstance().arcadeDrive(getLeft.get() * Robot.slowify, getRight.get() * Robot.slowify);
+        drivetrain.arcadeDrive(getLeft.get() * Robot.slowify, getRight.get() * Robot.slowify);
     }
 }

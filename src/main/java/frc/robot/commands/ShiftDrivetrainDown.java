@@ -9,18 +9,13 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Drivetrain;
 
-/**
- * An example command.  You can replace me with your own command.
- */
-public class ShiftDown extends DrivetrainShift {
+public class ShiftDrivetrainDown extends ShiftDrivetrain {
+    public ShiftDrivetrainDown(Drivetrain drivetrain) {
+        super(drivetrain);
+    }
 
-  public ShiftDown() {
-
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    Drivetrain.getInstance().shiftDown();
-  }
+    @Override
+    protected void initialize() {
+        drivetrain.setLowGear(true);
+    }
 }

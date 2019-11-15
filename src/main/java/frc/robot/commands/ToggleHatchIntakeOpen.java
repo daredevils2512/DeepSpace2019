@@ -7,20 +7,18 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.HatchIntake;
 
-public class ToggleHatchIntakeLatch extends ActuateHatchPanelLatch {
-    public ToggleHatchIntakeLatch() {
-        super();
+public class ToggleHatchIntakeOpen extends InstantCommand {
+    private final HatchIntake hatchIntake;
+
+    public ToggleHatchIntakeOpen(HatchIntake hatchIntake) {
+        this.hatchIntake = hatchIntake;
     }
 
     @Override
     protected void initialize() {
-        HatchIntake.LatchPosition currentLatchPosition = HatchIntake.getInstance().getLatchPosition();
-        if(currentLatchPosition == HatchIntake.LatchPosition.CLOSED) {
-            HatchIntake.getInstance().openLatch();
-        } else if(currentLatchPosition == HatchIntake.LatchPosition.OPEN) {
-            HatchIntake.getInstance().closeLatch();
-        }
+        hatchIntake.toggleOpen();
     }
 }

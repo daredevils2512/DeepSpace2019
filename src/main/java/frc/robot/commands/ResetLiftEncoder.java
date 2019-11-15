@@ -10,13 +10,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.Lift;
 
-public class ResetLiftEncoder extends InstantCommand {
-    public ResetLiftEncoder() {
-        requires(Lift.getInstance());
+public final class ResetLiftEncoder extends InstantCommand {
+    protected Lift lift;
+
+    public ResetLiftEncoder(Lift lift) {
+        requires(lift);
+        this.lift = lift;
     }
 
     @Override
     protected void initialize() {
-        Lift.getInstance().resetLiftEncoder();
+        lift.resetLiftEncoder();
     }
 }

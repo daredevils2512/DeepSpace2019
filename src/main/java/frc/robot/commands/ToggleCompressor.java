@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.Compressorsorus;
 
 public class ToggleCompressor extends InstantCommand {
-    public ToggleCompressor() {
-        
+    private final Compressorsorus compressor;
+
+    public ToggleCompressor(Compressorsorus compressor) {
+        requires(compressor);
+        this.compressor = compressor;
     }
 
     @Override
     protected void initialize() { 
-        Compressorsorus.getInstance().toggle();
+        compressor.toggle();
     }
 }

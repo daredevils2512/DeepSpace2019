@@ -7,15 +7,18 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.CargoIntake;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+import frc.robot.subsystems.HatchIntake;
 
-public class FoldCargoIntakeUp extends FoldCargoIntake {
-    public FoldCargoIntakeUp() {
-        super();
+public final class CloseHatchIntake extends InstantCommand {
+    protected final HatchIntake hatchIntake;
+
+    public CloseHatchIntake(HatchIntake hatchIntake) {
+        this.hatchIntake = hatchIntake;
+        requires(hatchIntake);
     }
 
-    @Override
-    protected void execute() {
-        CargoIntake.getInstance().foldUp();
+    public void execute() {
+        hatchIntake.close();
     }
 }

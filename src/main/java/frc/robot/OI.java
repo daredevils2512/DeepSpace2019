@@ -17,6 +17,9 @@ import frc.robot.commands.*;
 import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.*;
 import frc.robot.subsystems.CargoExtake;
+import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.Compressorsorus;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.HatchIntake;
 import frc.robot.subsystems.Lift;
 
@@ -28,8 +31,6 @@ import frc.robot.subsystems.Lift;
 
 
 public class OI {
-    private static OI instance;
-
     private int driverPort = 0;
     private int coDriverPort = 1;
     private int buttonBoxPort = 2;
@@ -79,40 +80,40 @@ public class OI {
     Trigger cargoSwitch = new DigitalInputTrigger(CargoExtake.getBallOccupancySwitch());
     Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
 
-    private OI() {
-        rightTrigger.whenPressed(new ShiftDown());
-        rightTrigger.whenReleased(new ShiftUp());
-        leftTrigger.whenPressed(new SetInvertedDriving(true));
-        leftTrigger.whenReleased(new SetInvertedDriving(false));
+    public OI(Drivetrain drivetrain, Lift lift, Compressorsorus compressor, CargoIntake cargoIntake, CargoExtake cargoExtake, HatchIntake hatchIntake) {
+        rightTrigger.whenPressed(new ShiftDrivetrainDown(drivetrain));
+        rightTrigger.whenReleased(new ShiftDrivetrainUp(drivetrain));
+        leftTrigger.whenPressed(new SetInvertedDriving(drivetrain, true));
+        leftTrigger.whenReleased(new SetInvertedDriving(drivetrain, false));
 
-        liftSwitch.whenActive(new ResetLiftEncoder());
+        liftSwitch.whenActive(new ResetLiftEncoder(lift));
 
         // center flower begins 1'3" off ground
         // center ball begins 7.5" off ground
-        bottomRed.whenPressed(new RunToBottom(true));
-        bottomWhite.whenPressed(new RunToHeight(LiftHeight.FEEDER, true));
-        midRed.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_BOTTOM, true));
-        midWhite.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_MIDDLE, true));
-        topRed.whenPressed(new RunToHeight(LiftHeight.CARGO_SHIP_CARGO, true));
-        topWhite.whenPressed(new RunToHeight(LiftHeight.ROCKET_CARGO_TOP, true));
+        bottomRed.whenPressed(new RunToBottom(lift, this::liftControl, true));
+        bottomWhite.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.FEEDER, true));
+        midRed.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.ROCKET_CARGO_BOTTOM, true));
+        midWhite.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.ROCKET_CARGO_MIDDLE, true));
+        topRed.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.CARGO_SHIP_CARGO, true));
+        topWhite.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.ROCKET_CARGO_TOP, true));
 
         // Make this togglable?
-        yButton.whenPressed(new FoldCargoIntakeUp());
-        aButton.whenPressed(new FoldCargoIntakeDown());
+        aButton.whenPressed(new ExtendCargoIntake(cargoIntake));
+        yButton.whenPressed(new RetractCargoIntake(cargoIntake));
 
-        xButton.whileHeld(new RunCargoIntake(1.0, 1.0, false)); // out
-        bButton.whileHeld(new RunCargoIntake(-1.0, -1.0, false)); // in
+        xButton.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, false)); // out
+        bButton.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, false)); // in
 
-        topLeft.whileHeld(new RunCargoExtake(1.0, true)); // out
-        bottomLeft.whileHeld(new RunCargoExtake(-0.75, true)); // in
-        topRight.whileHeld(new RunCargoIntake(1.0, 1.0, true));
-        bottomRight.whileHeld(new RunCargoIntake(-1.0, -1.0, true));
+        topLeft.whileHeld(new RunCargoExtake(cargoExtake, 1.0, true)); // out
+        bottomLeft.whileHeld(new RunCargoExtake(cargoExtake, -0.75, true)); // in
+        topRight.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, true));
+        bottomRight.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, true));
 
-        bigRed.whenPressed(new ToggleCompressor());
-        bigWhite.whenPressed(new CMG_IntakeCargo());
+        bigRed.whenPressed(new ToggleCompressor(compressor));
+        bigWhite.whenPressed(new CMG_IntakeCargo(lift, cargoIntake, cargoExtake, this::liftControl));
 
-        green.whenPressed(new ToggleHatchIntakeLatch());
-        yellow.whenPressed(new ToggleHatchIntakeFoldPosition());
+        green.whenPressed(new ToggleHatchIntakeOpen(hatchIntake));
+        yellow.whenPressed(new ToggleHatchIntakeExtended(hatchIntake));
 
         // Control both intakes and extakes simultaneously
         // green.whileHeld(new ExtakeCargo());
@@ -130,14 +131,7 @@ public class OI {
 
         // topRight.whenPressed(new FlowerControl());
 
-        sideButton.whenPressed(new PutCargoInShip());
-    }
-
-    public static OI getInstance() {
-        if(instance == null) {
-            instance = new OI();
-        }
-        return instance;
+        sideButton.whenPressed(new PutCargoInShip(this, lift, cargoExtake));
     }
 
     public double desensitize(double val) {

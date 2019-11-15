@@ -10,8 +10,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.HatchIntake;
 
-public abstract class FoldHatchIntake extends InstantCommand {
-    public FoldHatchIntake() {
-        requires(HatchIntake.getInstance());
+public final class ExtendHatchIntake extends InstantCommand {
+    protected final HatchIntake hatchIntake;
+
+    public ExtendHatchIntake(HatchIntake hatchIntake) {
+        this.hatchIntake = hatchIntake;
+        requires(hatchIntake);
+    }
+
+    @Override
+    protected void initialize() {
+        hatchIntake.setExtended(true);
     }
 }

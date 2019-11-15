@@ -16,41 +16,33 @@ import frc.robot.subsystems.Lift;
  * An example command.  You can replace me with your own command.
  */
 public final class ManualLift extends LiftCommand {
-
-    public ManualLift(Supplier<Double> liftControlDirection) {
-        super(liftControlDirection);
+    public ManualLift(Lift lift, Supplier<Double> liftControlDirection) {
+        super(lift, liftControlDirection);
     }
 
-    // Called just before this Command runs the first time
-    @Override
-    protected void initialize() {
-
-    }
-
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
         double control = liftControlDirection.get();
         double liftSpeed = 0.0;
 
         if (control > 0.0) {
-            if(Lift.getInstance().isAtUpperLimit()) {
+            if(lift.isAtUpperLimit()) {
                 liftSpeed = Constants.Lift.BACKDRIVE;
             } else {
                 liftSpeed = control * Constants.Lift.MAX_UP_SPEED;
             }
         } else if (control < 0.0) {
-            if(Lift.getInstance().isAtLowerLimit()) {
+            if(lift.isAtLowerLimit()) {
                 liftSpeed = 0.0;
             } else {
                 liftSpeed = control * Constants.Lift.MAX_DOWN_SPEED;
             }
         } else {
-            if(!Lift.getInstance().isAtLowerLimit()) {
+            if(!lift.isAtLowerLimit()) {
                 liftSpeed = Constants.Lift.BACKDRIVE;
             }
         }
 
-        Lift.getInstance().setSpeed(liftSpeed);
+        lift.setSpeed(liftSpeed);
     }
 }

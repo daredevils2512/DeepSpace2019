@@ -12,6 +12,7 @@ import frc.robot.subsystems.CargoExtake;
 import frc.robot.subsystems.CargoIntake;
 
 public class RunCargoIntake extends Command {
+    private CargoIntake cargoIntake;
     private double m_infinitySpeed;
     private double m_inSpeed;
 
@@ -23,8 +24,9 @@ public class RunCargoIntake extends Command {
      * @param inSpeed speed to run the bands that intake/extake cargo (negative values intake, positive values extake)
      * @param override override cargo limit switch
      */
-    public RunCargoIntake(double infinitySpeed, double inSpeed, boolean override) {
-        requires(CargoIntake.getInstance());
+    public RunCargoIntake(CargoIntake cargoIntake, double infinitySpeed, double inSpeed, boolean override) {
+        requires(cargoIntake);
+        this.cargoIntake= cargoIntake;
         this.m_infinitySpeed = infinitySpeed;
         this.m_inSpeed = inSpeed;
         this.m_override = override;
@@ -36,7 +38,7 @@ public class RunCargoIntake extends Command {
 
     @Override
     protected void execute() {
-        CargoIntake.getInstance().setSpeed(this.m_infinitySpeed, this.m_inSpeed);
+        cargoIntake.setSpeed(m_infinitySpeed, m_inSpeed);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class RunCargoIntake extends Command {
 
     @Override
     protected void end() {
-        CargoIntake.getInstance().setSpeed(0.0, 0.0);
+        cargoIntake.setSpeed(0.0, 0.0);
     }
 
     @Override

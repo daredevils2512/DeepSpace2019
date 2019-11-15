@@ -8,8 +8,9 @@
 package frc.robot.subsystems;
  
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.OI;
 import frc.robot.RobotMap;
+
+import java.util.function.Supplier;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -22,8 +23,6 @@ import frc.robot.constants.Constants;
 import frc.robot.lib.SpeedRamp;
 
 public final class Lift extends Subsystem {
-    private static Lift instance;
-
     private WPI_TalonSRX liftTalon1;
     private WPI_TalonSRX liftTalon2;
     public static DigitalInput limitSwitchBottom;
@@ -36,8 +35,12 @@ public final class Lift extends Subsystem {
 
     public double maxDownSpeed = -0.55;
     private double tolerance = 1;
+    
+    private Supplier<Double> liftControlSupplier;
 
-    private Lift() {
+    public Lift(Supplier<Double> liftControlSupplier) {
+        this.liftControlSupplier = liftControlSupplier;
+
         liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
         liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
 
@@ -50,14 +53,7 @@ public final class Lift extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new ManualLift(OI.getInstance()::liftControl));
-    }
-
-    public static Lift getInstance() {
-        if(instance == null) {
-            instance = new Lift();
-        }
-        return instance;
+        setDefaultCommand(new ManualLift(this, liftControlSupplier));
     }
 
     public double getLiftEncoderPosition() {
@@ -88,8 +84,8 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtUpperLimit() {
-        double currentHeight = Lift.getInstance().getLiftHeight();
-        return currentHeight >= Constants.Lift.MAX_HEIGHT || Lift.getInstance().getLimitSwitchTop();
+        double currentHeight = getLiftHeight();
+        return currentHeight >= Constants.Lift.MAX_HEIGHT || getLimitSwitchTop();
     }
 
     public void resetLiftEncoder() {
