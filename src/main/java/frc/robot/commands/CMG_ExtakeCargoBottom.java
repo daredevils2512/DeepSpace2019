@@ -13,10 +13,12 @@ import frc.robot.commands.RunCargoExtake;
 import frc.robot.commands.RunCargoIntake;
 import frc.robot.subsystems.CargoExtake;
 import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.Lift;
 
 public final class CMG_ExtakeCargoBottom extends CommandGroup {
-    public CMG_ExtakeCargoBottom(CargoIntake cargoIntake, CargoExtake cargoExtake) {
+    public CMG_ExtakeCargoBottom(Lift lift, CargoExtake cargoExtake, CargoIntake cargoIntake) {
+        addSequential(new RunToBottom(lift, true));
         addParallel(new RunCargoExtake(cargoExtake, 0.5, false));
-        addParallel(new RunCargoIntake(cargoIntake, 0.0, 1.0, false));
+        addParallel(new RunCargoIntake(cargoIntake, 1.0, 1.0, false));
     }
 }

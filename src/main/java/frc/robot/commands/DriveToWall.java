@@ -16,7 +16,7 @@ public final class DriveToWall extends Command {
     public DriveToWall(Drivetrain drivetrain, DistanceSensor sensor) {
         requires(drivetrain);
         this.drivetrain = drivetrain;
-        m_distToWall = Robot.driveToWallChooser.getSelected();
+        m_distToWall = Robot.getTargetDriveToWallDistance();
         m_sensor = sensor;
     }
 

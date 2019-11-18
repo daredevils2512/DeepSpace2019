@@ -45,21 +45,21 @@ public final class HatchIntake extends Subsystem {
     }
 
     /**
-     * Get whether the hatch intake is open (securing hatch panel)
-     * @return true if open, false if closed
-     */
-    public boolean getOpen() {
-        // Return true if the solenoid is set to off
-        return opener.get() != closedValue;
-    }
-
-    /**
      * Set whether the hatch intake is extended
      * @param extended true to extend, false to retract
      */
     public void setExtended(boolean extended) {
         // If the solenoid is set to off, retract
         extender.set(extended ? extendedValue : retractedValue);
+    }
+
+    /**
+     * Get whether the hatch intake is open (securing hatch panel)
+     * @return true if open, false if closed
+     */
+    public boolean getOpen() {
+        // Return true if the solenoid is set to off
+        return opener.get() != closedValue;
     }
 
     public void setOpen(boolean open) {
@@ -71,13 +71,13 @@ public final class HatchIntake extends Subsystem {
      * Extend the hatch intake if it is retracted and vice versa
      */
     public void toggleExtended() {
-        extender.set(extender.get() == retractedValue ? extendedValue : retractedValue);
+        setExtended(!getExtended());
     }
 
     /**
      * Open the hatch intake if it is closed and vice versa
      */
     public void toggleOpen() {
-        opener.set(opener.get() == closedValue ? openValue : closedValue);
+        setOpen(!getOpen());
     }
 }

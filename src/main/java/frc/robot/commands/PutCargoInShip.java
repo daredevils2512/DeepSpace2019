@@ -9,16 +9,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.OI;
-import frc.robot.constants.Constants.LiftHeight;
 import frc.robot.subsystems.CargoExtake;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.Lift;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public final class PutCargoInShip extends CommandGroup {
     public PutCargoInShip(OI oi, Lift lift, CargoExtake cargoExtake) {
-        addSequential(new RunToHeight(lift, oi::liftControl, LiftHeight.CARGO_SHIP_CARGO, false));
-        addSequential(new RunCargoExtake(cargoExtake, 1, false));
-        addSequential(new WaitCommand(1));
-        addSequential(new RunToBottom(lift, oi::liftControl, false));
+        addSequential(new RunToHeight(lift, Constants.Lift.Height.CARGO_SHIP_CARGO, true));
+        addSequential(new RunCargoExtake(cargoExtake, 1.0, false));
+        addSequential(new WaitCommand(1.0));
+        addSequential(new RunToHeight(lift, Constants.Lift.Height.IDLE, true));
     }
 }

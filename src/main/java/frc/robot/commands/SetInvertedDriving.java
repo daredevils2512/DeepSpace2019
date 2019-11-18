@@ -12,16 +12,16 @@ import frc.robot.subsystems.Drivetrain;
 
 public class SetInvertedDriving extends InstantCommand {
     Drivetrain drivetrain;
-    private boolean inverted;
+    private boolean wantsInverted;
 
-    public SetInvertedDriving(Drivetrain drivetrain, boolean inverted) {
-        requires(drivetrain);
+    public SetInvertedDriving(Drivetrain drivetrain, boolean wantsInverted) {
         this.drivetrain = drivetrain;
-        this.inverted = inverted;
+        this.wantsInverted = wantsInverted;
+        requires(drivetrain);
     }
 
     @Override
     protected void initialize() {
-        drivetrain.setInverted(inverted);
+        drivetrain.setInverted(wantsInverted);
     }
 }

@@ -8,11 +8,8 @@
 package frc.robot.lib;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-/**
- * Add your docs here.
- */
-public class UltrasonicSensor {
 
+public class UltrasonicSensor {
     private int m_port;
     private double m_suppliedVoltage, voltagePerCm, voltagePerIn;
 

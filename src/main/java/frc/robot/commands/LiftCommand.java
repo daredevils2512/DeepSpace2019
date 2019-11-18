@@ -7,22 +7,15 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.Lift;
 
-/**
- * An example command.  You can replace me with your own command.
- */
 public abstract class LiftCommand extends Command {
-    protected Lift lift;
-    protected Supplier<Double> liftControlDirection = null;
+    protected final Lift lift;
 
-    public LiftCommand(Lift lift, Supplier<Double> liftControlDirection) {
-    requires(lift);
-    this.lift = lift;
-    this.liftControlDirection = liftControlDirection;
+    public LiftCommand(Lift lift) {
+        requires(lift);
+        this.lift = lift;
     }
 
     @Override
@@ -37,6 +30,6 @@ public abstract class LiftCommand extends Command {
 
     @Override
     protected void interrupted() {
-        this.end();
+        end();
     }
 }

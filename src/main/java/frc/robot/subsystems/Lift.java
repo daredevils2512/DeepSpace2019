@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
  
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 import java.util.function.Supplier;
@@ -20,11 +21,10 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.*;
 import frc.robot.commands.ManualLift;
 import frc.robot.constants.Constants;
-import frc.robot.lib.SpeedRamp;
 
 public final class Lift extends Subsystem {
-    private WPI_TalonSRX liftTalon1;
-    private WPI_TalonSRX liftTalon2;
+    private WPI_TalonSRX master;
+    private WPI_TalonSRX slave;
     public static DigitalInput limitSwitchBottom;
     public static DigitalInput limitSwitchTop;
 
@@ -32,20 +32,17 @@ public final class Lift extends Subsystem {
     private static final double inchesPerRev = (4 + (3/4)) + (5 + (3/8)); // This will change
     // public static double liftEncoderPulseToInches = inchesPerRev / magEncPulsesPerRev;
     public static double liftEncoderPulseToInches = 0.00244125;
-
-    public double maxDownSpeed = -0.55;
-    private double tolerance = 1;
     
-    private Supplier<Double> liftControlSupplier;
+    private final Supplier<Double> liftControlSupplier;
 
     public Lift(Supplier<Double> liftControlSupplier) {
         this.liftControlSupplier = liftControlSupplier;
 
-        liftTalon1 = new WPI_TalonSRX(RobotMap.liftTalon1Id);
-        liftTalon2 = new WPI_TalonSRX(RobotMap.liftTalon2Id);
+        master = new WPI_TalonSRX(RobotMap.liftTalon1Id);
+        slave = new WPI_TalonSRX(RobotMap.liftTalon2Id);
 
-        liftTalon1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-        liftTalon2.set(ControlMode.Follower, liftTalon1.getDeviceID());
+        master.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+        slave.set(ControlMode.Follower, master.getDeviceID());
 
         limitSwitchBottom = new DigitalInput(RobotMap.limitSwitchBottomPort);
         limitSwitchTop = new DigitalInput(RobotMap.limitSwitchTopPort);
@@ -53,15 +50,26 @@ public final class Lift extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new ManualLift(this, liftControlSupplier));
+        setDefaultCommand(new ManualLift(this));
     }
 
-    public double getLiftEncoderPosition() {
-        return liftTalon1.getSelectedSensorPosition();
+    @Override
+    public void periodic() {
+        if(limitSwitchBottom.get() && getEncoderValue() != 0.0) {
+            resetEncoder();
+        }
     }
 
-    public double getLiftHeight() {
-        return (liftTalon1.getSelectedSensorPosition() * liftEncoderPulseToInches); // this might seem like a random number but it is needed (I will find out math)
+    public double getControl() {
+        return liftControlSupplier.get();
+    }
+
+    public int getEncoderValue() {
+        return master.getSelectedSensorPosition();
+    }
+
+    public double getHeight() {
+        return (master.getSelectedSensorPosition() * liftEncoderPulseToInches); // this might seem like a random number but it is needed (I will find out math)
     } 
 
     public static DigitalInput getLimitSwitch() {
@@ -69,9 +77,6 @@ public final class Lift extends Subsystem {
     }
 
     public boolean getLimitSwitchBottom() {
-        if (limitSwitchBottom.get()) {
-            this.resetLiftEncoder();
-        }
         return limitSwitchBottom.get();
     }
 
@@ -84,40 +89,23 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtUpperLimit() {
-        double currentHeight = getLiftHeight();
-        return currentHeight >= Constants.Lift.MAX_HEIGHT || getLimitSwitchTop();
+        return getHeight() >= Constants.Lift.MAX_HEIGHT || getLimitSwitchTop();
     }
 
-    public void resetLiftEncoder() {
-        liftTalon1.setSelectedSensorPosition(0);
+    public void resetEncoder() {
+        master.setSelectedSensorPosition(0);
     }
 
     public void setSpeed(double speed) {
-        liftTalon1.set(speed);
+        master.set(speed);
     }
 
-    private double m_runTo;
-    public void runTo(double runTo) {
-        m_runTo = runTo;
+    public void updateDashboard() {
+        SmartDashboard.putBoolean("Lift Limit Switch Bottom", getLimitSwitchBottom());
+        SmartDashboard.putNumber("Lift Height", getHeight());
+        SmartDashboard.putNumber("Lift Encoder Value", getEncoderValue());
 
-        double defaultLiftSpeed = 1.0;
-        double difference = runTo - this.getLiftHeight();
-        double rampStart = 10;
-
-        // if the distance from the runTo to the current height
-        // is more than the ramping start it goes at full
-        // if isn't it will ramp down
-        // it is the same for going down just opposite
-        setSpeed(SpeedRamp.speedRamp(tolerance, difference, rampStart, defaultLiftSpeed));
+        SmartDashboard.putNumber("L1 Temp", master.getTemperature());
+        SmartDashboard.putNumber("L2 Temp", master.getTemperature());
     }
-
-    public boolean isFinishedRunTo() {
-        // needs to change based off the height
-        // higher the height, lower the percent
-
-        // 10 in window centered on the desired height
-        return (this.getLiftHeight() >= (m_runTo - (tolerance)) 
-        && this.getLiftHeight() <= (m_runTo + (tolerance)));
-    }
-
 }

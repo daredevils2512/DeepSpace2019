@@ -7,22 +7,17 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Lift;
 
-/**
- * An example command.  You can replace me with your own command.
- */
 public final class ManualLift extends LiftCommand {
-    public ManualLift(Lift lift, Supplier<Double> liftControlDirection) {
-        super(lift, liftControlDirection);
+    public ManualLift(Lift lift) {
+        super(lift);
     }
 
     @Override
     protected void execute() {
-        double control = liftControlDirection.get();
+        double control = lift.getControl();
         double liftSpeed = 0.0;
 
         if (control > 0.0) {

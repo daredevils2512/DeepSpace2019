@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.HatchIntake;
 
 public final class ToggleHatchIntakeExtended extends InstantCommand {
-    private final HatchIntake hatchIntake;
+    protected final HatchIntake hatchIntake;
 
     public ToggleHatchIntakeExtended(HatchIntake hatchIntake) {
         this.hatchIntake = hatchIntake;

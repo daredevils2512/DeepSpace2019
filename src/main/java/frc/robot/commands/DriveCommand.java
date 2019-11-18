@@ -7,20 +7,15 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.Drivetrain;
 
-public abstract class Drive extends Command {
+public abstract class DriveCommand extends Command {
     protected final Drivetrain drivetrain;
-    protected final Supplier<Double> getLeft, getRight;
 
-    public Drive(Drivetrain drivetrain, Supplier<Double> getLeft, Supplier<Double> getRight) {
+    public DriveCommand(Drivetrain drivetrain) {
         requires(drivetrain);
         this.drivetrain = drivetrain;
-        this.getLeft = getLeft;
-        this.getRight = getRight;
     }
 
     @Override

@@ -7,15 +7,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
-public class ShiftDrivetrainDown extends ShiftDrivetrain {
-    public ShiftDrivetrainDown(Drivetrain drivetrain) {
-        super(drivetrain);
+public final class SetDrivetrainLowGear extends InstantCommand {
+    protected Drivetrain drivetrain;
+    protected boolean wantsLowGear;
+
+    public SetDrivetrainLowGear(Drivetrain drivetrain, boolean wantsLowGear) {
+        this.drivetrain = drivetrain;
+        this.wantsLowGear = wantsLowGear;
+        requires(drivetrain);
     }
 
     @Override
     protected void initialize() {
-        drivetrain.setLowGear(true);
+        drivetrain.setLowGear(wantsLowGear);
     }
 }

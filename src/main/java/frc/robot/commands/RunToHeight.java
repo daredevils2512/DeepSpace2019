@@ -4,24 +4,22 @@ import frc.robot.constants.Constants;
 import frc.robot.lib.SpeedRamp;
 import frc.robot.subsystems.Lift;
 
-import java.util.function.Supplier;
-
-public class RunToHeight extends RunTo {
-    protected Constants.LiftHeight position;
+public final class RunToHeight extends RunTo {
+    protected Constants.Lift.Height position;
 
     /**
-     * Run lift to height
+     * Run lift to height (determined by encoder value)
      * @param position desired height
-     * @param allowManualOverride can be manually overriden
+     * @param overrideManualControl override joystick controls
      */
-    public RunToHeight(Lift lift, Supplier<Double> getLiftControl, Constants.LiftHeight position, boolean allowManualOverride) {
-        super(lift, getLiftControl, allowManualOverride);
+    public RunToHeight(Lift lift, Constants.Lift.Height position, boolean overrideManualControl) {
+        super(lift, overrideManualControl);
         this.position = position;
     }
 
     @Override
     protected void execute() {
-        double distance = position.getHeight() - lift.getLiftHeight();
+        double distance = position.getHeight() - lift.getHeight();
         double defaultSpeed = distance < 0 ? Constants.Lift.MAX_DOWN_SPEED : Constants.Lift.MAX_UP_SPEED;
         double speed = SpeedRamp.speedRamp(speedRampTolerance, distance, speedRampStartDist, defaultSpeed);
         lift.setSpeed(speed);
@@ -30,18 +28,21 @@ public class RunToHeight extends RunTo {
     @Override
     protected boolean isFinished() {
         boolean result = false;
-
-        if(allowManualOverride && Math.abs(getLiftControl.get()) > Constants.Lift.MANUAL_OVERRIDE_TOLERANCE) {
-            result = true; // Allow joystick to override RunToPosition
-        } else {
-            result = Math.abs(position.getHeight() - lift.getLiftHeight()) < speedRampTolerance;
+        if(!overrideManualControl && Math.abs(lift.getControl()) > Constants.Lift.MANUAL_OVERRIDE_TOLERANCE) {
+            result = true; // Allow joystick to override RunTo
+        } else if(Math.abs(position.getHeight() - lift.getHeight()) <= speedRampTolerance) {
+            result = true;
         }
-
         return result;
     }
 
     @Override
     protected void end() {
         lift.setSpeed(Constants.Lift.BACKDRIVE);
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
     }
 }

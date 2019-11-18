@@ -20,6 +20,6 @@ public final class ResetLiftEncoder extends InstantCommand {
 
     @Override
     protected void initialize() {
-        lift.resetLiftEncoder();
+        lift.resetEncoder();
     }
 }

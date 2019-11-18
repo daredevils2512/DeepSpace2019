@@ -10,26 +10,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 
 import frc.robot.TriggerButton;
 import frc.robot.commands.*;
 import frc.robot.constants.Constants;
-import frc.robot.constants.Constants.*;
-import frc.robot.subsystems.CargoExtake;
-import frc.robot.subsystems.CargoIntake;
-import frc.robot.subsystems.Compressorsorus;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.HatchIntake;
-import frc.robot.subsystems.Lift;
+import frc.robot.subsystems.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-
-
-
 public class OI {
     private int driverPort = 0;
     private int coDriverPort = 1;
@@ -77,59 +67,38 @@ public class OI {
     Button yellow = new JoystickButton(buttonBox, 15);
     Button bottomRed = new JoystickButton(buttonBox, 16);
 
-    Trigger cargoSwitch = new DigitalInputTrigger(CargoExtake.getBallOccupancySwitch());
-    Trigger liftSwitch = new DigitalInputTrigger(Lift.getLimitSwitch());
-
-    public OI(Drivetrain drivetrain, Lift lift, Compressorsorus compressor, CargoIntake cargoIntake, CargoExtake cargoExtake, HatchIntake hatchIntake) {
-        rightTrigger.whenPressed(new ShiftDrivetrainDown(drivetrain));
-        rightTrigger.whenReleased(new ShiftDrivetrainUp(drivetrain));
-        leftTrigger.whenPressed(new SetInvertedDriving(drivetrain, true));
-        leftTrigger.whenReleased(new SetInvertedDriving(drivetrain, false));
-
-        liftSwitch.whenActive(new ResetLiftEncoder(lift));
+    public OI(Compressorsorus compressor, Drivetrain drivetrain, Lift lift, CargoExtake cargoExtake, CargoIntake cargoIntake, HatchIntake hatchIntake) {
+        rightTrigger.whenPressed(new SetDrivetrainLowGear(drivetrain, true)); // Shift down
+        rightTrigger.whenReleased(new SetDrivetrainLowGear(drivetrain, false)); // Shift up
+        leftTrigger.whenPressed(new SetInvertedDriving(drivetrain, true)); // Inverted
+        leftTrigger.whenReleased(new SetInvertedDriving(drivetrain, false)); // Normal
 
         // center flower begins 1'3" off ground
         // center ball begins 7.5" off ground
-        bottomRed.whenPressed(new RunToBottom(lift, this::liftControl, true));
-        bottomWhite.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.FEEDER, true));
-        midRed.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.ROCKET_CARGO_BOTTOM, true));
-        midWhite.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.ROCKET_CARGO_MIDDLE, true));
-        topRed.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.CARGO_SHIP_CARGO, true));
-        topWhite.whenPressed(new RunToHeight(lift, this::liftControl, LiftHeight.ROCKET_CARGO_TOP, true));
+        bottomRed.whenPressed(new RunToBottom(lift, true));
+        bottomWhite.whenPressed(new RunToHeight(lift, Constants.Lift.Height.FEEDER, false));
+        midRed.whenPressed(new RunToHeight(lift,  Constants.Lift.Height.ROCKET_CARGO_BOTTOM, false));
+        midWhite.whenPressed(new RunToHeight(lift,  Constants.Lift.Height.ROCKET_CARGO_MIDDLE, false));
+        topRed.whenPressed(new RunToHeight(lift,  Constants.Lift.Height.CARGO_SHIP_CARGO, false));
+        topWhite.whenPressed(new RunToHeight(lift,  Constants.Lift.Height.ROCKET_CARGO_TOP, false));
 
-        // Make this togglable?
-        aButton.whenPressed(new ExtendCargoIntake(cargoIntake));
-        yButton.whenPressed(new RetractCargoIntake(cargoIntake));
+        // TODO: Make this togglable?
+        aButton.whenPressed(new SetCargoIntakeExtended(cargoIntake, true)); // Extend
+        yButton.whenPressed(new SetCargoIntakeExtended(cargoIntake, false)); //Retract
 
-        xButton.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, false)); // out
-        bButton.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, false)); // in
+        bButton.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, false)); // In
+        xButton.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, false)); // Out
 
-        topLeft.whileHeld(new RunCargoExtake(cargoExtake, 1.0, true)); // out
-        bottomLeft.whileHeld(new RunCargoExtake(cargoExtake, -0.75, true)); // in
-        topRight.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, true));
-        bottomRight.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, true));
+        bottomLeft.whileHeld(new RunCargoExtake(cargoExtake, -0.75, true)); // In
+        topLeft.whileHeld(new RunCargoExtake(cargoExtake, 1.0, false)); // Out
+        bottomRight.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, true)); // In
+        topRight.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, false)); // Out
 
         bigRed.whenPressed(new ToggleCompressor(compressor));
-        bigWhite.whenPressed(new CMG_IntakeCargo(lift, cargoIntake, cargoExtake, this::liftControl));
+        bigWhite.whenPressed(new CMG_IntakeCargo(lift, cargoExtake, cargoIntake));
 
         green.whenPressed(new ToggleHatchIntakeOpen(hatchIntake));
         yellow.whenPressed(new ToggleHatchIntakeExtended(hatchIntake));
-
-        // Control both intakes and extakes simultaneously
-        // green.whileHeld(new ExtakeCargo());
-        // yellow.whileHeld(new IntakeCargo());
-
-        // buttonBox7.whenPressed(new ToggleDriverVision());
-
-        // topWhite.whenPressed(new FlowerControl());
-        // topRed.whenPressed(new FlowerSlideControl());
-
-        // Add in disable until ball is extaked. then reset trigger
-        // cargoSwitch.whenActive(new CMG_LiftCargo());
-
-        // cargoSwitch.whenActive(new CMG_IntakeBall());
-
-        // topRight.whenPressed(new FlowerControl());
 
         sideButton.whenPressed(new PutCargoInShip(this, lift, cargoExtake));
     }
@@ -148,8 +117,7 @@ public class OI {
 
     public Double getMove() {
         double value = desensitize(driver.getRawAxis(1));
-        double dir = Math.signum(value);
-        return dir * value * value;
+        return value;
     }
 
     public Double getTurn() {
@@ -157,7 +125,11 @@ public class OI {
         return value;
     }
 
+    public Double getLeft() {
+        return desensitize(driver.getRawAxis(1));
+    }
+
     public Double getRight() {
-        return desensitize(driver.getRawAxis(5));
+        return desensitize(-driver.getRawAxis(4));
     }
 }

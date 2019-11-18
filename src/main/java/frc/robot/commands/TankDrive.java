@@ -6,20 +6,20 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-import java.util.function.Supplier;
 
+import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class TankDrive extends Drive {
-    public TankDrive(Drivetrain drivetrain, Supplier<Double> getLeft, Supplier<Double> getRight) {
-        super(drivetrain, getLeft, getRight);
+public class TankDrive extends DriveCommand {
+    public TankDrive(Drivetrain drivetrain) {
+        super(drivetrain);
     }
 
     @Override
     protected void execute() {
-        drivetrain.driveRobotTank(getLeft.get(), getRight.get());
+        drivetrain.driveRobotTank(drivetrain.getMove() * Robot.getSlowify(), drivetrain.getTurn() * Robot.getSlowify());
     }
 }

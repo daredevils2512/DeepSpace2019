@@ -6,18 +6,17 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-import java.util.function.Supplier;
 
 import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 
-public final class ArcadeDrive extends Drive {
-    public ArcadeDrive(Drivetrain drivetrain, Supplier<Double> getLeft, Supplier<Double> getRight) {
-        super(drivetrain, getLeft, getRight);
+public final class ArcadeDrive extends DriveCommand {
+    public ArcadeDrive(Drivetrain drivetrain) {
+        super(drivetrain);
     }
 
     @Override
-    protected void initialize() {
-        drivetrain.arcadeDrive(getLeft.get() * Robot.slowify, getRight.get() * Robot.slowify);
+    protected void execute() {
+        drivetrain.arcadeDrive(drivetrain.getMove() * Robot.getSlowify(), drivetrain.getTurn() * Robot.getSlowify());
     }
 }

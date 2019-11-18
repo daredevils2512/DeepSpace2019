@@ -8,18 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.InstantCommand;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.HatchIntake;
 
-public class InvertDriving extends InstantCommand {
-    protected Drivetrain drivetrain;
+public final class SetHatchIntakeOpen extends InstantCommand {
+    protected final HatchIntake hatchIntake;
+    protected final boolean wantsOpen;
 
-    public InvertDriving(Drivetrain drivetrain) {
-        requires(drivetrain);
-        this.drivetrain = drivetrain;
+    public SetHatchIntakeOpen(HatchIntake hatchIntake, boolean wantsOpen) {
+        this.hatchIntake = hatchIntake;
+        this.wantsOpen = wantsOpen;
+        requires(hatchIntake);
     }
 
     @Override
-    protected void initialize() {
-        drivetrain.toggleInverted();
+    protected void execute() {
+        hatchIntake.setOpen(wantsOpen);
     }
 }

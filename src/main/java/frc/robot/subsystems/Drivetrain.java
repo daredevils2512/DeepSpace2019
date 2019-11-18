@@ -37,13 +37,13 @@ public final class Drivetrain extends Subsystem {
     private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
     private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
 
-    private Supplier<Double> getMove, getTurn;
+    private final Supplier<Double> moveSupplier, turnSupplier;
 
     private boolean inverted = false;
 
-    public Drivetrain(Supplier<Double> getMove, Supplier<Double> getTurn) {
-        this.getMove = getMove;
-        this.getTurn = getTurn;
+    public Drivetrain(Supplier<Double> moveSupplier, Supplier<Double> turnSupplier) {
+        this.moveSupplier = moveSupplier;
+        this.turnSupplier = turnSupplier;
 
         leftSpark = new CANSparkMax(RobotMap.leftSparkID, MotorType.kBrushless);    
         rightSpark = new CANSparkMax(RobotMap.rightSparkID, MotorType.kBrushless);
@@ -83,7 +83,15 @@ public final class Drivetrain extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        setDefaultCommand(new ArcadeDrive(this, getMove, getTurn));
+        setDefaultCommand(new ArcadeDrive(this));
+    }
+
+    public double getMove() {
+        return moveSupplier.get();
+    }
+
+    public double getTurn() {
+        return turnSupplier.get();
     }
 
     public void leftSpeed(double speed) {
@@ -143,17 +151,12 @@ public final class Drivetrain extends Subsystem {
         return shifter.get() == low;
     }
 
-    public void setLowGear(boolean lowGear) {
-        shifter.set(lowGear ? low : high);
+    public void setLowGear(boolean wantsLowGear) {
+        shifter.set(wantsLowGear ? low : high);
     }
 
-    public void toggleGearing() {
-        boolean isInLowGear = shifter.get() == low;
-        if(isInLowGear) {
-            setLowGear(false);
-        } else {
-            setLowGear(true);
-        }
+    public void toggleLowGear() {
+        setLowGear(!getLowGear());
     }
 
     public double leftFrontSpeed() {
@@ -195,8 +198,12 @@ public final class Drivetrain extends Subsystem {
         return this.yprData[2];
     }
 
-    public void setInverted(boolean value) {
-        inverted = value;
+    public boolean getInverted() {
+        return inverted;
+    }
+
+    public void setInverted(boolean wantsInverted) {
+        inverted = wantsInverted;
     }
 
     public void toggleInverted() {
@@ -204,6 +211,9 @@ public final class Drivetrain extends Subsystem {
     }
 
     public void updateDashboard() {
+        SmartDashboard.putBoolean("Low Gear", getLowGear());
+        SmartDashboard.putBoolean("Inverted Driving", getInverted());
+
         SmartDashboard.putNumber("D1 Temp", leftSpark.getMotorTemperature());
         SmartDashboard.putNumber("D2 Temp", leftRearSpark.getMotorTemperature());
         SmartDashboard.putNumber("D3 Temp", rightSpark.getMotorTemperature());

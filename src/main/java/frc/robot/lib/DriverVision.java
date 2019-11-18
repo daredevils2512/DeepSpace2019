@@ -10,9 +10,6 @@ package frc.robot.lib;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 
-/**
- * Add your docs here.
- */
 public class DriverVision {
   private boolean isEnabled;
 

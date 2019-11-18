@@ -10,16 +10,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.HatchIntake;
 
-public final class OpenHatchIntake extends InstantCommand {
+public final class SetHatchIntakeExtended extends InstantCommand {
     protected final HatchIntake hatchIntake;
+    protected final boolean wantsExtended;
 
-    public OpenHatchIntake(HatchIntake hatchIntake) {
+    public SetHatchIntakeExtended(HatchIntake hatchIntake, boolean wantsExtended) {
         this.hatchIntake = hatchIntake;
+        this.wantsExtended = wantsExtended;
         requires(hatchIntake);
     }
 
     @Override
-    protected void execute() {
-        hatchIntake.setOpen(true);
+    protected void initialize() {
+        hatchIntake.setExtended(wantsExtended);
     }
 }

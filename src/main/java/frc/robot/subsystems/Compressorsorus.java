@@ -8,10 +8,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 
 public final class Compressorsorus extends Subsystem {
-    public Compressor sorus;
+    private Compressor sorus;
 
     public Compressorsorus() {
         sorus = new Compressor();
@@ -23,10 +24,6 @@ public final class Compressorsorus extends Subsystem {
     }
 
     public boolean isEnabled() {
-        return sorus.getClosedLoopControl();
-    }
-
-    public boolean isOn() {
         return sorus.enabled();
     }
 
@@ -34,21 +31,25 @@ public final class Compressorsorus extends Subsystem {
         return sorus.getPressureSwitchValue();
     }
 
-    public void enable() {
-        sorus.setClosedLoopControl(true);
+    public boolean getClosedLoopControl() {
+        return sorus.getClosedLoopControl();
     }
 
-    public void disable() {
-        sorus.setClosedLoopControl(false);
+    public void setClosedLoopControl(boolean wantsClosedLoopControl) {
+        sorus.setClosedLoopControl(wantsClosedLoopControl);
     }
 
     public void toggle() {
-        if(isEnabled()) {
-            disable();
-            System.out.println("Compressor disabled");
+        if(getClosedLoopControl()) {
+            setClosedLoopControl(false);
         } else {
-            enable();
-            System.out.println("Compressor enabled");
+            setClosedLoopControl(true);
         }
+    }
+
+    public void updateDashboard() {
+        SmartDashboard.putBoolean("Compressor Low", isPressureLow());
+        SmartDashboard.putBoolean("Compressor in Closed Loop Control", getClosedLoopControl());
+        SmartDashboard.putBoolean("Compressor Enabled", isEnabled());
     }
 }

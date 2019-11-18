@@ -10,11 +10,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.HatchIntake;
 
-public class ToggleHatchIntakeOpen extends InstantCommand {
-    private final HatchIntake hatchIntake;
+public final class ToggleHatchIntakeOpen extends InstantCommand {
+    protected final HatchIntake hatchIntake;
 
     public ToggleHatchIntakeOpen(HatchIntake hatchIntake) {
         this.hatchIntake = hatchIntake;
+        requires(hatchIntake);
     }
 
     @Override

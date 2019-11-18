@@ -10,16 +10,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.subsystems.CargoIntake;
 
-public final class RetractCargoIntake extends InstantCommand {
-    protected CargoIntake cargoIntake;
+public final class SetCargoIntakeExtended extends InstantCommand {
+    protected final CargoIntake cargoIntake;
+    protected final boolean wantsExtended;
 
-    public RetractCargoIntake(CargoIntake cargoIntake) {
+    public SetCargoIntakeExtended(CargoIntake cargoIntake, boolean wantsExtended) {
         this.cargoIntake = cargoIntake;
+        this.wantsExtended = wantsExtended;
         requires(cargoIntake);
     }
 
     @Override
     protected void execute() {
-        cargoIntake.setExtended(false);
+        cargoIntake.setExtended(wantsExtended);
     }
 }

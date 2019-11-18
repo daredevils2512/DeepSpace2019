@@ -11,10 +11,17 @@ public final class RunCargoExtake extends Command {
     /**
      * Run cargo extake
      * @param speed speed at which to run (negative values intake, positive values extake)
-     * @param override override cargo limit switch
+     * @param override override cargo limit switch (when intaking)
      */
     public RunCargoExtake(CargoExtake cargoExtake, double speed, boolean override) {
-        super(2);
+        requires(cargoExtake);
+        this.cargoExtake = cargoExtake;
+        this.speed = speed;
+        this.override = override;
+    }
+
+    public RunCargoExtake(CargoExtake cargoExtake, double speed, boolean override, double timeout) {
+        super(timeout);
         requires(cargoExtake);
         this.cargoExtake = cargoExtake;
         this.speed = speed;
@@ -22,25 +29,21 @@ public final class RunCargoExtake extends Command {
     }
 
     @Override
-    protected void initialize() {
-    }
-
-    @Override
     protected void execute() {
-        cargoExtake.setSpeed(speed);
+        if(isIntaking() && CargoExtake.getBallOccupancy() && !override) {
+            cargoExtake.setSpeed(0.0);
+        } else {
+            cargoExtake.setSpeed(speed);
+        }
     }
 
     @Override
     protected boolean isFinished() {
-        // If intaking, stop when limit switch is tripped
-        // else, just keep spinning 
-        boolean result = true;
-        if (!override && speed < 0) {
-            result = CargoExtake.getBallOccupancy();
-        } else {
-            result = false;
+        // Stop if the cargo extake is intaking, it contains cargo, and override is off
+        boolean result = false;
+        if (isIntaking() && CargoExtake.getBallOccupancy() && !override) {
+            result = true;
         }
-        
         return result;
     }
 
@@ -52,5 +55,9 @@ public final class RunCargoExtake extends Command {
     @Override
     protected void interrupted() {
         end();
+    }
+
+    private boolean isIntaking() {
+        return speed < 0.0;
     }
 }
