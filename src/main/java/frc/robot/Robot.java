@@ -166,10 +166,13 @@ public class Robot extends TimedRobot {
     }
 
     public static double getSlowify() {
-        return slowifyChooser.getSelected().doubleValue();
+        
+        return 1.0;
     }
 
     public static double getTargetDriveToWallDistance() {
-        return driveToWallChooser.getSelected().doubleValue();
+        
+        return 12;
+        
     }
 }
