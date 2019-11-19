@@ -15,7 +15,7 @@ public final class Constants {
     }
 
     public static final class OI {
-        public static final double DEADZONE = 0.0;
+        public static final double DEADZONE = 0.1;
     }
 
     public static final class Lift {

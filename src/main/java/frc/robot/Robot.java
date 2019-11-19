@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilderImpl;
@@ -41,9 +40,6 @@ public class Robot extends TimedRobot {
     private static SendableChooser<Double> slowifyChooser;
     private static SendableChooser<Double> driveToWallChooser;
 
-    private Command autonomousCommand;
-    private SendableChooser<Command> chooser = new SendableChooser<>();
-
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -69,6 +65,7 @@ public class Robot extends TimedRobot {
         pdp = new PowerDistributionPanel();
         pdpBuilder = new SendableBuilderImpl();
         
+        oi = new OI();
         compressor = new Compressorsorus();
         drivetrain = new Drivetrain(oi::getMove, oi::getTurn);
         lift = new Lift(oi::liftControl);
@@ -76,7 +73,7 @@ public class Robot extends TimedRobot {
         cargoIntake = new CargoIntake();
         hatchIntake = new HatchIntake();
 
-        oi = new OI(compressor, drivetrain, lift, cargoExtake, cargoIntake, hatchIntake);
+        oi.initCommands(compressor, drivetrain, lift, cargoExtake, cargoIntake, hatchIntake);
     }
 
     /**
@@ -94,7 +91,6 @@ public class Robot extends TimedRobot {
 
         drivetrain.updateDashboard();
         lift.updateDashboard();
-
 
         t.stop();
         if (t.get() >= 0.015)
@@ -130,10 +126,6 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         lift.resetEncoder();
         compressor.setClosedLoopControl(true);
-        
-        if (autonomousCommand != null) {
-            autonomousCommand.start();
-        }
     }
 
     @Override
@@ -144,14 +136,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopInit() {
         drivetrain.resetEncoders();
-
-        // This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
-        if (autonomousCommand != null) {
-            autonomousCommand.cancel();
-        }
     }
 
     @Override
@@ -166,13 +150,18 @@ public class Robot extends TimedRobot {
     }
 
     public static double getSlowify() {
-        
-        return 1.0;
+        Double slowify = slowifyChooser.getSelected();
+        if(slowify == null) {
+            slowify = 1.0;
+        }
+        return slowify.doubleValue();
     }
 
     public static double getTargetDriveToWallDistance() {
-        
-        return 12;
-        
+        Double targetDriveToWallDistance = driveToWallChooser.getSelected();
+        if(targetDriveToWallDistance == null) {
+            targetDriveToWallDistance = 12.0;
+        }
+        return targetDriveToWallDistance.doubleValue();
     }
 }

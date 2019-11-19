@@ -89,7 +89,7 @@ public final class Lift extends Subsystem {
     }
 
     public boolean isAtUpperLimit() {
-        return getHeight() >= Constants.Lift.MAX_HEIGHT || getLimitSwitchTop();
+        return getHeight() >= Constants.Lift.MAX_HEIGHT;
     }
 
     public void resetEncoder() {

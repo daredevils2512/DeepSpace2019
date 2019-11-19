@@ -21,13 +21,14 @@ import frc.robot.subsystems.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    private int driverPort = 0;
-    private int coDriverPort = 1;
-    private int buttonBoxPort = 2;
+    private static int driverPort = 0;
+    private static int coDriverPort = 1;
+    private static int buttonBoxPort = 2;
+
     //Joysticks
-    public Joystick driver = new Joystick(this.driverPort);
-    public Joystick extreme = new Joystick(this.coDriverPort);
-    public Joystick buttonBox = new Joystick(this.buttonBoxPort);
+    public Joystick driver = new Joystick(driverPort);
+    public Joystick extreme = new Joystick(coDriverPort);
+    public Joystick buttonBox = new Joystick(buttonBoxPort);
 
     //All buttons
     Button aButton = new JoystickButton(driver, 1);
@@ -67,9 +68,13 @@ public class OI {
     Button yellow = new JoystickButton(buttonBox, 15);
     Button bottomRed = new JoystickButton(buttonBox, 16);
 
-    public OI(Compressorsorus compressor, Drivetrain drivetrain, Lift lift, CargoExtake cargoExtake, CargoIntake cargoIntake, HatchIntake hatchIntake) {
-        rightTrigger.whenPressed(new SetDrivetrainLowGear(drivetrain, true)); // Shift down
-        rightTrigger.whenReleased(new SetDrivetrainLowGear(drivetrain, false)); // Shift up
+    public OI() {
+        
+    }
+
+    public void initCommands(Compressorsorus compressor, Drivetrain drivetrain, Lift lift, CargoExtake cargoExtake, CargoIntake cargoIntake, HatchIntake hatchIntake) {
+        rightTrigger.whenPressed(new SetDrivetrainLowGear(drivetrain, false)); // Shift down
+        rightTrigger.whenReleased(new SetDrivetrainLowGear(drivetrain, true)); // Shift up
         leftTrigger.whenPressed(new SetInvertedDriving(drivetrain, true)); // Inverted
         leftTrigger.whenReleased(new SetInvertedDriving(drivetrain, false)); // Normal
 
@@ -103,7 +108,7 @@ public class OI {
         sideButton.whenPressed(new PutCargoInShip(this, lift, cargoExtake));
     }
 
-    public double desensitize(double val) {
+    public static double desensitize(double val) {
         double result = val;
         if (Math.abs(result) < Constants.OI.DEADZONE) {
             result = 0.0;

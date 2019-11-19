@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Lift;
 
@@ -19,6 +20,8 @@ public final class ManualLift extends LiftCommand {
     protected void execute() {
         double control = lift.getControl();
         double liftSpeed = 0.0;
+
+SmartDashboard.putNumber("Lift control", control);
 
         if (control > 0.0) {
             if(lift.isAtUpperLimit()) {
