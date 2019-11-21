@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
 import frc.robot.RobotMap;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.constants.Constants;
 
 import java.util.function.Supplier;
 
@@ -77,6 +78,7 @@ public final class Drivetrain extends Subsystem {
         rightEncoder.setDistancePerPulse(RobotMap.driveEncoderDistancePerPulse);
 
         shifter = new DoubleSolenoid(RobotMap.shifterForwardChannel, RobotMap.shifterReverseChannel);
+        shifter.set(Constants.Drivetrain.HIGH_GEAR_VALUE);
 
         gyro = new PigeonIMU(0);
     }
@@ -105,7 +107,6 @@ public final class Drivetrain extends Subsystem {
     public void arcadeDrive(double move, double turn) {
         if(inverted) {
             move = -move;
-            turn = -turn;
         }
         drivetrain.arcadeDrive(move, turn);
     }
@@ -148,11 +149,11 @@ public final class Drivetrain extends Subsystem {
     }
 
     public boolean getLowGear() {
-        return shifter.get() == low;
+        return shifter.get() == Constants.Drivetrain.LOW_GEAR_VALUE;
     }
 
     public void setLowGear(boolean wantsLowGear) {
-        shifter.set(wantsLowGear ? low : high);
+        shifter.set(wantsLowGear ? Constants.Drivetrain.LOW_GEAR_VALUE : Constants.Drivetrain.HIGH_GEAR_VALUE);
     }
 
     public void toggleLowGear() {

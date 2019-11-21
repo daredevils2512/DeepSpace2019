@@ -1,8 +1,9 @@
 package frc.robot.constants;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 public final class Constants {
-    
-    
     public enum YPRSelect {
         YAW,
         PITCH,
@@ -18,7 +19,15 @@ public final class Constants {
         public static final double DEADZONE = 0.1;
     }
 
+    public static final class Drivetrain {
+        public static final DoubleSolenoid.Value HIGH_GEAR_VALUE = Value.kForward;
+        public static final DoubleSolenoid.Value LOW_GEAR_VALUE = Value.kReverse;
+    }
+
     public static final class Lift {
+        public static final int ENCODER_PULSES_PER_REVOLUTION = 4096;
+        public static final double DISTANCE_PER_ROTATION = 0.0; // Unknown
+
         // Used as multipliers (should be positive)
         public static final double MAX_UP_SPEED = 0.75;
         public static final double MAX_DOWN_SPEED = 0.55;

@@ -73,8 +73,8 @@ public class OI {
     }
 
     public void initCommands(Compressorsorus compressor, Drivetrain drivetrain, Lift lift, CargoExtake cargoExtake, CargoIntake cargoIntake, HatchIntake hatchIntake) {
-        rightTrigger.whenPressed(new SetDrivetrainLowGear(drivetrain, false)); // Shift down
-        rightTrigger.whenReleased(new SetDrivetrainLowGear(drivetrain, true)); // Shift up
+        rightTrigger.whenPressed(new SetDrivetrainLowGear(drivetrain, true)); // Shift down
+        rightTrigger.whenReleased(new SetDrivetrainLowGear(drivetrain, false)); // Shift up
         leftTrigger.whenPressed(new SetInvertedDriving(drivetrain, true)); // Inverted
         leftTrigger.whenReleased(new SetInvertedDriving(drivetrain, false)); // Normal
 
