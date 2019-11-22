@@ -25,9 +25,11 @@ public final class Constants {
     }
 
     public static final class Lift {
+        // Not using these
         public static final int ENCODER_PULSES_PER_REVOLUTION = 4096;
-        public static final double DISTANCE_PER_ROTATION = 0.0; // Unknown
-
+        public static final double GEAR_RATIO = 1.0; // TODO: Find out actual value
+        public static final double DISTANCE_PER_ROTATION = 0.0; // TODO: Find out actual value
+        
         // Used as multipliers (should be positive)
         public static final double MAX_UP_SPEED = 0.75;
         public static final double MAX_DOWN_SPEED = 0.55;

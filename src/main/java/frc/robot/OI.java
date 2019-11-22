@@ -87,9 +87,8 @@ public class OI {
         topRed.whenPressed(new RunToHeight(lift,  Constants.Lift.Height.CARGO_SHIP_CARGO, false));
         topWhite.whenPressed(new RunToHeight(lift,  Constants.Lift.Height.ROCKET_CARGO_TOP, false));
 
-        // TODO: Make this togglable?
-        aButton.whenPressed(new SetCargoIntakeExtended(cargoIntake, true)); // Extend
-        yButton.whenPressed(new SetCargoIntakeExtended(cargoIntake, false)); //Retract
+        aButton.whenPressed(new ToggleCargoIntakeExtended(cargoIntake));
+        yButton.whenPressed(new ToggleHatchIntakeExtended(hatchIntake));
 
         bButton.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, false)); // In
         xButton.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, false)); // Out
