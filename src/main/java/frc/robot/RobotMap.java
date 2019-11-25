@@ -85,6 +85,7 @@ public class RobotMap {
     public static int flowerSlideForwardChannel = 4;  // down
     public static int flowerSlideReverseChannel = 5;  // up
 
+    // Not in use
     public static Value flowerOutPos = Value.kForward;
     public static Value flowerInPos = Value.kReverse;
     public static Value flowerOpenPos = Value.kForward;

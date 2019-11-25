@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
@@ -43,5 +44,9 @@ public final class CargoExtake extends Subsystem {
 
     public static DigitalInput getBallOccupancySwitch() {
         return ballOccupancy;
+    }
+
+    public void updateDashboard() {
+        SmartDashboard.putBoolean("Cargo Limit Switch", getBallOccupancy());
     }
 }

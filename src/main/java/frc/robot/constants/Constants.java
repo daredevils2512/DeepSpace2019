@@ -31,8 +31,8 @@ public final class Constants {
         public static final double DISTANCE_PER_ROTATION = 0.0; // TODO: Find out actual value
         
         // Used as multipliers (should be positive)
-        public static final double MAX_UP_SPEED = 0.75;
-        public static final double MAX_DOWN_SPEED = 0.55;
+        public static final double MAX_UP_SPEED = 1.0;
+        public static final double MAX_DOWN_SPEED = 0.75;
 
         public static final double BACKDRIVE = 0.08; // Idle lift speed to maintain position
         public static final double MAX_HEIGHT = 70;

@@ -91,17 +91,14 @@ public class Robot extends TimedRobot {
 
         drivetrain.updateDashboard();
         lift.updateDashboard();
+        compressor.updateDashboard();
+        cargoExtake.updateDashboard();
 
         t.stop();
         if (t.get() >= 0.015)
             System.out.println("robotPeriodic Took: "+t.get());
     }
 
-    /**
-     * This function is called once each time the robot enters Disabled mode.
-     * You can use it to reset any subsystem information you want to clear when
-     * the robot is disabled.
-     */
     @Override
         public void disabledInit() {
     }
@@ -125,7 +122,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         lift.resetEncoder();
-        compressor.setClosedLoopControl(true);
     }
 
     @Override

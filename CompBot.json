@@ -43,70 +43,9 @@
               "_title": "/SmartDashboard/Hatch Color"
             }
           },
-          "4,4": {
+          "8,0": {
             "size": [
               1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Ball lmit switch",
-              "_title": "SmartDashboard/Ball lmit switch",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "7,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Compressor on",
-              "_title": "SmartDashboard/Compressor on",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "6,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/lift control",
-              "_title": "SmartDashboard/lift control"
-            }
-          },
-          "3,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/lift hieght",
-              "_title": "SmartDashboard/lift hieght"
-            }
-          },
-          "5,4": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/lift switch",
-              "_title": "SmartDashboard/lift switch",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "8,4": {
-            "size": [
-              2,
               1
             ],
             "content": {
@@ -115,22 +54,105 @@
               "_title": "SmartDashboard/Slowify"
             }
           },
-          "2,4": {
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]/TotalCurrent",
+              "_title": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/TotalCurrent"
+            }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///LiveWindow/Ungrouped/PowerDistributionPanel[0]/Voltage",
+              "_title": "/LiveWindow/Ungrouped/PowerDistributionPanel[0]/Voltage"
+            }
+          },
+          "6,0": {
             "size": [
               1,
               1
             ],
             "content": {
               "_type": "Boolean Box",
-              "_source0": "network_table:///CameraPublisher/rPi Camera 0/connected",
-              "_title": "/CameraPublisher/rPi Camera 0/connected",
+              "_source0": "network_table:///SmartDashboard/Compressor Enabled",
+              "_title": "/SmartDashboard/Compressor Enabled",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Cargo Limit Switch",
+              "_title": "/SmartDashboard/Cargo Limit Switch",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Lift Limit Switch Bottom",
+              "_title": "/SmartDashboard/Lift Limit Switch Bottom",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lift Height",
+              "_title": "/SmartDashboard/Lift Height"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lift Encoder Value",
+              "_title": "/SmartDashboard/Lift Encoder Value"
+            }
+          },
+          "6,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Compressor in Closed Loop Control",
+              "_title": "/SmartDashboard/Compressor in Closed Loop Control",
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
             }
           },
           "0,0": {
             "size": [
-              5,
+              6,
               4
             ],
             "content": {
@@ -142,25 +164,6 @@
               "Controls/Show controls": true,
               "Controls/Rotation": "NONE",
               "compression": 50.0,
-              "fps": 30,
-              "imageWidth": 0,
-              "imageHeight": 0
-            }
-          },
-          "5,0": {
-            "size": [
-              6,
-              4
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_source0": "camera_server://rPi Camera 1",
-              "_title": "rPi Camera 1",
-              "Crosshair/Show crosshair": true,
-              "Crosshair/Crosshair color": "#FFFFFFFF",
-              "Controls/Show controls": true,
-              "Controls/Rotation": "NONE",
-              "compression": 57.0,
               "fps": 30,
               "imageWidth": 0,
               "imageHeight": 0

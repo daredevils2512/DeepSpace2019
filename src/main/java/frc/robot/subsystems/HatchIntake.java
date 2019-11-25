@@ -20,14 +20,15 @@ public final class HatchIntake extends Subsystem {
     private final DoubleSolenoid opener;
     private final Value retractedValue = Value.kReverse;
     private final Value extendedValue = Value.kForward;
-    private final Value closedValue = Value.kForward;
-    private final Value openValue = Value.kReverse;
+    private final Value closedValue = Value.kReverse;
+    private final Value openValue = Value.kForward;
 
     public HatchIntake() {
-        extender = new DoubleSolenoid(RobotMap.flowerSlideForwardChannel, RobotMap.flowerSlideReverseChannel);
-        opener = new DoubleSolenoid(RobotMap.flowerSolenoidForwardChannel, RobotMap.flowerSolenoidReverseChannel);
-        extender.set(retractedValue);
-        opener.set(closedValue);
+        opener = new DoubleSolenoid(RobotMap.flowerSlideForwardChannel, RobotMap.flowerSlideReverseChannel);
+        extender = new DoubleSolenoid(RobotMap.flowerSolenoidForwardChannel, RobotMap.flowerSolenoidReverseChannel);
+
+        setExtended(false);
+        setOpen(false);
     }
 
     @Override

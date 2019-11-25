@@ -98,13 +98,22 @@ public class OI {
         bottomRight.whileHeld(new RunCargoIntake(cargoIntake, -1.0, -1.0, true)); // In
         topRight.whileHeld(new RunCargoIntake(cargoIntake, 1.0, 1.0, false)); // Out
 
+        // Backup/testing controls for intake pneumatics
+        frontLeft.whenPressed(new SetCargoIntakeExtended(cargoIntake, true));
+        frontRight.whenPressed(new SetCargoIntakeExtended(cargoIntake, false));
+        midLeft.whenPressed(new SetHatchIntakeExtended(hatchIntake, true));
+        midRight.whenPressed(new SetHatchIntakeExtended(hatchIntake, false));
+        backLeft.whenPressed(new SetHatchIntakeOpen(hatchIntake, true));
+        backRight.whenPressed(new SetHatchIntakeOpen(hatchIntake, false));
+
         bigRed.whenPressed(new ToggleCompressor(compressor));
         bigWhite.whenPressed(new CMG_IntakeCargo(lift, cargoExtake, cargoIntake));
 
         green.whenPressed(new ToggleHatchIntakeOpen(hatchIntake));
         yellow.whenPressed(new ToggleHatchIntakeExtended(hatchIntake));
 
-        sideButton.whenPressed(new PutCargoInShip(this, lift, cargoExtake));
+        sideButton.whenPressed(new ToggleCargoIntakeExtended(cargoIntake));
+        // sideButton.whenPressed(new PutCargoInShip(this, lift, cargoExtake));
     }
 
     public static double desensitize(double val) {

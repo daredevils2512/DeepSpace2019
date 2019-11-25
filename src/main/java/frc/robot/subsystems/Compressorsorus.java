@@ -12,10 +12,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
 
 public final class Compressorsorus extends Subsystem {
-    private Compressor sorus;
+    private final Compressor sorus;
 
     public Compressorsorus() {
         sorus = new Compressor();
+
+        setClosedLoopControl(false);
     }
 
     @Override

@@ -35,6 +35,8 @@ public final class Drivetrain extends Subsystem {
     public static PigeonIMU gyro;
     private double[] yprData = {0.0, 0.0, 0.0}; //[Yaw, Pitch, Roll]
 
+
+
     private static final DoubleSolenoid.Value high = DoubleSolenoid.Value.kForward;
     private static final DoubleSolenoid.Value low = DoubleSolenoid.Value.kReverse;
 
@@ -64,11 +66,11 @@ public final class Drivetrain extends Subsystem {
         leftRearSpark.setOpenLoopRampRate(0.25);
         rightRearSpark.setOpenLoopRampRate(0.25);
 
-        leftSpark.setSmartCurrentLimit(65, 10);
-        rightSpark.setSmartCurrentLimit(65, 10);
-        leftRearSpark.setSmartCurrentLimit(65, 10);
-        rightRearSpark.setSmartCurrentLimit(65, 10);
-            
+        leftSpark.setSmartCurrentLimit(150);
+        leftRearSpark.setSmartCurrentLimit(150);
+        rightSpark.setSmartCurrentLimit(150);
+        rightRearSpark.setSmartCurrentLimit(150);
+        
         leftEncoder = new Encoder(RobotMap.leftEncoderChannelA, RobotMap.leftEncoderChannelB, false, CounterBase.EncodingType.k4X);
         rightEncoder = new Encoder(RobotMap.rightEncoderChannelA, RobotMap.rightEncoderChannelB, true, CounterBase.EncodingType.k4X);
 
